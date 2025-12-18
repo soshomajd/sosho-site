@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -82,6 +84,8 @@ export default function RootLayout({
     <html lang="fa" dir="rtl">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
+        <SpeedInsights />
+
       </body>
     </html>
   );
