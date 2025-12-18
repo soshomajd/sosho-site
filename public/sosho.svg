@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-label="Sosho logo">
+  <defs>
+    <linearGradient id="gMark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="55%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#F472B6"/>
+    </linearGradient>
+    <linearGradient id="gText" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7DD3FC"/>
+      <stop offset="55%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#F0ABFC"/>
+    </linearGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Mark -->
+  <g transform="translate(80,55)" filter="url(#softGlow)">
+    <!-- Top ribbon -->
+    <path d="M165 25
+             L75 25
+             C45 25 25 45 25 75
+             C25 105 45 125 75 125
+             L145 125
+             L125 155
+             L75 155
+             C28 155 -10 117 -10 75
+             C-10 33 28 -5 75 -5
+             L165 -5
+             Z"
+          fill="url(#gMark)"/>
+    <!-- Bottom ribbon -->
+    <path d="M-5 195
+             L85 195
+             C115 195 135 175 135 145
+             C135 115 115 95 85 95
+             L15 95
+             L35 65
+             L85 65
+             C132 65 170 103 170 145
+             C170 187 132 225 85 225
+             L-5 225
+             Z"
+          fill="url(#gMark)" opacity="0.95"/>
+    <!-- Spark -->
+    <path d="M175 5 L182 20 L197 27 L182 34 L175 49 L168 34 L153 27 L168 20 Z"
+          fill="#E0F2FE"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="320" y="185"
+        font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+        font-size="110"
+        font-weight="700"
+        letter-spacing="0.5"
+        fill="url(#gText)">
+    Sosho
+  </text>
+</svg>
