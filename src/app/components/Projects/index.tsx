@@ -69,7 +69,7 @@ function ProjectTile({
                 />
             </div>
 
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/35 to-transparent" />
+            <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/90 via-background/35 to-transparent" />
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgba(34,211,238,0.10),transparent_70%)] opacity-0 transition-opacity duration-300 motion-reduce:transition-none group-hover:opacity-100" />
 
             <div className="relative flex h-full flex-col justify-end p-5">
