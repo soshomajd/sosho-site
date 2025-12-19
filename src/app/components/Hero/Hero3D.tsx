@@ -26,13 +26,34 @@ function usePrefersReducedMotion() {
     return reduced;
 }
 
+function useIsMobile() {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const media = window.matchMedia("(hover: none) and (pointer: coarse)");
+        const onChange = () => setIsMobile(media.matches);
+        onChange();
+
+        if (typeof media.addEventListener === "function") {
+            media.addEventListener("change", onChange);
+            return () => media.removeEventListener("change", onChange);
+        }
+
+        media.addListener(onChange);
+        return () => media.removeListener(onChange);
+    }, []);
+
+    return isMobile;
+}
+
 export default function Hero3D() {
     const reducedMotion = usePrefersReducedMotion();
+    const isMobile = useIsMobile();
     const mountRef = useRef<HTMLDivElement>(null);
     const [webGPUSupported, setWebGPUSupported] = useState(true);
 
     useEffect(() => {
-        if (reducedMotion) return;
+        if (reducedMotion || isMobile) return;
 
         let disposed = false;
         let resizeObserver: ResizeObserver | null = null;
@@ -209,24 +230,25 @@ export default function Hero3D() {
             disposed = true;
             if (cleanup) cleanup();
         };
-    }, [reducedMotion]);
+    }, [reducedMotion, isMobile]);
 
     return (
         <div className="relative h-full w-full overflow-hidden rounded-2xl">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgba(34,211,238,0.18),transparent_70%)]" />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgba(99,102,241,0.16),transparent_72%)]" />
+            {!reducedMotion && !isMobile && webGPUSupported ? (
+                <>
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgba(34,211,238,0.18),transparent_70%)]" />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgba(99,102,241,0.16),transparent_72%)]" />
+                </>
+            ) : null}
 
-            {reducedMotion ? (
-                <div className="absolute inset-0 grid place-items-center">
-                    <div className="h-24 w-24 rounded-full bg-primary/20 ring-1 ring-accent/25" />
+            {reducedMotion || isMobile ? (
+                <div className="absolute inset-0">
+                    <div className="hero-fallback-static" aria-hidden="true" />
                 </div>
             ) : !webGPUSupported ? (
                 <div className="absolute inset-0">
                     <div className="hero-fallback-blob hero-fallback-blob-1" aria-hidden="true" />
                     <div className="hero-fallback-blob hero-fallback-blob-2" aria-hidden="true" />
-                    <div className="absolute inset-0 grid place-items-center" aria-hidden="true">
-                        <div className="h-24 w-24 rounded-full bg-primary/15 ring-1 ring-accent/25" />
-                    </div>
                 </div>
             ) : (
                 <div ref={mountRef} className="absolute inset-0" />
