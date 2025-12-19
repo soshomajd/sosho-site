@@ -216,9 +216,17 @@ export default function Hero3D() {
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgba(34,211,238,0.18),transparent_70%)]" />
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgba(99,102,241,0.16),transparent_72%)]" />
 
-            {reducedMotion || !webGPUSupported ? (
+            {reducedMotion ? (
                 <div className="absolute inset-0 grid place-items-center">
                     <div className="h-24 w-24 rounded-full bg-primary/20 ring-1 ring-accent/25" />
+                </div>
+            ) : !webGPUSupported ? (
+                <div className="absolute inset-0">
+                    <div className="hero-fallback-blob hero-fallback-blob-1" aria-hidden="true" />
+                    <div className="hero-fallback-blob hero-fallback-blob-2" aria-hidden="true" />
+                    <div className="absolute inset-0 grid place-items-center" aria-hidden="true">
+                        <div className="h-24 w-24 rounded-full bg-primary/15 ring-1 ring-accent/25" />
+                    </div>
                 </div>
             ) : (
                 <div ref={mountRef} className="absolute inset-0" />
