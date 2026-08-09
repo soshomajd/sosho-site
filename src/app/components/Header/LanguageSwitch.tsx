@@ -4,9 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiGlobe } from "react-icons/fi";
 
-const LOCALES = ["fa", "en"] as const;
-
-type Locale = (typeof LOCALES)[number];
+type Locale = "fa" | "en";
 
 function getCurrentLocale(pathname: string): Locale | null {
     const seg = pathname.split("/").filter(Boolean)[0];

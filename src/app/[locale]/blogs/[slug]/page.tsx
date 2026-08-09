@@ -4,6 +4,9 @@ import type { Locale } from "@/app/i18n";
 import { getDictionary, isLocale, locales } from "@/app/i18n";
 import { BLOG_POSTS, getBlogPostBySlug } from "@/app/blogs/posts";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const ogImageUrl = new URL("/og.png", siteUrl).toString();
+
 export function generateStaticParams() {
     return locales.flatMap((locale) => BLOG_POSTS.map((p) => ({ locale, slug: p.slug })));
 }
@@ -54,11 +57,13 @@ export async function generateMetadata({
             url: `/${locale}/blogs/${post.slug}`,
             siteName: dict.siteName,
             locale: locale === "fa" ? "fa_IR" : "en_US",
+            images: [{ url: ogImageUrl, width: 1731, height: 909, alt: `${dict.siteName} — ${title}` }],
         },
         twitter: {
             card: "summary_large_image",
             title,
             description,
+            images: [ogImageUrl],
         },
     };
 }

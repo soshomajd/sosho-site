@@ -1,418 +1,318 @@
 import type { Locale } from "@/app/i18n";
 import type { IconType } from "react-icons";
 import {
-  FiFigma,
-  FiCode,
-  FiDatabase,
-  FiGlobe,
-  FiCreditCard,
+  FiActivity,
   FiCheck,
+  FiCode,
+  FiCpu,
+  FiPenTool,
+  FiSearch,
 } from "react-icons/fi";
-import { SiEthereum } from "react-icons/si";
+import { SiEthereum, SiWordpress } from "react-icons/si";
+
+type Localized<T> = { fa: T; en: T };
 
 export type ServiceSlug =
-  | "ui-ux"
-  | "frontend"
-  | "backend"
-  | "website-0-100"
-  | "crypto-payment-gateway"
-  | "smart-contract-blockchain";
+  | "website-design-development"
+  | "wordpress-woocommerce"
+  | "seo-google-growth"
+  | "ai-automation"
+  | "web3-blockchain"
+  | "ui-ux-brand-design"
+  | "care-performance";
 
 export type Service = {
   slug: ServiceSlug;
-  title: { fa: string; en: string };
-  short: { fa: string; en: string };
+  title: Localized<string>;
+  short: Localized<string>;
   Icon: IconType;
   seo: {
-    title: { fa: string; en: string };
-    description: { fa: string; en: string };
+    title: Localized<string>;
+    description: Localized<string>;
   };
   detail: {
-    intro: { fa: string; en: string };
-    whatYouGetTitle: { fa: string; en: string };
-    whatYouGet: { fa: string[]; en: string[] };
-    processTitle: { fa: string; en: string };
-    process: { fa: string[]; en: string[] };
-    deliverablesTitle: { fa: string; en: string };
-    deliverables: { fa: string[]; en: string[] };
+    intro: Localized<string>;
+    whatYouGetTitle: Localized<string>;
+    whatYouGet: Localized<string[]>;
+    processTitle: Localized<string>;
+    process: Localized<string[]>;
+    deliverablesTitle: Localized<string>;
+    deliverables: Localized<string[]>;
   };
 };
 
 export const SERVICE_BULLET_ICON: IconType = FiCheck;
 
+function serviceDetail(
+  intro: Localized<string>,
+  whatYouGet: Localized<string[]>,
+  process: Localized<string[]>,
+  deliverables: Localized<string[]>,
+): Service["detail"] {
+  return {
+    intro,
+    whatYouGetTitle: { fa: "چه چیزی تحویل می‌گیرید؟", en: "What you get" },
+    whatYouGet,
+    processTitle: { fa: "مسیر اجرا", en: "How we work" },
+    process,
+    deliverablesTitle: { fa: "خروجی نهایی", en: "Deliverables" },
+    deliverables,
+  };
+}
+
 export const SERVICES: Service[] = [
   {
-    slug: "ui-ux",
-    title: { fa: "طراحی UI/UX", en: "UI/UX Design" },
+    slug: "website-design-development",
+    title: { fa: "طراحی و توسعه سایت", en: "Websites & Web Apps" },
     short: {
-      fa: "وایرفریم، UI Kit و تجربه کاربری دقیق.",
-      en: "Wireframes, UI kit, and thoughtful UX.",
-    },
-    Icon: FiFigma,
-    seo: {
-      title: { fa: "طراحی UI/UX", en: "UI/UX Design" },
-      description: {
-        fa: "طراحی تجربه کاربری و رابط کاربری: وایرفریم، طراحی UI و سیستم طراحی.",
-        en: "UI/UX design: wireframes, UI design, and design systems.",
-      },
-    },
-    detail: {
-      intro: {
-        fa: "اگر می‌خوای محصولت حرفه‌ای، قابل استفاده و قابل توسعه باشه، طراحی UI/UX نقطه شروعه. این سرویس از تحقیق و ساختار تا طراحی نهایی رو پوشش می‌ده.",
-        en: "If you want a product that feels professional, usable, and scalable, UI/UX is the foundation. This service covers everything from structure to final design.",
-      },
-      whatYouGetTitle: { fa: "چی دریافت می‌کنی؟", en: "What you get" },
-      whatYouGet: {
-        fa: [
-          "وایرفریم و ساختار صفحات (User Flow)",
-          "طراحی UI با تم و کامپوننت‌های یکپارچه",
-          "بهینه‌سازی تجربه کاربری (UX) و دسترسی‌پذیری",
-          "پروتوتایپ برای تست مسیرها و تعاملات",
-        ],
-        en: [
-          "Wireframes and user flows",
-          "Consistent UI with reusable components",
-          "UX improvements and accessibility considerations",
-          "Prototype for validating interactions",
-        ],
-      },
-      processTitle: { fa: "فرآیند انجام کار", en: "Process" },
-      process: {
-        fa: [
-          "نیازسنجی و بررسی هدف محصول",
-          "طراحی جریان‌ها و وایرفریم",
-          "طراحی UI و اجزای سیستم طراحی",
-          "بازبینی و بهینه‌سازی براساس فیدبک",
-        ],
-        en: [
-          "Requirements and product goals",
-          "Flows and wireframes",
-          "UI design and design system components",
-          "Review iterations based on feedback",
-        ],
-      },
-      deliverablesTitle: { fa: "خروجی‌ها", en: "Deliverables" },
-      deliverables: {
-        fa: [
-          "فایل طراحی (Figma)",
-          "کامپوننت‌ها و استایل‌ها",
-          "پروتوتایپ قابل کلیک",
-        ],
-        en: ["Figma file", "Components & styles", "Clickable prototype"],
-      },
-    },
-  },
-  {
-    slug: "frontend",
-    title: { fa: "فرانت‌اند", en: "Front-End" },
-    short: {
-      fa: "پیاده‌سازی UI سریع، ریسپانسیو و تمیز.",
-      en: "Fast, responsive, clean UI implementation.",
+      fa: "طراحی اختصاصی، کدنویسی و لانچ کامل؛ از اولین ایده تا محصول نهایی.",
+      en: "Strategy, custom design, engineering, and launch—from first idea to final product.",
     },
     Icon: FiCode,
     seo: {
-      title: { fa: "توسعه فرانت‌اند", en: "Front-End Development" },
+      title: { fa: "طراحی و توسعه سایت از صفر تا صد", en: "Custom Website & Web App Development" },
       description: {
-        fa: "پیاده‌سازی رابط کاربری با استانداردهای مدرن، ریسپانسیو و بهینه.",
-        en: "Modern front-end implementation: responsive, accessible, optimized.",
+        fa: "طراحی و توسعه صفر تا صد سایت و وب‌اپلیکیشن با UI/UX اختصاصی، فرانت‌اند، بک‌اند، استقرار و پشتیبانی.",
+        en: "End-to-end websites and web apps with custom UI/UX, front-end, back-end, deployment, and support.",
       },
     },
-    detail: {
-      intro: {
-        fa: "فرانت‌اند یعنی تبدیل طراحی به یک تجربه سریع و دقیق. تمرکز من روی کیفیت UI، ریسپانسیو بودن، و جزئیات تعاملاته.",
-        en: "Front-end is turning design into a fast, accurate experience. My focus is UI quality, responsiveness, and interaction details.",
+    detail: serviceDetail(
+      {
+        fa: "برای پروژه‌هایی که یک خروجی حرفه‌ای و یکپارچه می‌خواهند، تمام مسیر را در سوشو استودیو مدیریت می‌کنیم: استراتژی، تجربه کاربری، طراحی، توسعه، تست و لانچ.",
+        en: "For teams that want one accountable partner, Sosho Studio handles the complete journey: strategy, UX, design, engineering, testing, and launch.",
       },
-      whatYouGetTitle: { fa: "چی دریافت می‌کنی؟", en: "What you get" },
-      whatYouGet: {
-        fa: [
-          "پیاده‌سازی پیکسل‌پرفکت براساس طراحی",
-          "ریسپانسیو برای موبایل/تبلت/دسکتاپ",
-          "استانداردهای دسترسی‌پذیری (A11y)",
-          "بهینه‌سازی عملکرد (Performance)",
-        ],
-        en: [
-          "Pixel-perfect implementation",
-          "Responsive layout across devices",
-          "Accessibility best practices",
-          "Performance optimization",
-        ],
+      {
+        fa: ["معماری محتوا و تجربه کاربری متناسب با هدف کسب‌وکار", "طراحی واکنش‌گرا و اختصاصی برای موبایل و دسکتاپ", "فرانت‌اند، بک‌اند، پنل مدیریت و اتصال سرویس‌های موردنیاز", "استقرار، آنالیتیکس و زیرساخت فنی سئوی اولیه"],
+        en: ["Content architecture and UX aligned with business goals", "Custom responsive design for mobile and desktop", "Front-end, back-end, admin tools, and service integrations", "Deployment, analytics, and a solid technical SEO foundation"],
       },
-      processTitle: { fa: "فرآیند انجام کار", en: "Process" },
-      process: {
-        fa: [
-          "بررسی طراحی و مشخص‌کردن کامپوننت‌ها",
-          "پیاده‌سازی صفحات و کامپوننت‌ها",
-          "بهینه‌سازی و تست در اندازه‌های مختلف",
-          "تحویل و پشتیبانی برای اصلاحات نهایی",
-        ],
-        en: [
-          "Break down design into components",
-          "Build pages and components",
-          "Optimize and test across sizes",
-          "Delivery and final polish",
-        ],
+      {
+        fa: ["جلسه شناخت، تعیین هدف و محدوده پروژه", "وایرفریم، طراحی بصری و تأیید مسیر", "توسعه مرحله‌ای همراه با گزارش شفاف", "تست نهایی، لانچ و تحویل مستندات"],
+        en: ["Discovery, goals, and project scope", "Wireframes, visual design, and direction approval", "Milestone-based development with clear updates", "Final QA, launch, and documented handoff"],
       },
-      deliverablesTitle: { fa: "خروجی‌ها", en: "Deliverables" },
-      deliverables: {
-        fa: [
-          "کد تمیز و قابل توسعه",
-          "کامپوننت‌های قابل استفاده مجدد",
-          "سئو و پرفورمنس بهتر",
-        ],
-        en: [
-          "Clean, scalable code",
-          "Reusable components",
-          "Better SEO/performance",
-        ],
+      {
+        fa: ["محصول آماده لانچ و بهینه برای همه دستگاه‌ها", "سورس‌کد تمیز و قابل توسعه", "راهنمای مدیریت و پشتیبانی پس از انتشار"],
+        en: ["A launch-ready product optimized for every screen", "Clean, scalable source code", "Management guide and post-launch support"],
       },
-    },
+    ),
   },
   {
-    slug: "backend",
-    title: { fa: "بک‌اند", en: "Back-End" },
+    slug: "wordpress-woocommerce",
+    title: { fa: "وردپرس و ووکامرس", en: "WordPress & WooCommerce" },
     short: {
-      fa: "API، دیتابیس و منطق سمت سرور.",
-      en: "APIs, database, and server-side logic.",
+      fa: "سایت شرکتی، فروشگاهی و محتوایی سریع، امن و قابل مدیریت.",
+      en: "Fast, secure, easy-to-manage business, content, and commerce websites.",
     },
-    Icon: FiDatabase,
+    Icon: SiWordpress,
     seo: {
-      title: { fa: "توسعه بک‌اند", en: "Back-End Development" },
+      title: { fa: "طراحی سایت وردپرس و فروشگاه ووکامرس", en: "WordPress & WooCommerce Development" },
       description: {
-        fa: "طراحی و پیاده‌سازی API، دیتابیس و منطق امن و مقیاس‌پذیر.",
-        en: "Build secure, scalable APIs and backend systems.",
+        fa: "طراحی اختصاصی سایت وردپرسی و فروشگاه ووکامرس با تمرکز بر سرعت، امنیت، سئو و مدیریت آسان.",
+        en: "Custom WordPress and WooCommerce websites focused on speed, security, SEO, and simple content management.",
       },
     },
-    detail: {
-      intro: {
-        fa: "بک‌اند ستون اصلی اپلیکیشنه: مدیریت داده، احراز هویت، و منطق تجاری. هدف این سرویس ساخت یک هسته قابل اعتماد و قابل توسعه است.",
-        en: "Back-end is the backbone: data, auth, and business logic. This service focuses on building a reliable, scalable core.",
+    detail: serviceDetail(
+      {
+        fa: "وقتی سرعت راه‌اندازی و مدیریت آسان محتوا مهم است، یک راهکار وردپرسی سبک و اصولی می‌سازیم؛ بدون ظاهر قالبی و افزونه‌های اضافه.",
+        en: "When launch speed and easy content management matter, we build a lean WordPress solution without the generic template feel or plugin bloat.",
       },
-      whatYouGetTitle: { fa: "چی دریافت می‌کنی؟", en: "What you get" },
-      whatYouGet: {
-        fa: [
-          "طراحی API استاندارد و قابل توسعه",
-          "مدل‌سازی دیتابیس و روابط",
-          "احراز هویت/سطوح دسترسی",
-          "لاگ، خطاگیری و مانیتورینگ پایه",
-        ],
-        en: [
-          "Scalable API design",
-          "Database modeling",
-          "Authentication and roles",
-          "Logging and basic monitoring",
-        ],
+      {
+        fa: ["طراحی قالب اختصاصی یا بازطراحی کامل سایت فعلی", "راه‌اندازی ووکامرس، پرداخت، ارسال و فرایند سفارش", "ساخت پنل و بلوک‌های محتوایی ساده برای تیم شما", "بهینه‌سازی سرعت، امنیت، بکاپ و سئوی فنی"],
+        en: ["A custom theme or a complete redesign of your current site", "WooCommerce, payments, shipping, and order workflows", "Simple content blocks and admin experience for your team", "Performance, security, backups, and technical SEO"],
       },
-      processTitle: { fa: "فرآیند انجام کار", en: "Process" },
-      process: {
-        fa: [
-          "تحلیل نیازمندی‌ها و دیتامدل",
-          "پیاده‌سازی API و تست",
-          "اتصال به فرانت‌اند و تست یکپارچه",
-          "بهینه‌سازی و آماده‌سازی برای استقرار",
-        ],
-        en: [
-          "Requirements and data modeling",
-          "API implementation and tests",
-          "Integration with front-end",
-          "Optimization and deployment readiness",
-        ],
+      {
+        fa: ["بررسی نیازها و انتخاب معماری مناسب وردپرس", "طراحی صفحات و ساخت سیستم محتوایی", "پیاده‌سازی، ورود محتوا و تست خرید", "آموزش مدیریت، انتقال و انتشار نهایی"],
+        en: ["Requirements review and the right WordPress architecture", "Page design and content-system setup", "Implementation, content entry, and checkout testing", "Admin training, migration, and final launch"],
       },
-      deliverablesTitle: { fa: "خروجی‌ها", en: "Deliverables" },
-      deliverables: {
-        fa: ["API مستند", "دیتابیس ساخت‌یافته", "ساختار امن و قابل توسعه"],
-        en: [
-          "Documented API",
-          "Structured database",
-          "Secure scalable foundation",
-        ],
+      {
+        fa: ["سایت وردپرسی سریع و قابل توسعه", "پنل مدیریت شخصی‌سازی‌شده", "آموزش، بکاپ و برنامه نگهداری"],
+        en: ["A fast, extensible WordPress website", "A tailored management experience", "Training, backups, and a maintenance plan"],
       },
-    },
+    ),
   },
   {
-    slug: "website-0-100",
-    title: { fa: "طراحی سایت ۰ تا ۱۰۰", en: "Website 0→100" },
+    slug: "seo-google-growth",
+    title: { fa: "سئو و رشد در گوگل", en: "SEO & Google Growth" },
     short: {
-      fa: "از ایده تا اجرا و استقرار.",
-      en: "From idea to launch and deployment.",
+      fa: "زیرساخت فنی، محتوا و داده برای دیده‌شدن و رشد پایدار.",
+      en: "Technical foundations, content, and data for sustainable search growth.",
     },
-    Icon: FiGlobe,
+    Icon: FiSearch,
     seo: {
-      title: { fa: "طراحی سایت ۰ تا ۱۰۰", en: "Website From 0 to 100" },
+      title: { fa: "سئو سایت و خدمات گوگل", en: "SEO & Google Growth Services" },
       description: {
-        fa: "طراحی کامل سایت: UI/UX، فرانت‌اند، بک‌اند، استقرار و بهینه‌سازی.",
-        en: "End-to-end website: design, front-end, back-end, deployment, optimization.",
+        fa: "سئوی فنی و محتوایی، تحقیق کلمات کلیدی، سرچ کنسول، آنالیتیکس و برنامه رشد شفاف و داده‌محور.",
+        en: "Technical and on-page SEO, keyword research, Search Console, Analytics, and a transparent data-led growth plan.",
       },
     },
-    detail: {
-      intro: {
-        fa: "اگر می‌خوای صفر تا صد سایتت رو یکجا بسازی، این سرویس دقیقاً برای همینه: طراحی، توسعه، اتصال دیتابیس، و آماده‌سازی برای لانچ.",
-        en: "If you want an end-to-end website build, this is it: design, development, data, and launch readiness.",
+    detail: serviceDetail(
+      {
+        fa: "سئو را با وعده رتبه یک نمی‌فروشیم؛ سایت، محتوا و داده را اصولی می‌چینیم تا شانس دیده‌شدن، جذب مخاطب درست و رشد پایدار بیشتر شود.",
+        en: "We do not sell guaranteed rankings. We improve the website, content, and measurement system so the right audience can find you and growth can compound.",
       },
-      whatYouGetTitle: { fa: "چی دریافت می‌کنی؟", en: "What you get" },
-      whatYouGet: {
-        fa: [
-          "طراحی UI/UX اختصاصی",
-          "پیاده‌سازی فرانت‌اند",
-          "بک‌اند و دیتابیس (در صورت نیاز)",
-          "استقرار (Deployment) و تنظیمات دامنه",
-        ],
-        en: [
-          "Custom UI/UX design",
-          "Front-end implementation",
-          "Back-end & database (if needed)",
-          "Deployment and domain setup",
-        ],
+      {
+        fa: ["ممیزی فنی، Core Web Vitals و رفع موانع ایندکس", "تحقیق کلمات کلیدی و معماری محتوای هدفمند", "بهینه‌سازی صفحات، اسکیما و لینک‌سازی داخلی", "راه‌اندازی Search Console، GA4 و گزارش‌های قابل فهم"],
+        en: ["Technical audit, Core Web Vitals, and indexation fixes", "Keyword research and intent-led content architecture", "On-page optimization, schema, and internal linking", "Search Console, GA4, and clear performance reporting"],
       },
-      processTitle: { fa: "فرآیند انجام کار", en: "Process" },
-      process: {
-        fa: [
-          "جلسه نیازسنجی و تعیین scope",
-          "طراحی و تایید اولیه",
-          "توسعه و تست",
-          "لانچ و پشتیبانی اولیه",
-        ],
-        en: [
-          "Scope and requirements",
-          "Design and approval",
-          "Development and testing",
-          "Launch and initial support",
-        ],
+      {
+        fa: ["ثبت وضعیت فعلی و تعریف شاخص‌های واقعی", "اولویت‌بندی مشکلات فنی و فرصت‌های محتوایی", "اجرای اصلاحات و انتشار محتوای هدفمند", "اندازه‌گیری، گزارش و بهبود مستمر"],
+        en: ["Baseline audit and meaningful success metrics", "Prioritize technical issues and content opportunities", "Implement fixes and publish focused content", "Measure, report, and iterate continuously"],
       },
-      deliverablesTitle: { fa: "خروجی‌ها", en: "Deliverables" },
-      deliverables: {
-        fa: ["سایت آماده لانچ", "سورس کد", "مستندات پایه و راه‌اندازی"],
-        en: ["Launch-ready website", "Source code", "Basic docs and setup"],
+      {
+        fa: ["گزارش ممیزی و نقشه راه اولویت‌بندی‌شده", "تنظیم کامل ابزارهای گوگل و رهگیری تبدیل", "برنامه اجرایی سئو و محتوای ماهانه"],
+        en: ["An audit report and prioritized roadmap", "Google tooling and conversion tracking setup", "An actionable monthly SEO and content plan"],
       },
-    },
+    ),
   },
   {
-    slug: "crypto-payment-gateway",
-    title: { fa: "درگاه پرداخت ارز دیجیتال", en: "Crypto Payment Gateway" },
+    slug: "ai-automation",
+    title: { fa: "هوش مصنوعی و اتوماسیون", en: "AI & Automation" },
     short: {
-      fa: "اتصال پرداخت و گردش مالی کریپتویی.",
-      en: "Crypto payment integrations and flows.",
+      fa: "دستیار هوشمند، چت‌بات و گردش‌کارهایی که واقعاً زمان ذخیره می‌کنند.",
+      en: "Assistants, chatbots, and workflows that save real operating time.",
     },
-    Icon: FiCreditCard,
+    Icon: FiCpu,
     seo: {
-      title: { fa: "درگاه پرداخت ارز دیجیتال", en: "Crypto Payment Gateway" },
+      title: { fa: "راهکارهای هوش مصنوعی و اتوماسیون کسب‌وکار", en: "AI Integration & Business Automation" },
       description: {
-        fa: "پیاده‌سازی جریان پرداخت کریپتویی، ساختار سفارش و تایید تراکنش.",
-        en: "Crypto payment flow: orders, confirmations, and settlement structure.",
+        fa: "طراحی و نصب چت‌بات، دستیار هوشمند، جست‌وجوی دانشی و اتوماسیون فرایندها متناسب با نیاز کسب‌وکار.",
+        en: "AI chatbots, assistants, knowledge search, and workflow automation designed around real business needs.",
       },
     },
-    detail: {
-      intro: {
-        fa: "این سرویس برای پروژه‌هایی‌ست که پرداخت با ارز دیجیتال می‌خوان: از ساخت سفارش تا تایید پرداخت و ثبت وضعیت تراکنش.",
-        en: "For products that need crypto payments: from order creation to confirmation and transaction status tracking.",
+    detail: serviceDetail(
+      {
+        fa: "هوش مصنوعی باید یک مسئله واقعی را حل کند. از نصب و اتصال مدل‌ها تا ساخت دستیار اختصاصی و اتوماسیون، راهکاری می‌سازیم که با فرایند فعلی شما کار کند.",
+        en: "AI should solve a real problem. From model setup and integration to custom assistants and automation, we build tools that fit the way your team already works.",
       },
-      whatYouGetTitle: { fa: "چی دریافت می‌کنی؟", en: "What you get" },
-      whatYouGet: {
-        fa: [
-          "ساختار سفارش و فاکتور",
-          "ثبت و پیگیری وضعیت تراکنش",
-          "وبهوک/پولینگ برای تایید پرداخت",
-          "پنل ساده برای مدیریت پرداخت‌ها",
-        ],
-        en: [
-          "Order and invoice structure",
-          "Transaction status tracking",
-          "Webhook/polling confirmation flow",
-          "Simple admin view for payments",
-        ],
+      {
+        fa: ["چت‌بات پشتیبانی و دستیار داخلی متصل به اطلاعات شما", "جست‌وجوی هوشمند و سیستم‌های RAG برای اسناد و محتوا", "اتوماسیون کارهای تکراری و اتصال ابزارهای موجود", "انتخاب مدل، کنترل دسترسی و ثبت مصرف و کیفیت"],
+        en: ["Support chatbots and internal assistants grounded in your data", "Intelligent search and RAG systems for documents and content", "Workflow automation across the tools you already use", "Model selection, access control, usage, and quality monitoring"],
       },
-      processTitle: { fa: "فرآیند انجام کار", en: "Process" },
-      process: {
-        fa: [
-          "تعریف سناریوی پرداخت و وضعیت‌ها",
-          "پیاده‌سازی API و ذخیره‌سازی",
-          "اتصال به فرانت‌اند و تست سناریوها",
-          "افزودن لاگ و خطاگیری",
-        ],
-        en: [
-          "Define payment states and scenarios",
-          "Implement APIs and persistence",
-          "Integrate with UI and test scenarios",
-          "Add logging and error handling",
-        ],
+      {
+        fa: ["شناسایی کار پرهزینه یا تکراری با بیشترین بازده", "ساخت نمونه کوچک و سنجش کیفیت واقعی", "اتصال امن به داده‌ها و ابزارهای کسب‌وکار", "استقرار، آموزش تیم و بهبود بر اساس بازخورد"],
+        en: ["Identify the highest-value repetitive workflow", "Prototype quickly and evaluate real output quality", "Connect securely to business data and tools", "Deploy, train the team, and improve from feedback"],
       },
-      deliverablesTitle: { fa: "خروجی‌ها", en: "Deliverables" },
-      deliverables: {
-        fa: ["جریان پرداخت قابل استفاده", "API و دیتامدل", "پنل مدیریت ساده"],
-        en: [
-          "Usable payment flow",
-          "APIs and data model",
-          "Simple admin panel",
-        ],
+      {
+        fa: ["راهکار AI آماده استفاده و متصل به فرایند شما", "پنل یا رابط کاربری اختصاصی", "مستندات، آموزش و برنامه پایش کیفیت"],
+        en: ["A production-ready AI solution integrated into your workflow", "A tailored interface or management panel", "Documentation, training, and a quality-monitoring plan"],
       },
-    },
+    ),
   },
   {
-    slug: "smart-contract-blockchain",
-    title: {
-      fa: "اسمارت کانترکت و بلاک‌چین",
-      en: "Smart Contracts & Blockchain",
-    },
+    slug: "web3-blockchain",
+    title: { fa: "وب۳ و بلاک‌چین", en: "Web3 & Blockchain" },
     short: {
-      fa: "قرارداد هوشمند و راهکارهای بلاک‌چینی.",
-      en: "Smart contracts and blockchain solutions.",
+      fa: "dApp، اسمارت‌کانترکت، کیف پول و جریان‌های پرداخت کریپتویی.",
+      en: "dApps, smart contracts, wallet experiences, and crypto payment flows.",
     },
     Icon: SiEthereum,
     seo: {
-      title: {
-        fa: "اسمارت کانترکت و بلاک‌چین",
-        en: "Smart Contracts & Blockchain",
-      },
+      title: { fa: "طراحی و توسعه Web3 و قرارداد هوشمند", en: "Web3 & Smart Contract Development" },
       description: {
-        fa: "طراحی و توسعه قرارداد هوشمند و اتصال به اپلیکیشن.",
-        en: "Smart contract development and app integration.",
+        fa: "طراحی و توسعه dApp، قرارداد هوشمند، اتصال کیف پول و پرداخت ارز دیجیتال با تست و مستندات.",
+        en: "dApp, smart contract, wallet, and crypto payment development with testing and documentation.",
       },
     },
-    detail: {
-      intro: {
-        fa: "برای پروژه‌های Web3، هدف ساخت یک قرارداد قابل اعتماد و سپس اتصال آن به اپلیکیشن است.",
-        en: "For Web3 projects, the goal is a reliable contract and a solid app integration.",
+    detail: serviceDetail(
+      {
+        fa: "از تجربه کاربری dApp تا منطق قرارداد هوشمند و اتصال کیف پول، محصول Web3 را یکپارچه طراحی و توسعه می‌کنیم تا پیچیدگی بلاک‌چین برای کاربر ساده بماند.",
+        en: "From dApp UX to smart-contract logic and wallet integration, we design the Web3 product as one system so blockchain complexity stays out of the user's way.",
       },
-      whatYouGetTitle: { fa: "چی دریافت می‌کنی؟", en: "What you get" },
-      whatYouGet: {
-        fa: [
-          "طراحی ساختار قرارداد و رویدادها",
-          "پیاده‌سازی و نسخه‌بندی قرارداد",
-          "اتصال به فرانت‌اند (Wallet / Web3)",
-          "تست سناریوهای اصلی",
-        ],
-        en: [
-          "Contract structure and events",
-          "Implementation and versioning",
-          "Front-end integration (wallet/Web3)",
-          "Testing core scenarios",
-        ],
+      {
+        fa: ["طراحی تجربه کاربری dApp و اتصال انواع کیف پول", "توسعه قرارداد هوشمند و سناریوهای تست خودکار", "توکن، NFT، پرداخت کریپتویی و رهگیری تراکنش", "اتصال فرانت‌اند، شبکه آزمایشی و آماده‌سازی استقرار"],
+        en: ["dApp UX and multi-wallet connection flows", "Smart-contract development and automated scenario tests", "Tokens, NFTs, crypto payments, and transaction tracking", "Front-end integration, testnet, and deployment readiness"],
       },
-      processTitle: { fa: "فرآیند انجام کار", en: "Process" },
-      process: {
-        fa: [
-          "تعریف نیازمندی و سناریوها",
-          "طراحی قرارداد و پیاده‌سازی",
-          "تست سناریوهای کلیدی",
-          "اتصال به اپلیکیشن و تحویل",
-        ],
-        en: [
-          "Define requirements and scenarios",
-          "Design and implement contract",
-          "Test key scenarios",
-          "Integrate with app and deliver",
-        ],
+      {
+        fa: ["تعریف دقیق نقش‌ها، دارایی‌ها و وضعیت‌های تراکنش", "طراحی قرارداد و بازبینی سناریوهای ریسک", "پیاده‌سازی قرارداد، رابط کاربری و تست یکپارچه", "استقرار کنترل‌شده و تحویل مستندات"],
+        en: ["Define roles, assets, and transaction states", "Design the contract and review risk scenarios", "Implement contracts, interface, and end-to-end tests", "Controlled deployment and documented handoff"],
       },
-      deliverablesTitle: { fa: "خروجی‌ها", en: "Deliverables" },
-      deliverables: {
-        fa: ["سورس قرارداد", "راهنمای استفاده", "نمونه اتصال به اپ"],
-        en: ["Contract source", "Usage notes", "App integration sample"],
+      {
+        fa: ["سورس قرارداد و تست‌های اصلی", "dApp واکنش‌گرا و تجربه اتصال کیف پول", "راهنمای استقرار، استفاده و نگهداری"],
+        en: ["Contract source and core test suite", "A responsive dApp and wallet experience", "Deployment, usage, and maintenance guidance"],
+      },
+    ),
+  },
+  {
+    slug: "ui-ux-brand-design",
+    title: { fa: "برند، UI و UX", en: "Brand, UI & UX" },
+    short: {
+      fa: "هویت بصری و تجربه‌ای منسجم که برند شما را به‌یادماندنی می‌کند.",
+      en: "A cohesive identity and experience that makes your brand memorable.",
+    },
+    Icon: FiPenTool,
+    seo: {
+      title: { fa: "طراحی هویت بصری، رابط و تجربه کاربری", en: "Brand Identity, UI & UX Design" },
+      description: {
+        fa: "طراحی هویت بصری، وایرفریم، رابط کاربری، پروتوتایپ و دیزاین سیستم برای وب‌سایت و محصول دیجیتال.",
+        en: "Visual identity, wireframes, UI, prototypes, and design systems for websites and digital products.",
       },
     },
+    detail: serviceDetail(
+      {
+        fa: "ظاهر خوب کافی نیست؛ طراحی باید هویت برند را منتقل کند و کاربر را بدون اصطکاک به هدف برساند. ما برند و محصول را به‌صورت یک تجربه منسجم می‌بینیم.",
+        en: "Looking good is not enough. Design should express the brand and help people reach their goal without friction. We treat brand and product as one coherent experience.",
+      },
+      {
+        fa: ["جهت هنری، پالت رنگ، تایپوگرافی و زبان بصری", "نقشه سفر کاربر، معماری اطلاعات و وایرفریم", "طراحی رابط واکنش‌گرا و پروتوتایپ تعاملی", "کامپوننت‌ها و دیزاین سیستم آماده توسعه"],
+        en: ["Art direction, color, typography, and visual language", "User journeys, information architecture, and wireframes", "Responsive interface design and interactive prototypes", "Developer-ready components and design system"],
+      },
+      {
+        fa: ["شناخت مخاطب، جایگاه برند و هدف محصول", "طراحی ساختار و تست مسیرهای کلیدی", "توسعه زبان بصری و صفحات اصلی", "تکمیل سیستم طراحی و تحویل به تیم توسعه"],
+        en: ["Understand the audience, brand position, and product goals", "Design the structure and test critical journeys", "Develop the visual language and key screens", "Complete the design system and developer handoff"],
+      },
+      {
+        fa: ["فایل طراحی مرتب و قابل توسعه", "پروتوتایپ مسیرهای اصلی", "راهنمای هویت و دیزاین سیستم"],
+        en: ["Organized, extensible design files", "Prototype of the key journeys", "Brand guidance and design system"],
+      },
+    ),
+  },
+  {
+    slug: "care-performance",
+    title: { fa: "پشتیبانی و بهینه‌سازی", en: "Care & Performance" },
+    short: {
+      fa: "سرعت، امنیت، به‌روزرسانی و توسعه مستمر بعد از لانچ.",
+      en: "Performance, security, updates, and continuous improvement after launch.",
+    },
+    Icon: FiActivity,
+    seo: {
+      title: { fa: "پشتیبانی، نگهداری و افزایش سرعت سایت", en: "Website Care, Maintenance & Performance" },
+      description: {
+        fa: "پشتیبانی فنی سایت، افزایش سرعت، رفع خطا، امنیت، بکاپ و توسعه قابلیت‌های جدید برای وردپرس و سایت اختصاصی.",
+        en: "Technical support, speed improvements, fixes, security, backups, and ongoing feature development for custom and WordPress sites.",
+      },
+    },
+    detail: serviceDetail(
+      {
+        fa: "لانچ پایان کار نیست. با یک برنامه نگهداری شفاف، سایت را سریع، امن و به‌روز نگه می‌داریم و بر اساس داده و نیاز کسب‌وکار توسعه می‌دهیم.",
+        en: "Launch is not the finish line. A clear care plan keeps your website fast, secure, current, and improving as your business evolves.",
+      },
+      {
+        fa: ["پایش وضعیت، رفع خطا و به‌روزرسانی منظم", "بهبود سرعت و شاخص‌های Core Web Vitals", "امنیت، بکاپ و برنامه بازیابی", "طراحی و توسعه قابلیت‌ها و صفحات جدید"],
+        en: ["Health monitoring, bug fixes, and regular updates", "Performance and Core Web Vitals improvements", "Security, backups, and recovery planning", "Design and development of new pages and features"],
+      },
+      {
+        fa: ["ارزیابی فنی و ثبت وضعیت اولیه", "رفع موارد حیاتی و ایجاد برنامه نگهداری", "پایش و گزارش دوره‌ای", "بهبود مستمر بر اساس اولویت کسب‌وکار"],
+        en: ["Technical review and baseline health report", "Resolve critical issues and establish the care plan", "Ongoing monitoring and periodic reporting", "Continuous improvement by business priority"],
+      },
+      {
+        fa: ["سایت پایدار، سریع و به‌روز", "گزارش روشن از اقدامات و وضعیت", "زمان پاسخ مشخص و مسیر توسعه مداوم"],
+        en: ["A stable, fast, up-to-date website", "Clear reporting on work and system health", "Defined response times and an ongoing improvement path"],
+      },
+    ),
   },
 ];
 
+const SERVICE_ALIASES: Record<string, ServiceSlug> = {
+  "ui-ux": "ui-ux-brand-design",
+  frontend: "website-design-development",
+  backend: "website-design-development",
+  "website-0-100": "website-design-development",
+  "crypto-payment-gateway": "web3-blockchain",
+  "smart-contract-blockchain": "web3-blockchain",
+};
+
 export function getService(slug: string): Service | undefined {
-  return SERVICES.find((s) => s.slug === slug);
+  const resolvedSlug = SERVICE_ALIASES[slug] ?? slug;
+  return SERVICES.find((service) => service.slug === resolvedSlug);
 }
 
 export function getServiceHref(locale: Locale, slug: ServiceSlug) {

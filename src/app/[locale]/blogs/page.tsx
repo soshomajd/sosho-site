@@ -4,6 +4,8 @@ import { getDictionary, isLocale } from "@/app/i18n";
 import Link from "next/link";
 import { BLOG_POSTS, getBlogPostHref } from "@/app/blogs/posts";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const ogImageUrl = new URL("/og.png", siteUrl).toString();
 
 export async function generateMetadata({
     params,
@@ -18,8 +20,8 @@ export async function generateMetadata({
         title: locale === "fa" ? "بلاگ" : "Blog",
         description:
             locale === "fa"
-                ? "مقالات مرتبط با فرانت‌اند، بک‌اند، طراحی وب، بلاک‌چین و قرارداد هوشمند."
-                : "Articles about frontend, backend, web development, blockchain, and smart contracts.",
+                ? "راهنماها و تجربه‌های سوشو استودیو درباره طراحی سایت، وردپرس، سئو و گوگل، توسعه وب، Web3 و هوش مصنوعی."
+                : "Practical Sosho Studio guides on web design, WordPress, SEO and Google, web development, Web3, and AI.",
         alternates: {
             canonical: `/${locale}/blogs`,
             languages: { fa: "/fa/blogs", en: "/en/blogs" },
@@ -28,12 +30,17 @@ export async function generateMetadata({
             title: locale === "fa" ? "بلاگ" : "Blog",
             description:
                 locale === "fa"
-                    ? "مقالات مرتبط با فرانت‌اند، بک‌اند، طراحی وب، بلاک‌چین و قرارداد هوشمند."
-                    : "Articles about frontend, backend, web development, blockchain, and smart contracts.",
+                    ? "راهنماها و تجربه‌های سوشو استودیو درباره طراحی سایت، وردپرس، سئو، Web3 و هوش مصنوعی."
+                    : "Sosho Studio guides on web design, WordPress, SEO, Web3, and AI.",
             url: `/${locale}/blogs`,
             siteName: dict.siteName,
             type: "website",
             locale: locale === "fa" ? "fa_IR" : "en_US",
+            images: [{ url: ogImageUrl, width: 1731, height: 909, alt: locale === "fa" ? "مجله سوشو استودیو" : "Sosho Studio Insights" }],
+        },
+        twitter: {
+            card: "summary_large_image",
+            images: [ogImageUrl],
         },
     };
 }
@@ -48,15 +55,18 @@ export default async function BlogsPage({
     const isFa = locale === "fa";
 
     return (
-        <main className="container py-10">
-            <header className="mb-8">
-                <h1 className="text-4xl font-extrabold text-foreground md:text-5xl">
-                    {isFa ? "بلاگ" : "Blog"}
+        <main className="container items-stretch py-14 md:py-20">
+            <header className="mb-10 w-full">
+                <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent">
+                    SOSHO STUDIO
+                </p>
+                <h1 className="mt-3 text-4xl font-extrabold text-foreground md:text-6xl">
+                    {isFa ? "مجله سوشو" : "Sosho Insights"}
                 </h1>
-                <p className="mt-3 text-sm leading-7 text-muted md:text-base">
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-muted md:text-base">
                     {isFa
-                        ? "۱۰ مقاله کوتاه و کاربردی درباره فرانت‌اند، بک‌اند، طراحی وب و بلاک‌چین."
-                        : "10 practical articles about frontend, backend, web development, and blockchain."}
+                        ? "یادداشت‌های کوتاه و کاربردی برای تصمیم‌های بهتر در طراحی، وردپرس، سئو، تکنولوژی، Web3 و هوش مصنوعی."
+                        : "Practical notes for better decisions across design, WordPress, SEO, technology, Web3, and AI."}
                 </p>
             </header>
 

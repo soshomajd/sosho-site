@@ -32,7 +32,7 @@ export default function BlogPreview({ locale }: { locale: Locale }) {
                     href={`/${locale}/blogs`}
                     className="inline-flex items-center justify-center rounded-xl border border-foreground/10 bg-surface/20 px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-surface/30"
                 >
-                    {isFa ? "مشاهده همه مقالات" : "View all articles"}
+                    {isFa ? "مشاهده همه یادداشت‌ها" : "View all insights"}
                 </Link>
             </div>
         </div>

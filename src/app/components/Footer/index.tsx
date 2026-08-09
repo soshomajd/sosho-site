@@ -4,10 +4,7 @@ import type { Locale } from "@/app/i18n";
 import {
     SiInstagram,
     SiGmail,
-    SiLinkedin,
-    SiTelegram,
     SiWhatsapp,
-    SiX,
 } from "react-icons/si";
 import { BsFillTelephoneOutboundFill } from "react-icons/bs";
 
@@ -19,28 +16,13 @@ const SOCIAL_LINKS = [
     },
     {
         label: "WhatsApp",
-        href: "https://wa.me/09120265102",
+        href: "https://wa.me/989120265102",
         Icon: SiWhatsapp,
     },
     {
-        label: "Telegram",
-        href: "https://t.me/s0h3ill",
-        Icon: SiTelegram,
-    },
-    {
-        label: "Instagram",
-        href: "https://www.instagram.com/soheil_shokouhi_majd?igsh=NnhmM2l0ZW91endn&utm_source=qr",
+        label: "Sosho Studio on Instagram",
+        href: "https://www.instagram.com/sosho_studio/",
         Icon: SiInstagram,
-    },
-    {
-        label: "LinkedIn",
-        href: "https://www.linkedin.com/in/soheil-shokouhi-majd-100144244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
-        Icon: SiLinkedin,
-    },
-    {
-        label: "X",
-        href: "https://x.com/majdsoheil84888?s=21",
-        Icon: SiX,
     },
 ] as const;
 
@@ -49,14 +31,18 @@ export default function Footer({ locale }: { locale: Locale }) {
 
     const links = isFa
         ? [
-            { href: `/${locale}#projects`, label: "پروژه‌ها" },
             { href: `/${locale}#services`, label: "خدمات" },
+            { href: `/${locale}#projects`, label: "نمونه‌کارها" },
             { href: `/${locale}#about`, label: "درباره ما" },
+            { href: `/${locale}#blog`, label: "مجله" },
+            { href: `/${locale}#contact`, label: "شروع پروژه" },
         ]
         : [
-            { href: `/${locale}#projects`, label: "Projects" },
             { href: `/${locale}#services`, label: "Services" },
+            { href: `/${locale}#projects`, label: "Selected work" },
             { href: `/${locale}#about`, label: "About" },
+            { href: `/${locale}#blog`, label: "Insights" },
+            { href: `/${locale}#contact`, label: "Start a project" },
         ];
 
     return (
@@ -67,24 +53,29 @@ export default function Footer({ locale }: { locale: Locale }) {
                         <Link
                             href={`/${locale}`}
                             className="inline-flex items-center gap-3 text-foreground transition-colors hover:text-accent"
-                            aria-label={isFa ? "صفحه اصلی" : "Home"}
+                            aria-label={isFa ? "صفحه اصلی سوشو استودیو" : "Sosho Studio home"}
                         >
                             <Image
                                 src="/sosho.svg"
-                                alt={isFa ? "لوگو" : "Logo"}
-                                width={140}
-                                height={140}
-                                className="rounded-md"
+                                alt={isFa ? "لوگوی سوشو استودیو" : "Sosho Studio logo"}
+                                width={150}
+                                height={50}
+                                className="h-auto w-36"
                             />
                         </Link>
 
                         <p className="text-sm font-semibold text-foreground">
-                            {isFa ? "سهیل شکوهی مجد" : "Soheil Shokouhi Majd"}
+                            {isFa ? "سوشو استودیو" : "Sosho Studio"}
                         </p>
                         <p className="text-sm text-muted">
                             {isFa
-                                ? "طراحی و توسعه وب با کیفیت و تحویل سریع"
-                                : "Web design & development with fast delivery"}
+                                ? "طراحی و اجرای صفر تا صد وب، وردپرس، سئو، Web3 و راهکارهای هوش مصنوعی"
+                                : "End-to-end web design, WordPress, SEO, Web3 and AI solutions"}
+                        </p>
+                        <p className="max-w-md text-xs leading-6 text-muted/75">
+                            {isFa
+                                ? "یک تیم برای استراتژی، طراحی، توسعه، لانچ و رشد مداوم محصول دیجیتال شما."
+                                : "One team for strategy, design, engineering, launch, and continuous digital growth."}
                         </p>
                     </div>
 
@@ -107,7 +98,7 @@ export default function Footer({ locale }: { locale: Locale }) {
 
                     <div className="md:col-span-4">
                         <p className="text-sm font-semibold text-foreground">
-                            {isFa ? "تماس" : "Contact"}
+                            {isFa ? "شروع همکاری" : "Start a project"}
                         </p>
 
                         <div className="mt-3 flex flex-col gap-3">
@@ -154,9 +145,11 @@ export default function Footer({ locale }: { locale: Locale }) {
 
                 <div className="mt-8 flex flex-col gap-2 border-t border-foreground/10 pt-6 text-sm text-muted md:flex-row md:items-center md:justify-between">
                     <p>
-                        © {new Date().getFullYear()} {isFa ? "تمام حقوق محفوظ است" : "All rights reserved"}
+                        © {new Date().getFullYear()} Sosho Studio. {isFa ? "تمام حقوق محفوظ است." : "All rights reserved."}
                     </p>
-                    <p className="text-muted/80">{isFa ? "ساخته‌شده با Next.js" : "Built with Next.js"}</p>
+                    <p className="text-muted/80">
+                        {isFa ? "از ایده تا طراحی، اجرا و رشد" : "From idea to launch and growth"}
+                    </p>
                 </div>
             </div>
         </footer>

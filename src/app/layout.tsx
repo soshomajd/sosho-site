@@ -5,11 +5,12 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const ogImageUrl = new URL("/og.png", siteUrl).toString();
 
-const siteName = "Soheil Shokouhi Majd";
-const siteTitle = `${siteName} | Freelancer`;
+const siteName = "Sosho Studio";
+const siteTitle = `${siteName} | Web Design, SEO, Web3 & AI`;
 const siteDescription =
-  "Freelancer portfolio: projects, services, and contact.";
+  "Sosho Studio delivers end-to-end web design and development, WordPress, SEO and Google growth, Web3 experiences, and practical AI integrations.";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,17 +31,31 @@ export const metadata: Metadata = {
   description: siteDescription,
   applicationName: siteName,
   keywords: [
-    "freelancer",
-    "portfolio",
+    "Sosho Studio",
+    "web design studio",
     "web development",
-    "frontend",
-    "next.js",
-    "react",
+    "WordPress design",
+    "SEO services",
+    "Google SEO",
+    "Web3 development",
+    "AI integration",
+    "طراحی سایت",
+    "طراحی سایت وردپرس",
+    "سئو سایت",
+    "طراحی وب ۳",
+    "هوش مصنوعی",
   ],
-  authors: [{ name: siteName }],
+  authors: [{ name: siteName, url: "/" }],
   creator: siteName,
+  publisher: siteName,
+  category: "Web design and digital services",
   alternates: {
     canonical: "/",
+    languages: {
+      fa: "/fa",
+      en: "/en",
+      "x-default": "/fa",
+    },
   },
   robots: {
     index: true,
@@ -56,18 +71,32 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fa_IR",
+    alternateLocale: ["en_US"],
     url: "/",
     siteName,
     title: siteTitle,
     description: siteDescription,
+    images: [{ url: ogImageUrl, width: 1731, height: 909, alt: "Sosho Studio — Design, Technology & Growth" }],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
+    images: [ogImageUrl],
   },
   icons: {
     icon: "/favicon.ico",
+  },
+  manifest: "/manifest.webmanifest",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  appleWebApp: {
+    capable: true,
+    title: siteName,
+    statusBarStyle: "black-translucent",
   },
 };
 

@@ -18,23 +18,23 @@ type Dictionary = {
 
 const dictionaries: Record<Locale, Dictionary> = {
   fa: {
-    siteName: "سهیل شکوهی مجد",
-    tagline: "فریلنسر",
+    siteName: "سوشو استودیو",
+    tagline: "استودیوی کامل طراحی و توسعه دیجیتال",
     nav: {
-      projects: "پروژه‌ها",
       services: "خدمات",
-      about: "درباره من",
-      blog: "بلاگ",
+      projects: "نمونه‌کارها",
+      about: "درباره استودیو",
+      blog: "مجله",
     },
   },
   en: {
-    siteName: "Soheil Shokouhi Majd",
-    tagline: "Freelancer",
+    siteName: "Sosho Studio",
+    tagline: "Full-service digital design & development studio",
     nav: {
-      projects: "Projects",
       services: "Services",
+      projects: "Work",
       about: "About",
-      blog: "Blog",
+      blog: "Insights",
     },
   },
 };
