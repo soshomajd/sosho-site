@@ -42,10 +42,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       en: `${base}/en/blogs/${post.slug}`,
       "x-default": `${base}/fa/blogs/${post.slug}`,
     };
+    const lastModified = new Date(post.updatedAt ?? post.publishedAt);
 
     return (["fa", "en"] as const).map((locale) => ({
       url: `${base}/${locale}/blogs/${post.slug}`,
-      lastModified: now,
+      lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.65,
       alternates: { languages },

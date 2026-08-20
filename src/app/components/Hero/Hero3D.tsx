@@ -13,6 +13,7 @@ import {
 import * as THREE from "three";
 
 type ProgressRef = MutableRefObject<number>;
+type PointerRef = MutableRefObject<{ x: number; y: number }>;
 type ServiceKind = "design" | "wordpress" | "seo" | "web3" | "ai";
 
 const SERVICE_MODULES: ReadonlyArray<{ kind: ServiceKind; color: string }> = [
@@ -91,8 +92,33 @@ function useSectionProgress(sectionId: string) {
     return { progress, active };
 }
 
-function ParticleField({ progress, compact }: { progress: ProgressRef; compact: boolean }) {
+function usePointer(enabled: boolean): PointerRef {
+    const pointer = useRef({ x: 0, y: 0 });
+
+    useEffect(() => {
+        if (!enabled) return;
+        const handlePointerMove = (event: PointerEvent) => {
+            pointer.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+            pointer.current.y = (event.clientY / window.innerHeight) * 2 - 1;
+        };
+        window.addEventListener("pointermove", handlePointerMove, { passive: true });
+        return () => window.removeEventListener("pointermove", handlePointerMove);
+    }, [enabled]);
+
+    return pointer;
+}
+
+function ParticleField({
+    progress,
+    pointer,
+    compact,
+}: {
+    progress: ProgressRef;
+    pointer: PointerRef;
+    compact: boolean;
+}) {
     const points = useRef<THREE.Points>(null);
+    const smoothedPointer = useRef({ x: 0, y: 0 });
     const count = compact ? 58 : 110;
     const positions = useMemo(() => {
         const data = new Float32Array(count * 3);
@@ -110,10 +136,13 @@ function ParticleField({ progress, compact }: { progress: ProgressRef; compact: 
         return data;
     }, [count]);
 
-    useFrame((state) => {
+    useFrame((state, delta) => {
         if (!points.current) return;
-        points.current.rotation.y = progress.current * 0.7 + state.clock.elapsedTime * 0.012;
-        points.current.rotation.x = progress.current * -0.12;
+        smoothedPointer.current.x = THREE.MathUtils.damp(smoothedPointer.current.x, pointer.current.x, 3.2, delta);
+        smoothedPointer.current.y = THREE.MathUtils.damp(smoothedPointer.current.y, pointer.current.y, 3.2, delta);
+        points.current.rotation.y =
+            progress.current * 0.7 + state.clock.elapsedTime * 0.012 + smoothedPointer.current.x * 0.18;
+        points.current.rotation.x = progress.current * -0.12 + smoothedPointer.current.y * 0.1;
     });
 
     return (
@@ -413,10 +442,12 @@ function CodeLayer() {
 
 function SystemModel({
     progress,
+    pointer,
     compact,
     isRtl,
 }: {
     progress: ProgressRef;
+    pointer: PointerRef;
     compact: boolean;
     isRtl: boolean;
 }) {
@@ -426,24 +457,29 @@ function SystemModel({
     const halo = useRef<THREE.Mesh>(null);
     const orbiters = useRef<Array<THREE.Group | null>>([]);
     const smoothed = useRef(0);
+    const smoothedPointer = useRef({ x: 0, y: 0 });
 
     useFrame((state, delta) => {
         const worldNode = world.current;
         if (!worldNode) return;
         smoothed.current = THREE.MathUtils.damp(smoothed.current, progress.current, 5.5, delta);
+        smoothedPointer.current.x = THREE.MathUtils.damp(smoothedPointer.current.x, pointer.current.x, 3.5, delta);
+        smoothedPointer.current.y = THREE.MathUtils.damp(smoothedPointer.current.y, pointer.current.y, 3.5, delta);
         const p = smoothed.current;
         const eased = p * p * (3 - 2 * p);
         const reveal = THREE.MathUtils.smoothstep(p, 0.035, 0.34);
         const idle = state.clock.elapsedTime;
+        const px = smoothedPointer.current.x;
+        const py = smoothedPointer.current.y;
 
         const side = isRtl ? -1 : 1;
-        worldNode.position.x = compact ? 0 : side * (1.72 + Math.sin(p * Math.PI) * 0.2);
-        worldNode.position.y = compact ? -1.75 + eased * 0.18 : -0.05 + eased * 0.08;
+        worldNode.position.x = (compact ? 0 : side * (1.72 + Math.sin(p * Math.PI) * 0.2)) + px * (compact ? 0.12 : 0.26);
+        worldNode.position.y = (compact ? -1.75 + eased * 0.18 : -0.05 + eased * 0.08) - py * (compact ? 0.08 : 0.16);
         const baseScale = compact ? 0.62 : 0.82;
         worldNode.scale.setScalar(baseScale + eased * (compact ? 0.035 : 0.08));
-        worldNode.rotation.x = -0.08 + eased * 0.15;
-        worldNode.rotation.y = side * (-0.3 + eased * 0.56);
-        worldNode.rotation.z = side * (0.015 - eased * 0.035);
+        worldNode.rotation.x = -0.08 + eased * 0.15 + py * 0.07;
+        worldNode.rotation.y = side * (-0.3 + eased * 0.56) + px * 0.16;
+        worldNode.rotation.z = side * (0.015 - eased * 0.035) - px * 0.02;
 
         if (uiLayer.current) {
             uiLayer.current.position.z = 0.2 + eased * 0.72;
@@ -454,7 +490,8 @@ function SystemModel({
             codeLayer.current.position.x = eased * 0.22;
         }
         if (halo.current) {
-            halo.current.rotation.z = eased * Math.PI * 1.35 + idle * 0.025;
+            halo.current.rotation.z = eased * Math.PI * 1.35 + idle * 0.025 + px * 0.25;
+            halo.current.rotation.x = 1.12 + py * 0.12;
             halo.current.scale.setScalar(0.82 + reveal * 0.34);
         }
 
@@ -462,10 +499,12 @@ function SystemModel({
             if (!orbiter) return;
             const angle = (index / SERVICE_MODULES.length) * Math.PI * 2 - 0.55 + eased * 1.5;
             const radius = (compact ? 2.72 : 3.58) * reveal;
+            const depth = 0.28 + Math.sin(angle * 1.7) * 0.6 * reveal;
+            const parallax = (1 - index / SERVICE_MODULES.length) * 0.5 + 0.5;
             orbiter.position.set(
-                Math.cos(angle) * radius,
-                Math.sin(angle) * radius * 0.56,
-                0.28 + Math.sin(angle * 1.7) * 0.6 * reveal,
+                Math.cos(angle) * radius + px * 0.22 * parallax,
+                Math.sin(angle) * radius * 0.56 - py * 0.14 * parallax,
+                depth,
             );
             const scale = Math.max(0.001, reveal * (compact ? 0.7 : 0.78));
             orbiter.scale.setScalar(scale);
@@ -511,10 +550,12 @@ function SystemModel({
 
 function StudioScene({
     progress,
+    pointer,
     compact,
     isRtl,
 }: {
     progress: ProgressRef;
+    pointer: PointerRef;
     compact: boolean;
     isRtl: boolean;
 }) {
@@ -524,8 +565,8 @@ function StudioScene({
             <directionalLight position={[4, 6, 8]} intensity={2.2} color="#dbeafe" />
             <pointLight position={[-4, 1, 4]} intensity={17} distance={11} color="#22d3ee" />
             <pointLight position={[4, -2, 3]} intensity={14} distance={10} color="#6366f1" />
-            <ParticleField progress={progress} compact={compact} />
-            <SystemModel progress={progress} compact={compact} isRtl={isRtl} />
+            <ParticleField progress={progress} pointer={pointer} compact={compact} />
+            <SystemModel progress={progress} pointer={pointer} compact={compact} isRtl={isRtl} />
         </>
     );
 }
@@ -579,6 +620,7 @@ export default function Hero3D({ sectionId, isRtl }: { sectionId: string; isRtl:
     const reducedMotion = useReducedMotion();
     const compact = useCompactViewport();
     const { progress, active } = useSectionProgress(sectionId);
+    const pointer = usePointer(!reducedMotion && !compact);
 
     if (reducedMotion) return <StaticStudio isRtl={isRtl} />;
 
@@ -597,7 +639,7 @@ export default function Hero3D({ sectionId, isRtl }: { sectionId: string; isRtl:
             onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
             style={{ position: "absolute", inset: 0 }}
         >
-            <StudioScene progress={progress} compact={compact} isRtl={isRtl} />
+            <StudioScene progress={progress} pointer={pointer} compact={compact} isRtl={isRtl} />
         </Canvas>
     );
 }

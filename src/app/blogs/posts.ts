@@ -6,11 +6,24 @@ export type BlogSection = {
   bullets?: { fa: string[]; en: string[] };
 };
 
+export type BlogFaqItem = {
+  question: { fa: string; en: string };
+  answer: { fa: string; en: string };
+};
+
 export type BlogPost = {
   slug: string;
   title: { fa: string; en: string };
   excerpt: { fa: string; en: string };
   tags: string[];
+  /** ISO date (YYYY-MM-DD). Required so Article schema and sitemaps carry real dates. */
+  publishedAt: string;
+  updatedAt?: string;
+  coverImage?: string;
+  coverImageAlt?: { fa: string; en: string };
+  /** A short, self-contained answer shown right under the title—written for featured snippets and AI answer engines (AEO/GEO). */
+  directAnswer?: { fa: string; en: string };
+  faq?: BlogFaqItem[];
   sections: BlogSection[];
 };
 
@@ -26,6 +39,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "A practical comparison based on launch speed, budget, content ownership, scalability, and real business needs.",
     },
     tags: ["WordPress", "Strategy"],
+    publishedAt: "2026-02-03",
     sections: [
       {
         heading: { fa: "با تکنولوژی شروع نکنید", en: "Do not start with the technology" },
@@ -75,6 +89,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "The technical and measurement essentials to check before release—from indexation and schema to Search Console and GA4.",
     },
     tags: ["SEO", "Google"],
+    publishedAt: "2026-02-17",
     sections: [
       {
         heading: { fa: "اول مطمئن شوید سایت قابل کشف است", en: "First, make sure the site is discoverable" },
@@ -118,6 +133,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "From choosing the problem and prototyping to secure data integration and measuring quality in real use.",
     },
     tags: ["AI", "Automation"],
+    publishedAt: "2026-03-03",
     sections: [
       {
         heading: { fa: "از مدل شروع نکنید؛ از اصطکاک شروع کنید", en: "Start with friction, not a model" },
@@ -167,6 +183,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "Practical tips for better LCP/CLS, correct Server/Client split, dynamic imports, and image optimization.",
     },
     tags: ["Next.js", "Frontend"],
+    publishedAt: "2026-03-17",
     sections: [
       {
         heading: {
@@ -218,6 +235,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "How to build a maintainable, professional UI with tokens, lightweight components, and proper hover/focus states.",
     },
     tags: ["UI/UX", "Tailwind"],
+    publishedAt: "2026-03-31",
     sections: [
       {
         heading: { fa: "از توکن‌ها شروع کن", en: "Start with tokens" },
@@ -264,6 +282,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "Folders, service/repository layers, validation, error handling and logging for scalable APIs.",
     },
     tags: ["Node.js", "Backend"],
+    publishedAt: "2026-04-14",
     sections: [
       {
         heading: { fa: "لایه‌ها را جدا کن", en: "Separate layers" },
@@ -295,6 +314,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "Key notes on schema design, indexes, and embedded vs referenced patterns for better performance.",
     },
     tags: ["MongoDB", "Backend"],
+    publishedAt: "2026-04-28",
     sections: [
       {
         heading: { fa: "Embed یا Reference؟", en: "Embed or reference?" },
@@ -322,6 +342,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "A security checklist: validation, rate limiting, CORS, and secrets management.",
     },
     tags: ["Security", "Backend"],
+    publishedAt: "2026-05-12",
     sections: [
       {
         heading: {
@@ -366,6 +387,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "Simple patterns for readability and lower risk: access control, events, and error handling.",
     },
     tags: ["Solidity", "Blockchain"],
+    publishedAt: "2026-05-26",
     sections: [
       {
         heading: { fa: "طراحی برای تست", en: "Design for tests" },
@@ -393,6 +415,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "Writing solid tests, using fixtures, and clean scripted deployments.",
     },
     tags: ["Hardhat", "Solidity"],
+    publishedAt: "2026-06-09",
     sections: [
       {
         heading: {
@@ -427,6 +450,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "Connecting to networks, signing, sending transactions, and handling errors in real dApps.",
     },
     tags: ["ethers.js", "Blockchain"],
+    publishedAt: "2026-06-23",
     sections: [
       {
         heading: {
@@ -457,6 +481,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "How stable contracts, types, and standardized errors improve team speed and reduce bugs.",
     },
     tags: ["Frontend", "Backend"],
+    publishedAt: "2026-07-07",
     sections: [
       {
         heading: { fa: "قرارداد را ثابت نگه دار", en: "Keep contracts stable" },
@@ -496,6 +521,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: "Key tips for fast pages, content structure, metadata, and SEO best practices.",
     },
     tags: ["Website", "SEO"],
+    publishedAt: "2026-07-21",
     sections: [
       {
         heading: {
@@ -519,10 +545,154 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "geo-aeo-answer-engine-optimization",
+    title: {
+      fa: "سئوی نسل جدید: GEO و AEO چیست و چرا برای ۲۰۲۶ اهمیت دارد؟",
+      en: "The Next SEO: What GEO and AEO Mean for 2026",
+    },
+    excerpt: {
+      fa: "کاربران دیگر فقط در گوگل جست‌وجو نمی‌کنند؛ از ChatGPT و Perplexity هم جواب می‌گیرند. GEO و AEO یعنی محتوای شما را برای همان پاسخ‌ها آماده کنید.",
+      en: "People no longer search only on Google—they ask ChatGPT and Perplexity too. GEO and AEO mean preparing your content to be the answer they get.",
+    },
+    tags: ["SEO", "GEO", "AEO"],
+    publishedAt: "2026-08-20",
+    coverImage: "/blog/geo-aeo-answer-engine-optimization.png",
+    coverImageAlt: {
+      fa: "پوستر مقاله سئوی نسل جدید: GEO و AEO",
+      en: "Cover art for The Next SEO: GEO and AEO",
+    },
+    directAnswer: {
+      fa: "GEO (بهینه‌سازی برای موتورهای مولد) یعنی محتوای شما طوری نوشته و ساختاردهی شود که ابزارهایی مثل ChatGPT، Perplexity و Gemini بتوانند آن را به‌عنوان منبع پاسخ نقل‌قول کنند؛ AEO (بهینه‌سازی برای موتورهای پاسخ‌گو) همان هدف را برای جعبه‌های پاسخ گوگل، دستیار صوتی و «مردم همچنین می‌پرسند» دنبال می‌کند. هر دو روی یک اصل مشترک تکیه دارند: یک پاسخ مستقیم و خودکفا در بالای صفحه، ساختار عنوان‌بندی شفاف، و داده ساختاریافته (Schema) که پاسخ را برای ماشین هم قابل استخراج کند.",
+      en: "GEO (Generative Engine Optimization) means writing and structuring content so tools like ChatGPT, Perplexity, and Gemini can cite it as a source. AEO (Answer Engine Optimization) chases the same goal for Google's answer boxes, voice assistants, and \"People also ask.\" Both rest on the same core practice: a direct, self-contained answer near the top of the page, a clear heading structure, and structured data (schema) that makes the answer machine-extractable too.",
+    },
+    sections: [
+      {
+        heading: {
+          fa: "GEO و AEO دقیقاً چه فرقی با سئوی سنتی دارند؟",
+          en: "How are GEO and AEO actually different from classic SEO?",
+        },
+        paragraphs: {
+          fa: [
+            "سئوی سنتی برای این بهینه می‌شود که صفحه شما در فهرست نتایج گوگل بالا بیاید و کاربر روی لینک کلیک کند. GEO و AEO یک قدم جلوتر می‌روند: هدف این است که پاسخ شما مستقیماً داخل چت‌بات، جعبه پاسخ یا دستیار صوتی نمایش داده شود—گاهی حتی بدون اینکه کاربر کلیکی انجام دهد.",
+            "این یعنی معیار موفقیت هم تغییر می‌کند. رتبه یک دیگر تنها هدف نیست؛ «نقل‌قول‌شدن» و «انتخاب‌شدن به‌عنوان منبع» اهمیت پیدا می‌کند. محتوایی که مبهم، پرحاشیه یا فقط تبلیغاتی باشد، برای این موتورها قابل استخراج و قابل استناد نیست.",
+          ],
+          en: [
+            "Classic SEO optimizes for ranking high in Google's results so a user clicks through. GEO and AEO go one step further: the goal is for your answer to appear directly inside a chatbot reply, an answer box, or a voice response—sometimes without a click happening at all.",
+            "That shifts what \"winning\" means. Rank #1 is no longer the only goal; being quoted and chosen as the source matters just as much. Vague, hedge-everything, or purely promotional content is hard for these engines to extract and cite.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "چطور محتوا را برای موتورهای پاسخ‌گو بنویسیم؟",
+          en: "How do you write content for answer engines?",
+        },
+        paragraphs: {
+          fa: [
+            "بهترین نقطه شروع، جواب دادن به سؤال اصلی در همان چند خط اول است—دقیقاً همان‌طور که در بالای همین مقاله انجام شده. بعد از آن می‌توانید توضیح، استثنا و جزئیات را باز کنید.",
+          ],
+          en: [
+            "The best starting point is answering the core question in the first few lines—exactly like the top of this article does. Everything after that can unpack nuance, exceptions, and detail.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "یک پاراگراف پاسخ مستقیم و خودکفا (بدون نیاز به خواندن بقیه صفحه) درست زیر عنوان",
+            "عنوان‌های H2/H3 را به شکل سؤال واقعی کاربر بنویسید",
+            "بخش پرسش‌های متداول (FAQ) با پاسخ‌های کوتاه و دقیق اضافه کنید",
+            "به‌جای صفت‌های تبلیغاتی، عدد، منبع و مثال واقعی بیاورید",
+          ],
+          en: [
+            "A direct, self-contained answer paragraph right under the heading",
+            "Write H2/H3 headings as the real questions users ask",
+            "Add an FAQ section with short, precise answers",
+            "Replace marketing adjectives with numbers, sources, and real examples",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "چک‌لیست فنی GEO/AEO",
+          en: "The technical GEO/AEO checklist",
+        },
+        paragraphs: {
+          fa: [
+            "نوشتن خوب کافی نیست؛ ماشین‌ها هم باید بتوانند محتوای شما را بخوانند، درک کنند و به آن استناد دهند.",
+          ],
+          en: [
+            "Good writing is not enough—machines also need to be able to read, parse, and cite your content.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "داده ساختاریافته Article و FAQPage روی هر مقاله (دقیقاً مطابق محتوای قابل‌مشاهده)",
+            "ربات‌های هوش مصنوعی (GPTBot، ClaudeBot، PerplexityBot، Google-Extended) را در robots.txt مسدود نکنید",
+            "تاریخ انتشار و به‌روزرسانی را واقعی و به‌روز نگه دارید",
+            "به منابع معتبر لینک بدهید و ادعاهای مهم را با داده پشتیبانی کنید",
+            "یک HTML تمیز و قابل رندر سمت سرور—محتوای پشت جاوااسکریپت سنگین برای بسیاری از این خزنده‌ها قابل دیدن نیست",
+          ],
+          en: [
+            "Article and FAQPage structured data on every post (matching the visible content exactly)",
+            "Don't block AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended) in robots.txt",
+            "Keep published/updated dates real and current",
+            "Link to credible sources and back key claims with data",
+            "Clean, server-rendered HTML—content hidden behind heavy client-side JS is invisible to many of these crawlers",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "جمع‌بندی: سئوی سنتی را کنار نگذارید",
+          en: "The takeaway: don't abandon classic SEO",
+        },
+        paragraphs: {
+          fa: [
+            "GEO و AEO جایگزین سئو نیستند؛ لایه‌ای روی همان پایه‌اند. سایتی که سرعت خوب، ساختار فنی درست و محتوای واقعاً مفید دارد، برای هر دو دنیا—نتایج گوگل و پاسخ‌های هوش مصنوعی—آماده‌تر است.",
+          ],
+          en: [
+            "GEO and AEO don't replace SEO; they're a layer on the same foundation. A site with strong performance, solid technical structure, and genuinely useful content is better positioned for both worlds—Google's results and AI-generated answers.",
+          ],
+        },
+      },
+    ],
+    faq: [
+      {
+        question: {
+          fa: "GEO با AEO چه فرقی دارد؟",
+          en: "What's the difference between GEO and AEO?",
+        },
+        answer: {
+          fa: "AEO روی جعبه‌های پاسخ گوگل، دستیار صوتی و «مردم همچنین می‌پرسند» تمرکز دارد؛ GEO مشخصاً روی نقل‌قول‌شدن توسط موتورهای مولد مثل ChatGPT، Perplexity و Gemini. تکنیک‌های بهینه‌سازی—پاسخ مستقیم، ساختار شفاف، داده ساختاریافته—بین این دو مشترک است.",
+          en: "AEO focuses on Google's answer boxes, voice assistants, and \"People also ask.\" GEO specifically targets being cited by generative engines like ChatGPT, Perplexity, and Gemini. The optimization techniques—direct answers, clear structure, structured data—largely overlap between the two.",
+        },
+      },
+      {
+        question: {
+          fa: "آیا باید ربات‌های هوش مصنوعی را در robots.txt مسدود کنم؟",
+          en: "Should I block AI crawlers in robots.txt?",
+        },
+        answer: {
+          fa: "برای دیده‌شدن در پاسخ‌های AI باید اجازه دسترسی بدهید. مسدودکردن GPTBot یا Google-Extended یعنی محتوای شما هرگز به‌عنوان منبع پاسخ استفاده نمی‌شود.",
+          en: "To appear in AI answers, you need to allow access. Blocking GPTBot or Google-Extended means your content can never be used as a cited source.",
+        },
+      },
+      {
+        question: {
+          fa: "آیا داده ساختاریافته (Schema) واقعاً روی نتیجه اثر دارد؟",
+          en: "Does structured data (schema) really make a difference?",
+        },
+        answer: {
+          fa: "بله. Schema به‌تنهایی رتبه نمی‌سازد، اما استخراج و درک محتوا را برای موتورهای جست‌وجو و موتورهای مولد قابل‌اعتمادتر و سریع‌تر می‌کند—و همین باعث افزایش شانس نقل‌قول‌شدن می‌شود.",
+          en: "Yes. Schema alone doesn't create rankings, but it makes content extraction more reliable and faster for both search and generative engines—which raises your odds of being quoted.",
+        },
+      },
+    ],
+  },
 ];
 
 export function getBlogPosts() {
-  return BLOG_POSTS;
+  return [...BLOG_POSTS].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 }
 
 export function getBlogPostBySlug(slug: string) {

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/app/i18n";
 import { getDictionary, isLocale } from "@/app/i18n";
+import Image from "next/image";
 import Link from "next/link";
-import { BLOG_POSTS, getBlogPostHref } from "@/app/blogs/posts";
+import { getBlogPostHref, getBlogPosts } from "@/app/blogs/posts";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const ogImageUrl = new URL("/og.png", siteUrl).toString();
@@ -71,31 +72,57 @@ export default async function BlogsPage({
             </header>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                {BLOG_POSTS.map((p) => (
+                {getBlogPosts().map((p) => (
                     <Link
                         key={p.slug}
                         href={getBlogPostHref(locale, p.slug)}
-                        className="group rounded-2xl border border-foreground/10 bg-surface/10 p-6 transition-colors hover:bg-surface/15"
+                        className="group overflow-hidden rounded-2xl border border-foreground/10 bg-surface/10 transition-colors hover:bg-surface/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     >
-                        <div className="flex flex-wrap gap-2">
-                            {p.tags.map((t) => (
-                                <span
-                                    key={t}
-                                    className="inline-flex items-center rounded-full border border-foreground/10 bg-background/10 px-3 py-1 text-xs font-semibold text-muted"
-                                >
-                                    {t}
-                                </span>
-                            ))}
+                        <div className="relative aspect-video w-full overflow-hidden bg-background/30">
+                            {p.coverImage ? (
+                                <Image
+                                    src={p.coverImage}
+                                    alt={p.coverImageAlt?.[locale] ?? p.title[locale]}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    className="object-cover transition-transform duration-500 motion-reduce:transition-none group-hover:scale-[1.03]"
+                                />
+                            ) : (
+                                <div
+                                    aria-hidden="true"
+                                    className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(99,102,241,0.35),transparent_55%),radial-gradient(circle_at_80%_75%,rgba(34,211,238,0.28),transparent_55%),linear-gradient(180deg,#0b0f14_0%,#090d12_100%)]"
+                                />
+                            )}
                         </div>
 
-                        <h2 className="mt-4 text-lg font-semibold text-foreground transition-colors group-hover:text-accent">
-                            {p.title[locale]}
-                        </h2>
-                        <p className="mt-2 text-sm leading-7 text-muted">
-                            {p.excerpt[locale]}
-                        </p>
-                        <div className="mt-4 text-sm font-semibold text-foreground/80">
-                            {locale === "fa" ? "ادامه مطلب" : "Read more"}
+                        <div className="p-6">
+                            <div className="flex flex-wrap items-center gap-2">
+                                {p.tags.map((t) => (
+                                    <span
+                                        key={t}
+                                        className="inline-flex items-center rounded-full border border-foreground/10 bg-background/10 px-3 py-1 text-xs font-semibold text-muted"
+                                    >
+                                        {t}
+                                    </span>
+                                ))}
+                                <time dateTime={p.publishedAt} className="ms-auto text-xs text-muted/80">
+                                    {new Date(p.publishedAt).toLocaleDateString(locale === "fa" ? "fa-IR" : "en-US", {
+                                        year: "numeric",
+                                        month: "long",
+                                        day: "numeric",
+                                    })}
+                                </time>
+                            </div>
+
+                            <h2 className="mt-4 text-lg font-semibold text-foreground transition-colors group-hover:text-accent">
+                                {p.title[locale]}
+                            </h2>
+                            <p className="mt-2 text-sm leading-7 text-muted">
+                                {p.excerpt[locale]}
+                            </p>
+                            <div className="mt-4 text-sm font-semibold text-foreground/80">
+                                {locale === "fa" ? "ادامه مطلب" : "Read more"}
+                            </div>
                         </div>
                     </Link>
                 ))}

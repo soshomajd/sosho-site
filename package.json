@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "build:sites": "node scripts/build-sites.mjs",
+    "blog:cover": "node scripts/generate-cover.mjs",
+    "deploy": "npm run build:sites && wrangler deploy",
     "start": "next start",
     "lint": "eslint"
   },
@@ -27,7 +29,9 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.10",
+    "playwright": "^1.62.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.124.0"
   }
 }

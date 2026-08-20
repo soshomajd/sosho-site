@@ -23,7 +23,7 @@ export default function Services({ locale }: { locale: Locale }) {
                                 <div className="grid h-12 w-12 place-items-center rounded-2xl border border-foreground/10 bg-background/35 transition-transform duration-300 group-hover:scale-105 group-hover:border-accent/25 motion-reduce:transform-none">
                                     <Icon className="h-6 w-6 text-accent" aria-hidden="true" />
                                 </div>
-                                <span className="font-mono text-xs text-muted/60">
+                                <span className="font-mono text-xs text-muted/80">
                                     {String(index + 1).padStart(2, "0")}
                                 </span>
                             </div>
