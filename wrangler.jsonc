@@ -8,6 +8,10 @@
     "binding": "ASSETS",
     "run_worker_first": ["/"]
   },
+  "routes": [
+    { "pattern": "sosho-studio.net", "custom_domain": true },
+    { "pattern": "www.sosho-studio.net", "custom_domain": true }
+  ],
   "observability": {
     "enabled": true
   }
