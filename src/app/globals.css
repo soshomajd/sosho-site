@@ -23,6 +23,16 @@
       Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   }
 
+  html[lang="fa"] body {
+    font-family: var(--font-vazirmatn), var(--font-geist-sans), Tahoma,
+      system-ui, sans-serif;
+  }
+
+  html[lang="en"] body {
+    font-family: var(--font-orbitron), var(--font-geist-sans), system-ui,
+      -apple-system, sans-serif;
+  }
+
   ::selection {
     background: rgba(34, 211, 238, 0.24);
     color: #ffffff;
