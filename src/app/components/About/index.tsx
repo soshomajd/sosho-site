@@ -9,6 +9,7 @@ const STACK = [
   "React",
   "Next.js",
   "Node.js",
+  "ASP.NET Core",
   "Python",
   "AI / RAG",
   "Search Console",
@@ -155,7 +156,7 @@ export default function About({ locale }: { locale: Locale }) {
           {process.map(({ number, Icon, title, description }) => (
             <article key={number} className="group rounded-2xl border border-foreground/10 bg-background/20 p-5 transition-colors hover:border-accent/25 hover:bg-background/35">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs text-muted/70">{number}</span>
+                <span className="font-mono text-xs text-muted/80">{number}</span>
                 <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
               </div>
               <h5 className="mt-8 text-base font-bold text-foreground">{title}</h5>

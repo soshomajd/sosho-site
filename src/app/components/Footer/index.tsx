@@ -52,7 +52,7 @@ export default function Footer({ locale }: { locale: Locale }) {
                     <div className="space-y-3 md:col-span-5">
                         <Link
                             href={`/${locale}`}
-                            className="inline-flex items-center gap-3 text-foreground transition-colors hover:text-accent"
+                            className="inline-flex items-center gap-3 rounded-lg text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                             aria-label={isFa ? "صفحه اصلی سوشو استودیو" : "Sosho Studio home"}
                         >
                             <Image
@@ -72,7 +72,7 @@ export default function Footer({ locale }: { locale: Locale }) {
                                 ? "طراحی و اجرای صفر تا صد وب، وردپرس، سئو، Web3 و راهکارهای هوش مصنوعی"
                                 : "End-to-end web design, WordPress, SEO, Web3 and AI solutions"}
                         </p>
-                        <p className="max-w-md text-xs leading-6 text-muted/75">
+                        <p className="max-w-md text-xs leading-6 text-muted/80">
                             {isFa
                                 ? "یک تیم برای استراتژی، طراحی، توسعه، لانچ و رشد مداوم محصول دیجیتال شما."
                                 : "One team for strategy, design, engineering, launch, and continuous digital growth."}
@@ -83,12 +83,12 @@ export default function Footer({ locale }: { locale: Locale }) {
                         <p className="text-sm font-semibold text-foreground">
                             {isFa ? "لینک‌ها" : "Links"}
                         </p>
-                        <nav className="mt-3 flex flex-col gap-2 text-sm">
+                        <nav className="mt-3 flex flex-col gap-1 text-sm">
                             {links.map((l) => (
                                 <Link
                                     key={l.href}
                                     href={l.href}
-                                    className="text-muted transition-colors hover:text-foreground"
+                                    className="rounded-md py-1.5 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
                                 >
                                     {l.label}
                                 </Link>
@@ -102,29 +102,25 @@ export default function Footer({ locale }: { locale: Locale }) {
                         </p>
 
                         <div className="mt-3 flex flex-col gap-3">
-                            <div className="flex items-center gap-3">
-                                <a
-                                    href="tel:+989120265102"
-                                    className="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground"
-                                    aria-label={isFa ? "تماس تلفنی" : "Phone call"}
-                                >
-                                    <BsFillTelephoneOutboundFill className="h-5 w-5" aria-hidden="true" />
-                                    <span className="text-sm">+98 912 026 5102</span>
-                                </a>
-                            </div>
+                            <a
+                                href="tel:+989120265102"
+                                className="-ms-2 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                                aria-label={isFa ? "تماس تلفنی" : "Phone call"}
+                            >
+                                <BsFillTelephoneOutboundFill className="h-5 w-5 shrink-0" aria-hidden="true" />
+                                <span dir="ltr" className="text-sm">+98 912 026 5102</span>
+                            </a>
 
-                            <div className="flex items-center gap-3">
-                                <a
-                                    href="mailto:soheilshokouhimajd@gmail.com"
-                                    className="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground"
-                                    aria-label={isFa ? "ارسال ایمیل" : "Send email"}
-                                >
-                                    <SiGmail className="h-5 w-5" aria-hidden="true" />
-                                    <span className="text-sm">soheilshokouhimajd@gmail.com</span>
-                                </a>
-                            </div>
+                            <a
+                                href="mailto:soheilshokouhimajd@gmail.com"
+                                className="-ms-2 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                                aria-label={isFa ? "ارسال ایمیل" : "Send email"}
+                            >
+                                <SiGmail className="h-5 w-5 shrink-0" aria-hidden="true" />
+                                <span dir="ltr" className="text-sm wrap-anywhere">soheilshokouhimajd@gmail.com</span>
+                            </a>
 
-                            <div className="flex flex-wrap items-center gap-3 pt-1">
+                            <div className="-ms-2 flex flex-wrap items-center gap-1 pt-1">
                                 {SOCIAL_LINKS.map(({ href, label, Icon }) => (
                                     <a
                                         key={href}
@@ -133,7 +129,7 @@ export default function Footer({ locale }: { locale: Locale }) {
                                         rel="noopener noreferrer"
                                         aria-label={label}
                                         title={label}
-                                        className="text-muted transition-colors hover:text-accent"
+                                        className="inline-flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors hover:bg-foreground/5 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
                                     >
                                         <Icon className="h-5 w-5" aria-hidden="true" />
                                     </a>

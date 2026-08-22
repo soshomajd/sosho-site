@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/app/i18n";
 import LanguageSwitch from "./LanguageSwitch";
+import MobileMenu from "./MobileMenu";
 import {
     SiInstagram,
     SiWhatsapp,
@@ -82,10 +83,10 @@ export default function Header({
                     ))}
                 </nav>
 
-                <div className="flex items-center gap-3 text-sm">
+                <div className="flex items-center gap-1 text-sm sm:gap-2">
                     <LanguageSwitch />
                     <span className="hidden h-4 w-px bg-foreground/10 sm:block" aria-hidden="true" />
-                    <div className="hidden items-center gap-3 sm:flex">
+                    <div className="hidden items-center sm:flex">
                         {SOCIAL_LINKS.map(({ href, label, Icon }) => (
                             <a
                                 key={href}
@@ -94,7 +95,7 @@ export default function Header({
                                 rel="noopener noreferrer"
                                 aria-label={label}
                                 title={label}
-                                className="text-muted transition-colors duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors duration-200 hover:bg-foreground/5 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                             >
                                 <Icon className="h-4 w-4" aria-hidden="true" />
                             </a>
@@ -102,10 +103,24 @@ export default function Header({
                     </div>
                     <a
                         href={`/${locale}#contact`}
-                        className="inline-flex h-10 items-center justify-center rounded-full bg-foreground px-4 text-xs font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none sm:text-sm"
+                        className="ms-1 hidden h-10 items-center justify-center rounded-full bg-foreground px-4 text-xs font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none sm:inline-flex sm:text-sm"
                     >
                         {locale === "fa" ? "شروع پروژه" : "Start a project"}
                     </a>
+                    <MobileMenu
+                        key={locale}
+                        locale={locale}
+                        navItems={NAV_ITEMS.map(({ label, href }) => ({ label, href }))}
+                        socialLinks={SOCIAL_LINKS.map(({ href, label, Icon }) => ({
+                            href,
+                            label,
+                            icon: <Icon className="h-5 w-5" aria-hidden="true" />,
+                        }))}
+                        ctaHref={`/${locale}#contact`}
+                        ctaLabel={locale === "fa" ? "شروع پروژه" : "Start a project"}
+                        openLabel={locale === "fa" ? "باز کردن منو" : "Open menu"}
+                        closeLabel={locale === "fa" ? "بستن منو" : "Close menu"}
+                    />
                 </div>
             </div>
         </header>

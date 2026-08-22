@@ -30,7 +30,7 @@ export default function LanguageSwitch() {
             href={href}
             aria-label={next === "fa" ? "Switch to Persian" : "Switch to English"}
             title={next === "fa" ? "فارسی" : "English"}
-            className="text-muted transition-all duration-200 motion-reduce:transition-none hover:text-accent hover:-translate-y-0.5 motion-reduce:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all duration-200 motion-reduce:transition-none hover:bg-foreground/5 hover:text-accent hover:-translate-y-0.5 motion-reduce:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
             <FiGlobe className="h-5 w-5" aria-hidden="true" />
         </Link>
