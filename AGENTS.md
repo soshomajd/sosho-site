@@ -4,15 +4,9 @@
 
 Read this file before changing the repository. It is the durable guide for the current project state.
 
-The old application that used to live at the repository root was intentionally removed by the owner. Do not restore it. The only active application is:
+The only active application lives directly at the repository root. A former duplicate application was intentionally removed by the owner. Do not restore it, create a nested replacement, or add another npm package boundary unless explicitly requested.
 
-```text
-sosho-studio-ai/
-```
-
-The repository root is now a documentation and Git boundary, not an npm package boundary. Run application commands from `sosho-studio-ai/` or use `npm --prefix sosho-studio-ai ...`.
-
-If the application is later moved to the repository root, update both this file and `README.md` in the same change.
+Run npm, Wrangler, migration, and build commands from the repository root. If the application location changes, update both this file and `README.md` in the same change.
 
 ## First actions for every task
 
@@ -20,7 +14,7 @@ If the application is later moved to the repository root, update both this file 
 2. Run `git status --short` and preserve all user-owned work.
 3. Treat deletion of the former root app as intentional. Never recover those files from Git history unless the owner explicitly asks.
 4. Identify the narrow source-of-truth files for the task before editing.
-5. Work only inside `sosho-studio-ai/` unless updating repository-level documentation or workflow configuration.
+5. Work inside the current repository root and do not create another project/root/branch unless explicitly requested.
 6. Do not edit generated output in `.next/`, `out/`, `dist/`, `node_modules/`, `.wrangler/`, or coverage directories.
 
 ## Project summary
@@ -46,37 +40,28 @@ Primary capabilities:
 /
 |- AGENTS.md
 |- README.md
-`- sosho-studio-ai/
-   |- src/
-   |  |- proxy.ts                         Default-locale redirect
-   |  `- app/
-   |     |- layout.tsx                    Root HTML, metadata, Speed Insights
-   |     |- page.tsx                      `/` -> `/fa`
-   |     |- globals.css                   Tailwind theme and global styles
-   |     |- i18n.ts                       Locale tuple and header dictionary
-   |     |- robots.ts                     `/robots.txt`
-   |     |- sitemap.ts                    `/sitemap.xml`
-   |     |- manifest.ts                   `/manifest.webmanifest`
-   |     |- blogs/posts.ts                Blog data source
-   |     |- [locale]/                     Localized pages and metadata
-   |     `- components/                   Shared page/UI components
-   |- public/                              Static images and brand assets
-   |- worker/index.js                      Runtime Worker and API source
-   |- db/
-   |  |- schema.ts                         Type-level D1 model mirror
-   |  `- migrations/0000_ai_sales.sql     Runtime schema/migration source
-   |- scripts/
-   |  |- build-sites.mjs                  Static export + Worker packager
-   |  `- generate-cover.mjs               1200x630 blog-cover renderer
-   |- docs/AI_SALES_SETUP.md               AI/Meta/D1 setup notes
-   |- .env.example                         Secret names only
-   |- .openai/hosting.json                 Sites project and `DB` binding
-   |- .github/workflows/deploy.yml         Nested/inactive GitHub workflow
-   |- next.config.ts
-   |- eslint.config.mjs
-   |- tsconfig.json
-   |- wrangler.jsonc
-   `- package.json / package-lock.json
+|- src/
+|  |- proxy.ts                           Default-locale redirect
+|  `- app/                               Next.js pages and components
+|- public/                               Static images and brand assets
+|- worker/
+|  |- index.js                           Runtime Worker and API source
+|  `- core.js                            Validation, policy, retry utilities
+|- db/
+|  |- schema.ts                          Type mirror; not schema authority
+|  `- migrations/*.sql                  D1 schema source of truth
+|- tests/                                Worker-runtime and D1 tests
+|- scripts/
+|  |- build-sites.mjs                    Static export + Worker packager
+|  |- dev-all.mjs                        Local Next + Worker orchestrator
+|  `- generate-cover.mjs                 1200x630 blog-cover renderer
+|- docs/AI_SALES_SETUP.md                AI/Meta/D1 production notes
+|- .env.example / .dev.vars.example      Variable names/placeholders only
+|- .openai/hosting.json                  Sites project and `DB` binding
+|- .github/workflows/                    Root-discoverable CI/deploy workflows
+|- next.config.ts / vitest.config.mjs
+|- wrangler.jsonc / wrangler.dev.jsonc
+`- package.json / package-lock.json
 ```
 
 ## Technology and package rules
@@ -87,10 +72,10 @@ Primary capabilities:
 - CSS stack: Tailwind CSS 4 through `@tailwindcss/postcss`; there is no `tailwind.config.*`.
 - Visual stack: Three.js, React Three Fiber, Drei, and React Icons.
 - Deployment stack: Wrangler, Cloudflare Workers/assets, D1, and OpenAI Sites metadata.
-- Playwright exists only for blog-cover screenshots. There is no Playwright test configuration.
-- There are no `test`, `typecheck`, `format`, preview, or Worker-dev npm scripts.
-- `@/*` maps to `sosho-studio-ai/src/*` when commands run from the application directory.
-- Do not add a second root `package.json` or install dependencies at repository root unless the owner explicitly asks to relocate the application.
+- Playwright exists only for blog-cover screenshots. Worker tests use Vitest 4 with the official Cloudflare Vitest plugin, Miniflare, D1 migrations, MSW, and `@msw/cloudflare`.
+- There are no separate `typecheck`, `format`, or browser E2E scripts.
+- `@/*` maps to `src/*`.
+- Do not add a nested `package.json` or another application directory unless the owner explicitly asks to relocate the application.
 
 ## Frontend architecture
 
@@ -164,50 +149,61 @@ Content rules:
 ```text
 Website SalesAssistant
   -> POST /api/sales/chat
-  -> validate input and resolve/create conversation
+  -> strict schema/origin validation and IP rate limit
+  -> resolve/create durable conversation
+  -> conversation rate limit
   -> load D1 history and extracted lead profile
   -> OpenAI Responses API with strict JSON Schema
      or deterministic bilingual fallback
+  -> validate output shape and business-policy claims
   -> update lead + persist user/assistant messages
-  -> return conversationId, leadId, reply, stage, quickReplies, isComplete
+  -> return conversationId, reply, stage, quickReplies, isComplete, requestId
 
 Instagram webhook
   -> verify Meta HMAC signature
-  -> deduplicate event in D1
+  -> persist `received` event and atomically claim `processing`
   -> process through the same sales-turn pipeline
-  -> reply through Meta Graph API
+  -> persist event-linked response and reply through Meta Graph API
+  -> mark `processed`, or `failed` with a retry time
 ```
 
 ### Worker endpoints
 
-- `GET /api/health`: returns only configuration booleans.
+- `GET /api/health`: checks D1 connectivity, required tables/columns, and required provider settings; returns `200` ready or `503` not ready without exposing values.
 - `POST /api/sales/chat`: website chat endpoint.
 - `GET /api/meta/webhook`: Meta verification handshake.
 - `POST /api/meta/webhook`: signed inbound message webhook, processed with `ctx.waitUntil`.
 
 ### Data model
 
-The initial SQL migration creates:
+The ordered SQL migrations create and evolve:
 
 - `leads`: source, locale, qualification status, project type/tier/budget, and extracted requirements.
 - `conversations`: lead/channel relationship and active state.
-- `messages`: ordered user/assistant history and metadata.
-- `webhook_events`: external event IDs, payloads, and processing status for idempotency.
+- `messages`: ordered user/assistant history, metadata, retention, and event-linked idempotency.
+- `webhook_events`: `received -> processing -> processed|failed`, attempts, retry schedule, provider response cache, and payload retention.
+- `rate_limit_counters`: atomic IP, conversation, Instagram-user, and OpenAI quota windows.
 
-`db/migrations/0000_ai_sales.sql` is the runtime schema source. `db/schema.ts` is a TypeScript mirror and is not used by the build to create tables. Keep the SQL, TypeScript model, Worker queries, build script, and setup documentation synchronized.
+`db/migrations/*.sql` is the only runtime schema source of truth. `db/schema.ts` is a TypeScript mirror and never creates tables. Worker requests must not execute DDL or bootstrap schema. Use standard `wrangler d1 migrations apply` commands and keep the SQL, type mirror, queries, tests, build, and setup docs synchronized.
 
 ### AI/backend invariants
 
 - Chat messages are limited to 2000 characters.
-- With D1 available, each conversation is limited to 30 user messages per hour.
+- D1 is mandatory. The sales endpoint fails closed with `503` if it is unavailable.
+- Website traffic is rate-limited independently by hashed IP and conversation ID. Instagram is rate-limited by hashed user ID. Production hashing requires `RATE_LIMIT_SALT`.
+- OpenAI attempts have configurable global hourly and daily quotas in D1.
 - Only the most recent 20 stored messages are loaded into model context.
 - OpenAI requests use `store: false`, a strict JSON Schema, and a maximum output token limit.
-- If `OPENAI_API_KEY` is missing or the model call fails, fixed bilingual discovery questions are used.
+- If `OPENAI_API_KEY` is missing, provider quota is exhausted, the model call fails/times out, or the returned payload fails schema/policy validation, fixed bilingual discovery questions are used.
 - The assistant may recommend an economic, professional, or exclusive tier, but must not invent exact prices, discounts, delivery promises, legal terms, or unsupported features.
 - Deterministic pricing is not implemented yet. Do not present model-generated amounts as authoritative.
-- D1 is required for durable leads, history, webhook deduplication, and effective rate limiting. Without `DB`, conversation IDs are ephemeral and cross-turn history is lost.
+- The website client must send only `conversationId`, `locale`, and `message`. Never accept client-owned `source`, `externalUserId`, message counts, or Instagram fields.
+- Website conversation IDs are cryptographically random UUIDv4 values stored in `localStorage`. Frontend calls use `AbortController` and a finite timeout.
 - Keep Worker response stages/types compatible with `SalesAssistant` (`discovery`, `qualification`, `proposal_ready`, `handoff`).
 - Preserve Meta signature verification and deduplication. Do not bypass either for production or convenience.
+- Preserve event-linked message uniqueness and cached webhook responses: retries must never recreate a completed sales turn.
+- OpenAI and Meta calls use finite timeouts, bounded exponential retry, and PII-safe structured logs carrying `requestId`.
+- Retention cron deletes expired messages/counters, anonymizes selected lead PII, purges raw Meta payloads, and later deletes webhook records.
 - Leads can contain PII such as names, phone numbers, budgets, and business details. Do not log, commit, or use production records as fixtures. Anonymize test data.
 
 ## Build system
@@ -216,46 +212,49 @@ The initial SQL migration creates:
 
 `scripts/build-sites.mjs`:
 
-1. Runs the app-local Next binary with `SITES_STATIC_EXPORT=1`.
+1. Runs the root-local Next binary with `SITES_STATIC_EXPORT=1`.
 2. Requires `out/index.html`.
-3. Recursively replaces app-local `dist/`.
+3. Recursively replaces `dist/`.
 4. Copies the export to `dist/client/`.
-5. Splits `db/migrations/0000_ai_sales.sql` on `-- statement-breakpoint`.
-6. Replaces the `__SCHEMA_STATEMENTS__` placeholder in `worker/index.js`.
-7. Writes the deployable Worker to `dist/server/index.js`.
-8. Copies Sites metadata and the migration to `dist/.openai/`.
+5. Copies the Worker module tree to `dist/server/`.
+6. Verifies `dist/server/index.js` exists.
+7. Copies Sites metadata and every SQL migration to `dist/.openai/`.
 
-Never deploy `worker/index.js` directly; it is a build template. Deploy the generated `dist/server/index.js`.
+Production Wrangler uses generated `dist/server/index.js`; local Wrangler uses `worker/index.js`. Never inject migrations into the Worker bundle.
 
 ## Commands
 
 Preferred from repository root:
 
 ```bash
-npm --prefix sosho-studio-ai ci
-npm --prefix sosho-studio-ai run dev
-npm --prefix sosho-studio-ai run lint
-npm --prefix sosho-studio-ai run build:next
-npm --prefix sosho-studio-ai run start
-npm --prefix sosho-studio-ai run build
-npm --prefix sosho-studio-ai run build:sites
-npm --prefix sosho-studio-ai run deploy
-npm --prefix sosho-studio-ai run blog:cover -- --slug "post-slug" --tag "SEO"
+npm ci
+npm run dev
+npm run dev:next
+npm run dev:worker
+npm run db:migrate:local
+npm run lint
+npm test
+npm run build:next
+npm run start
+npm run build
+npx wrangler deploy --dry-run
+npm run deploy
+npm run blog:cover -- --slug "post-slug" --tag "SEO"
 ```
-
-Equivalent commands can be run after `cd sosho-studio-ai`.
 
 Command semantics:
 
-- `dev`: starts only the Next frontend. It does not run Worker APIs or D1.
-- `lint`: runs ESLint; the nested config ignores `.next`, `out`, `dist`, and `build`.
+- `dev`: applies local D1 migrations and starts both Worker on port 8787 and Next on port 3000; Next proxies `/api/*` to the Worker.
+- `dev:next` and `dev:worker`: start either side independently.
+- `test`: runs Worker-runtime unit/integration tests with isolated local D1 storage and outbound provider mocks.
+- `lint`: runs ESLint; config ignores `.next`, `out`, `dist`, and `build`.
 - `build:next`: ordinary `.next` build. Pair this with `start`.
 - `build`: aliases `build:sites`.
 - `build:sites`: creates the static client and custom Worker bundle under `dist/`.
 - `deploy`: runs `build:sites` and then `wrangler deploy`; this changes production.
 - `blog:cover`: uses Playwright/Chromium to create a 1200x630 text-free PNG.
 
-The build script resolves `sosho-studio-ai/node_modules/next/dist/bin/next` explicitly. Installing dependencies only at repository root is insufficient.
+The build/dev scripts resolve binaries from root `node_modules`. Use root `npm ci`.
 
 ## Environment and secrets
 
@@ -272,6 +271,9 @@ Worker bindings and secrets:
 - `META_APP_SECRET`: webhook HMAC secret.
 - `META_INSTAGRAM_ACCESS_TOKEN`: sends Instagram replies.
 - `META_GRAPH_VERSION`: optional; current code fallback is `v26.0`.
+- `RATE_LIMIT_SALT`: required production secret used to pseudonymize IP and Instagram identifiers in rate-limit keys.
+
+Non-secret limits, timeouts, retry counts, origins, model/version choices, and retention windows live under `vars` in Wrangler config. Keep `.env.example`, `.dev.vars.example`, `wrangler.jsonc`, `wrangler.dev.jsonc`, Worker defaults, tests, and setup documentation aligned.
 
 Rules:
 
@@ -285,21 +287,23 @@ Rules:
 - `wrangler.jsonc` targets Worker `sosho-site`, assets in `dist/client`, Worker entry `dist/server/index.js`, and the live domains `sosho-studio.net` and `www.sosho-studio.net`.
 - Observability is enabled.
 - `.openai/hosting.json` identifies the Sites project and declares D1 binding `DB`.
-- `wrangler.jsonc` does not currently contain a `d1_databases` section. Standalone Cloudflare deployment requires explicit D1 creation, migration, and binding.
-- `sosho-studio-ai/.github/workflows/deploy.yml` is nested below the repository root and GitHub Actions will not discover it there. Automatic deployment is currently inactive unless repository-level workflow configuration exists outside this snapshot.
+- `wrangler.jsonc` declares `DB`, its migration directory, vars, and cron triggers. Its zero UUID is an intentional placeholder that must be replaced with the manually created production D1 ID before deployment.
+- Root `.github/workflows/ci.yml` validates pushes/PRs. Root `.github/workflows/deploy.yml` is manual-only, validates first, applies remote D1 migrations, then deploys.
 - A deployment request must specify the target environment. Before deploying, verify branch, cwd, generated bundle, domain, Sites project, D1 binding/migrations, `NEXT_PUBLIC_SITE_URL`, and secrets.
 - Never deploy, migrate production data, provision/delete infrastructure, rotate credentials, or contact external users without explicit authorization.
 
 ## Validation and definition of done
 
-Baseline after installing app-local dependencies:
+Baseline after installing root-local dependencies:
 
 ```bash
-npm --prefix sosho-studio-ai run lint
-npm --prefix sosho-studio-ai run build
+npm run lint
+npm test
+npm run build
+npx wrangler deploy --dry-run
 ```
 
-There is no automated test suite. Report lint and build as lint and build, not as “all tests passed.”
+Report lint, automated tests, build, and Wrangler dry-run separately. The suite covers backend behavior, not browser layout or full Meta staging behavior.
 
 Additional checks by change type:
 
@@ -326,18 +330,18 @@ A change is done only when:
 
 These are documented facts, not permission to expand an unrelated task:
 
-1. Plain `npm run dev` cannot exercise `/api/sales/chat`; the custom Worker needs its own test/runtime environment.
-2. Root HTML is server-rendered as `lang="fa" dir="rtl"` for all routes. `HtmlLangDir` changes English pages after hydration, so `/en` may initially have incorrect language/direction semantics and a visible direction/font flash.
-3. Unknown service slugs call `notFound()`, while unknown blog slugs render a custom missing-post view without `notFound()`, producing a soft HTTP 200 404.
-4. Locale title templates and service metadata may duplicate the site-name suffix.
-5. Locale-layout homepage `WebPage` JSON-LD also appears on service/blog descendants while still identifying the locale homepage URL.
-6. `LanguageSwitch` replaces only the first path segment, drops query strings/hashes, and assumes identical localized slugs.
-7. New services do not automatically update fixed Hero modules or the locale-layout offer catalog.
-8. The mobile menu handles Escape, initial focus, and scroll locking, but lacks a full focus trap and trigger-focus restoration.
-9. There are no route-level `loading.tsx`, `error.tsx`, or `not-found.tsx` files.
-10. Contact and SEO constants are duplicated across layouts and components.
-11. There is no deterministic pricing engine, automated test suite, Worker preview script, or active root-level GitHub deployment workflow.
-12. The default AI model and Meta Graph version are hard-coded fallbacks; configuration and external compatibility must be reviewed before production changes.
+1. Root HTML is server-rendered as `lang="fa" dir="rtl"` for all routes. `HtmlLangDir` changes English pages after hydration, so `/en` may initially have incorrect language/direction semantics and a visible direction/font flash.
+2. Unknown service slugs call `notFound()`, while unknown blog slugs render a custom missing-post view without `notFound()`, producing a soft HTTP 200 404.
+3. Locale title templates and service metadata may duplicate the site-name suffix.
+4. Locale-layout homepage `WebPage` JSON-LD also appears on service/blog descendants while still identifying the locale homepage URL.
+5. `LanguageSwitch` replaces only the first path segment, drops query strings/hashes, and assumes identical localized slugs.
+6. New services do not automatically update fixed Hero modules or the locale-layout offer catalog.
+7. The mobile menu handles Escape, initial focus, and scroll locking, but lacks a full focus trap and trigger-focus restoration.
+8. There are no route-level `loading.tsx`, `error.tsx`, or `not-found.tsx` files.
+9. Contact and SEO constants are duplicated across layouts and components.
+10. There is no deterministic pricing engine or browser E2E suite.
+11. The production D1 UUID in `wrangler.jsonc` is a placeholder until the owner provisions the database.
+12. The default AI model and Meta Graph version are configurable fallbacks; external compatibility must be reviewed before production changes.
 
 ## Change discipline
 
@@ -347,3 +351,13 @@ These are documented facts, not permission to expand an unrelated task:
 - Keep static-export constraints in mind before adding Next runtime features.
 - Do not silently change business rules in the system prompt, tier definitions, qualification fields, privacy behavior, or sales completion criteria.
 - If this guide becomes inaccurate, update it before finishing the task.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

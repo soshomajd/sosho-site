@@ -1,19 +1,19 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "sosho-site",
-  "main": "dist/server/index.js",
+  "name": "sosho-site-local",
+  "main": "worker/index.js",
   "compatibility_date": "2026-08-20",
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "sosho-sales",
+      "database_name": "sosho-sales-local",
       "database_id": "00000000-0000-0000-0000-000000000000",
       "migrations_dir": "db/migrations"
     }
   ],
   "vars": {
-    "ENVIRONMENT": "production",
-    "PUBLIC_SITE_ORIGINS": "https://sosho-studio.net,https://www.sosho-studio.net",
+    "ENVIRONMENT": "development",
+    "PUBLIC_SITE_ORIGINS": "http://localhost:3000,http://127.0.0.1:3000",
     "OPENAI_MODEL": "gpt-5.6-luna",
     "META_GRAPH_VERSION": "v26.0",
     "INSTAGRAM_DEFAULT_LOCALE": "fa",
@@ -29,26 +29,12 @@
     "META_MAX_ATTEMPTS": "3",
     "RETRY_BASE_DELAY_MS": "250",
     "WEBHOOK_MAX_ATTEMPTS": "8",
-    "WEBHOOK_RETRY_BASE_SECONDS": "60",
+    "WEBHOOK_RETRY_BASE_SECONDS": "5",
     "WEBHOOK_PROCESSING_TIMEOUT_SECONDS": "120",
     "MESSAGE_RETENTION_DAYS": "180",
     "LEAD_PII_RETENTION_DAYS": "365",
     "WEBHOOK_PAYLOAD_RETENTION_DAYS": "7",
-    "WEBHOOK_EVENT_RETENTION_DAYS": "90"
-  },
-  "triggers": {
-    "crons": ["*/5 * * * *", "15 3 * * *"]
-  },
-  "assets": {
-    "directory": "dist/client",
-    "binding": "ASSETS",
-    "run_worker_first": ["/"]
-  },
-  "routes": [
-    { "pattern": "sosho-studio.net", "custom_domain": true },
-    { "pattern": "www.sosho-studio.net", "custom_domain": true }
-  ],
-  "observability": {
-    "enabled": true
+    "WEBHOOK_EVENT_RETENTION_DAYS": "90",
+    "RATE_LIMIT_SALT": "local-development-only"
   }
 }

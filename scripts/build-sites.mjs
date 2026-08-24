@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { access, cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { access, cp, mkdir, readdir, rm } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const root = process.cwd();
@@ -13,7 +13,12 @@ const drizzleDir = resolve(openAiDir, "drizzle");
 
 const build = spawnSync(process.execPath, [nextBin, "build"], {
   cwd: root,
-  env: { ...process.env, SITES_STATIC_EXPORT: "1" },
+  env: {
+    ...process.env,
+    SITES_STATIC_EXPORT: "1",
+    NEXT_PUBLIC_SITE_URL:
+      process.env.NEXT_PUBLIC_SITE_URL || "https://sosho-studio.net",
+  },
   stdio: "inherit",
 });
 
@@ -27,21 +32,17 @@ await mkdir(clientDir, { recursive: true });
 await mkdir(serverDir, { recursive: true });
 await mkdir(drizzleDir, { recursive: true });
 await cp(exportDir, clientDir, { recursive: true });
-
-const migrationPath = resolve(root, "db", "migrations", "0000_ai_sales.sql");
-const migrationSql = await readFile(migrationPath, "utf8");
-const schemaStatements = migrationSql
-  .split("-- statement-breakpoint")
-  .map((statement) => statement.trim())
-  .filter(Boolean);
-const workerTemplate = await readFile(resolve(root, "worker", "index.js"), "utf8");
-const worker = workerTemplate.replace(
-  "__SCHEMA_STATEMENTS__",
-  JSON.stringify(schemaStatements)
-);
-
-await writeFile(resolve(serverDir, "index.js"), worker, "utf8");
+await cp(resolve(root, "worker"), serverDir, { recursive: true });
+await access(resolve(serverDir, "index.js"));
 await cp(resolve(root, ".openai", "hosting.json"), resolve(openAiDir, "hosting.json"));
-await cp(migrationPath, resolve(drizzleDir, "0000_ai_sales.sql"));
+
+const migrationsDir = resolve(root, "db", "migrations");
+const migrationFiles = (await readdir(migrationsDir))
+  .filter((file) => file.endsWith(".sql"))
+  .sort();
+if (migrationFiles.length === 0) throw new Error("No D1 migrations found");
+for (const migrationFile of migrationFiles) {
+  await cp(resolve(migrationsDir, migrationFile), resolve(drizzleDir, migrationFile));
+}
 
 console.log(`Sites bundle ready at ${distDir}`);

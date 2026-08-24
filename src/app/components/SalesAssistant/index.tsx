@@ -14,12 +14,17 @@ type ChatMessage = {
 
 type SalesReply = {
   conversationId: string;
-  leadId: string;
   reply: string;
   stage: "discovery" | "qualification" | "proposal_ready" | "handoff";
   quickReplies?: string[];
   isComplete?: boolean;
+  requestId: string;
 };
+
+const CONVERSATION_STORAGE_KEY = "sosho.sales.conversationId.v1";
+const CONVERSATION_ID_PATTERN =
+  /^conv_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const SALES_REQUEST_TIMEOUT_MS = 30_000;
 
 const COPY = {
   fa: {
@@ -62,17 +67,68 @@ const COPY = {
   },
 } as const;
 
+function secureUuid() {
+  if (typeof crypto === "undefined") {
+    throw new Error("Secure browser UUID generation is unavailable");
+  }
+  const webCrypto = crypto;
+  if (typeof webCrypto.randomUUID === "function") return webCrypto.randomUUID();
+  const bytes = webCrypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = [...bytes].map((byte) => byte.toString(16).padStart(2, "0"));
+  return `${hex.slice(0, 4).join("")}-${hex.slice(4, 6).join("")}-${hex
+    .slice(6, 8)
+    .join("")}-${hex.slice(8, 10).join("")}-${hex.slice(10).join("")}`;
+}
+
 function messageId() {
-  return typeof crypto !== "undefined" && "randomUUID" in crypto
-    ? crypto.randomUUID()
-    : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  return secureUuid();
+}
+
+function createConversationId() {
+  return `conv_${secureUuid()}`;
+}
+
+function loadConversationId() {
+  try {
+    const stored = window.localStorage.getItem(CONVERSATION_STORAGE_KEY);
+    if (stored && CONVERSATION_ID_PATTERN.test(stored)) return stored;
+    const created = createConversationId();
+    window.localStorage.setItem(CONVERSATION_STORAGE_KEY, created);
+    return created;
+  } catch {
+    return createConversationId();
+  }
+}
+
+function persistConversationId(value: string) {
+  try {
+    window.localStorage.setItem(CONVERSATION_STORAGE_KEY, value);
+  } catch {
+    // The conversation still works for this tab when storage is unavailable.
+  }
+}
+
+function isSalesReply(value: unknown): value is SalesReply {
+  if (!value || typeof value !== "object") return false;
+  const reply = value as Partial<SalesReply>;
+  return (
+    typeof reply.conversationId === "string" &&
+    CONVERSATION_ID_PATTERN.test(reply.conversationId) &&
+    typeof reply.reply === "string" &&
+    reply.reply.length > 0 &&
+    typeof reply.requestId === "string"
+  );
 }
 
 export default function SalesAssistant({ locale }: { locale: Locale }) {
   const copy = COPY[locale];
   const [isOpen, setIsOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [conversationId, setConversationId] = useState<string | null>(() =>
+    typeof window === "undefined" ? null : loadConversationId()
+  );
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -83,6 +139,7 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
     },
   ]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const activeRequestRef = useRef<AbortController | null>(null);
 
   const lastQuickReplies = useMemo(
     () => messages.at(-1)?.quickReplies ?? [],
@@ -95,7 +152,10 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
   }
 
   function resetChat() {
-    setConversationId(null);
+    activeRequestRef.current?.abort("reset");
+    const nextConversationId = createConversationId();
+    persistConversationId(nextConversationId);
+    setConversationId(nextConversationId);
     setDraft("");
     setMessages([
       {
@@ -119,23 +179,32 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
       { id: messageId(), role: "user", content: normalized },
     ]);
 
+    const currentConversationId = conversationId ?? loadConversationId();
+    if (!conversationId) setConversationId(currentConversationId);
+    const controller = new AbortController();
+    activeRequestRef.current = controller;
+    const timeout = window.setTimeout(
+      () => controller.abort("timeout"),
+      SALES_REQUEST_TIMEOUT_MS
+    );
+
     try {
       const response = await fetch("/api/sales/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
-          conversationId,
+          conversationId: currentConversationId,
           locale,
           message: normalized,
-          messageCount:
-            messages.filter((message) => message.role === "user").length + 1,
-          source: "website",
         }),
       });
 
       if (!response.ok) throw new Error(`Sales API returned ${response.status}`);
 
-      const result = (await response.json()) as SalesReply;
+      const result: unknown = await response.json();
+      if (!isSalesReply(result)) throw new Error("Sales API returned an invalid response");
+      persistConversationId(result.conversationId);
       setConversationId(result.conversationId);
       setMessages((current) => [
         ...current,
@@ -147,11 +216,14 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
         },
       ]);
     } catch {
+      if (controller.signal.reason === "reset") return;
       setMessages((current) => [
         ...current,
         { id: messageId(), role: "assistant", content: copy.error },
       ]);
     } finally {
+      window.clearTimeout(timeout);
+      if (activeRequestRef.current === controller) activeRequestRef.current = null;
       setIsSending(false);
       window.setTimeout(() => inputRef.current?.focus(), 80);
     }
