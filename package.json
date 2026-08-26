@@ -7,11 +7,13 @@
     "dev:next": "next dev",
     "dev:worker": "wrangler dev --config wrangler.dev.jsonc --port 8787",
     "db:migrate:local": "wrangler d1 migrations apply DB --local --config wrangler.dev.jsonc",
+    "db:migrate:staging": "wrangler d1 migrations apply sosho-sales-staging --remote --config wrangler.staging.jsonc",
     "build": "npm run build:sites",
     "build:next": "next build",
     "build:sites": "node scripts/build-sites.mjs",
     "blog:cover": "node scripts/generate-cover.mjs",
     "deploy": "npm run build:sites && wrangler deploy",
+    "deploy:staging": "npm run build:sites && wrangler deploy --config wrangler.staging.jsonc",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run"

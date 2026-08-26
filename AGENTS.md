@@ -60,7 +60,7 @@ Primary capabilities:
 |- .openai/hosting.json                  Sites project and `DB` binding
 |- .github/workflows/                    Root-discoverable CI/deploy workflows
 |- next.config.ts / vitest.config.mjs
-|- wrangler.jsonc / wrangler.dev.jsonc
+|- wrangler.jsonc / wrangler.staging.jsonc / wrangler.dev.jsonc
 `- package.json / package-lock.json
 ```
 
@@ -232,6 +232,7 @@ npm run dev
 npm run dev:next
 npm run dev:worker
 npm run db:migrate:local
+npm run db:migrate:staging
 npm run lint
 npm test
 npm run build:next
@@ -239,6 +240,7 @@ npm run start
 npm run build
 npx wrangler deploy --dry-run
 npm run deploy
+npm run deploy:staging
 npm run blog:cover -- --slug "post-slug" --tag "SEO"
 ```
 
@@ -252,6 +254,7 @@ Command semantics:
 - `build`: aliases `build:sites`.
 - `build:sites`: creates the static client and custom Worker bundle under `dist/`.
 - `deploy`: runs `build:sites` and then `wrangler deploy`; this changes production.
+- `deploy:staging`: builds and deploys only `sosho-site-staging` to its `workers.dev` URL; it has no production routes.
 - `blog:cover`: uses Playwright/Chromium to create a 1200x630 text-free PNG.
 
 The build/dev scripts resolve binaries from root `node_modules`. Use root `npm ci`.
@@ -285,6 +288,7 @@ Rules:
 ## Deployment and CI
 
 - `wrangler.jsonc` targets Worker `sosho-site`, assets in `dist/client`, Worker entry `dist/server/index.js`, and the live domains `sosho-studio.net` and `www.sosho-studio.net`.
+- `wrangler.staging.jsonc` targets the isolated `sosho-site-staging` Worker and `sosho-sales-staging` D1 database on `workers.dev`; it must never declare the production routes.
 - Observability is enabled.
 - `.openai/hosting.json` identifies the Sites project and declares D1 binding `DB`.
 - `wrangler.jsonc` declares `DB`, its migration directory, vars, and cron triggers. Its zero UUID is an intentional placeholder that must be replaced with the manually created production D1 ID before deployment.

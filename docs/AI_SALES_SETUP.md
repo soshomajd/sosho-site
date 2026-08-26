@@ -67,6 +67,8 @@ npx wrangler secret put RATE_LIMIT_SALT
 
 `RATE_LIMIT_SALT` باید مقدار تصادفی قوی و جدا از سایر Secretها باشد و برای hash کردن IP و Instagram user در کلیدهای rate limit استفاده می‌شود. تغییر آن شمارنده‌های فعال را عملاً reset می‌کند.
 
+برای staging از Worker و D1 مستقل تعریف‌شده در `wrangler.staging.jsonc` استفاده می‌شود. این config فقط `workers.dev` را فعال می‌کند و هیچ route مربوط به دامنه Production ندارد. Secretهای staging باید با گزینه `--config wrangler.staging.jsonc` ثبت شوند تا به Worker Production متصل نشوند.
+
 برای local، از `.dev.vars.example` یک `.dev.vars` بسازید. فایل واقعی commit نمی‌شود.
 
 ## تنظیمات غیرمحرمانه

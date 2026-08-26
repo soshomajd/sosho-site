@@ -34,6 +34,7 @@
 |  `- build-sites.mjs               static export و بسته production
 |- docs/AI_SALES_SETUP.md            راهنمای D1، OpenAI و Meta
 |- wrangler.jsonc                    تنظیم production Cloudflare
+|- wrangler.staging.jsonc            Worker و D1 مستقل staging روی workers.dev
 |- wrangler.dev.jsonc                تنظیم local Worker
 |- .openai/hosting.json              متادیتای OpenAI Sites
 `- .github/workflows/                CI و deploy دستی
@@ -90,5 +91,17 @@ npx wrangler deploy --dry-run
 5. readiness endpoint بعد از انتشار `200` برگرداند.
 
 `npm run deploy` محیط production و دامنه‌های زنده را هدف می‌گیرد و فقط با تأیید صریح باید اجرا شود. workflow استقرار در ریشه Repository قرار دارد و فقط با `workflow_dispatch` اجرا می‌شود؛ CI روی push و pull request فقط lint، test، build و dry-run را انجام می‌دهد.
+
+## Staging
+
+محیط staging از Worker با نام `sosho-site-staging`، دیتابیس `sosho-sales-staging` و فایل `wrangler.staging.jsonc` استفاده می‌کند. این config هیچ route یا دامنه Production ندارد و فقط روی `workers.dev` منتشر می‌شود. شناسه واقعی D1 و origin نهایی staging پس از ساخت resource جایگزین placeholderهای config می‌شوند.
+
+```bash
+npx wrangler d1 create sosho-sales-staging
+npm run db:migrate:staging
+npm run deploy:staging
+```
+
+Secretهای staging باید تعاملی و با `--config wrangler.staging.jsonc` ثبت شوند و نباید در فایل یا command history قرار بگیرند.
 
 فهرست کامل تنظیمات، retention و مراحل Meta در [docs/AI_SALES_SETUP.md](./docs/AI_SALES_SETUP.md) است. قراردادهای دائمی توسعه نیز در [AGENTS.md](./AGENTS.md) ثبت شده‌اند.
