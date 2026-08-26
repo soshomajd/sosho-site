@@ -11,7 +11,7 @@ import {
 } from "@/app/components/Services/data";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const ogImageUrl = new URL("/og.png", siteUrl).toString();
+const ogImageUrl = new URL("/og.jpg", siteUrl).toString();
 
 export function generateStaticParams() {
     // Pre-generate all locale + service combinations.

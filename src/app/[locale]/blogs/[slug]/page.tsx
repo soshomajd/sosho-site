@@ -7,7 +7,7 @@ import { BLOG_POSTS, getBlogPostBySlug } from "@/app/blogs/posts";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const baseUrl = siteUrl.replace(/\/$/, "");
-const ogImageUrl = new URL("/og.png", siteUrl).toString();
+const ogImageUrl = new URL("/og.jpg", siteUrl).toString();
 const siteName = "Sosho Studio";
 
 export function generateStaticParams() {

@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HtmlLangDir from "../components/HtmlLangDir";
+import SalesAssistant from "../components/SalesAssistant";
 import { getDictionary, isLocale, locales, type Locale } from "../i18n";
 import "../globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const baseUrl = siteUrl.replace(/\/$/, "");
-const ogImageUrl = new URL("/og.png", siteUrl).toString();
+const ogImageUrl = new URL("/og.jpg", siteUrl).toString();
 const siteName = "Sosho Studio";
 const instagramUrl = "https://www.instagram.com/sosho_studio/";
 
@@ -212,6 +213,7 @@ export default async function LocaleLayout({
             <Header locale={locale} labels={dict} />
             {children}
             <Footer locale={locale} />
+            <SalesAssistant locale={locale} />
         </>
     );
 }

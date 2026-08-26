@@ -6,7 +6,7 @@ import Link from "next/link";
 import { getBlogPostHref, getBlogPosts } from "@/app/blogs/posts";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const ogImageUrl = new URL("/og.png", siteUrl).toString();
+const ogImageUrl = new URL("/og.jpg", siteUrl).toString();
 
 export async function generateMetadata({
     params,

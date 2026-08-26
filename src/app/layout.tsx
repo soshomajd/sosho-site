@@ -1,37 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Vazirmatn, Orbitron } from "next/font/google";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const ogImageUrl = new URL("/og.png", siteUrl).toString();
+const ogImageUrl = new URL("/og.jpg", siteUrl).toString();
 
 const siteName = "Sosho Studio";
 const siteTitle = `${siteName} | Web Design, SEO, Web3 & AI`;
 const siteDescription =
   "Sosho Studio delivers end-to-end web design and development, WordPress, SEO and Google growth, Web3 experiences, and practical AI integrations.";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const vazirmatn = Vazirmatn({
-  variable: "--font-vazirmatn",
-  subsets: ["arabic", "latin"],
-});
-
-const orbitron = Orbitron({
-  variable: "--font-orbitron",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -122,9 +100,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${vazirmatn.variable} ${orbitron.variable} antialiased`}
-      >
+      <body className="antialiased">
         {children}
         <SpeedInsights />
       </body>
