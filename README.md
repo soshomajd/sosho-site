@@ -16,6 +16,8 @@
 - timeout، exponential backoff، request ID و structured logging
 - retention خودکار پیام‌ها، PII سرنخ‌ها و payload خام Meta
 - تست Worker در Runtime رسمی Cloudflare با Vitest و D1 محلی
+- هسته تولید محتوای فارسی با Structured Outputs، اعتبارسنجی سیاست محتوا و ذخیره در D1
+- تأیید محتوای تولیدشده و اعلان‌های مهم فروش از طریق Telegram به‌صورت اختیاری
 
 ## ساختار اصلی
 
@@ -68,6 +70,10 @@ npm run dev:next
 | `/api/sales/chat` | `POST` | قرارداد عمومی فقط شامل `conversationId`، `locale` و `message` |
 | `/api/meta/webhook` | `GET` | handshake تأیید Meta |
 | `/api/meta/webhook` | `POST` | دریافت امضاشده پیام Instagram و پردازش background |
+| `/api/content/campaigns` | `POST` | ایجاد Campaign فارسی با احراز هویت Admin |
+| `/api/content/campaigns/:id/generate` | `POST` | تولید و اعتبارسنجی Content Bundle |
+| `/api/content/campaigns/:id` | `GET` | دریافت Campaign و آخرین Bundle معتبر |
+| `/api/webhooks/telegram` | `POST` | دریافت امن و تکرارناپذیر Callbackهای مدیر Telegram |
 
 ## کیفیت و build
 

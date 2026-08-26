@@ -29,6 +29,8 @@ Primary capabilities:
 - Static service and article routes
 - Metadata, canonical/alternate URLs, Open Graph, sitemap, robots, manifest, and JSON-LD
 - Floating website sales assistant
+- Admin-only Persian AI content campaign generation with validated multi-platform bundles
+- Optional Telegram content approval and deduplicated sales notifications
 - OpenAI Responses API with strict structured output and deterministic fallback
 - Cloudflare D1 lead/conversation/message persistence
 - Signed and deduplicated Meta/Instagram webhook processing
@@ -47,6 +49,8 @@ Primary capabilities:
 |- worker/
 |  |- index.js                           Runtime Worker and API source
 |  `- core.js                            Validation, policy, retry utilities
+|  `- content-generation.js              Content schema, policy validation, and OpenAI service
+|  `- telegram-service.js                Telegram Bot API transport, callbacks, and message safety
 |- db/
 |  |- schema.ts                          Type mirror; not schema authority
 |  `- migrations/*.sql                  D1 schema source of truth
@@ -171,6 +175,10 @@ Instagram webhook
 
 - `GET /api/health`: checks D1 connectivity, required tables/columns, and required provider settings; returns `200` ready or `503` not ready without exposing values.
 - `POST /api/sales/chat`: website chat endpoint.
+- `POST /api/content/campaigns`: creates an admin-owned Persian content campaign.
+- `POST /api/content/campaigns/:id/generate`: generates and validates its content bundle.
+- `GET /api/content/campaigns/:id`: returns the campaign and latest valid bundle.
+- `POST /api/webhooks/telegram`: validates admin callbacks and performs idempotent content actions.
 - `GET /api/meta/webhook`: Meta verification handshake.
 - `POST /api/meta/webhook`: signed inbound message webhook, processed with `ctx.waitUntil`.
 
@@ -183,6 +191,10 @@ The ordered SQL migrations create and evolve:
 - `messages`: ordered user/assistant history, metadata, retention, and event-linked idempotency.
 - `webhook_events`: `received -> processing -> processed|failed`, attempts, retry schedule, provider response cache, and payload retention.
 - `rate_limit_counters`: atomic IP, conversation, Instagram-user, and OpenAI quota windows.
+- `content_campaigns`: admin content requests and `draft -> generating -> generated|failed` state.
+- `content_items`: validated generated bundles linked to campaigns.
+- `telegram_updates`: deduplicated Telegram update/callback processing records.
+- `telegram_notifications`: deduplicated content preview and sales notification delivery state.
 
 `db/migrations/*.sql` is the only runtime schema source of truth. `db/schema.ts` is a TypeScript mirror and never creates tables. Worker requests must not execute DDL or bootstrap schema. Use standard `wrangler d1 migrations apply` commands and keep the SQL, type mirror, queries, tests, build, and setup docs synchronized.
 
@@ -202,6 +214,8 @@ The ordered SQL migrations create and evolve:
 - Keep Worker response stages/types compatible with `SalesAssistant` (`discovery`, `qualification`, `proposal_ready`, `handoff`).
 - Preserve Meta signature verification and deduplication. Do not bypass either for production or convenience.
 - Preserve event-linked message uniqueness and cached webhook responses: retries must never recreate a completed sales turn.
+- Telegram is optional. Missing or failing Telegram configuration must never fail content persistence, Sales Chat, or Instagram processing.
+- Telegram callbacks must be limited to the configured admin chat/user, acknowledged with `answerCallbackQuery`, and deduplicated before side effects.
 - OpenAI and Meta calls use finite timeouts, bounded exponential retry, and PII-safe structured logs carrying `requestId`.
 - Retention cron deletes expired messages/counters, anonymizes selected lead PII, purges raw Meta payloads, and later deletes webhook records.
 - Leads can contain PII such as names, phone numbers, budgets, and business details. Do not log, commit, or use production records as fixtures. Anonymize test data.
@@ -269,6 +283,8 @@ Worker bindings and secrets:
 
 - `DB`: D1 binding.
 - `OPENAI_API_KEY`: enables model responses.
+- `ADMIN_API_TOKEN`: protects every `/api/content/*` endpoint and must never reach frontend code or logs.
+- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ADMIN_CHAT_ID`, `TELEGRAM_ADMIN_USER_ID`, and `TELEGRAM_WEBHOOK_SECRET`: optional Telegram approval/notification configuration.
 - `OPENAI_MODEL`: optional; current fallback in code is `gpt-5.6-luna`.
 - `META_VERIFY_TOKEN`: callback verification token.
 - `META_APP_SECRET`: webhook HMAC secret.
@@ -346,6 +362,8 @@ These are documented facts, not permission to expand an unrelated task:
 10. There is no deterministic pricing engine or browser E2E suite.
 11. The production D1 UUID in `wrangler.jsonc` is a placeholder until the owner provisions the database.
 12. The default AI model and Meta Graph version are configurable fallbacks; external compatibility must be reviewed before production changes.
+13. Content generation creates and retrieves bundles only; scheduling and social publishing are intentionally not implemented.
+14. Telegram supports approval and notifications only; it does not publish generated content to social platforms.
 
 ## Change discipline
 

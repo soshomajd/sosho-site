@@ -71,6 +71,57 @@ export type RateLimitCounterRow = {
   expires_at: string;
 };
 
+export type ContentCampaignRow = {
+  id: string;
+  topic: string;
+  target_audience: string;
+  goal: string;
+  language: "fa";
+  status: "draft" | "generating" | "generated" | "failed";
+  approval_status: "pending" | "approved" | "rejected";
+  approval_decided_at: string | null;
+  approval_telegram_user_id: string | null;
+  approval_callback_id: string | null;
+  scheduled_at: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type TelegramUpdateRow = {
+  update_id: string;
+  callback_id: string | null;
+  callback_action: "approve" | "reject" | "regenerate" | "view" | null;
+  campaign_id: string | null;
+  status: "processing" | "processed" | "failed";
+  created_at: string;
+  updated_at: string;
+  processed_at: string | null;
+  last_error: string | null;
+};
+
+export type TelegramNotificationRow = {
+  event_key: string;
+  notification_type: string;
+  entity_id: string | null;
+  status: "pending" | "sent" | "failed";
+  attempt_count: number;
+  created_at: string;
+  updated_at: string;
+  sent_at: string | null;
+  last_error: string | null;
+};
+
+export type ContentItemRow = {
+  id: string;
+  campaign_id: string;
+  content_type: "content_bundle";
+  platform: "multi_platform";
+  content_json: string;
+  validation_status: "valid" | "invalid";
+  created_at: string;
+  updated_at: string;
+};
+
 export type LeadRequirements = {
   businessName: string | null;
   businessActivity: string | null;

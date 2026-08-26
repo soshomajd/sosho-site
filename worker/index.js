@@ -16,6 +16,17 @@ import {
   validateSalesResponse,
   validateWebsiteChatInput,
 } from "./core.js";
+import {
+  ContentGenerationService,
+  validateCreateCampaignInput,
+} from "./content-generation.js";
+import {
+  TelegramService,
+  campaignApprovalKeyboard,
+  isTelegramConfigured,
+  isTelegramWebhookConfigured,
+  validateTelegramUpdate,
+} from "./telegram-service.js";
 
 const REQUIRED_TABLES = [
   "leads",
@@ -23,6 +34,10 @@ const REQUIRED_TABLES = [
   "messages",
   "webhook_events",
   "rate_limit_counters",
+  "content_campaigns",
+  "content_items",
+  "telegram_updates",
+  "telegram_notifications",
 ];
 
 function now() {
@@ -45,6 +60,215 @@ function json(data, status = 200, requestId) {
 function requireDatabase(env) {
   if (!env.DB) throw new ServiceError("database_not_configured", { status: 503 });
   return env.DB;
+}
+
+async function sendTelegramNotificationOnce(env, { eventKey, type, entityId, text, keyboard, requestId }) {
+  if (!isTelegramConfigured(env)) return { status: "disabled" };
+  const db = requireDatabase(env);
+  const timestamp = now();
+  const inserted = await db
+    .prepare(
+      `INSERT OR IGNORE INTO telegram_notifications (
+        event_key, notification_type, entity_id, status, attempt_count, created_at, updated_at
+      ) VALUES (?, ?, ?, 'pending', 0, ?, ?)`
+    )
+    .bind(eventKey, type, entityId ?? null, timestamp, timestamp)
+    .run();
+  if (Number(inserted.meta?.changes ?? 0) === 0) return { status: "duplicate" };
+  try {
+    const telegram = new TelegramService(env);
+    if (keyboard) await telegram.sendInlineKeyboard(text, keyboard, requestId);
+    else await telegram.sendText(text, { requestId });
+    await db
+      .prepare(
+        `UPDATE telegram_notifications
+         SET status = 'sent', attempt_count = attempt_count + 1, sent_at = ?, updated_at = ?
+         WHERE event_key = ?`
+      )
+      .bind(now(), now(), eventKey)
+      .run();
+    return { status: "sent" };
+  } catch (error) {
+    await db
+      .prepare(
+        `UPDATE telegram_notifications
+         SET status = 'failed', attempt_count = attempt_count + 1, last_error = ?, updated_at = ?
+         WHERE event_key = ?`
+      )
+      .bind(String(error?.code || "telegram_error").slice(0, 100), now(), eventKey)
+      .run();
+    logEvent("warn", "telegram_notification_failed", {
+      requestId,
+      provider: "telegram",
+      code: error?.code || "telegram_error",
+    });
+    return { status: "failed" };
+  }
+}
+
+function contentPreviewText(campaign, bundle) {
+  return [
+    "پیش‌نمایش محتوای جدید",
+    `عنوان: ${bundle.campaignTitle}`,
+    `مخاطب: ${bundle.targetAudience}`,
+    `هوک: ${bundle.mainHook}`,
+    `دعوت به اقدام: ${bundle.callToAction}`,
+    "محتواها: ریل، استوری، کاروسل، کپشن شبکه‌ها، یوتیوب، تردز و زیرنویس",
+    `Campaign ID: ${campaign.id}`,
+  ].join("\n");
+}
+
+function contentDetailsText(campaign, bundle) {
+  return [
+    `جزئیات Campaign: ${campaign.id}`,
+    `عنوان: ${bundle.campaignTitle}`,
+    `مخاطب: ${bundle.targetAudience}`,
+    `هدف: ${bundle.contentGoal}`,
+    `هوک: ${bundle.mainHook}`,
+    `پیام اصلی: ${bundle.mainMessage}`,
+    `CTA: ${bundle.callToAction}`,
+    `Instagram: ${bundle.instagramCaption}`,
+    `LinkedIn: ${bundle.linkedinPost}`,
+    `Telegram: ${bundle.telegramPost}`,
+    `YouTube: ${bundle.youtubeTitle}\n${bundle.youtubeDescription}`,
+    `جهت بصری: ${bundle.visualDirection}`,
+  ].join("\n\n");
+}
+
+function requireAdmin(request, env) {
+  if (!env.ADMIN_API_TOKEN) {
+    throw new ServiceError("admin_auth_not_configured", { status: 503 });
+  }
+  if ((request.headers.get("authorization") || "") !== `Bearer ${env.ADMIN_API_TOKEN}`) {
+    throw new ServiceError("unauthorized", { status: 401 });
+  }
+}
+
+async function createContentCampaign(env, input) {
+  const id = createId("campaign");
+  const timestamp = now();
+  await requireDatabase(env)
+    .prepare(
+      `INSERT INTO content_campaigns (
+        id, topic, target_audience, goal, language, status, scheduled_at, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, 'draft', ?, ?, ?)`
+    )
+    .bind(id, input.topic, input.targetAudience, input.goal, input.language,
+      input.scheduledAt, timestamp, timestamp)
+    .run();
+  return getContentCampaign(env, id);
+}
+
+async function getContentCampaign(env, id) {
+  const db = requireDatabase(env);
+  const campaign = await db
+    .prepare(
+      `SELECT id, topic, target_audience, goal, language, status, approval_status,
+              approval_decided_at, approval_telegram_user_id, approval_callback_id,
+              scheduled_at, created_at, updated_at
+       FROM content_campaigns WHERE id = ? LIMIT 1`
+    )
+    .bind(id)
+    .first();
+  if (!campaign) throw new ServiceError("campaign_not_found", { status: 404 });
+  const item = await db
+    .prepare(
+      `SELECT id, campaign_id, content_type, platform, content_json,
+              validation_status, created_at, updated_at
+       FROM content_items
+       WHERE campaign_id = ? AND validation_status = 'valid'
+       ORDER BY created_at DESC LIMIT 1`
+    )
+    .bind(id)
+    .first();
+  return {
+    campaign: {
+      id: campaign.id,
+      topic: campaign.topic,
+      targetAudience: campaign.target_audience,
+      goal: campaign.goal,
+      language: campaign.language,
+      status: campaign.status,
+      approvalStatus: campaign.approval_status,
+      approvalDecidedAt: campaign.approval_decided_at,
+      approvalTelegramUserId: campaign.approval_telegram_user_id,
+      approvalCallbackId: campaign.approval_callback_id,
+      scheduledAt: campaign.scheduled_at,
+      createdAt: campaign.created_at,
+      updatedAt: campaign.updated_at,
+    },
+    contentItem: item ? {
+      id: item.id,
+      campaignId: item.campaign_id,
+      contentType: item.content_type,
+      platform: item.platform,
+      content: parseJson(item.content_json, null),
+      validationStatus: item.validation_status,
+      createdAt: item.created_at,
+      updatedAt: item.updated_at,
+    } : null,
+  };
+}
+
+async function generateContentCampaign(env, id, requestId, { regenerate = false } = {}) {
+  const db = requireDatabase(env);
+  const claimed = await db
+    .prepare(
+      `UPDATE content_campaigns
+       SET status = 'generating', updated_at = ?
+       WHERE id = ? AND status IN (${regenerate ? "'generated'" : "'draft', 'failed'"})
+       RETURNING id, topic, target_audience, goal, language`
+    )
+    .bind(now(), id)
+    .first();
+  if (!claimed) {
+    const existing = await db.prepare("SELECT status FROM content_campaigns WHERE id = ?").bind(id).first();
+    if (!existing) throw new ServiceError("campaign_not_found", { status: 404 });
+    throw new ServiceError("invalid_campaign_state", { status: 409 });
+  }
+  try {
+    const bundle = await new ContentGenerationService(env).generate(claimed, requestId);
+    const completedAt = now();
+    const itemId = createId("content");
+    await db.batch([
+      db
+        .prepare(
+          `INSERT INTO content_items (
+            id, campaign_id, content_type, platform, content_json,
+            validation_status, created_at, updated_at
+          ) VALUES (?, ?, 'content_bundle', 'multi_platform', ?, 'valid', ?, ?)`
+        )
+        .bind(itemId, id, JSON.stringify(bundle), completedAt, completedAt),
+      db
+        .prepare(
+          `UPDATE content_campaigns
+           SET status = 'generated', approval_status = 'pending',
+               approval_decided_at = NULL, approval_telegram_user_id = NULL,
+               approval_callback_id = NULL, updated_at = ?
+           WHERE id = ? AND status = 'generating'`
+        )
+        .bind(completedAt, id),
+    ]);
+    const generated = await getContentCampaign(env, id);
+    await sendTelegramNotificationOnce(env, {
+      eventKey: `content_preview:${id}:${itemId}`,
+      type: "content_preview",
+      entityId: id,
+      text: contentPreviewText(generated.campaign, bundle),
+      keyboard: campaignApprovalKeyboard(id),
+      requestId,
+    });
+    return generated;
+  } catch (error) {
+    await db
+      .prepare(
+        `UPDATE content_campaigns SET status = 'failed', updated_at = ?
+         WHERE id = ? AND status = 'generating'`
+      )
+      .bind(now(), id)
+      .run();
+    throw error;
+  }
 }
 
 function getRetentionDays(env, name, fallback) {
@@ -198,6 +422,7 @@ async function createLeadAndConversation(
     conversation_id: conversationId,
     lead_id: leadId,
     requirements_json: "{}",
+    is_new_lead: true,
   };
 }
 
@@ -539,6 +764,38 @@ async function updateLead(env, leadId, result, profile) {
     .run();
 }
 
+function salesNotificationText(type, input, conversation, result, profile) {
+  const labels = {
+    lead_created: "سرنخ جدید",
+    proposal_ready: "پیشنهاد آماده بررسی",
+    handoff: "نیاز به دخالت مدیر",
+    provider_failed: "شکست Provider فروش",
+  };
+  const contact = [profile.contactName, profile.phone, profile.preferredChannel]
+    .filter((value) => typeof value === "string" && value.trim())
+    .join(" | ");
+  return [
+    labels[type] || "رویداد فروش",
+    `منبع: ${input.channel}`,
+    `نوع پروژه: ${result.projectType || "نامشخص"}`,
+    `بودجه: ${profile.budgetToman || "ثبت نشده"}`,
+    `سطح پیشنهادی: ${result.recommendedTier || "نامشخص"}`,
+    `مرحله: ${result.stage}`,
+    `Conversation ID: ${conversation.conversation_id}`,
+    ...(contact ? [`تماس: ${contact}`] : []),
+  ].join("\n");
+}
+
+async function notifySalesEvent(env, type, input, conversation, result, profile) {
+  return sendTelegramNotificationOnce(env, {
+    eventKey: `sales:${type}:${conversation.conversation_id}`,
+    type,
+    entityId: conversation.lead_id,
+    text: salesNotificationText(type, input, conversation, result, profile),
+    requestId: input.requestId,
+  });
+}
+
 export async function handleSalesTurn(env, input) {
   requireDatabase(env);
   if (input.channel === "website") {
@@ -609,6 +866,7 @@ export async function handleSalesTurn(env, input) {
   const messageCount = await countConversationUserMessages(env, conversation.conversation_id);
   const profile = parseJson(conversation.requirements_json, {});
   let result;
+  let providerFailed = false;
   try {
     result = await callSalesModel(env, {
       locale: input.locale,
@@ -619,6 +877,7 @@ export async function handleSalesTurn(env, input) {
       requestId: input.requestId,
     });
   } catch (error) {
+    providerFailed = true;
     logEvent("warn", "sales_model_fallback", {
       requestId: input.requestId,
       provider: "openai",
@@ -643,6 +902,18 @@ export async function handleSalesTurn(env, input) {
     },
     input.externalEventId
   );
+  if (conversation.is_new_lead) {
+    await notifySalesEvent(env, "lead_created", input, conversation, result, updatedProfile);
+  }
+  if (result.stage === "proposal_ready" || result.isComplete) {
+    await notifySalesEvent(env, "proposal_ready", input, conversation, result, updatedProfile);
+  }
+  if (result.stage === "handoff") {
+    await notifySalesEvent(env, "handoff", input, conversation, result, updatedProfile);
+  }
+  if (providerFailed) {
+    await notifySalesEvent(env, "provider_failed", input, conversation, result, updatedProfile);
+  }
   return {
     conversationId: conversation.conversation_id,
     reply: result.reply,
@@ -1009,10 +1280,138 @@ export async function runRetentionCleanup(env, requestId) {
   });
 }
 
+function constantTimeEqual(left, right) {
+  const a = String(left || "");
+  const b = String(right || "");
+  if (a.length !== b.length) return false;
+  let mismatch = 0;
+  for (let index = 0; index < a.length; index += 1) {
+    mismatch |= a.charCodeAt(index) ^ b.charCodeAt(index);
+  }
+  return mismatch === 0;
+}
+
+async function claimTelegramUpdate(env, update) {
+  const timestamp = now();
+  const inserted = await requireDatabase(env)
+    .prepare(
+      `INSERT OR IGNORE INTO telegram_updates (
+        update_id, callback_id, callback_action, campaign_id, status, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, 'processing', ?, ?)`
+    )
+    .bind(
+      update.updateId,
+      update.callbackId,
+      update.action,
+      update.campaignId,
+      timestamp,
+      timestamp
+    )
+    .run();
+  return Number(inserted.meta?.changes ?? 0) > 0;
+}
+
+async function finishTelegramUpdate(env, updateId, status, errorCode = null) {
+  const timestamp = now();
+  await requireDatabase(env)
+    .prepare(
+      `UPDATE telegram_updates
+       SET status = ?, processed_at = ?, updated_at = ?, last_error = ?
+       WHERE update_id = ?`
+    )
+    .bind(status, timestamp, timestamp, errorCode, updateId)
+    .run();
+}
+
+async function processTelegramCallback(env, update, requestId) {
+  const telegram = new TelegramService(env);
+  let answer = "انجام شد";
+  let status = "processed";
+  let errorCode = null;
+  try {
+    if (update.action === "approve" || update.action === "reject") {
+      const decision = update.action === "approve" ? "approved" : "rejected";
+      const changed = await requireDatabase(env)
+        .prepare(
+          `UPDATE content_campaigns
+           SET approval_status = ?, approval_decided_at = ?,
+               approval_telegram_user_id = ?, approval_callback_id = ?, updated_at = ?
+           WHERE id = ? AND status = 'generated'
+           RETURNING id`
+        )
+        .bind(decision, now(), update.userId, update.callbackId, now(), update.campaignId)
+        .first();
+      if (!changed) throw new ServiceError("campaign_not_found_or_not_generated", { status: 409 });
+      answer = decision === "approved" ? "محتوا تأیید شد" : "محتوا رد شد";
+    } else if (update.action === "regenerate") {
+      await generateContentCampaign(env, update.campaignId, requestId, { regenerate: true });
+      answer = "محتوا دوباره تولید شد";
+    } else if (update.action === "view") {
+      const campaign = await getContentCampaign(env, update.campaignId);
+      if (!campaign.contentItem?.content) throw new ServiceError("content_not_found", { status: 404 });
+      await telegram.sendText(contentDetailsText(campaign.campaign, campaign.contentItem.content), {
+        requestId,
+      });
+      answer = "جزئیات ارسال شد";
+    }
+  } catch (error) {
+    status = "failed";
+    errorCode = String(error?.code || "callback_failed").slice(0, 100);
+    answer = "عملیات انجام نشد";
+    logEvent("warn", "telegram_callback_failed", {
+      requestId,
+      provider: "telegram",
+      code: errorCode,
+    });
+  }
+  await finishTelegramUpdate(env, update.updateId, status, errorCode);
+  try {
+    await telegram.answerCallbackQuery(update.callbackId, answer, requestId);
+  } catch (error) {
+    logEvent("warn", "telegram_callback_answer_failed", {
+      requestId,
+      provider: "telegram",
+      code: error?.code || "telegram_error",
+    });
+  }
+}
+
+async function handleTelegramWebhook(request, env, requestId) {
+  if (!isTelegramWebhookConfigured(env)) {
+    throw new ServiceError("telegram_not_configured", { status: 503 });
+  }
+  if (!constantTimeEqual(
+    request.headers.get("x-telegram-bot-api-secret-token"),
+    env.TELEGRAM_WEBHOOK_SECRET
+  )) {
+    throw new ServiceError("invalid_telegram_secret", { status: 401 });
+  }
+  const body = await readJsonBody(request, 65_536);
+  const validation = validateTelegramUpdate(body);
+  if (!validation.ok) throw new ServiceError("invalid_telegram_update", { status: 400 });
+  const update = validation.value;
+  if (update.chatId !== String(env.TELEGRAM_ADMIN_CHAT_ID) ||
+      update.userId !== String(env.TELEGRAM_ADMIN_USER_ID)) {
+    throw new ServiceError("telegram_admin_forbidden", { status: 403 });
+  }
+  const claimed = await claimTelegramUpdate(env, update);
+  if (!claimed) {
+    try {
+      await new TelegramService(env).answerCallbackQuery(update.callbackId, "قبلاً پردازش شده", requestId);
+    } catch {
+      // The update remains deduplicated even if Telegram cannot receive the acknowledgement.
+    }
+    return { accepted: true, duplicate: true };
+  }
+  await processTelegramCallback(env, update, requestId);
+  return { accepted: true, duplicate: false };
+}
+
 async function getReadiness(env) {
   const missing = [];
   if (!env.DB) missing.push("DB");
   if (!env.OPENAI_API_KEY) missing.push("OPENAI_API_KEY");
+  if (!env.ADMIN_API_TOKEN) missing.push("ADMIN_API_TOKEN");
   if (!env.RATE_LIMIT_SALT) missing.push("RATE_LIMIT_SALT");
   if (!env.META_VERIFY_TOKEN) missing.push("META_VERIFY_TOKEN");
   if (!env.META_APP_SECRET) missing.push("META_APP_SECRET");
@@ -1031,7 +1430,10 @@ async function getReadiness(env) {
         const tables = await env.DB.prepare(
           `SELECT COUNT(*) AS total
            FROM sqlite_master
-           WHERE type = 'table' AND name IN ('leads', 'conversations', 'messages', 'webhook_events', 'rate_limit_counters')`
+           WHERE type = 'table' AND name IN (
+             'leads', 'conversations', 'messages', 'webhook_events', 'rate_limit_counters',
+             'content_campaigns', 'content_items', 'telegram_updates', 'telegram_notifications'
+           )`
         ).first();
         migrationsReady = Number(tables?.total ?? 0) === REQUIRED_TABLES.length;
         if (migrationsReady) {
@@ -1045,6 +1447,21 @@ async function getReadiness(env) {
             ),
             env.DB.prepare(
               "SELECT scope_key, window_start, window_seconds, expires_at FROM rate_limit_counters LIMIT 1"
+            ),
+            env.DB.prepare(
+              `SELECT topic, target_audience, goal, language, status, scheduled_at,
+                      approval_status, approval_decided_at, approval_telegram_user_id,
+                      approval_callback_id
+               FROM content_campaigns LIMIT 1`
+            ),
+            env.DB.prepare(
+              "SELECT campaign_id, content_type, platform, content_json, validation_status FROM content_items LIMIT 1"
+            ),
+            env.DB.prepare(
+              "SELECT update_id, callback_id, callback_action, campaign_id, status FROM telegram_updates LIMIT 1"
+            ),
+            env.DB.prepare(
+              "SELECT event_key, notification_type, entity_id, status FROM telegram_notifications LIMIT 1"
             ),
           ]);
         }
@@ -1061,10 +1478,12 @@ async function getReadiness(env) {
       database: databaseReady,
       migrations: migrationsReady,
       openai: Boolean(env.OPENAI_API_KEY),
+      adminAuth: Boolean(env.ADMIN_API_TOKEN),
       rateLimitPrivacy: Boolean(env.RATE_LIMIT_SALT),
       instagram: Boolean(
         env.META_VERIFY_TOKEN && env.META_APP_SECRET && env.META_INSTAGRAM_ACCESS_TOKEN
       ),
+      telegram: isTelegramWebhookConfigured(env),
     },
     missing: [...new Set(missing)],
   };
@@ -1083,6 +1502,38 @@ function apiErrorResponse(error, requestId) {
 
 export async function handleApi(request, env, ctx, url, requestId) {
   try {
+    if (url.pathname === "/api/webhooks/telegram" && request.method === "POST") {
+      requireDatabase(env);
+      return json(await handleTelegramWebhook(request, env, requestId), 200, requestId);
+    }
+    if (url.pathname === "/api/content/campaigns" && request.method === "POST") {
+      requireAdmin(request, env);
+      requireDatabase(env);
+      const body = await readJsonBody(request, 8192);
+      const validation = validateCreateCampaignInput(body);
+      if (!validation.ok) {
+        return json({ error: "invalid_request", issues: validation.issues }, 400, requestId);
+      }
+      return json(await createContentCampaign(env, validation.value), 201, requestId);
+    }
+    const contentRoute = url.pathname.match(/^\/api\/content\/campaigns\/([^/]+)(\/generate)?$/u);
+    if (contentRoute) {
+      requireAdmin(request, env);
+      const campaignId = decodeURIComponent(contentRoute[1]);
+      if (!/^campaign_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu.test(campaignId)) {
+        throw new ServiceError("invalid_campaign_id", { status: 400 });
+      }
+      if (!contentRoute[2] && request.method === "GET") {
+        return json(await getContentCampaign(env, campaignId), 200, requestId);
+      }
+      if (contentRoute[2] === "/generate" && request.method === "POST") {
+        if (request.body || Number(request.headers.get("content-length") || 0) > 0) {
+          throw new ServiceError("request_body_not_allowed", { status: 400 });
+        }
+        return json(await generateContentCampaign(env, campaignId, requestId), 200, requestId);
+      }
+      return json({ error: "method_not_allowed" }, 405, requestId);
+    }
     if (request.method === "GET" && url.pathname === "/api/health") {
       const readiness = await getReadiness(env);
       logEvent(readiness.ready ? "info" : "warn", "readiness_checked", {

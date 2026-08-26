@@ -59,6 +59,11 @@ Secretهای الزامی production:
 
 ```bash
 npx wrangler secret put OPENAI_API_KEY
+npx wrangler secret put ADMIN_API_TOKEN
+npx wrangler secret put TELEGRAM_BOT_TOKEN
+npx wrangler secret put TELEGRAM_ADMIN_CHAT_ID
+npx wrangler secret put TELEGRAM_ADMIN_USER_ID
+npx wrangler secret put TELEGRAM_WEBHOOK_SECRET
 npx wrangler secret put META_VERIFY_TOKEN
 npx wrangler secret put META_APP_SECRET
 npx wrangler secret put META_INSTAGRAM_ACCESS_TOKEN
@@ -78,6 +83,14 @@ npx wrangler secret put RATE_LIMIT_SALT
 | متغیر | پیش‌فرض | کاربرد |
 | --- | ---: | --- |
 | `OPENAI_MODEL` | `gpt-5.6-luna` | مدل Responses API |
+| `ADMIN_API_TOKEN` | Secret | Bearer token مستقل برای APIهای مدیریت محتوا؛ در Frontend قرار نگیرد |
+| `CONTENT_OPENAI_MAX_OUTPUT_TOKENS` | `6000` | سقف خروجی Content Bundle |
+| `TELEGRAM_BOT_TOKEN` | Secret | Token ربات؛ هرگز در Frontend یا log قرار نگیرد |
+| `TELEGRAM_ADMIN_CHAT_ID` / `TELEGRAM_ADMIN_USER_ID` | Secret | تنها Chat و User مجاز برای Callbackهای مدیریتی |
+| `TELEGRAM_WEBHOOK_SECRET` | Secret | مقدار هدر `X-Telegram-Bot-Api-Secret-Token` |
+| `TELEGRAM_TIMEOUT_MS` / `TELEGRAM_MAX_ATTEMPTS` | `5000` / `3` | timeout و retry محدود Telegram |
+
+Telegram اختیاری است. اگر هرکدام از تنظیمات آن موجود نباشد، Content Generation، Sales Chat و Instagram بدون ارسال اعلان به کار خود ادامه می‌دهند. پس از ثبت webhook واقعی، مسیر callback باید `/api/webhooks/telegram` و allowed update آن `callback_query` باشد.
 | `META_GRAPH_VERSION` | `v26.0` | نسخه Graph API |
 | `CHAT_IP_HOURLY_LIMIT` | `60` | سقف چت سایت برای IP در ساعت |
 | `CHAT_CONVERSATION_HOURLY_LIMIT` | `30` | سقف هر conversation در ساعت |

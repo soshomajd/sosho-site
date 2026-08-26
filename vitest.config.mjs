@@ -18,6 +18,7 @@ export default defineConfig({
             PUBLIC_SITE_ORIGINS: "https://example.com",
             OPENAI_API_KEY: "test-openai-key",
             OPENAI_MODEL: "gpt-5.6-luna",
+            ADMIN_API_TOKEN: "test-admin-token",
             META_VERIFY_TOKEN: "test-verify-token",
             META_APP_SECRET: "test-meta-secret",
             META_INSTAGRAM_ACCESS_TOKEN: "test-instagram-token",
