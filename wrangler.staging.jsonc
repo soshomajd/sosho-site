@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sosho-site-staging",
+  "account_id": "6249a52e85fd7dccd48884f0744bbcbc",
   "main": "dist/server/index.js",
   "compatibility_date": "2026-08-20",
   "workers_dev": true,
@@ -9,13 +10,13 @@
     {
       "binding": "DB",
       "database_name": "sosho-sales-staging",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "47c4baeb-292e-4c1b-a857-8237c8106542",
       "migrations_dir": "db/migrations"
     }
   ],
   "vars": {
     "ENVIRONMENT": "staging",
-    "PUBLIC_SITE_ORIGINS": "https://staging.invalid",
+    "PUBLIC_SITE_ORIGINS": "https://sosho-site-staging.soheilshokoohi-23.workers.dev",
     "OPENAI_MODEL": "gpt-5.6-luna",
     "META_GRAPH_VERSION": "v26.0",
     "INSTAGRAM_DEFAULT_LOCALE": "fa",

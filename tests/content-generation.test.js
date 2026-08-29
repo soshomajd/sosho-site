@@ -1,7 +1,7 @@
 import { createExecutionContext } from "cloudflare:test";
 import { env } from "cloudflare:workers";
 import { HttpResponse, http } from "msw";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import worker from "../worker/index.js";
 import {
@@ -153,6 +153,31 @@ describe("admin content campaign API", () => {
     expect((await api(`/api/content/campaigns/${payload.campaign.id}/generate`, { method: "POST" })).status).toBe(409);
   });
 
+  it("accepts a zero-byte generate body while rejecting actual content", async () => {
+    network.use(http.post("https://api.openai.com/v1/responses", () => HttpResponse.json({
+      status: "completed",
+      output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify(validBundle()) }] }],
+    })));
+    const emptyBodyCampaign = await createCampaign();
+    const emptyBodyResponse = await worker.fetch(new Request(
+      `https://example.com/api/content/campaigns/${emptyBodyCampaign.payload.campaign.id}/generate`,
+      {
+        method: "POST",
+        headers: { authorization: "Bearer test-admin-token" },
+        body: "",
+      }
+    ), env, createExecutionContext());
+    expect(emptyBodyResponse.status).toBe(200);
+
+    const contentCampaign = await createCampaign();
+    const contentResponse = await api(
+      `/api/content/campaigns/${contentCampaign.payload.campaign.id}/generate`,
+      { method: "POST", body: { unexpected: true } }
+    );
+    expect(contentResponse.status).toBe(400);
+    expect((await contentResponse.json()).error).toBe("request_body_not_allowed");
+  });
+
   it("returns configuration_missing and marks the campaign failed when OpenAI is absent", async () => {
     const { payload } = await createCampaign();
     const response = await api(`/api/content/campaigns/${payload.campaign.id}/generate`, {
@@ -161,6 +186,52 @@ describe("admin content campaign API", () => {
     });
     expect(response.status).toBe(503);
     expect((await response.json()).error).toBe("configuration_missing");
+    expect(await env.DB.prepare("SELECT status FROM content_campaigns WHERE id = ?")
+      .bind(payload.campaign.id).first("status")).toBe("failed");
+  });
+
+  it("logs safe OpenAI failure diagnostics without provider messages or request content", async () => {
+    network.use(http.post("https://api.openai.com/v1/responses", () => HttpResponse.json({
+      error: {
+        type: "request_forbidden",
+        code: "unsupported_country_region_territory",
+        message: "Sensitive upstream detail with sk-test-secret",
+      },
+    }, {
+      status: 403,
+      headers: { "x-request-id": "req_openai_403" },
+    })));
+    const spies = [
+      vi.spyOn(console, "log").mockImplementation(() => {}),
+      vi.spyOn(console, "warn").mockImplementation(() => {}),
+      vi.spyOn(console, "error").mockImplementation(() => {}),
+    ];
+    const { payload } = await createCampaign({ topic: "sensitive-campaign-topic" });
+    const response = await api(`/api/content/campaigns/${payload.campaign.id}/generate`, {
+      method: "POST",
+    });
+    const responsePayload = await response.json();
+    const output = spies.flatMap((spy) => spy.mock.calls).flat().join(" ");
+    const records = spies
+      .flatMap((spy) => spy.mock.calls)
+      .flat()
+      .map((entry) => JSON.parse(entry));
+    spies.forEach((spy) => spy.mockRestore());
+
+    expect(response.status).toBe(502);
+    expect(responsePayload.error).toBe("openai_http_403");
+    expect(records).toContainEqual(expect.objectContaining({
+      event: "provider_request_failed",
+      provider: "openai",
+      providerRequestId: "req_openai_403",
+      providerErrorType: "request_forbidden",
+      providerErrorCode: "unsupported_country_region_territory",
+      status: 403,
+    }));
+    expect(output).not.toContain("sk-test-secret");
+    expect(output).not.toContain("Sensitive upstream detail");
+    expect(output).not.toContain("sensitive-campaign-topic");
+    expect(JSON.stringify(responsePayload)).not.toContain("unsupported_country_region_territory");
     expect(await env.DB.prepare("SELECT status FROM content_campaigns WHERE id = ?")
       .bind(payload.campaign.id).first("status")).toBe("failed");
   });

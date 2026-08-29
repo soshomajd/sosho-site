@@ -12,6 +12,7 @@ import {
   isRetryableStatus,
   logEvent,
   parseJson,
+  readOpenAIErrorDiagnostics,
   retryWithBackoff,
   validateSalesResponse,
   validateWebsiteChatInput,
@@ -327,6 +328,17 @@ async function readJsonBody(request, maxBytes) {
     return JSON.parse(text);
   } catch {
     throw new ServiceError("invalid_json", { status: 400 });
+  }
+}
+
+async function requireNoRequestBody(request) {
+  try {
+    await readTextBody(request, 0);
+  } catch (error) {
+    if (error instanceof ServiceError && error.code === "payload_too_large") {
+      throw new ServiceError("request_body_not_allowed", { status: 400 });
+    }
+    throw error;
   }
 }
 
@@ -683,6 +695,15 @@ Existing extracted profile: ${JSON.stringify(profile)}.`;
         getIntegerEnv(env, "OPENAI_TIMEOUT_MS", 8000, { min: 1000, max: 30_000 })
       );
       if (!response.ok) {
+        const diagnostics = await readOpenAIErrorDiagnostics(response);
+        logEvent("warn", "provider_request_failed", {
+          requestId,
+          provider: "openai",
+          attempt,
+          status: response.status,
+          durationMs: Date.now() - startedAt,
+          ...diagnostics,
+        });
         throw new ServiceError(`openai_http_${response.status}`, {
           status: response.status,
           retryable: isRetryableStatus(response.status),
@@ -1527,9 +1548,7 @@ export async function handleApi(request, env, ctx, url, requestId) {
         return json(await getContentCampaign(env, campaignId), 200, requestId);
       }
       if (contentRoute[2] === "/generate" && request.method === "POST") {
-        if (request.body || Number(request.headers.get("content-length") || 0) > 0) {
-          throw new ServiceError("request_body_not_allowed", { status: 400 });
-        }
+        await requireNoRequestBody(request);
         return json(await generateContentCampaign(env, campaignId, requestId), 200, requestId);
       }
       return json({ error: "method_not_allowed" }, 405, requestId);

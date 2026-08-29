@@ -5,6 +5,7 @@ import {
   isPlainRecord,
   isRetryableStatus,
   logEvent,
+  readOpenAIErrorDiagnostics,
   retryWithBackoff,
 } from "./core.js";
 
@@ -306,6 +307,15 @@ Return only the structured content bundle requested by the schema.`;
         getIntegerEnv(this.env, "OPENAI_TIMEOUT_MS", 8000, { min: 1000, max: 60_000 })
       );
       if (!response.ok) {
+        const diagnostics = await readOpenAIErrorDiagnostics(response);
+        logEvent("warn", "provider_request_failed", {
+          requestId,
+          provider: "openai",
+          attempt,
+          status: response.status,
+          durationMs: Date.now() - startedAt,
+          ...diagnostics,
+        });
         throw new ServiceError(`openai_http_${response.status}`, {
           status: 502,
           retryable: isRetryableStatus(response.status),

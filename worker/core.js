@@ -137,6 +137,9 @@ const EXTRACTED_FIELD_SET = new Set(EXTRACTED_FIELDS);
 const SAFE_LOG_FIELDS = new Set([
   "requestId",
   "provider",
+  "providerRequestId",
+  "providerErrorType",
+  "providerErrorCode",
   "attempt",
   "status",
   "code",
@@ -389,6 +392,73 @@ export function logEvent(level, event, details = {}) {
   }
   const writer = level === "error" ? console.error : level === "warn" ? console.warn : console.log;
   writer(JSON.stringify(record));
+}
+
+function safeProviderDiagnostic(value, maxLength = 100) {
+  if (typeof value !== "string") return undefined;
+  const normalized = value.trim();
+  if (
+    normalized.length < 1 ||
+    normalized.length > maxLength ||
+    !/^[a-z0-9_.:-]+$/iu.test(normalized)
+  ) {
+    return undefined;
+  }
+  return normalized;
+}
+
+async function readBoundedResponseText(response, maxBytes) {
+  const declaredLength = Number(response.headers.get("content-length") || 0);
+  if (declaredLength > maxBytes || !response.body) return "";
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let totalBytes = 0;
+  let text = "";
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      totalBytes += value.byteLength;
+      if (totalBytes > maxBytes) {
+        await reader.cancel();
+        return "";
+      }
+      text += decoder.decode(value, { stream: true });
+    }
+    return text + decoder.decode();
+  } catch {
+    return "";
+  }
+}
+
+export async function readOpenAIErrorDiagnostics(response, maxBytes = 16_384) {
+  const diagnostics = {};
+  const providerRequestId = safeProviderDiagnostic(
+    response.headers.get("x-request-id"),
+    200
+  );
+  if (providerRequestId) diagnostics.providerRequestId = providerRequestId;
+
+  const text = await readBoundedResponseText(response, maxBytes);
+  if (!text) return diagnostics;
+
+  let payload;
+  try {
+    payload = JSON.parse(text);
+  } catch {
+    return diagnostics;
+  }
+  const providerError = isPlainRecord(payload) && isPlainRecord(payload.error)
+    ? payload.error
+    : null;
+  if (!providerError) return diagnostics;
+
+  const providerErrorType = safeProviderDiagnostic(providerError.type);
+  const providerErrorCode = safeProviderDiagnostic(providerError.code);
+  if (providerErrorType) diagnostics.providerErrorType = providerErrorType;
+  if (providerErrorCode) diagnostics.providerErrorCode = providerErrorCode;
+  return diagnostics;
 }
 
 export function isRetryableStatus(status) {
