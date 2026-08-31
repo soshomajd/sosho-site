@@ -16,8 +16,10 @@
 - timeout، exponential backoff، request ID و structured logging
 - retention خودکار پیام‌ها، PII سرنخ‌ها و payload خام Meta
 - تست Worker در Runtime رسمی Cloudflare با Vitest و D1 محلی
-- هسته تولید محتوای فارسی با Structured Outputs، اعتبارسنجی سیاست محتوا و ذخیره در D1
+- هسته تولید محتوای فارسی با Cloudflare Workers AI، خروجی JSON Schema، fallback تک‌مرحله‌ای و ذخیره در D1
+- تولید idempotent تصویر اصلی Campaign تأییدشده با FLUX، اعتبارسنجی binary و ذخیره خصوصی در R2
 - تأیید محتوای تولیدشده و اعلان‌های مهم فروش از طریق Telegram به‌صورت اختیاری
+- داشبورد مدیریتی فارسی و فقط خواندنی با نشست HttpOnly و داده‌های واقعی و صفحه‌بندی‌شده D1
 
 ## ساختار اصلی
 
@@ -26,6 +28,12 @@
 |- src/                              Next.js App Router و رابط سایت
 |- worker/
 |  |- index.js                      Worker، API، D1، OpenAI و Instagram
+|  |- admin-dashboard.js            نشست امن Admin و queryهای محدود و فقط خواندنی
+|  |- content-generation.js         Schema، validation و انتخاب provider محتوا
+|  |- workers-ai-content-provider.js provider اصلی و fallback مدل‌های Workers AI
+|  |- image-generation.js           prompt، اعتبارسنجی تصویر و adapter خصوصی R2
+|  |- workers-ai-image-provider.js  provider تصویر FLUX در Workers AI
+|  |- telegram-service.js           transport امن Telegram
 |  `- core.js                       validation، policy و retryهای قابل تست
 |- db/
 |  |- migrations/                   تنها source of truth دیتابیس D1
@@ -52,7 +60,7 @@ Copy-Item .dev.vars.example .dev.vars
 npm run dev
 ```
 
-`npm run dev` ابتدا migrationهای D1 محلی را اجرا می‌کند، Worker را روی `127.0.0.1:8787` و Next.js را روی `localhost:3000` بالا می‌آورد و درخواست‌های `/api/*` را به Worker proxy می‌کند. فایل `.dev.vars` در Git نادیده گرفته می‌شود؛ برای fallback بدون AI می‌توان مقادیر provider را خالی گذاشت.
+`npm run dev` ابتدا migrationهای D1 محلی را اجرا می‌کند، Worker را روی `127.0.0.1:8787` و Next.js را روی `localhost:3000` بالا می‌آورد و درخواست‌های `/api/*` را به Worker proxy می‌کند. فایل `.dev.vars` در Git نادیده گرفته می‌شود. تولید متن و تصویر به‌صورت پیش‌فرض از Binding استاندارد `AI` و Workers AI استفاده می‌کند و Binding محلی `MEDIA` با R2 محلی Wrangler شبیه‌سازی می‌شود؛ OpenAI همچنان برای Sales Chat و provider اختیاری متن موجود است.
 
 فرمان‌های جداگانه نیز موجودند:
 
@@ -72,8 +80,17 @@ npm run dev:next
 | `/api/meta/webhook` | `POST` | دریافت امضاشده پیام Instagram و پردازش background |
 | `/api/content/campaigns` | `POST` | ایجاد Campaign فارسی با احراز هویت Admin |
 | `/api/content/campaigns/:id/generate` | `POST` | تولید و اعتبارسنجی Content Bundle |
+| `/api/content/campaigns/:id/generate-image` | `POST` | تولید idempotent تصویر اصلی فقط برای Campaign تأییدشده و ذخیره خصوصی در R2 |
 | `/api/content/campaigns/:id` | `GET` | دریافت Campaign و آخرین Bundle معتبر |
 | `/api/webhooks/telegram` | `POST` | دریافت امن و تکرارناپذیر Callbackهای مدیر Telegram |
+| `/api/admin/session` | `POST/GET/DELETE` | ایجاد، بررسی و پایان نشست کوتاه‌مدت HttpOnly با توکن فعلی Admin |
+| `/api/admin/overview` | `GET` | آمار واقعی و فعالیت‌های اخیر سیستم |
+| `/api/admin/campaigns` | `GET` | فهرست فیلترشده و صفحه‌بندی‌شده Campaignها |
+| `/api/admin/leads` | `GET` | فهرست امن و حداقلی Leadها بدون اطلاعات تماس کامل |
+| `/api/admin/conversations` | `GET` | فهرست گفتگوها و وضعیت AI/Handoff |
+| `/api/admin/conversations/:id` | `GET` | جزئیات محدود گفتگو با پنهان‌سازی ایمیل و شماره تماس |
+
+مسیر `/admin` داشبورد فارسی و RTL را نمایش می‌دهد. `ADMIN_API_TOKEN` فقط هنگام ورود و در body درخواست هم‌مبدأ ارسال می‌شود، در bundle، URL یا Local Storage قرار نمی‌گیرد و پس از اعتبارسنجی با یک cookie امضاشده `HttpOnly`، `SameSite=Strict` و کوتاه‌مدت جایگزین می‌شود. تمام APIهای داشبورد فقط خواندنی و queryهای فهرست حداکثر ۵۰ رکوردی هستند.
 
 ## کیفیت و build
 
@@ -93,14 +110,15 @@ npx wrangler deploy --dry-run
 1. D1 production ساخته شود و UUID واقعی آن جای placeholder موجود در `wrangler.jsonc` قرار گیرد.
 2. `npm run build` با `NEXT_PUBLIC_SITE_URL=https://sosho-studio.net` اجرا شود.
 3. `npx wrangler d1 migrations apply DB --remote` اجرا شود.
-4. Secretهای Worker در Cloudflare Secret Manager ثبت شوند.
-5. readiness endpoint بعد از انتشار `200` برگرداند.
+4. Bucket خصوصی `sosho-media` ساخته شود تا Binding از پیش تعریف‌شده `MEDIA` قابل اتصال باشد.
+5. Secretهای Worker در Cloudflare Secret Manager ثبت شوند.
+6. readiness endpoint بعد از انتشار `200` برگرداند.
 
 `npm run deploy` محیط production و دامنه‌های زنده را هدف می‌گیرد و فقط با تأیید صریح باید اجرا شود. workflow استقرار در ریشه Repository قرار دارد و فقط با `workflow_dispatch` اجرا می‌شود؛ CI روی push و pull request فقط lint، test، build و dry-run را انجام می‌دهد.
 
 ## Staging
 
-محیط staging از Worker با نام `sosho-site-staging`، دیتابیس `sosho-sales-staging` و فایل `wrangler.staging.jsonc` استفاده می‌کند. این config هیچ route یا دامنه Production ندارد و فقط روی `workers.dev` منتشر می‌شود. شناسه واقعی D1 و origin نهایی staging پس از ساخت resource جایگزین placeholderهای config می‌شوند.
+محیط staging از Worker با نام `sosho-site-staging`، دیتابیس `sosho-sales-staging` و فایل `wrangler.staging.jsonc` استفاده می‌کند. این config هیچ route یا دامنه Production ندارد و فقط روی `workers.dev` منتشر می‌شود. تا زمان فعال‌سازی R2، Binding رسانه عمداً در config staging وجود ندارد تا قابلیت‌های متن، فروش، Telegram و Dashboard بدون اختلال کار کنند و Dashboard وضعیت «فعال‌سازی R2 لازم است» را نشان دهد. برای تست واقعی تصویر، Bucket خصوصی `sosho-media-staging` باید با مجوز صریح ساخته و سپس Binding `MEDIA` فقط به config staging اضافه شود؛ Repository هیچ Bucket را خودکار نمی‌سازد.
 
 ```bash
 npx wrangler d1 create sosho-sales-staging

@@ -213,7 +213,7 @@ describe("website sales API", () => {
     const ctx = createExecutionContext();
     const response = await worker.fetch(
       new Request("https://example.com/api/health"),
-      env,
+      { ...env, AI: { run: async () => ({ response: "{}" }) } },
       ctx
     );
     const payload = await response.json();
@@ -221,6 +221,8 @@ describe("website sales API", () => {
     expect(payload.ready).toBe(true);
     expect(payload.checks.database).toBe(true);
     expect(payload.checks.migrations).toBe(true);
+    expect(payload.checks.contentAi).toBe(true);
+    expect(payload.checks.workersAi).toBe(true);
     expect(response.headers.get("x-request-id")).toBe(payload.requestId);
   });
 });

@@ -8,6 +8,7 @@ import {
 } from "./core.js";
 
 const TELEGRAM_TEXT_LIMIT = 4096;
+const TELEGRAM_CAPTION_LIMIT = 1024;
 const SAFE_CHUNK_LIMIT = 3800;
 const CALLBACK_PATTERN = /^c:([argv]):([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$/iu;
 const ACTION_CODES = { approve: "a", reject: "r", regenerate: "g", view: "v" };
@@ -59,6 +60,16 @@ export function splitTelegramText(text, limit = SAFE_CHUNK_LIMIT) {
   return chunks;
 }
 
+function validateInlineKeyboard(keyboard) {
+  for (const row of keyboard?.inline_keyboard ?? []) {
+    for (const button of row) {
+      if (new TextEncoder().encode(button.callback_data || "").byteLength > 64) {
+        throw new ServiceError("invalid_callback_data", { status: 400 });
+      }
+    }
+  }
+}
+
 export function validateTelegramUpdate(value) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return { ok: false };
   const keys = Object.keys(value);
@@ -92,7 +103,7 @@ export class TelegramService {
     this.fetcher = fetcher;
   }
 
-  async request(method, body, requestId) {
+  async request(method, body, requestId, { multipart = false } = {}) {
     if (!isTelegramConfigured(this.env)) {
       throw new ServiceError("telegram_not_configured", { status: 503 });
     }
@@ -103,8 +114,8 @@ export class TelegramService {
         `https://api.telegram.org/bot${this.env.TELEGRAM_BOT_TOKEN}/${method}`,
         {
           method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(body),
+          ...(multipart ? {} : { headers: { "content-type": "application/json" } }),
+          body: multipart ? body : JSON.stringify(body),
         },
         getIntegerEnv(this.env, "TELEGRAM_TIMEOUT_MS", 5000, { min: 1000, max: 30_000 })
       );
@@ -153,14 +164,26 @@ export class TelegramService {
   }
 
   sendInlineKeyboard(text, keyboard, requestId) {
-    for (const row of keyboard.inline_keyboard ?? []) {
-      for (const button of row) {
-        if (new TextEncoder().encode(button.callback_data || "").byteLength > 64) {
-          throw new ServiceError("invalid_callback_data", { status: 400 });
-        }
-      }
-    }
+    validateInlineKeyboard(keyboard);
     return this.sendText(text, { replyMarkup: keyboard, requestId });
+  }
+
+  sendPhoto(
+    { bytes, mimeType, filename = "campaign-main-image" },
+    { caption, replyMarkup, requestId, chatId = this.env.TELEGRAM_ADMIN_CHAT_ID } = {}
+  ) {
+    if (!(bytes instanceof Uint8Array) || bytes.byteLength < 1) {
+      throw new ServiceError("invalid_image_output", { status: 502 });
+    }
+    validateInlineKeyboard(replyMarkup);
+    const extension = mimeType === "image/png" ? "png" : mimeType === "image/webp" ? "webp" : "jpg";
+    const form = new FormData();
+    form.append("chat_id", String(chatId));
+    const captionChunk = splitTelegramText(caption, TELEGRAM_CAPTION_LIMIT)[0];
+    if (captionChunk) form.append("caption", captionChunk);
+    if (replyMarkup) form.append("reply_markup", JSON.stringify(replyMarkup));
+    form.append("photo", new Blob([bytes], { type: mimeType }), `${filename}.${extension}`);
+    return this.request("sendPhoto", form, requestId, { multipart: true });
   }
 
   answerCallbackQuery(callbackQueryId, text, requestId) {

@@ -12,10 +12,18 @@ export default defineConfig({
         miniflare: {
           compatibilityDate: "2026-08-20",
           d1Databases: { DB: "sosho-sales-test" },
+          r2Buckets: ["MEDIA"],
           bindings: {
             TEST_MIGRATIONS: migrations,
             ENVIRONMENT: "test",
             PUBLIC_SITE_ORIGINS: "https://example.com",
+            CONTENT_AI_PROVIDER: "workers_ai",
+            WORKERS_AI_CONTENT_MODEL: "@cf/qwen/qwen3-30b-a3b-fp8",
+            WORKERS_AI_FALLBACK_MODEL: "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+            IMAGE_AI_PROVIDER: "workers_ai",
+            WORKERS_AI_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell",
+            IMAGE_AI_TIMEOUT_MS: "1000",
+            IMAGE_MAX_BYTES: "5000000",
             OPENAI_API_KEY: "test-openai-key",
             OPENAI_MODEL: "gpt-5.6-luna",
             ADMIN_API_TOKEN: "test-admin-token",

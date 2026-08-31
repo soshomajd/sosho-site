@@ -21,7 +21,15 @@ const TELEGRAM_ENV = {
 };
 
 function runtimeEnv(overrides = {}) {
-  return { ...env, ...TELEGRAM_ENV, ...overrides };
+  return {
+    ...env,
+    ...TELEGRAM_ENV,
+    CONTENT_AI_PROVIDER: "workers_ai",
+    WORKERS_AI_CONTENT_MODEL: "@cf/qwen/qwen3-30b-a3b-fp8",
+    WORKERS_AI_FALLBACK_MODEL: "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    AI: { run: async () => ({ response: JSON.stringify(validBundle()) }) },
+    ...overrides,
+  };
 }
 
 function validBundle() {
@@ -142,6 +150,36 @@ describe("Telegram service", () => {
     expect(spies.flatMap((spy) => spy.mock.calls).flat().join(" ")).not.toContain("test-telegram-token");
     spies.forEach((spy) => spy.mockRestore());
   });
+
+  it("uploads a private image with multipart data and an inline keyboard", async () => {
+    let submitted;
+    const service = new TelegramService(runtimeEnv(), { fetcher: async (_url, init) => {
+      submitted = init;
+      return Response.json({ ok: true, result: { message_id: 12 } });
+    } });
+    const campaignId = `campaign_${crypto.randomUUID()}`;
+    const result = await service.sendPhoto(
+      { bytes: new Uint8Array([0xff, 0xd8, 0xff, 0xd9]), mimeType: "image/jpeg" },
+      {
+        caption: "Image preview",
+        replyMarkup: {
+          inline_keyboard: [[{
+            text: "Approve",
+            callback_data: createCampaignCallbackData("approve", campaignId),
+          }]],
+        },
+        requestId: "req_photo",
+      }
+    );
+    expect(result.message_id).toBe(12);
+    expect(submitted.headers).toBeUndefined();
+    expect(submitted.body).toBeInstanceOf(FormData);
+    expect(submitted.body.get("chat_id")).toBe("10001");
+    expect(submitted.body.get("caption")).toBe("Image preview");
+    expect(submitted.body.get("photo")).toBeInstanceOf(Blob);
+    expect(submitted.body.get("photo").type).toBe("image/jpeg");
+    expect(JSON.parse(submitted.body.get("reply_markup")).inline_keyboard).toHaveLength(1);
+  });
 });
 
 describe("Telegram webhook and campaign approval", () => {
@@ -185,18 +223,20 @@ describe("Telegram webhook and campaign approval", () => {
   });
 
   it("regenerates only once for the same callback", async () => {
-    let openAiCalls = 0;
+    let workersAiCalls = 0;
     mockTelegram();
-    network.use(http.post("https://api.openai.com/v1/responses", () => {
-      openAiCalls += 1;
-      return HttpResponse.json({ status: "completed", output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify(validBundle()) }] }] });
-    }));
+    const currentEnv = runtimeEnv({
+      AI: { run: async () => {
+        workersAiCalls += 1;
+        return { response: JSON.stringify(validBundle()) };
+      } },
+    });
     const id = `campaign_${crypto.randomUUID()}`;
     await insertGeneratedCampaign(id);
     const update = telegramUpdate(id, "regenerate", { updateId: 4, callbackId: "callback-regen" });
-    await postTelegram(update);
-    await postTelegram(update);
-    expect(openAiCalls).toBe(1);
+    await postTelegram(update, { currentEnv });
+    await postTelegram(update, { currentEnv });
+    expect(workersAiCalls).toBe(1);
     expect(await env.DB.prepare("SELECT COUNT(*) AS total FROM content_items WHERE campaign_id = ?").bind(id).first("total")).toBe(2);
   });
 
@@ -210,9 +250,6 @@ describe("Telegram outbound integration", () => {
   it("sends a content preview after generation", async () => {
     let sends = 0;
     mockTelegram((method) => { if (method === "sendMessage") sends += 1; });
-    network.use(http.post("https://api.openai.com/v1/responses", () => HttpResponse.json({
-      status: "completed", output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify(validBundle()) }] }],
-    })));
     const currentEnv = runtimeEnv();
     const created = await worker.fetch(new Request("https://example.com/api/content/campaigns", {
       method: "POST",

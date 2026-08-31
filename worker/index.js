@@ -9,6 +9,7 @@ import {
   getIntegerEnv,
   getWindowStart,
   hashIdentifier,
+  isPlainRecord,
   isRetryableStatus,
   logEvent,
   parseJson,
@@ -18,9 +19,26 @@ import {
   validateWebsiteChatInput,
 } from "./core.js";
 import {
+  adminSessionCookie,
+  clearAdminSessionCookie,
+  createAdminSession,
+  getAdminCampaigns,
+  getAdminConversationDetail,
+  getAdminConversations,
+  getAdminLeads,
+  getAdminOverview,
+  requireAdminBearer,
+  requireDashboardAdmin,
+  verifyAdminToken,
+} from "./admin-dashboard.js";
+import {
   ContentGenerationService,
   validateCreateCampaignInput,
 } from "./content-generation.js";
+import {
+  ImageGenerationService,
+  createMainImageR2Key,
+} from "./image-generation.js";
 import {
   TelegramService,
   campaignApprovalKeyboard,
@@ -37,19 +55,24 @@ const REQUIRED_TABLES = [
   "rate_limit_counters",
   "content_campaigns",
   "content_items",
+  "content_media",
   "telegram_updates",
   "telegram_notifications",
 ];
+
+const CAMPAIGN_ID_PATTERN =
+  /^campaign_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
 
 function now() {
   return new Date().toISOString();
 }
 
-function json(data, status = 200, requestId) {
+function json(data, status = 200, requestId, additionalHeaders = {}) {
   const headers = {
     "content-type": "application/json; charset=utf-8",
     "cache-control": "no-store",
     "x-content-type-options": "nosniff",
+    ...additionalHeaders,
   };
   if (requestId) headers["x-request-id"] = requestId;
   return new Response(JSON.stringify(requestId ? { ...data, requestId } : data), {
@@ -63,7 +86,10 @@ function requireDatabase(env) {
   return env.DB;
 }
 
-async function sendTelegramNotificationOnce(env, { eventKey, type, entityId, text, keyboard, requestId }) {
+async function sendTelegramNotificationOnce(
+  env,
+  { eventKey, type, entityId, text, keyboard, photo, requestId }
+) {
   if (!isTelegramConfigured(env)) return { status: "disabled" };
   const db = requireDatabase(env);
   const timestamp = now();
@@ -78,7 +104,9 @@ async function sendTelegramNotificationOnce(env, { eventKey, type, entityId, tex
   if (Number(inserted.meta?.changes ?? 0) === 0) return { status: "duplicate" };
   try {
     const telegram = new TelegramService(env);
-    if (keyboard) await telegram.sendInlineKeyboard(text, keyboard, requestId);
+    if (photo) {
+      await telegram.sendPhoto(photo, { caption: text, replyMarkup: keyboard, requestId });
+    } else if (keyboard) await telegram.sendInlineKeyboard(text, keyboard, requestId);
     else await telegram.sendText(text, { requestId });
     await db
       .prepare(
@@ -105,6 +133,57 @@ async function sendTelegramNotificationOnce(env, { eventKey, type, entityId, tex
     });
     return { status: "failed" };
   }
+}
+
+async function sendCampaignImagePreview(env, db, service, campaign, bundle, media, requestId) {
+  let previewStatus = "blocked";
+  if (isTelegramConfigured(env)) {
+    try {
+      const stored = await service.storage.getPrivateObject(media.r2_key);
+      if (!stored) throw new ServiceError("media_storage_failed", { status: 502 });
+      const bytes = new Uint8Array(await stored.arrayBuffer());
+      if (bytes.byteLength !== media.byte_size) {
+        throw new ServiceError("media_storage_failed", { status: 502 });
+      }
+      const notification = await sendTelegramNotificationOnce(env, {
+        eventKey: `content_image_preview:${campaign.id}:${media.id}`,
+        type: "content_image_preview",
+        entityId: campaign.id,
+        text: contentPreviewText(campaign, bundle),
+        keyboard: campaignApprovalKeyboard(campaign.id),
+        photo: {
+          bytes,
+          mimeType: media.mime_type,
+          filename: "sosho-campaign-main-image",
+        },
+        requestId,
+      });
+      previewStatus = notification.status === "sent" || notification.status === "duplicate"
+        ? "sent"
+        : notification.status === "failed" ? "failed" : "blocked";
+    } catch (error) {
+      previewStatus = "failed";
+      logEvent("warn", "telegram_image_preview_failed", {
+        requestId,
+        provider: "telegram",
+        code: error?.code || "telegram_error",
+      });
+    }
+  }
+  try {
+    await db
+      .prepare(
+        `UPDATE content_media SET telegram_preview_status = ?, updated_at = ? WHERE id = ?`
+      )
+      .bind(previewStatus, now(), media.id)
+      .run();
+  } catch (error) {
+    logEvent("warn", "media_preview_status_update_failed", {
+      requestId,
+      code: error?.code || "database_error",
+    });
+  }
+  return previewStatus;
 }
 
 function contentPreviewText(campaign, bundle) {
@@ -136,15 +215,6 @@ function contentDetailsText(campaign, bundle) {
   ].join("\n\n");
 }
 
-function requireAdmin(request, env) {
-  if (!env.ADMIN_API_TOKEN) {
-    throw new ServiceError("admin_auth_not_configured", { status: 503 });
-  }
-  if ((request.headers.get("authorization") || "") !== `Bearer ${env.ADMIN_API_TOKEN}`) {
-    throw new ServiceError("unauthorized", { status: 401 });
-  }
-}
-
 async function createContentCampaign(env, input) {
   const id = createId("campaign");
   const timestamp = now();
@@ -158,6 +228,40 @@ async function createContentCampaign(env, input) {
       input.scheduledAt, timestamp, timestamp)
     .run();
   return getContentCampaign(env, id);
+}
+
+function serializeContentMedia(row) {
+  return row ? {
+    id: row.id,
+    campaignId: row.campaign_id,
+    mediaType: row.media_type,
+    r2Key: row.r2_key,
+    mimeType: row.mime_type,
+    byteSize: row.byte_size,
+    status: row.status,
+    provider: row.provider,
+    model: row.model,
+    attemptCount: row.attempt_count,
+    telegramPreviewStatus: row.telegram_preview_status,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    storedAt: row.stored_at,
+    lastError: row.last_error,
+  } : null;
+}
+
+async function getMainImageRow(db, campaignId) {
+  return db
+    .prepare(
+      `SELECT id, campaign_id, media_type, r2_key, mime_type, byte_size, status,
+              provider, model, attempt_count, telegram_preview_status,
+              created_at, updated_at, stored_at, last_error
+       FROM content_media
+       WHERE campaign_id = ? AND media_type = 'main_image'
+       LIMIT 1`
+    )
+    .bind(campaignId)
+    .first();
 }
 
 async function getContentCampaign(env, id) {
@@ -182,6 +286,7 @@ async function getContentCampaign(env, id) {
     )
     .bind(id)
     .first();
+  const mainImage = await getMainImageRow(db, id);
   return {
     campaign: {
       id: campaign.id,
@@ -208,6 +313,7 @@ async function getContentCampaign(env, id) {
       createdAt: item.created_at,
       updatedAt: item.updated_at,
     } : null,
+    mainImage: serializeContentMedia(mainImage),
   };
 }
 
@@ -270,6 +376,134 @@ async function generateContentCampaign(env, id, requestId, { regenerate = false 
       .run();
     throw error;
   }
+}
+
+async function claimMainImageGeneration(db, campaignId, descriptor) {
+  const existing = await getMainImageRow(db, campaignId);
+  if (existing?.status === "stored") return { row: existing, reused: true };
+  if (existing?.status === "generating") {
+    throw new ServiceError("image_generation_in_progress", { status: 409 });
+  }
+  const timestamp = now();
+  if (existing?.status === "failed") {
+    const claimed = await db
+      .prepare(
+        `UPDATE content_media
+         SET status = 'generating', provider = ?, model = ?, attempt_count = attempt_count + 1,
+             mime_type = NULL, byte_size = NULL, stored_at = NULL, last_error = NULL,
+             updated_at = ?, telegram_preview_status = 'blocked'
+         WHERE id = ? AND status = 'failed'
+         RETURNING id, campaign_id, media_type, r2_key, mime_type, byte_size, status,
+                   provider, model, attempt_count, telegram_preview_status,
+                   created_at, updated_at, stored_at, last_error`
+      )
+      .bind(descriptor.provider, descriptor.model, timestamp, existing.id)
+      .first();
+    if (!claimed) throw new ServiceError("image_generation_in_progress", { status: 409 });
+    return { row: claimed, reused: false };
+  }
+  const mediaId = createId("media");
+  const inserted = await db
+    .prepare(
+      `INSERT OR IGNORE INTO content_media (
+        id, campaign_id, media_type, r2_key, status, provider, model,
+        attempt_count, telegram_preview_status, created_at, updated_at
+      ) VALUES (?, ?, 'main_image', ?, 'generating', ?, ?, 1, 'blocked', ?, ?)`
+    )
+    .bind(
+      mediaId,
+      campaignId,
+      createMainImageR2Key(campaignId),
+      descriptor.provider,
+      descriptor.model,
+      timestamp,
+      timestamp
+    )
+    .run();
+  if (Number(inserted.meta?.changes ?? 0) === 0) {
+    const concurrent = await getMainImageRow(db, campaignId);
+    if (concurrent?.status === "stored") return { row: concurrent, reused: true };
+    throw new ServiceError("image_generation_in_progress", { status: 409 });
+  }
+  return { row: await getMainImageRow(db, campaignId), reused: false };
+}
+
+async function generateCampaignMainImage(env, campaignId, requestId) {
+  const db = requireDatabase(env);
+  const details = await getContentCampaign(env, campaignId);
+  if (details.campaign.status !== "generated") {
+    throw new ServiceError("invalid_campaign_state", { status: 409 });
+  }
+  if (details.campaign.approvalStatus !== "approved") {
+    throw new ServiceError("campaign_not_approved", { status: 409 });
+  }
+  if (!details.contentItem?.content) {
+    throw new ServiceError("content_not_found", { status: 404 });
+  }
+  if (details.mainImage?.status === "stored") {
+    return { ...details, imageGeneration: { reused: true } };
+  }
+  if (details.mainImage?.status === "generating") {
+    throw new ServiceError("image_generation_in_progress", { status: 409 });
+  }
+
+  const service = new ImageGenerationService(env);
+  service.assertConfigured();
+  const claim = await claimMainImageGeneration(db, campaignId, service.descriptor);
+  if (claim.reused) {
+    return { ...(await getContentCampaign(env, campaignId)), imageGeneration: { reused: true } };
+  }
+  let generated;
+  try {
+    generated = await service.generateAndStore({
+      campaign: details.campaign,
+      bundle: details.contentItem.content,
+      r2Key: claim.row.r2_key,
+      requestId,
+    });
+    const completedAt = now();
+    const updated = await db
+      .prepare(
+        `UPDATE content_media
+         SET status = 'stored', mime_type = ?, byte_size = ?, provider = ?, model = ?,
+             stored_at = ?, updated_at = ?, last_error = NULL
+         WHERE id = ? AND status = 'generating'`
+      )
+      .bind(
+        generated.mimeType,
+        generated.byteSize,
+        generated.provider,
+        generated.model,
+        completedAt,
+        completedAt,
+        claim.row.id
+      )
+      .run();
+    if (Number(updated.meta?.changes ?? 0) === 0) {
+      throw new ServiceError("media_metadata_failed", { status: 502 });
+    }
+  } catch (error) {
+    await db
+      .prepare(
+        `UPDATE content_media
+         SET status = 'failed', last_error = ?, updated_at = ?
+         WHERE id = ? AND status = 'generating'`
+      )
+      .bind(String(error?.code || "image_generation_failed").slice(0, 100), now(), claim.row.id)
+      .run();
+    throw error;
+  }
+  const storedMedia = await getMainImageRow(db, campaignId);
+  await sendCampaignImagePreview(
+    env,
+    db,
+    service,
+    details.campaign,
+    details.contentItem.content,
+    storedMedia,
+    requestId
+  );
+  return { ...(await getContentCampaign(env, campaignId)), imageGeneration: { reused: false } };
 }
 
 function getRetentionDays(env, name, fallback) {
@@ -570,6 +804,21 @@ async function hashedRateKey(env, scope, value) {
   const salt = env.RATE_LIMIT_SALT || (env.ENVIRONMENT !== "production" ? "local-development" : "");
   if (!salt) throw new ServiceError("rate_limit_not_configured", { status: 503 });
   return `${scope}:${await hashIdentifier(value, salt)}`;
+}
+
+async function enforceAdminLoginRateLimit(request, env) {
+  const ipAddress =
+    request.headers.get("cf-connecting-ip") ||
+    (env.ENVIRONMENT !== "production"
+      ? request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
+      : null) ||
+    "unknown";
+  const key = await hashedRateKey(env, "admin_login", ipAddress);
+  return consumeRateLimit(requireDatabase(env), {
+    key,
+    limit: 10,
+    windowSeconds: 15 * 60,
+  });
 }
 
 async function enforceWebsiteIpRateLimit(env, input) {
@@ -1431,7 +1680,26 @@ async function handleTelegramWebhook(request, env, requestId) {
 async function getReadiness(env) {
   const missing = [];
   if (!env.DB) missing.push("DB");
-  if (!env.OPENAI_API_KEY) missing.push("OPENAI_API_KEY");
+  const contentProvider = String(env.CONTENT_AI_PROVIDER || "workers_ai").trim().toLowerCase();
+  const imageProvider = String(env.IMAGE_AI_PROVIDER || "workers_ai").trim().toLowerCase();
+  const workersAiReady = Boolean(env.AI && typeof env.AI.run === "function");
+  const contentAiReady = contentProvider === "workers_ai"
+    ? workersAiReady
+    : contentProvider === "openai" && Boolean(env.OPENAI_API_KEY);
+  const imageAiReady = imageProvider === "workers_ai" && workersAiReady;
+  const mediaStorageReady = Boolean(
+    env.MEDIA && typeof env.MEDIA.put === "function" && typeof env.MEDIA.get === "function"
+  );
+  if (!contentAiReady) {
+    if (contentProvider === "workers_ai") missing.push("AI");
+    else if (contentProvider === "openai") missing.push("OPENAI_API_KEY");
+    else missing.push("CONTENT_AI_PROVIDER");
+  }
+  if (!imageAiReady) {
+    if (imageProvider === "workers_ai") missing.push("AI");
+    else missing.push("IMAGE_AI_PROVIDER");
+  }
+  if (!mediaStorageReady) missing.push("MEDIA");
   if (!env.ADMIN_API_TOKEN) missing.push("ADMIN_API_TOKEN");
   if (!env.RATE_LIMIT_SALT) missing.push("RATE_LIMIT_SALT");
   if (!env.META_VERIFY_TOKEN) missing.push("META_VERIFY_TOKEN");
@@ -1453,7 +1721,8 @@ async function getReadiness(env) {
            FROM sqlite_master
            WHERE type = 'table' AND name IN (
              'leads', 'conversations', 'messages', 'webhook_events', 'rate_limit_counters',
-             'content_campaigns', 'content_items', 'telegram_updates', 'telegram_notifications'
+             'content_campaigns', 'content_items', 'content_media',
+             'telegram_updates', 'telegram_notifications'
            )`
         ).first();
         migrationsReady = Number(tables?.total ?? 0) === REQUIRED_TABLES.length;
@@ -1479,6 +1748,12 @@ async function getReadiness(env) {
               "SELECT campaign_id, content_type, platform, content_json, validation_status FROM content_items LIMIT 1"
             ),
             env.DB.prepare(
+              `SELECT campaign_id, media_type, r2_key, mime_type, byte_size, status,
+                      provider, model, attempt_count, telegram_preview_status,
+                      stored_at, last_error
+               FROM content_media LIMIT 1`
+            ),
+            env.DB.prepare(
               "SELECT update_id, callback_id, callback_action, campaign_id, status FROM telegram_updates LIMIT 1"
             ),
             env.DB.prepare(
@@ -1498,6 +1773,10 @@ async function getReadiness(env) {
     checks: {
       database: databaseReady,
       migrations: migrationsReady,
+      contentAi: contentAiReady,
+      imageAi: imageAiReady,
+      mediaStorage: mediaStorageReady,
+      workersAi: workersAiReady,
       openai: Boolean(env.OPENAI_API_KEY),
       adminAuth: Boolean(env.ADMIN_API_TOKEN),
       rateLimitPrivacy: Boolean(env.RATE_LIMIT_SALT),
@@ -1527,8 +1806,99 @@ export async function handleApi(request, env, ctx, url, requestId) {
       requireDatabase(env);
       return json(await handleTelegramWebhook(request, env, requestId), 200, requestId);
     }
+    if (url.pathname === "/api/admin/session") {
+      if (request.method === "POST") {
+        requireDatabase(env);
+        if (!isAllowedWebsiteRequest(request, env)) {
+          throw new ServiceError("origin_not_allowed", { status: 403 });
+        }
+        const rateLimit = await enforceAdminLoginRateLimit(request, env);
+        if (!rateLimit.allowed) throw new ServiceError("rate_limited", { status: 429 });
+        const body = await readJsonBody(request, 2048);
+        if (!isPlainRecord(body) || Object.keys(body).length !== 1 ||
+            typeof body.token !== "string" || body.token.length < 1 || body.token.length > 1024) {
+          throw new ServiceError("invalid_request", { status: 400 });
+        }
+        if (!(await verifyAdminToken(body.token, env))) {
+          throw new ServiceError("unauthorized", { status: 401 });
+        }
+        const session = await createAdminSession(env);
+        const maxAge = Math.max(1, Math.floor((session.expiresAt - Date.now()) / 1000));
+        return json(
+          { authenticated: true, expiresAt: new Date(session.expiresAt).toISOString() },
+          200,
+          requestId,
+          { "set-cookie": adminSessionCookie(request, session.value, maxAge) }
+        );
+      }
+      if (request.method === "GET") {
+        const auth = await requireDashboardAdmin(request, env);
+        return json({
+          authenticated: true,
+          expiresAt: auth.expiresAt ? new Date(auth.expiresAt).toISOString() : null,
+        }, 200, requestId);
+      }
+      if (request.method === "DELETE") {
+        if (!isAllowedWebsiteRequest(request, env)) {
+          throw new ServiceError("origin_not_allowed", { status: 403 });
+        }
+        return json(
+          { authenticated: false },
+          200,
+          requestId,
+          { "set-cookie": clearAdminSessionCookie(request) }
+        );
+      }
+      return json({ error: "method_not_allowed" }, 405, requestId);
+    }
+    if (url.pathname === "/api/admin/overview") {
+      if (request.method !== "GET") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      await requireDashboardAdmin(request, env);
+      return json(await getAdminOverview(requireDatabase(env)), 200, requestId);
+    }
+    if (url.pathname === "/api/admin/campaigns") {
+      if (request.method !== "GET") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      await requireDashboardAdmin(request, env);
+      return json(await getAdminCampaigns(requireDatabase(env), env, url), 200, requestId);
+    }
+    if (url.pathname === "/api/admin/leads") {
+      if (request.method !== "GET") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      await requireDashboardAdmin(request, env);
+      return json(await getAdminLeads(requireDatabase(env), url), 200, requestId);
+    }
+    if (url.pathname === "/api/admin/conversations") {
+      if (request.method !== "GET") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      await requireDashboardAdmin(request, env);
+      return json(await getAdminConversations(requireDatabase(env), url), 200, requestId);
+    }
+    const adminConversationRoute = url.pathname.match(/^\/api\/admin\/conversations\/([^/]+)$/u);
+    if (adminConversationRoute) {
+      if (request.method !== "GET") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      await requireDashboardAdmin(request, env);
+      let conversationId;
+      try {
+        conversationId = decodeURIComponent(adminConversationRoute[1]);
+      } catch {
+        throw new ServiceError("invalid_conversation_id", { status: 400 });
+      }
+      return json(
+        await getAdminConversationDetail(requireDatabase(env), conversationId),
+        200,
+        requestId
+      );
+    }
     if (url.pathname === "/api/content/campaigns" && request.method === "POST") {
-      requireAdmin(request, env);
+      await requireAdminBearer(request, env);
       requireDatabase(env);
       const body = await readJsonBody(request, 8192);
       const validation = validateCreateCampaignInput(body);
@@ -1537,11 +1907,26 @@ export async function handleApi(request, env, ctx, url, requestId) {
       }
       return json(await createContentCampaign(env, validation.value), 201, requestId);
     }
+    const imageRoute = url.pathname.match(
+      /^\/api\/content\/campaigns\/([^/]+)\/generate-image$/u
+    );
+    if (imageRoute) {
+      await requireAdminBearer(request, env);
+      const campaignId = decodeURIComponent(imageRoute[1]);
+      if (!CAMPAIGN_ID_PATTERN.test(campaignId)) {
+        throw new ServiceError("invalid_campaign_id", { status: 400 });
+      }
+      if (request.method === "POST") {
+        await requireNoRequestBody(request);
+        return json(await generateCampaignMainImage(env, campaignId, requestId), 200, requestId);
+      }
+      return json({ error: "method_not_allowed" }, 405, requestId);
+    }
     const contentRoute = url.pathname.match(/^\/api\/content\/campaigns\/([^/]+)(\/generate)?$/u);
     if (contentRoute) {
-      requireAdmin(request, env);
+      await requireAdminBearer(request, env);
       const campaignId = decodeURIComponent(contentRoute[1]);
-      if (!/^campaign_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu.test(campaignId)) {
+      if (!CAMPAIGN_ID_PATTERN.test(campaignId)) {
         throw new ServiceError("invalid_campaign_id", { status: 400 });
       }
       if (!contentRoute[2] && request.method === "GET") {
@@ -1647,7 +2032,8 @@ const worker = {
       if (response.status !== 404) return response;
     }
     const firstSegment = url.pathname.split("/").filter(Boolean)[0];
-    if (firstSegment !== "fa" && firstSegment !== "en" && !url.pathname.includes(".")) {
+    if (firstSegment !== "fa" && firstSegment !== "en" && firstSegment !== "admin" &&
+        !url.pathname.includes(".")) {
       const localized = new URL(url);
       localized.pathname = "/fa" + url.pathname;
       return Response.redirect(localized, 308);

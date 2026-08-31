@@ -8,6 +8,7 @@ import {
   readOpenAIErrorDiagnostics,
   retryWithBackoff,
 } from "./core.js";
+import { WorkersAiContentProvider } from "./workers-ai-content-provider.js";
 
 const BUNDLE_KEYS = [
   "campaignTitle",
@@ -178,6 +179,21 @@ function collectStrings(value, result = []) {
   return result;
 }
 
+function requiredPersianStrings(bundle) {
+  const fields = [
+    "campaignTitle", "targetAudience", "contentGoal", "mainHook", "mainMessage",
+    "callToAction", "instagramCaption", "facebookCaption", "linkedinPost", "telegramPost",
+    "youtubeTitle", "youtubeDescription", "threadsPost", "visualDirection", "voiceoverScript",
+  ];
+  return [
+    ...fields.map((key) => bundle[key]),
+    ...bundle.reelScript.scenes.flatMap((scene) => [scene.visual, scene.dialogue]),
+    ...bundle.storyFrames.flatMap((frame) => [frame.headline, frame.body, frame.visual]),
+    ...bundle.carouselSlides.flatMap((slide) => [slide.headline, slide.body, slide.visual]),
+    ...bundle.subtitles.map((subtitle) => subtitle.text),
+  ];
+}
+
 export function findContentPolicyViolation(bundle) {
   const text = collectStrings(bundle).join("\n");
   const digits = "0-9۰-۹٠-٩";
@@ -237,7 +253,7 @@ export function validateContentBundle(value) {
         subtitle.startSecond >= subtitle.endSecond || !boundedText(subtitle.text))) {
     return { ok: false, code: "invalid_subtitles" };
   }
-  if (!/[\u0600-\u06FF]/u.test(collectStrings(value).join(" "))) {
+  if (requiredPersianStrings(value).some((text) => !/[\u0600-\u06FF]/u.test(text))) {
     return { ok: false, code: "persian_content_required" };
   }
   const policyViolation = findContentPolicyViolation(value);
@@ -255,7 +271,7 @@ function extractOutputText(response) {
   return "";
 }
 
-export class ContentGenerationService {
+export class OpenAiContentProvider {
   constructor(env, { fetcher = fetch } = {}) {
     this.env = env;
     this.fetcher = fetcher;
@@ -352,5 +368,27 @@ Return only the structured content bundle requested by the schema.`;
       baseDelayMs: getIntegerEnv(this.env, "RETRY_BASE_DELAY_MS", 250, { min: 1, max: 5000 }),
       maxDelayMs: 5000,
     });
+  }
+}
+
+export class ContentGenerationService {
+  constructor(env, { fetcher = fetch } = {}) {
+    this.env = env;
+    this.fetcher = fetcher;
+  }
+
+  async generate(campaign, requestId) {
+    const provider = String(this.env.CONTENT_AI_PROVIDER || "workers_ai").trim().toLowerCase();
+    if (provider === "workers_ai") {
+      return new WorkersAiContentProvider(this.env, {
+        schema: CONTENT_BUNDLE_SCHEMA,
+        validate: validateContentBundle,
+      }).generate(campaign, requestId);
+    }
+    if (provider === "openai") {
+      return new OpenAiContentProvider(this.env, { fetcher: this.fetcher })
+        .generate(campaign, requestId);
+    }
+    throw new ServiceError("configuration_missing", { status: 503 });
   }
 }

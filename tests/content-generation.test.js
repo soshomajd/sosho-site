@@ -5,10 +5,16 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import worker from "../worker/index.js";
 import {
+  CONTENT_BUNDLE_SCHEMA,
+  OpenAiContentProvider,
   findContentPolicyViolation,
   validateContentBundle,
   validateCreateCampaignInput,
 } from "../worker/content-generation.js";
+import {
+  DEFAULT_WORKERS_AI_CONTENT_MODEL,
+  DEFAULT_WORKERS_AI_FALLBACK_MODEL,
+} from "../worker/workers-ai-content-provider.js";
 import { network } from "./network.js";
 
 function validBundle() {
@@ -51,6 +57,35 @@ function validBundle() {
       { startSecond: 10, endSecond: 20, text: "سایت و اتوماسیون را یکپارچه کنید." },
     ],
   };
+}
+
+function workersAiRuntime(run, overrides = {}) {
+  return {
+    ...env,
+    CONTENT_AI_PROVIDER: "workers_ai",
+    WORKERS_AI_CONTENT_MODEL: DEFAULT_WORKERS_AI_CONTENT_MODEL,
+    WORKERS_AI_FALLBACK_MODEL: DEFAULT_WORKERS_AI_FALLBACK_MODEL,
+    AI: { run },
+    ...overrides,
+  };
+}
+
+function qwenOutput(bundle) {
+  return {
+    choices: [{ message: { role: "assistant", content: JSON.stringify(bundle) } }],
+  };
+}
+
+function englishBundle() {
+  const map = (value) => {
+    if (typeof value === "string") return value.startsWith("#") ? "#website" : "English content";
+    if (Array.isArray(value)) return value.map(map);
+    if (value && typeof value === "object") {
+      return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, map(item)]));
+    }
+    return value;
+  };
+  return map(validBundle());
 }
 
 async function api(path, { method = "GET", body, token = "test-admin-token", runtimeEnv = env } = {}) {
@@ -104,6 +139,17 @@ describe("content validation", () => {
     });
   });
 
+  it("requires Persian content in the content bundle", () => {
+    expect(validateContentBundle({ ...validBundle(), facebookCaption: "English content" })).toEqual({
+      ok: false,
+      code: "persian_content_required",
+    });
+    expect(validateContentBundle(englishBundle())).toEqual({
+      ok: false,
+      code: "persian_content_required",
+    });
+  });
+
   it("rejects fabricated claims before persistence", () => {
     const bundle = { ...validBundle(), mainMessage: "رشد ۹۰٪ را تضمین می‌کنیم." };
     expect(findContentPolicyViolation(bundle)).toBe("invented_statistic");
@@ -139,25 +185,80 @@ describe("admin content campaign API", () => {
   });
 
   it("generates, validates, stores, and transitions the campaign", async () => {
-    network.use(http.post("https://api.openai.com/v1/responses", () => HttpResponse.json({
-      status: "completed",
-      output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify(validBundle()) }] }],
-    })));
+    const run = vi.fn(async () => qwenOutput(validBundle()));
     const { payload } = await createCampaign();
-    const response = await api(`/api/content/campaigns/${payload.campaign.id}/generate`, { method: "POST" });
+    const response = await api(`/api/content/campaigns/${payload.campaign.id}/generate`, {
+      method: "POST",
+      runtimeEnv: workersAiRuntime(run),
+    });
     const generated = await response.json();
     expect(response.status).toBe(200);
     expect(generated.campaign.status).toBe("generated");
     expect(generated.contentItem.validationStatus).toBe("valid");
     expect(generated.contentItem.content.reelScript.durationSeconds).toBe(20);
-    expect((await api(`/api/content/campaigns/${payload.campaign.id}/generate`, { method: "POST" })).status).toBe(409);
+    expect(run).toHaveBeenCalledTimes(1);
+    expect(run.mock.calls[0][0]).toBe(DEFAULT_WORKERS_AI_CONTENT_MODEL);
+    expect(run.mock.calls[0][1].response_format).toEqual({
+      type: "json_schema",
+      json_schema: CONTENT_BUNDLE_SCHEMA,
+    });
+    expect((await api(`/api/content/campaigns/${payload.campaign.id}/generate`, {
+      method: "POST",
+      runtimeEnv: workersAiRuntime(run),
+    })).status).toBe(409);
+  });
+
+  it("uses the fallback model once after invalid primary output", async () => {
+    const run = vi.fn(async (model) => model === DEFAULT_WORKERS_AI_CONTENT_MODEL
+      ? { response: "not-json" }
+      : { response: JSON.stringify(validBundle()) });
+    const { payload } = await createCampaign();
+    const response = await api(`/api/content/campaigns/${payload.campaign.id}/generate`, {
+      method: "POST",
+      runtimeEnv: workersAiRuntime(run),
+    });
+    expect(response.status).toBe(200);
+    expect(run.mock.calls.map(([model]) => model)).toEqual([
+      DEFAULT_WORKERS_AI_CONTENT_MODEL,
+      DEFAULT_WORKERS_AI_FALLBACK_MODEL,
+    ]);
+  });
+
+  it("fails safely when both Workers AI models fail", async () => {
+    const run = vi.fn(async (model) => {
+      if (model === DEFAULT_WORKERS_AI_CONTENT_MODEL) return { response: "not-json" };
+      throw Object.assign(new Error("sensitive upstream failure"), { status: 503 });
+    });
+    const { payload } = await createCampaign();
+    const response = await api(`/api/content/campaigns/${payload.campaign.id}/generate`, {
+      method: "POST",
+      runtimeEnv: workersAiRuntime(run),
+    });
+    expect(response.status).toBe(502);
+    expect(await response.json()).toMatchObject({ error: "content_generation_failed" });
+    expect(run).toHaveBeenCalledTimes(2);
+    expect(await env.DB.prepare("SELECT status FROM content_campaigns WHERE id = ?")
+      .bind(payload.campaign.id).first("status")).toBe("failed");
+  });
+
+  it("does not call OpenAI while Workers AI is selected", async () => {
+    let openAiCalls = 0;
+    network.use(http.post("https://api.openai.com/v1/responses", () => {
+      openAiCalls += 1;
+      return new HttpResponse(null, { status: 403 });
+    }));
+    const run = vi.fn(async () => qwenOutput(validBundle()));
+    const { payload } = await createCampaign();
+    const response = await api(`/api/content/campaigns/${payload.campaign.id}/generate`, {
+      method: "POST",
+      runtimeEnv: workersAiRuntime(run, { OPENAI_API_KEY: "unused-openai-key" }),
+    });
+    expect(response.status).toBe(200);
+    expect(openAiCalls).toBe(0);
   });
 
   it("accepts a zero-byte generate body while rejecting actual content", async () => {
-    network.use(http.post("https://api.openai.com/v1/responses", () => HttpResponse.json({
-      status: "completed",
-      output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify(validBundle()) }] }],
-    })));
+    const run = vi.fn(async () => qwenOutput(validBundle()));
     const emptyBodyCampaign = await createCampaign();
     const emptyBodyResponse = await worker.fetch(new Request(
       `https://example.com/api/content/campaigns/${emptyBodyCampaign.payload.campaign.id}/generate`,
@@ -166,28 +267,52 @@ describe("admin content campaign API", () => {
         headers: { authorization: "Bearer test-admin-token" },
         body: "",
       }
-    ), env, createExecutionContext());
+    ), workersAiRuntime(run), createExecutionContext());
     expect(emptyBodyResponse.status).toBe(200);
 
     const contentCampaign = await createCampaign();
     const contentResponse = await api(
       `/api/content/campaigns/${contentCampaign.payload.campaign.id}/generate`,
-      { method: "POST", body: { unexpected: true } }
+      { method: "POST", body: { unexpected: true }, runtimeEnv: workersAiRuntime(run) }
     );
     expect(contentResponse.status).toBe(400);
     expect((await contentResponse.json()).error).toBe("request_body_not_allowed");
   });
 
-  it("returns configuration_missing and marks the campaign failed when OpenAI is absent", async () => {
+  it("returns configuration_missing and marks the campaign failed when AI binding is absent", async () => {
     const { payload } = await createCampaign();
     const response = await api(`/api/content/campaigns/${payload.campaign.id}/generate`, {
       method: "POST",
-      runtimeEnv: { ...env, OPENAI_API_KEY: "" },
+      runtimeEnv: { ...env, CONTENT_AI_PROVIDER: "workers_ai", AI: undefined },
     });
     expect(response.status).toBe(503);
     expect((await response.json()).error).toBe("configuration_missing");
     expect(await env.DB.prepare("SELECT status FROM content_campaigns WHERE id = ?")
       .bind(payload.campaign.id).first("status")).toBe("failed");
+  });
+
+  it("does not retry an OpenAI unsupported-country 403", async () => {
+    const fetcher = vi.fn(async () => HttpResponse.json({
+      error: {
+        type: "request_forbidden",
+        code: "unsupported_country_region_territory",
+        message: "sensitive upstream detail",
+      },
+    }, { status: 403 }));
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const service = new OpenAiContentProvider({
+      OPENAI_API_KEY: "test-openai-key",
+      OPENAI_MODEL: "gpt-5.6-luna",
+      OPENAI_MAX_ATTEMPTS: "3",
+      RETRY_BASE_DELAY_MS: "1",
+    }, { fetcher });
+    await expect(service.generate({
+      topic: "موضوع",
+      target_audience: "مدیران",
+      goal: "آگاهی",
+    }, "req_openai_no_retry")).rejects.toMatchObject({ code: "openai_http_403" });
+    warn.mockRestore();
+    expect(fetcher).toHaveBeenCalledTimes(1);
   });
 
   it("logs safe OpenAI failure diagnostics without provider messages or request content", async () => {
@@ -209,6 +334,7 @@ describe("admin content campaign API", () => {
     const { payload } = await createCampaign({ topic: "sensitive-campaign-topic" });
     const response = await api(`/api/content/campaigns/${payload.campaign.id}/generate`, {
       method: "POST",
+      runtimeEnv: { ...env, CONTENT_AI_PROVIDER: "openai" },
     });
     const responsePayload = await response.json();
     const output = spies.flatMap((spy) => spy.mock.calls).flat().join(" ");

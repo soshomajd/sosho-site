@@ -122,6 +122,24 @@ export type ContentItemRow = {
   updated_at: string;
 };
 
+export type ContentMediaRow = {
+  id: string;
+  campaign_id: string;
+  media_type: "main_image";
+  r2_key: string;
+  mime_type: "image/jpeg" | "image/png" | "image/webp" | null;
+  byte_size: number | null;
+  status: "generating" | "stored" | "failed";
+  provider: string;
+  model: string;
+  attempt_count: number;
+  telegram_preview_status: "blocked" | "pending" | "sent" | "failed";
+  created_at: string;
+  updated_at: string;
+  stored_at: string | null;
+  last_error: string | null;
+};
+
 export type LeadRequirements = {
   businessName: string | null;
   businessActivity: string | null;
