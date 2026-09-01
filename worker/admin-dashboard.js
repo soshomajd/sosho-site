@@ -239,7 +239,11 @@ function mediaCapability(env) {
     : "activation_required";
 }
 
-function aiStatusFromLatestRole(role) {
+function aiStatusFromLatestRole(role, handoffState = "ai_active") {
+  if (handoffState === "handoff_requested" || handoffState === "human_active") {
+    return "paused";
+  }
+  if (handoffState === "resolved") return "resolved";
   if (role === "assistant") return "responded";
   if (role === "user") return "waiting";
   return "not_started";
@@ -271,7 +275,9 @@ export async function getAdminOverview(db) {
       ),
       db.prepare("SELECT COUNT(*) AS total FROM leads"),
       db.prepare("SELECT COUNT(*) AS total FROM conversations WHERE status = 'active'"),
-      db.prepare("SELECT COUNT(*) AS total FROM leads WHERE status = 'handoff'"),
+      db.prepare(
+        "SELECT COUNT(*) AS total FROM conversations WHERE handoff_state = 'handoff_requested'"
+      ),
       db.prepare(
         `SELECT id, topic AS label, status, updated_at
          FROM content_campaigns ORDER BY updated_at DESC, id DESC LIMIT 5`
@@ -524,7 +530,11 @@ export async function getAdminConversations(db, url) {
     where.push("c.channel = ?");
     bindings.push(channel);
   }
-  if (handoff) where.push(handoff === "true" ? "l.status = 'handoff'" : "l.status != 'handoff'");
+  if (handoff) {
+    where.push(handoff === "true"
+      ? "c.handoff_state IN ('handoff_requested', 'human_active')"
+      : "c.handoff_state NOT IN ('handoff_requested', 'human_active')");
+  }
   const whereSql = where.length ? `WHERE ${where.join(" AND ")}` : "";
   const [countResult, listResult] = await db.batch([
     db.prepare(
@@ -532,8 +542,9 @@ export async function getAdminConversations(db, url) {
        FROM conversations c JOIN leads l ON l.id = c.lead_id ${whereSql}`
     ).bind(...bindings),
     db.prepare(
-      `SELECT c.id, c.channel, c.status, c.created_at, c.updated_at,
-              l.status AS lead_status,
+      `SELECT c.id, c.channel, c.status, c.handoff_state,
+              c.handoff_requested_at, c.human_taken_over_at,
+              c.created_at, c.updated_at,
               COUNT(m.id) AS message_count,
               MAX(m.created_at) AS last_message_at,
               (SELECT latest.role FROM messages latest
@@ -543,7 +554,9 @@ export async function getAdminConversations(db, url) {
        JOIN leads l ON l.id = c.lead_id
        LEFT JOIN messages m ON m.conversation_id = c.id
        ${whereSql}
-       GROUP BY c.id, c.channel, c.status, c.created_at, c.updated_at, l.status
+       GROUP BY c.id, c.channel, c.status, c.handoff_state,
+                c.handoff_requested_at, c.human_taken_over_at,
+                c.created_at, c.updated_at
        ORDER BY c.updated_at DESC, c.id DESC
        LIMIT ? OFFSET ?`
     ).bind(...bindings, pageSize, offset),
@@ -554,8 +567,13 @@ export async function getAdminConversations(db, url) {
     safeIdentifier: compactId(row.id),
     channel: row.channel,
     status: row.status,
-    aiStatus: aiStatusFromLatestRole(row.latest_role),
-    humanHandoff: row.lead_status === "handoff",
+    handoffState: row.handoff_state,
+    aiStatus: aiStatusFromLatestRole(row.latest_role, row.handoff_state),
+    humanHandoff: row.handoff_state === "handoff_requested" ||
+      row.handoff_state === "human_active",
+    needsAttention: row.handoff_state === "handoff_requested",
+    handoffRequestedAt: row.handoff_requested_at ?? null,
+    humanTakenOverAt: row.human_taken_over_at ?? null,
     lastMessageAt: row.last_message_at ?? null,
     messageCount: Number(row.message_count ?? 0),
     createdAt: row.created_at,
@@ -574,8 +592,9 @@ export async function getAdminConversationDetail(db, conversationId) {
     throw new ServiceError("invalid_conversation_id", { status: 400 });
   }
   const conversation = await db.prepare(
-    `SELECT c.id, c.channel, c.status, c.created_at, c.updated_at,
-            l.status AS lead_status,
+    `SELECT c.id, c.channel, c.status, c.handoff_state,
+            c.handoff_requested_at, c.human_owner_key, c.human_taken_over_at,
+            c.created_at, c.updated_at,
             (SELECT COUNT(*) FROM messages counted WHERE counted.conversation_id = c.id)
               AS message_count,
             (SELECT latest.role FROM messages latest
@@ -606,11 +625,24 @@ export async function getAdminConversationDetail(db, conversationId) {
       safeIdentifier: compactId(conversation.id),
       channel: conversation.channel,
       status: conversation.status,
-      aiStatus: aiStatusFromLatestRole(conversation.latest_role),
-      humanHandoff: conversation.lead_status === "handoff",
+      handoffState: conversation.handoff_state,
+      aiStatus: aiStatusFromLatestRole(
+        conversation.latest_role,
+        conversation.handoff_state
+      ),
+      humanHandoff: conversation.handoff_state === "handoff_requested" ||
+        conversation.handoff_state === "human_active",
+      needsAttention: conversation.handoff_state === "handoff_requested",
+      handoffRequestedAt: conversation.handoff_requested_at ?? null,
+      humanTakenOverAt: conversation.human_taken_over_at ?? null,
       messageCount: Number(conversation.message_count ?? 0),
       createdAt: conversation.created_at,
       updatedAt: conversation.updated_at,
+    },
+    allowedActions: {
+      takeOver: conversation.status === "active" &&
+        conversation.handoff_state === "handoff_requested" &&
+        conversation.human_owner_key === null,
     },
     messages,
     messagesTruncated: Number(conversation.message_count ?? 0) > messages.length,

@@ -39,6 +39,11 @@ import {
   rejectCampaign,
 } from "./campaign-actions.js";
 import {
+  requestConversationHandoff,
+  requestsHumanHandoff,
+  takeOverConversation,
+} from "./conversation-actions.js";
+import {
   ContentGenerationService,
   validateCreateCampaignInput,
 } from "./content-generation.js";
@@ -64,6 +69,7 @@ const REQUIRED_TABLES = [
   "content_items",
   "content_media",
   "campaign_action_audit",
+  "conversation_action_audit",
   "telegram_updates",
   "telegram_notifications",
 ];
@@ -102,6 +108,15 @@ function requireDatabase(env) {
 
 const TELEGRAM_NOTIFICATION_MAX_ATTEMPTS = 5;
 const TELEGRAM_NOTIFICATION_RETRY_SECONDS = 300;
+const TELEGRAM_NOTIFICATION_RETRY_BATCH_SIZE = 20;
+
+function telegramNotificationClaimToken() {
+  return `claim:${crypto.randomUUID()}`;
+}
+
+function telegramNotificationErrorCode(error) {
+  return String(error?.code || "telegram_error").slice(0, 100);
+}
 
 // Always resolves to a status object. A failing Telegram send (or a D1 error while
 // bookkeeping it) must never propagate into content persistence, Sales Chat, or
@@ -114,13 +129,14 @@ async function sendTelegramNotificationOnce(
   try {
     const db = requireDatabase(env);
     const timestamp = now();
+    const claimToken = telegramNotificationClaimToken();
     const keyboardJson = keyboard ? JSON.stringify(keyboard) : null;
     const inserted = await db
       .prepare(
         `INSERT OR IGNORE INTO telegram_notifications (
           event_key, notification_type, entity_id, status, attempt_count,
-          message_text, keyboard_json, created_at, updated_at
-        ) VALUES (?, ?, ?, 'pending', 0, ?, ?, ?, ?)`
+          message_text, keyboard_json, next_retry_at, created_at, updated_at, last_error
+        ) VALUES (?, ?, ?, 'pending', 1, ?, ?, ?, ?, ?, ?)`
       )
       .bind(
         eventKey,
@@ -128,8 +144,10 @@ async function sendTelegramNotificationOnce(
         entityId ?? null,
         typeof text === "string" ? text.slice(0, 8192) : null,
         keyboardJson,
+        addSecondsIso(TELEGRAM_NOTIFICATION_RETRY_SECONDS),
         timestamp,
-        timestamp
+        timestamp,
+        claimToken
       )
       .run();
     if (Number(inserted.meta?.changes ?? 0) === 0) return { status: "duplicate" };
@@ -139,29 +157,22 @@ async function sendTelegramNotificationOnce(
         await telegram.sendPhoto(photo, { caption: text, replyMarkup: keyboard, requestId });
       } else if (keyboard) await telegram.sendInlineKeyboard(text, keyboard, requestId);
       else await telegram.sendText(text, { requestId });
-      await db
-        .prepare(
-          `UPDATE telegram_notifications
-           SET status = 'sent', attempt_count = attempt_count + 1, sent_at = ?,
-               next_retry_at = NULL, updated_at = ?
-           WHERE event_key = ?`
-        )
-        .bind(now(), now(), eventKey)
-        .run();
-      return { status: "sent" };
     } catch (error) {
       await db
         .prepare(
           `UPDATE telegram_notifications
-           SET status = 'failed', attempt_count = attempt_count + 1, last_error = ?,
-               next_retry_at = ?, updated_at = ?
-           WHERE event_key = ?`
+           SET status = 'failed', last_error = ?,
+               next_retry_at = CASE WHEN attempt_count >= ? THEN NULL ELSE ? END,
+               updated_at = ?
+           WHERE event_key = ? AND status = 'pending' AND last_error = ?`
         )
         .bind(
-          String(error?.code || "telegram_error").slice(0, 100),
+          telegramNotificationErrorCode(error),
+          TELEGRAM_NOTIFICATION_MAX_ATTEMPTS,
           addSecondsIso(TELEGRAM_NOTIFICATION_RETRY_SECONDS),
           now(),
-          eventKey
+          eventKey,
+          claimToken
         )
         .run();
       logEvent("warn", "telegram_notification_failed", {
@@ -171,6 +182,25 @@ async function sendTelegramNotificationOnce(
       });
       return { status: "failed" };
     }
+    const completedAt = now();
+    const completed = await db
+      .prepare(
+        `UPDATE telegram_notifications
+         SET status = 'sent', sent_at = ?, last_error = NULL,
+             next_retry_at = NULL, updated_at = ?
+         WHERE event_key = ? AND status = 'pending' AND last_error = ?`
+      )
+      .bind(completedAt, completedAt, eventKey, claimToken)
+      .run();
+    if (Number(completed.meta?.changes ?? 0) === 0) {
+      logEvent("warn", "telegram_notification_claim_lost", {
+        requestId,
+        provider: "telegram",
+        code: "claim_lost",
+      });
+      return { status: "failed" };
+    }
+    return { status: "sent" };
   } catch (error) {
     logEvent("warn", "telegram_notification_bookkeeping_failed", {
       requestId,
@@ -184,23 +214,50 @@ async function sendTelegramNotificationOnce(
 // Re-drives Telegram notifications whose first send attempt failed. Text and the
 // inline keyboard are replayed from the stored row; image previews fall back to a
 // text message that still carries the approval buttons.
+// The conditional UPDATE is the claim: pending + a future next_retry_at is its
+// lease, and last_error temporarily holds the non-secret owner token. Attempts are
+// consumed before network I/O, so a crashed isolate can be reclaimed after the
+// lease without allowing another live sweep to finalize the same row.
+async function claimTelegramNotificationRetry(db) {
+  const claimedAt = now();
+  const claimToken = telegramNotificationClaimToken();
+  const row = await db
+    .prepare(
+      `UPDATE telegram_notifications
+       SET status = 'pending', attempt_count = attempt_count + 1,
+           last_error = ?, next_retry_at = ?, updated_at = ?
+       WHERE event_key = (
+         SELECT event_key
+         FROM telegram_notifications
+         WHERE attempt_count < ? AND message_text IS NOT NULL
+           AND (
+             (status = 'failed' AND (next_retry_at IS NULL OR next_retry_at <= ?))
+             OR (status = 'pending' AND next_retry_at IS NOT NULL AND next_retry_at <= ?)
+           )
+         ORDER BY updated_at ASC, event_key ASC
+         LIMIT 1
+       )
+       RETURNING event_key, message_text, keyboard_json, attempt_count`
+    )
+    .bind(
+      claimToken,
+      addSecondsIso(TELEGRAM_NOTIFICATION_RETRY_SECONDS),
+      claimedAt,
+      TELEGRAM_NOTIFICATION_MAX_ATTEMPTS,
+      claimedAt,
+      claimedAt
+    )
+    .first();
+  return row ? { ...row, claimToken } : null;
+}
+
 export async function retryFailedTelegramNotifications(env, requestId) {
   if (!isTelegramConfigured(env)) return { retried: 0 };
   const db = requireDatabase(env);
-  const due = await db
-    .prepare(
-      `SELECT event_key, message_text, keyboard_json
-       FROM telegram_notifications
-       WHERE status = 'failed' AND attempt_count < ?
-         AND message_text IS NOT NULL
-         AND (next_retry_at IS NULL OR next_retry_at <= ?)
-       ORDER BY updated_at ASC
-       LIMIT 20`
-    )
-    .bind(TELEGRAM_NOTIFICATION_MAX_ATTEMPTS, now())
-    .all();
   let retried = 0;
-  for (const row of due.results ?? []) {
+  for (let index = 0; index < TELEGRAM_NOTIFICATION_RETRY_BATCH_SIZE; index += 1) {
+    const row = await claimTelegramNotificationRetry(db);
+    if (!row) break;
     let keyboard = null;
     if (row.keyboard_json) {
       try {
@@ -213,34 +270,48 @@ export async function retryFailedTelegramNotifications(env, requestId) {
       const telegram = new TelegramService(env);
       if (keyboard) await telegram.sendInlineKeyboard(row.message_text, keyboard, requestId);
       else await telegram.sendText(row.message_text, { requestId });
-      await db
-        .prepare(
-          `UPDATE telegram_notifications
-           SET status = 'sent', attempt_count = attempt_count + 1, sent_at = ?,
-               next_retry_at = NULL, updated_at = ?
-           WHERE event_key = ?`
-        )
-        .bind(now(), now(), row.event_key)
-        .run();
-      retried += 1;
     } catch (error) {
       await db
         .prepare(
           `UPDATE telegram_notifications
-           SET attempt_count = attempt_count + 1, last_error = ?, next_retry_at = ?, updated_at = ?
-           WHERE event_key = ?`
+           SET status = 'failed', last_error = ?,
+               next_retry_at = CASE WHEN attempt_count >= ? THEN NULL ELSE ? END,
+               updated_at = ?
+           WHERE event_key = ? AND status = 'pending' AND last_error = ?`
         )
         .bind(
-          String(error?.code || "telegram_error").slice(0, 100),
+          telegramNotificationErrorCode(error),
+          TELEGRAM_NOTIFICATION_MAX_ATTEMPTS,
           addSecondsIso(TELEGRAM_NOTIFICATION_RETRY_SECONDS),
           now(),
-          row.event_key
+          row.event_key,
+          row.claimToken
         )
         .run();
       logEvent("warn", "telegram_notification_retry_failed", {
         requestId,
         provider: "telegram",
         code: error?.code || "telegram_error",
+      });
+      continue;
+    }
+    const completedAt = now();
+    const completed = await db
+      .prepare(
+        `UPDATE telegram_notifications
+         SET status = 'sent', sent_at = ?, last_error = NULL,
+             next_retry_at = NULL, updated_at = ?
+         WHERE event_key = ? AND status = 'pending' AND last_error = ?`
+      )
+      .bind(completedAt, completedAt, row.event_key, row.claimToken)
+      .run();
+    if (Number(completed.meta?.changes ?? 0) > 0) {
+      retried += 1;
+    } else {
+      logEvent("warn", "telegram_notification_retry_claim_lost", {
+        requestId,
+        provider: "telegram",
+        code: "claim_lost",
       });
     }
   }
@@ -729,7 +800,8 @@ async function requireNoRequestBody(request) {
 async function findWebsiteConversation(env, conversationId) {
   return requireDatabase(env)
     .prepare(
-      `SELECT c.id AS conversation_id, c.lead_id, l.requirements_json
+      `SELECT c.id AS conversation_id, c.lead_id, c.handoff_state,
+              l.requirements_json
        FROM conversations c
        JOIN leads l ON l.id = c.lead_id
        WHERE c.id = ? AND c.channel = 'website' AND c.status = 'active'
@@ -754,7 +826,12 @@ async function findInstagramLead(env, externalUserId) {
           FROM conversations c
           WHERE c.lead_id = l.id AND c.channel = 'instagram' AND c.status = 'active'
           ORDER BY c.updated_at DESC
-          LIMIT 1) AS conversation_id
+          LIMIT 1) AS conversation_id,
+         (SELECT c.handoff_state
+          FROM conversations c
+          WHERE c.lead_id = l.id AND c.channel = 'instagram' AND c.status = 'active'
+          ORDER BY c.updated_at DESC
+          LIMIT 1) AS handoff_state
        FROM leads l
        WHERE l.instagram_user_id = ?
        LIMIT 1`
@@ -818,6 +895,7 @@ async function createLeadAndConversation(
     conversation_id: conversationId,
     lead_id: leadId,
     requirements_json: "{}",
+    handoff_state: "ai_active",
     is_new_lead: true,
   };
 }
@@ -838,7 +916,7 @@ async function resolveInstagramConversation(env, { externalUserId, locale }) {
   if (lead?.conversation_id) return lead;
   if (lead?.lead_id) {
     const conversationId = await createConversationForLead(env, lead.lead_id, "instagram");
-    return { ...lead, conversation_id: conversationId };
+    return { ...lead, conversation_id: conversationId, handoff_state: "ai_active" };
   }
   return createLeadAndConversation(env, {
     locale,
@@ -1216,6 +1294,49 @@ async function notifySalesEvent(env, type, input, conversation, result, profile)
   });
 }
 
+function handoffAcknowledgement(locale) {
+  return {
+    reply: locale === "fa"
+      ? "پیام شما ثبت شد. ادامه گفتگو به مدیر سپرده شده است."
+      : "Your message is saved. A manager will continue this conversation.",
+    stage: "handoff",
+    projectType: "unknown",
+    recommendedTier: "unknown",
+    extracted: {},
+    missingFields: [],
+    quickReplies: [],
+    isComplete: false,
+    confidence: 1,
+  };
+}
+
+function queueSalesNotifications(
+  env,
+  notificationTypes,
+  input,
+  conversation,
+  result,
+  profile,
+  waitUntil
+) {
+  if (notificationTypes.length < 1) return;
+  const flushNotifications = async () => {
+    for (const notificationType of notificationTypes) {
+      try {
+        await notifySalesEvent(env, notificationType, input, conversation, result, profile);
+      } catch (error) {
+        logEvent("warn", "sales_notification_failed", {
+          requestId: input.requestId,
+          provider: "telegram",
+          code: error?.code || "notification_error",
+        });
+      }
+    }
+  };
+  if (typeof waitUntil === "function") waitUntil(flushNotifications());
+  else return flushNotifications();
+}
+
 export async function handleSalesTurn(env, input, waitUntil) {
   requireDatabase(env);
   if (input.channel === "website") {
@@ -1282,9 +1403,47 @@ export async function handleSalesTurn(env, input, waitUntil) {
       input.externalEventId
     );
   }
+  const profile = parseJson(conversation.requirements_json, {});
+  const aiPaused = conversation.handoff_state === "handoff_requested" ||
+    conversation.handoff_state === "human_active";
+  const directHandoffRequest = conversation.handoff_state === "ai_active" &&
+    requestsHumanHandoff(input.message);
+  if (aiPaused || directHandoffRequest) {
+    let handoffStarted = false;
+    if (directHandoffRequest) {
+      const transition = await requestConversationHandoff(requireDatabase(env), {
+        conversationId: conversation.conversation_id,
+        operationKey: `handoff:${conversation.conversation_id}`,
+        actor: { type: "sales_user", key: "conversation_user" },
+      });
+      handoffStarted = transition.outcome === "succeeded";
+      conversation.handoff_state = transition.conversation.handoff_state;
+    }
+    const result = handoffAcknowledgement(input.locale);
+    const notificationTypes = [];
+    if (conversation.is_new_lead) notificationTypes.push("lead_created");
+    if (handoffStarted) notificationTypes.push("handoff");
+    await queueSalesNotifications(
+      env,
+      notificationTypes,
+      input,
+      conversation,
+      result,
+      profile,
+      waitUntil
+    );
+    return {
+      conversationId: conversation.conversation_id,
+      reply: result.reply,
+      stage: result.stage,
+      quickReplies: result.quickReplies,
+      isComplete: result.isComplete,
+      suppressExternalReply: input.channel !== "website",
+      status: 200,
+    };
+  }
   const history = await getHistory(env, conversation.conversation_id);
   const messageCount = await countConversationUserMessages(env, conversation.conversation_id);
-  const profile = parseJson(conversation.requirements_json, {});
   let result;
   let providerFailed = false;
   try {
@@ -1322,31 +1481,30 @@ export async function handleSalesTurn(env, input, waitUntil) {
     },
     input.externalEventId
   );
+  if (result.stage === "handoff") {
+    await requestConversationHandoff(requireDatabase(env), {
+      conversationId: conversation.conversation_id,
+      operationKey: `handoff:${conversation.conversation_id}`,
+      actor: { type: "sales_service", key: "sales_model" },
+    });
+  }
   const notificationTypes = [];
   if (conversation.is_new_lead) notificationTypes.push("lead_created");
   if (result.stage === "proposal_ready" || result.isComplete) notificationTypes.push("proposal_ready");
   if (result.stage === "handoff") notificationTypes.push("handoff");
   if (providerFailed) notificationTypes.push("provider_failed");
-  const flushNotifications = async () => {
-    for (const notificationType of notificationTypes) {
-      try {
-        await notifySalesEvent(env, notificationType, input, conversation, result, updatedProfile);
-      } catch (error) {
-        logEvent("warn", "sales_notification_failed", {
-          requestId: input.requestId,
-          provider: "telegram",
-          code: error?.code || "notification_error",
-        });
-      }
-    }
-  };
-  if (notificationTypes.length > 0) {
-    // On the website request path this runs after the response so a slow Telegram
-    // bot never inflates user-facing chat latency; the Instagram path already runs
-    // the whole turn inside ctx.waitUntil.
-    if (typeof waitUntil === "function") waitUntil(flushNotifications());
-    else await flushNotifications();
-  }
+  // On the website request path this runs after the response so a slow Telegram
+  // bot never inflates user-facing chat latency; the Instagram path already runs
+  // the whole turn inside ctx.waitUntil.
+  await queueSalesNotifications(
+    env,
+    notificationTypes,
+    input,
+    conversation,
+    result,
+    updatedProfile,
+    waitUntil
+  );
   return {
     conversationId: conversation.conversation_id,
     reply: result.reply,
@@ -1596,6 +1754,16 @@ export async function processStoredWebhookEvent(env, eventId, requestId) {
       }
       responseText = result.reply;
       conversationId = result.conversationId;
+      if (result.suppressExternalReply) {
+        await saveWebhookResponse(env, eventId, null, conversationId);
+        await markWebhookProcessed(env, eventId);
+        logEvent("info", "instagram_webhook_processed", {
+          requestId,
+          channel: "instagram",
+          status: "processed",
+        });
+        return { status: "processed", conversationId, replySuppressed: true };
+      }
       await saveWebhookResponse(env, eventId, responseText, conversationId);
     }
     await sendInstagramMessage(env, senderId, responseText, requestId);
@@ -1724,7 +1892,21 @@ function constantTimeEqual(left, right) {
   return mismatch === 0;
 }
 
-async function claimTelegramUpdate(env, update) {
+function isExpectedTelegramCampaignForeignKeyError(error) {
+  const seen = new Set();
+  let current = error;
+  while (current && !seen.has(current)) {
+    seen.add(current);
+    const message = current instanceof Error
+      ? current.message
+      : typeof current === "string" ? current : "";
+    if (/foreign key constraint failed/iu.test(message)) return true;
+    current = typeof current === "object" ? current.cause : null;
+  }
+  return false;
+}
+
+async function claimTelegramUpdate(env, update, requestId) {
   const timestamp = now();
   try {
     const inserted = await requireDatabase(env)
@@ -1744,14 +1926,26 @@ async function claimTelegramUpdate(env, update) {
       .run();
     return Number(inserted.meta?.changes ?? 0) > 0;
   } catch (error) {
-    // A dangling callback for a deleted campaign trips the campaign_id foreign key,
-    // which INSERT OR IGNORE does not suppress. Treat it as "nothing to process"
-    // instead of surfacing a 500 that Telegram would retry.
-    logEvent("warn", "telegram_update_claim_failed", {
+    // INSERT OR IGNORE does not suppress a dangling campaign foreign key. That
+    // known callback race is safe to acknowledge; every other D1 failure must
+    // remain visible and fail closed so Telegram can retry it later.
+    if (isExpectedTelegramCampaignForeignKeyError(error)) {
+      logEvent("warn", "telegram_update_claim_rejected", {
+        requestId,
+        provider: "telegram",
+        code: "campaign_not_found",
+      });
+      return false;
+    }
+    logEvent("error", "telegram_update_claim_failed", {
+      requestId,
       provider: "telegram",
-      code: error?.code || "claim_error",
+      code: "database_error",
     });
-    return false;
+    throw new ServiceError("telegram_update_claim_failed", {
+      status: 503,
+      retryable: true,
+    });
   }
 }
 
@@ -1881,7 +2075,7 @@ async function handleTelegramWebhook(request, env, ctx, requestId) {
       update.userId !== String(env.TELEGRAM_ADMIN_USER_ID)) {
     throw new ServiceError("telegram_admin_forbidden", { status: 403 });
   }
-  const claimed = await claimTelegramUpdate(env, update);
+  const claimed = await claimTelegramUpdate(env, update, requestId);
   if (!claimed) {
     try {
       await new TelegramService(env).answerCallbackQuery(update.callbackId, "قبلاً پردازش شده", requestId);
@@ -1943,7 +2137,8 @@ async function getReadiness(env) {
            WHERE type = 'table' AND name IN (
              'leads', 'conversations', 'messages', 'webhook_events', 'rate_limit_counters',
              'content_campaigns', 'content_items', 'content_media',
-             'campaign_action_audit', 'telegram_updates', 'telegram_notifications'
+             'campaign_action_audit', 'conversation_action_audit',
+             'telegram_updates', 'telegram_notifications'
            )`
         ).first();
         migrationsReady = Number(tables?.total ?? 0) === REQUIRED_TABLES.length;
@@ -1951,6 +2146,10 @@ async function getReadiness(env) {
           await env.DB.batch([
             env.DB.prepare("SELECT pii_expires_at, anonymized_at FROM leads LIMIT 1"),
             env.DB.prepare("SELECT expires_at, external_event_id FROM messages LIMIT 1"),
+            env.DB.prepare(
+              `SELECT handoff_state, handoff_requested_at, human_owner_key,
+                      human_taken_over_at FROM conversations LIMIT 1`
+            ),
             env.DB.prepare(
               `SELECT attempt_count, next_retry_at, response_text,
                       payload_expires_at, expires_at
@@ -1988,6 +2187,11 @@ async function getReadiness(env) {
               `SELECT operation_key, campaign_id, action, actor_type, actor_key,
                       status, outcome, reason, error_code
                FROM campaign_action_audit LIMIT 1`
+            ),
+            env.DB.prepare(
+              `SELECT operation_key, conversation_id, action, actor_type, actor_key,
+                      from_state, to_state, status, outcome, error_code
+               FROM conversation_action_audit LIMIT 1`
             ),
           ]);
         }
@@ -2193,23 +2397,57 @@ export async function handleApi(request, env, ctx, url, requestId) {
       await requireDashboardAdmin(request, env);
       return json(await getAdminConversations(requireDatabase(env), url), 200, requestId);
     }
-    const adminConversationRoute = url.pathname.match(/^\/api\/admin\/conversations\/([^/]+)$/u);
+    const adminConversationRoute = url.pathname.match(
+      /^\/api\/admin\/conversations\/([^/]+)(?:\/(take-over))?$/u
+    );
     if (adminConversationRoute) {
-      if (request.method !== "GET") {
-        return json({ error: "method_not_allowed" }, 405, requestId);
-      }
-      await requireDashboardAdmin(request, env);
       let conversationId;
       try {
         conversationId = decodeURIComponent(adminConversationRoute[1]);
       } catch {
         throw new ServiceError("invalid_conversation_id", { status: 400 });
       }
-      return json(
-        await getAdminConversationDetail(requireDatabase(env), conversationId),
-        200,
-        requestId
-      );
+      const action = adminConversationRoute[2] || null;
+      if (!action) {
+        if (request.method !== "GET") {
+          return json({ error: "method_not_allowed" }, 405, requestId);
+        }
+        await requireDashboardAdmin(request, env);
+        return json(
+          await getAdminConversationDetail(requireDatabase(env), conversationId),
+          200,
+          requestId
+        );
+      }
+      if (request.method !== "POST") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      const origin = request.headers.get("origin");
+      if (!origin || !isAllowedWebsiteRequest(request, env)) {
+        throw new ServiceError("origin_not_allowed", { status: 403 });
+      }
+      await requireAdminSessionAction(request, env);
+      const body = await readJsonBody(request, 2048);
+      if (!isPlainRecord(body) || Object.keys(body).length !== 0) {
+        throw new ServiceError("invalid_request", { status: 400 });
+      }
+      const operationKey = request.headers.get("idempotency-key") || "";
+      if (!IDEMPOTENCY_KEY_PATTERN.test(operationKey)) {
+        throw new ServiceError("invalid_idempotency_key", { status: 400 });
+      }
+      const operation = await takeOverConversation(requireDatabase(env), {
+        conversationId,
+        operationKey: `dashboard:${operationKey}`,
+        actor: { type: "dashboard", key: "admin_session" },
+      });
+      return json({
+        operation: {
+          action: operation.action,
+          outcome: operation.outcome,
+          duplicate: operation.duplicate,
+        },
+        ...(await getAdminConversationDetail(requireDatabase(env), conversationId)),
+      }, 200, requestId);
     }
     if (url.pathname === "/api/content/campaigns" && request.method === "POST") {
       await requireAdminBearer(request, env);
@@ -2321,6 +2559,7 @@ export async function handleApi(request, env, ctx, url, requestId) {
       if (result.error) return json({ error: result.error }, result.status, requestId);
       const payload = { ...result };
       delete payload.status;
+      delete payload.suppressExternalReply;
       return json(payload, 200, requestId);
     }
     return json({ error: "not_found" }, 404, requestId);

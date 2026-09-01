@@ -21,8 +21,10 @@ type Conversation = {
   safeIdentifier: string;
   channel: string;
   status: string;
+  handoffState: string;
   aiStatus: string;
   humanHandoff: boolean;
+  needsAttention: boolean;
   lastMessageAt: string | null;
   messageCount: number;
   updatedAt: string;
@@ -38,6 +40,11 @@ const labels: Record<string, string> = {
   responded: "پاسخ داده شده",
   waiting: "در انتظار پاسخ AI",
   not_started: "شروع نشده",
+  paused: "متوقف برای مدیر",
+  ai_active: "فعال با AI",
+  handoff_requested: "نیازمند رسیدگی",
+  human_active: "در اختیار مدیر",
+  resolved: "حل‌شده",
 };
 
 export default function ConversationsClient() {
@@ -90,6 +97,7 @@ export default function ConversationsClient() {
                 </div>
                 <dl className="mt-5 space-y-3 text-sm">
                   <div className="flex justify-between gap-3"><dt className="text-muted">وضعیت AI</dt><dd className="text-left text-foreground">{labels[conversation.aiStatus] || conversation.aiStatus}</dd></div>
+                  <div className="flex justify-between gap-3"><dt className="text-muted">مرحله رسیدگی</dt><dd><StatusBadge label={conversation.needsAttention ? "نیازمند رسیدگی" : (labels[conversation.handoffState] || conversation.handoffState)} tone={conversation.needsAttention ? "warning" : "neutral"} /></dd></div>
                   <div className="flex justify-between gap-3"><dt className="text-muted">دخالت انسان</dt><dd><StatusBadge label={conversation.humanHandoff ? "لازم است" : "لازم نیست"} tone={conversation.humanHandoff ? "warning" : "neutral"} /></dd></div>
                   <div className="flex justify-between gap-3"><dt className="text-muted">تعداد پیام</dt><dd className="text-foreground">{conversation.messageCount.toLocaleString("fa-IR")}</dd></div>
                   <div className="border-t border-white/10 pt-3"><dt className="text-muted">آخرین پیام</dt><dd className="mt-1 text-foreground">{formatDate(conversation.lastMessageAt)}</dd></div>

@@ -148,6 +148,7 @@ async function campaignAction(campaignId, action, {
 
 beforeEach(async () => {
   await env.DB.batch([
+    env.DB.prepare("DELETE FROM conversation_action_audit"),
     env.DB.prepare("DELETE FROM campaign_action_audit"),
     env.DB.prepare("DELETE FROM content_media"),
     env.DB.prepare("DELETE FROM content_items"),
@@ -208,6 +209,13 @@ describe("admin overview and campaign reads", () => {
     await env.DB.prepare(
       "INSERT INTO conversations (id, lead_id, channel, status, created_at, updated_at) VALUES ('conv_admin_1', 'lead_active', 'website', 'active', ?, ?)"
     ).bind(timestamp, timestamp).run();
+    await env.DB.prepare(
+      `INSERT INTO conversations (
+        id, lead_id, channel, status, handoff_state, handoff_requested_at,
+        created_at, updated_at
+      ) VALUES ('conv_admin_handoff', 'lead_handoff', 'website', 'active',
+        'handoff_requested', ?, ?, ?)`
+    ).bind(timestamp, timestamp, timestamp).run();
 
     const response = await api("/api/admin/overview");
     expect(response.status).toBe(200);
@@ -222,7 +230,7 @@ describe("admin overview and campaign reads", () => {
       failed: 1,
     });
     expect(payload.leads).toBe(2);
-    expect(payload.activeConversations).toBe(1);
+    expect(payload.activeConversations).toBe(2);
     expect(payload.humanHandoffs).toBe(1);
     expect(payload.recentActivities.length).toBeGreaterThan(0);
   });
@@ -296,8 +304,12 @@ describe("safe lead and conversation reads", () => {
   it("returns conversation AI and handoff state with redacted details", async () => {
     await insertLead({ id: "lead_handoff", status: "handoff" });
     await env.DB.prepare(
-      "INSERT INTO conversations (id, lead_id, channel, status, created_at, updated_at) VALUES ('conv_admin_detail', 'lead_handoff', 'website', 'active', ?, ?)"
-    ).bind(timestamp, timestamp).run();
+      `INSERT INTO conversations (
+        id, lead_id, channel, status, handoff_state, handoff_requested_at,
+        created_at, updated_at
+      ) VALUES ('conv_admin_detail', 'lead_handoff', 'website', 'active',
+        'handoff_requested', ?, ?, ?)`
+    ).bind(timestamp, timestamp, timestamp).run();
     await env.DB.batch([
       env.DB.prepare(
         "INSERT INTO messages (id, conversation_id, role, content, metadata_json, created_at) VALUES ('msg_1', 'conv_admin_detail', 'user', ?, '{}', ?)"
@@ -313,7 +325,9 @@ describe("safe lead and conversation reads", () => {
       items: [{
         id: "conv_admin_detail",
         humanHandoff: true,
-        aiStatus: "responded",
+        needsAttention: true,
+        handoffState: "handoff_requested",
+        aiStatus: "paused",
         messageCount: 2,
       }],
     });

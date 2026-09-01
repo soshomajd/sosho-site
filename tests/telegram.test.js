@@ -201,6 +201,43 @@ describe("Telegram webhook and campaign approval", () => {
     }
   );
 
+  it("does not mask an unknown D1 error while claiming an update", async () => {
+    const errorLog = vi.spyOn(console, "error").mockImplementation(() => {});
+    const database = {
+      prepare(query) {
+        if (query.includes("INSERT OR IGNORE INTO telegram_updates")) {
+          throw new Error("D1_ERROR: no such table: telegram_updates");
+        }
+        return env.DB.prepare(query);
+      },
+    };
+    try {
+      const id = `campaign_${crypto.randomUUID()}`;
+      const response = await postTelegram(
+        telegramUpdate(id, "approve", { updateId: 101, callbackId: "callback-d1-error" }),
+        { currentEnv: runtimeEnv({ DB: database }) }
+      );
+      expect(response.status).toBe(503);
+      expect((await response.json()).error).toBe("telegram_update_claim_failed");
+      expect(errorLog.mock.calls.flat().join(" ")).not.toContain("no such table");
+    } finally {
+      errorLog.mockRestore();
+    }
+  });
+
+  it("handles a missing campaign foreign key as a safe duplicate", async () => {
+    mockTelegram();
+    const id = `campaign_${crypto.randomUUID()}`;
+    const response = await postTelegram(
+      telegramUpdate(id, "approve", { updateId: 102, callbackId: "callback-missing-campaign" })
+    );
+    expect(response.status).toBe(200);
+    expect((await response.json()).duplicate).toBe(true);
+    expect(await env.DB.prepare(
+      "SELECT COUNT(*) AS total FROM telegram_updates WHERE update_id = '102'"
+    ).first("total")).toBe(0);
+  });
+
   it("approves and rejects generated campaigns", async () => {
     mockTelegram();
     const approvedId = `campaign_${crypto.randomUUID()}`;
@@ -340,6 +377,77 @@ describe("Telegram webhook and campaign approval", () => {
     expect(await env.DB.prepare(
       "SELECT status FROM telegram_notifications WHERE event_key = 'sales:handoff:conv-x'"
     ).first("status")).toBe("sent");
+  });
+
+  it("atomically claims a due retry across concurrent cron executions", async () => {
+    let sends = 0;
+    let releaseSend;
+    let markSendStarted;
+    const sendGate = new Promise((resolve) => { releaseSend = resolve; });
+    const sendStarted = new Promise((resolve) => { markSendStarted = resolve; });
+    network.use(http.post(/https:\/\/api\.telegram\.org\/bot[^/]+\/.+/u, async () => {
+      sends += 1;
+      markSendStarted();
+      await sendGate;
+      return HttpResponse.json({ ok: true, result: { message_id: 1 } });
+    }));
+    const past = new Date(Date.now() - 60_000).toISOString();
+    await env.DB.prepare(
+      `INSERT INTO telegram_notifications (
+        event_key, notification_type, entity_id, status, attempt_count,
+        message_text, keyboard_json, next_retry_at, created_at, updated_at
+      ) VALUES ('sales:handoff:conv-concurrent', 'handoff', 'lead-concurrent',
+        'failed', 1, 'retry message', NULL, ?, ?, ?)`
+    ).bind(past, past, past).run();
+
+    const firstSweep = retryFailedTelegramNotifications(runtimeEnv(), "req-retry-a");
+    await sendStarted;
+    const secondResult = await retryFailedTelegramNotifications(runtimeEnv(), "req-retry-b");
+    releaseSend();
+    const firstResult = await firstSweep;
+
+    expect(firstResult.retried + secondResult.retried).toBe(1);
+    expect(sends).toBe(1);
+    expect(await env.DB.prepare(
+      `SELECT status, attempt_count FROM telegram_notifications
+       WHERE event_key = 'sales:handoff:conv-concurrent'`
+    ).first()).toMatchObject({ status: "sent", attempt_count: 2 });
+  });
+
+  it("respects next_retry_at and stops retrying after five attempts", async () => {
+    let sends = 0;
+    network.use(http.post(/https:\/\/api\.telegram\.org\/bot[^/]+\/.+/u, () => {
+      sends += 1;
+      return new HttpResponse(null, { status: 503 });
+    }));
+    const past = new Date(Date.now() - 60_000).toISOString();
+    const future = new Date(Date.now() + 60_000).toISOString();
+    await env.DB.prepare(
+      `INSERT INTO telegram_notifications (
+        event_key, notification_type, entity_id, status, attempt_count,
+        message_text, keyboard_json, next_retry_at, created_at, updated_at
+      ) VALUES ('sales:handoff:conv-max', 'handoff', 'lead-max',
+        'failed', 4, 'retry message', NULL, ?, ?, ?)`
+    ).bind(future, past, past).run();
+    const currentEnv = runtimeEnv({ TELEGRAM_MAX_ATTEMPTS: "1" });
+
+    expect((await retryFailedTelegramNotifications(currentEnv, "req-retry-future")).retried)
+      .toBe(0);
+    expect(sends).toBe(0);
+    await env.DB.prepare(
+      `UPDATE telegram_notifications SET next_retry_at = ?
+       WHERE event_key = 'sales:handoff:conv-max'`
+    ).bind(past).run();
+    expect((await retryFailedTelegramNotifications(currentEnv, "req-retry-max")).retried)
+      .toBe(0);
+    expect((await retryFailedTelegramNotifications(currentEnv, "req-retry-terminal")).retried)
+      .toBe(0);
+
+    expect(sends).toBe(1);
+    expect(await env.DB.prepare(
+      `SELECT status, attempt_count, next_retry_at FROM telegram_notifications
+       WHERE event_key = 'sales:handoff:conv-max'`
+    ).first()).toMatchObject({ status: "failed", attempt_count: 5, next_retry_at: null });
   });
 
   it("works as optional integration when Telegram is not configured", async () => {

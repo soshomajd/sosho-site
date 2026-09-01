@@ -31,7 +31,7 @@ Primary capabilities:
 - Floating website sales assistant
 - Admin-only Persian AI content campaign generation with validated multi-platform bundles
 - Optional Telegram content approval and deduplicated sales notifications
-- Persian RTL admin dashboard with bounded D1 views, HttpOnly sessions, and audited Campaign approval actions
+- Persian RTL admin dashboard with bounded D1 views, HttpOnly sessions, audited Campaign actions, and Human Handoff take-over
 - Cloudflare Workers AI content generation with JSON Schema output and one-model fallback
 - Idempotent Workers AI main-image generation for approved campaigns with private R2 storage
 - OpenAI Responses API for Sales Chat and an optional future content provider
@@ -53,6 +53,7 @@ Primary capabilities:
 |  |- index.js                           Runtime Worker and API source
 |  |- admin-dashboard.js                 Admin session security and bounded read-only D1 queries
 |  |- campaign-actions.js                Shared Dashboard/Telegram transitions, idempotency, and audit
+|  |- conversation-actions.js            Atomic Human Handoff/Take-over transitions and audit
 |  |- core.js                            Validation, policy, retry utilities
 |  |- content-generation.js              Content schema, validation, and provider selection
 |  |- workers-ai-content-provider.js     Workers AI primary/fallback content provider
@@ -194,6 +195,7 @@ Instagram webhook
 - `GET /api/admin/campaigns/:id`: returns one safe full Campaign bundle, provenance, approval, and media state.
 - `POST /api/admin/campaigns/:id/{approve|reject|regenerate}`: performs session-only, CSRF-protected, idempotent Campaign actions.
 - `GET /api/admin/conversations/:id`: returns at most 50 redacted message previews for one conversation.
+- `POST /api/admin/conversations/:id/take-over`: atomically claims a requested Human Handoff with session, Origin, JSON, CSRF, and idempotency validation.
 - `GET /api/meta/webhook`: Meta verification handshake.
 - `POST /api/meta/webhook`: signed inbound message webhook, processed with `ctx.waitUntil`.
 
@@ -203,6 +205,7 @@ The ordered SQL migrations create and evolve:
 
 - `leads`: source, locale, qualification status, project type/tier/budget, and extracted requirements.
 - `conversations`: lead/channel relationship and active state.
+- `conversations` also carries the Human Handoff state, request time, and single safe admin owner claim.
 - `messages`: ordered user/assistant history, metadata, retention, and event-linked idempotency.
 - `webhook_events`: `received -> processing -> processed|failed`, attempts, retry schedule, provider response cache, and payload retention.
 - `rate_limit_counters`: atomic IP, conversation, Instagram-user, and OpenAI quota windows.
@@ -210,6 +213,7 @@ The ordered SQL migrations create and evolve:
 - `content_items`: validated generated bundles linked to campaigns, including the actual provider/model used.
 - `content_media`: unique campaign media claims, private R2 keys, validated MIME/size, provider/model, and storage state.
 - `campaign_action_audit`: idempotency keys and safe actor/action/outcome audit records shared by Dashboard and Telegram.
+- `conversation_action_audit`: safe actor, timestamp, transition, outcome, and idempotency records for handoff requests and take-over.
 - `telegram_updates`: deduplicated Telegram update/callback processing records.
 - `telegram_notifications`: deduplicated content preview and sales notification delivery state.
 
@@ -234,11 +238,14 @@ The ordered SQL migrations create and evolve:
 - The website client must send only `conversationId`, `locale`, and `message`. Never accept client-owned `source`, `externalUserId`, message counts, or Instagram fields.
 - Website conversation IDs are cryptographically random UUIDv4 values stored in `localStorage`. Frontend calls use `AbortController` and a finite timeout.
 - Keep Worker response stages/types compatible with `SalesAssistant` (`discovery`, `qualification`, `proposal_ready`, `handoff`).
+- Conversation Handoff states are `ai_active`, `handoff_requested`, `human_active`, and `resolved`. The current active transitions are only `ai_active -> handoff_requested` and `handoff_requested -> human_active`.
+- In `handoff_requested` and `human_active`, inbound messages are persisted but no AI provider response is generated. The one-time Telegram handoff notification is deduplicated by conversation.
 - Preserve Meta signature verification and deduplication. Do not bypass either for production or convenience.
 - Preserve event-linked message uniqueness and cached webhook responses: retries must never recreate a completed sales turn.
 - Telegram is optional. Missing or failing Telegram configuration must never fail content persistence, Sales Chat, or Instagram processing.
 - Telegram callbacks must be limited to the configured admin chat/user, acknowledged with `answerCallbackQuery`, and deduplicated before side effects.
 - Dashboard Campaign writes require a valid signed session, an allowed Origin, JSON Content-Type, a session-bound CSRF token, and a UUID idempotency key.
+- Dashboard Conversation take-over uses the same write protections and a conditional D1 update so concurrent claims cannot create two owners.
 - Dashboard and Telegram approval/regeneration must use `campaign-actions.js`; direct approval-status writes in route handlers are not allowed.
 - OpenAI and Meta calls use finite timeouts, bounded exponential retry, and PII-safe structured logs carrying `requestId`.
 - Retention cron deletes expired messages/counters, anonymizes selected lead PII, purges raw Meta payloads, and later deletes webhook records.

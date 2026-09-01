@@ -18,6 +18,7 @@
 - تست Worker در Runtime رسمی Cloudflare با Vitest و D1 محلی
 - هسته تولید محتوای فارسی با Cloudflare Workers AI، خروجی JSON Schema، fallback تک‌مرحله‌ای و ذخیره در D1
 - تولید idempotent تصویر اصلی Campaign تأییدشده با FLUX، اعتبارسنجی binary و ذخیره خصوصی در R2
+- زیرساخت Human Handoff با توقف AI، اعلان یک‌باره Telegram و تحویل اتمیک گفتگو به مدیر
 - تأیید محتوای تولیدشده و اعلان‌های مهم فروش از طریق Telegram به‌صورت اختیاری
 - داشبورد مدیریتی فارسی با نشست HttpOnly، داده‌های واقعی D1 و عملیات ثبت‌شده تأیید، رد و تولید دوباره متن
 
@@ -30,6 +31,7 @@
 |  |- index.js                      Worker، API، D1، OpenAI و Instagram
 |  |- admin-dashboard.js            نشست امن Admin و queryهای محدود و فقط خواندنی
 |  |- campaign-actions.js           transition مشترک Dashboard/Telegram، idempotency و audit
+|  |- conversation-actions.js       transition اتمیک Handoff/Take over و audit
 |  |- content-generation.js         Schema، validation و انتخاب provider محتوا
 |  |- workers-ai-content-provider.js provider اصلی و fallback مدل‌های Workers AI
 |  |- image-generation.js           prompt، اعتبارسنجی تصویر و adapter خصوصی R2
@@ -90,6 +92,7 @@ npm run dev:next
 | `/api/admin/overview` | `GET` | آمار واقعی و فعالیت‌های اخیر سیستم |
 | `/api/admin/campaigns` | `GET` | فهرست فیلترشده و صفحه‌بندی‌شده Campaignها |
 | `/api/admin/campaigns/:id` | `GET` | جزئیات کامل و امن Campaign، Content Bundle، provenance و وضعیت رسانه |
+| `/api/admin/conversations/:id/take-over` | `POST` | تحویل اتمیک Conversation نیازمند رسیدگی به مدیر با Session، CSRF و idempotency |
 | `/api/admin/campaigns/:id/approve` | `POST` | تأیید idempotent با Admin Session و CSRF |
 | `/api/admin/campaigns/:id/reject` | `POST` | رد idempotent با دلیل کوتاه اجباری، Admin Session و CSRF |
 | `/api/admin/campaigns/:id/regenerate` | `POST` | تولید دوباره متن با جلوگیری از اجرای هم‌زمان |
@@ -97,7 +100,7 @@ npm run dev:next
 | `/api/admin/conversations` | `GET` | فهرست گفتگوها و وضعیت AI/Handoff |
 | `/api/admin/conversations/:id` | `GET` | جزئیات محدود گفتگو با پنهان‌سازی ایمیل و شماره تماس |
 
-مسیر `/admin` داشبورد فارسی و RTL را نمایش می‌دهد. `ADMIN_API_TOKEN` فقط هنگام ورود و در body درخواست هم‌مبدأ ارسال می‌شود، در bundle، URL یا Local Storage قرار نمی‌گیرد و پس از اعتبارسنجی با یک cookie امضاشده `HttpOnly`، `SameSite=Strict` و کوتاه‌مدت جایگزین می‌شود. Queryهای فهرست فقط خواندنی و حداکثر ۵۰ رکوردی هستند؛ عملیات Campaign فقط با Session، Origin مجاز، JSON، CSRF وابسته به Session و idempotency key اجرا می‌شوند و نتیجه در D1 audit می‌شود.
+مسیر `/admin` داشبورد فارسی و RTL را نمایش می‌دهد. `ADMIN_API_TOKEN` فقط هنگام ورود و در body درخواست هم‌مبدأ ارسال می‌شود، در bundle، URL یا Local Storage قرار نمی‌گیرد و پس از اعتبارسنجی با یک cookie امضاشده `HttpOnly`، `SameSite=Strict` و کوتاه‌مدت جایگزین می‌شود. Queryهای فهرست فقط خواندنی و حداکثر ۵۰ رکوردی هستند؛ عملیات Campaign و Take over فقط با Session، Origin مجاز، JSON، CSRF وابسته به Session و idempotency key اجرا می‌شوند و نتیجه در D1 audit می‌شود. Conversationهای `handoff_requested` و `human_active` پیام ورودی را ذخیره می‌کنند اما AI را فراخوانی نمی‌کنند.
 
 ## کیفیت و build
 

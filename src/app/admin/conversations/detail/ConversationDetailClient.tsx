@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useRef, useState } from "react";
 
+import { useAdminSession } from "../../admin-session";
 import {
   EmptyState,
   ErrorState,
@@ -19,12 +21,17 @@ type DetailResponse = {
     safeIdentifier: string;
     channel: string;
     status: string;
+    handoffState: string;
     aiStatus: string;
     humanHandoff: boolean;
+    needsAttention: boolean;
+    handoffRequestedAt: string | null;
+    humanTakenOverAt: string | null;
     messageCount: number;
     createdAt: string;
     updatedAt: string;
   };
+  allowedActions: { takeOver: boolean };
   messages: Array<{ role: string; contentPreview: string; stage: string | null; createdAt: string }>;
   messagesTruncated: boolean;
 };
@@ -32,6 +39,10 @@ type DetailResponse = {
 export default function ConversationDetailClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { csrfToken } = useAdminSession();
+  const [pending, setPending] = useState(false);
+  const [actionMessage, setActionMessage] = useState<string | null>(null);
+  const actionLock = useRef(false);
   const rawConversationId = searchParams.get("id");
   const conversationId = rawConversationId && rawConversationId.length <= 100
     ? rawConversationId
@@ -40,6 +51,53 @@ export default function ConversationDetailClient() {
   const resource = useAdminResource<DetailResponse>(
     conversationId ? `/api/admin/conversations/${encodeURIComponent(conversationId)}` : null
   );
+
+  async function takeOver() {
+    if (!conversationId || !csrfToken || pending || actionLock.current ||
+        !resource.data?.allowedActions.takeOver) return;
+    if (!window.confirm("این گفتگو به شما تحویل داده شود و پاسخ‌گویی AI متوقف بماند؟")) return;
+    actionLock.current = true;
+    setPending(true);
+    setActionMessage(null);
+    try {
+      const response = await fetch(
+        `/api/admin/conversations/${encodeURIComponent(conversationId)}/take-over`,
+        {
+          method: "POST",
+          credentials: "same-origin",
+          cache: "no-store",
+          headers: {
+            accept: "application/json",
+            "content-type": "application/json",
+            "idempotency-key": crypto.randomUUID(),
+            "x-csrf-token": csrfToken,
+          },
+          body: "{}",
+        }
+      );
+      const payload = await response.json() as { error?: unknown };
+      if (response.status === 401) {
+        window.dispatchEvent(new Event("sosho-admin-unauthorized"));
+        return;
+      }
+      if (!response.ok) {
+        setActionMessage(payload.error === "invalid_conversation_transition"
+          ? "این گفتگو دیگر در وضعیت قابل تحویل نیست."
+          : payload.error === "invalid_csrf"
+            ? "اعتبار امنیتی نشست نامعتبر است. صفحه را دوباره باز کنید."
+            : "تحویل گرفتن گفتگو انجام نشد.");
+        resource.retry();
+        return;
+      }
+      setActionMessage("گفتگو با موفقیت به مدیر تحویل داده شد.");
+      resource.retry();
+    } catch {
+      setActionMessage("ارتباط با سرویس مدیریت برقرار نشد.");
+    } finally {
+      actionLock.current = false;
+      setPending(false);
+    }
+  }
 
   return (
     <>
@@ -60,9 +118,23 @@ export default function ConversationDetailClient() {
             <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-4">
               <div><dt className="text-muted">وضعیت گفتگو</dt><dd className="mt-1 text-foreground">{resource.data.conversation.status}</dd></div>
               <div><dt className="text-muted">وضعیت AI</dt><dd className="mt-1 text-foreground">{resource.data.conversation.aiStatus}</dd></div>
+              <div><dt className="text-muted">وضعیت رسیدگی</dt><dd className="mt-1 text-foreground">{resource.data.conversation.needsAttention ? "نیازمند رسیدگی" : resource.data.conversation.handoffState}</dd></div>
               <div><dt className="text-muted">تعداد پیام</dt><dd className="mt-1 text-foreground">{resource.data.conversation.messageCount.toLocaleString("fa-IR")}</dd></div>
               <div><dt className="text-muted">آخرین تغییر</dt><dd className="mt-1 text-foreground">{formatDate(resource.data.conversation.updatedAt)}</dd></div>
             </dl>
+          </section>
+          <section className="rounded-2xl border border-white/10 bg-surface p-5" aria-labelledby="handoff-actions">
+            <h2 id="handoff-actions" className="text-lg font-semibold text-white">تحویل گفتگو</h2>
+            <p className="mt-2 text-sm leading-7 text-muted">با تحویل گرفتن، وضعیت گفتگو به حالت مدیریت انسانی می‌رود و AI همچنان متوقف می‌ماند.</p>
+            <button
+              type="button"
+              disabled={pending || !resource.data.allowedActions.takeOver || !csrfToken}
+              onClick={() => void takeOver()}
+              className="mt-4 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {pending ? "در حال تحویل…" : "تحویل گرفتن"}
+            </button>
+            {actionMessage ? <p className="mt-4 text-sm leading-6 text-amber-200" role="status">{actionMessage}</p> : null}
           </section>
           <section aria-labelledby="conversation-messages">
             <h2 id="conversation-messages" className="mb-4 text-lg font-semibold text-white">آخرین پیام‌ها</h2>

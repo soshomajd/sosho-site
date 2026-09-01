@@ -25,6 +25,10 @@ export type ConversationRow = {
   lead_id: string;
   channel: "website" | "instagram";
   status: "active" | "closed";
+  handoff_state: "ai_active" | "handoff_requested" | "human_active" | "resolved";
+  handoff_requested_at: string | null;
+  human_owner_key: string | null;
+  human_taken_over_at: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -138,6 +142,22 @@ export type CampaignActionAuditRow = {
   status: "processing" | "completed";
   outcome: "succeeded" | "noop" | "failed" | null;
   reason: string | null;
+  error_code: string | null;
+  created_at: string;
+  completed_at: string | null;
+};
+
+export type ConversationActionAuditRow = {
+  id: string;
+  operation_key: string;
+  conversation_id: string;
+  action: "request_handoff" | "take_over";
+  actor_type: "sales_user" | "sales_service" | "dashboard";
+  actor_key: string;
+  from_state: "ai_active" | "handoff_requested" | "human_active" | "resolved";
+  to_state: "ai_active" | "handoff_requested" | "human_active" | "resolved";
+  status: "processing" | "completed";
+  outcome: "succeeded" | "noop" | "failed" | null;
   error_code: string | null;
   created_at: string;
   completed_at: string | null;
