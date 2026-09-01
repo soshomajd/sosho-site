@@ -23,6 +23,17 @@ export function useAdminResource<T>(url: string | null): ResourceState<T> {
   const [loading, setLoading] = useState(Boolean(url));
   const [error, setError] = useState<string | null>(null);
   const [attempt, setAttempt] = useState(0);
+  const [trackedUrl, setTrackedUrl] = useState(url);
+
+  // A changed URL (filter or page) starts a fresh request: drop the previous
+  // view and its error, and show the pending state. Done during render (not in
+  // the effect) so the stale page never paints without a loading indicator.
+  if (url !== trackedUrl) {
+    setTrackedUrl(url);
+    setData(null);
+    setError(null);
+    setLoading(Boolean(url));
+  }
 
   useEffect(() => {
     if (!url) return;

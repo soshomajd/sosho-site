@@ -166,7 +166,7 @@ export async function rejectCampaign(db, options) {
 }
 
 export async function regenerateCampaign(db, options) {
-  const { campaignId, operationKey, actor, generate } = options;
+  const { campaignId, operationKey, actor, generate, background } = options;
   const action = "regenerate";
   validateIdentity({ campaignId, action, operationKey, actor });
   if (typeof generate !== "function") {
@@ -191,17 +191,34 @@ export async function regenerateCampaign(db, options) {
     await finishAudit(db, operationKey, "failed", "invalid_campaign_state");
     throw new ServiceError("invalid_campaign_state", { status: 409 });
   }
-  try {
-    const generated = await generate();
-    await finishAudit(db, operationKey, "succeeded");
-    return { action, outcome: "succeeded", duplicate: false, generated };
-  } catch (error) {
-    await finishAudit(
-      db,
-      operationKey,
-      "failed",
-      String(error?.code || "content_generation_failed").slice(0, 100)
-    );
-    throw error;
+
+  const runGeneration = async () => {
+    try {
+      const generated = await generate();
+      await finishAudit(db, operationKey, "succeeded");
+      return { ok: true, generated };
+    } catch (error) {
+      await finishAudit(
+        db,
+        operationKey,
+        "failed",
+        String(error?.code || "content_generation_failed").slice(0, 100)
+      );
+      return { ok: false, error };
+    }
+  };
+
+  // When a background runner is supplied (Telegram callbacks, where the caller
+  // must return before Telegram's webhook timeout), the audit row is already
+  // claimed as 'processing'; generation and its finishAudit finish out of band.
+  if (typeof background === "function") {
+    background(runGeneration());
+    return { action, outcome: "started", duplicate: false, generated: null };
   }
+
+  const result = await runGeneration();
+  if (result.ok) {
+    return { action, outcome: "succeeded", duplicate: false, generated: result.generated };
+  }
+  throw result.error;
 }

@@ -225,6 +225,20 @@ describe("website sales API", () => {
     expect(payload.checks.workersAi).toBe(true);
     expect(response.headers.get("x-request-id")).toBe(payload.requestId);
   });
+
+  it("stays ready on staging when the R2 media binding is deliberately absent", async () => {
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(
+      new Request("https://example.com/api/health"),
+      { ...env, ENVIRONMENT: "staging", MEDIA: undefined, AI: { run: async () => ({ response: "{}" }) } },
+      ctx
+    );
+    const payload = await response.json();
+    expect(response.status).toBe(200);
+    expect(payload.ready).toBe(true);
+    expect(payload.checks.mediaStorage).toBe(false);
+    expect(payload.missing).not.toContain("MEDIA");
+  });
 });
 
 describe("Instagram webhook", () => {

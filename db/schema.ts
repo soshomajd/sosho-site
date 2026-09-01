@@ -110,6 +110,9 @@ export type TelegramNotificationRow = {
   updated_at: string;
   sent_at: string | null;
   last_error: string | null;
+  message_text: string | null;
+  keyboard_json: string | null;
+  next_retry_at: string | null;
 };
 
 export type ContentItemRow = {
@@ -156,6 +159,7 @@ export type ContentMediaRow = {
   updated_at: string;
   stored_at: string | null;
   last_error: string | null;
+  superseded_at: string | null;
 };
 
 export type LeadRequirements = {

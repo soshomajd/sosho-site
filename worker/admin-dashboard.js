@@ -402,7 +402,8 @@ export async function getAdminCampaignDetail(db, env, campaignId) {
     ).bind(campaignId).first(),
     db.prepare(
       `SELECT id, media_type, mime_type, byte_size, status, provider, model,
-              attempt_count, telegram_preview_status, created_at, updated_at, stored_at
+              attempt_count, telegram_preview_status, created_at, updated_at, stored_at,
+              superseded_at
        FROM content_media
        WHERE campaign_id = ? AND media_type = 'main_image' LIMIT 1`
     ).bind(campaignId).first(),
@@ -449,6 +450,7 @@ export async function getAdminCampaignDetail(db, env, campaignId) {
       createdAt: media.created_at,
       updatedAt: media.updated_at,
       storedAt: media.stored_at,
+      supersededAt: media.superseded_at ?? null,
     } : null,
     mediaCapability: mediaCapability(env),
     allowedActions: campaignActionAvailability(campaign),

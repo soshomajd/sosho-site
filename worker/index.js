@@ -77,6 +77,10 @@ function now() {
   return new Date().toISOString();
 }
 
+function addSecondsIso(seconds) {
+  return new Date(Date.now() + seconds * 1000).toISOString();
+}
+
 function json(data, status = 200, requestId, additionalHeaders = {}) {
   const headers = {
     "content-type": "application/json; charset=utf-8",
@@ -96,53 +100,151 @@ function requireDatabase(env) {
   return env.DB;
 }
 
+const TELEGRAM_NOTIFICATION_MAX_ATTEMPTS = 5;
+const TELEGRAM_NOTIFICATION_RETRY_SECONDS = 300;
+
+// Always resolves to a status object. A failing Telegram send (or a D1 error while
+// bookkeeping it) must never propagate into content persistence, Sales Chat, or
+// Instagram processing.
 async function sendTelegramNotificationOnce(
   env,
   { eventKey, type, entityId, text, keyboard, photo, requestId }
 ) {
   if (!isTelegramConfigured(env)) return { status: "disabled" };
-  const db = requireDatabase(env);
-  const timestamp = now();
-  const inserted = await db
-    .prepare(
-      `INSERT OR IGNORE INTO telegram_notifications (
-        event_key, notification_type, entity_id, status, attempt_count, created_at, updated_at
-      ) VALUES (?, ?, ?, 'pending', 0, ?, ?)`
-    )
-    .bind(eventKey, type, entityId ?? null, timestamp, timestamp)
-    .run();
-  if (Number(inserted.meta?.changes ?? 0) === 0) return { status: "duplicate" };
   try {
-    const telegram = new TelegramService(env);
-    if (photo) {
-      await telegram.sendPhoto(photo, { caption: text, replyMarkup: keyboard, requestId });
-    } else if (keyboard) await telegram.sendInlineKeyboard(text, keyboard, requestId);
-    else await telegram.sendText(text, { requestId });
-    await db
+    const db = requireDatabase(env);
+    const timestamp = now();
+    const keyboardJson = keyboard ? JSON.stringify(keyboard) : null;
+    const inserted = await db
       .prepare(
-        `UPDATE telegram_notifications
-         SET status = 'sent', attempt_count = attempt_count + 1, sent_at = ?, updated_at = ?
-         WHERE event_key = ?`
+        `INSERT OR IGNORE INTO telegram_notifications (
+          event_key, notification_type, entity_id, status, attempt_count,
+          message_text, keyboard_json, created_at, updated_at
+        ) VALUES (?, ?, ?, 'pending', 0, ?, ?, ?, ?)`
       )
-      .bind(now(), now(), eventKey)
+      .bind(
+        eventKey,
+        type,
+        entityId ?? null,
+        typeof text === "string" ? text.slice(0, 8192) : null,
+        keyboardJson,
+        timestamp,
+        timestamp
+      )
       .run();
-    return { status: "sent" };
+    if (Number(inserted.meta?.changes ?? 0) === 0) return { status: "duplicate" };
+    try {
+      const telegram = new TelegramService(env);
+      if (photo) {
+        await telegram.sendPhoto(photo, { caption: text, replyMarkup: keyboard, requestId });
+      } else if (keyboard) await telegram.sendInlineKeyboard(text, keyboard, requestId);
+      else await telegram.sendText(text, { requestId });
+      await db
+        .prepare(
+          `UPDATE telegram_notifications
+           SET status = 'sent', attempt_count = attempt_count + 1, sent_at = ?,
+               next_retry_at = NULL, updated_at = ?
+           WHERE event_key = ?`
+        )
+        .bind(now(), now(), eventKey)
+        .run();
+      return { status: "sent" };
+    } catch (error) {
+      await db
+        .prepare(
+          `UPDATE telegram_notifications
+           SET status = 'failed', attempt_count = attempt_count + 1, last_error = ?,
+               next_retry_at = ?, updated_at = ?
+           WHERE event_key = ?`
+        )
+        .bind(
+          String(error?.code || "telegram_error").slice(0, 100),
+          addSecondsIso(TELEGRAM_NOTIFICATION_RETRY_SECONDS),
+          now(),
+          eventKey
+        )
+        .run();
+      logEvent("warn", "telegram_notification_failed", {
+        requestId,
+        provider: "telegram",
+        code: error?.code || "telegram_error",
+      });
+      return { status: "failed" };
+    }
   } catch (error) {
-    await db
-      .prepare(
-        `UPDATE telegram_notifications
-         SET status = 'failed', attempt_count = attempt_count + 1, last_error = ?, updated_at = ?
-         WHERE event_key = ?`
-      )
-      .bind(String(error?.code || "telegram_error").slice(0, 100), now(), eventKey)
-      .run();
-    logEvent("warn", "telegram_notification_failed", {
+    logEvent("warn", "telegram_notification_bookkeeping_failed", {
       requestId,
       provider: "telegram",
-      code: error?.code || "telegram_error",
+      code: error?.code || "notification_error",
     });
     return { status: "failed" };
   }
+}
+
+// Re-drives Telegram notifications whose first send attempt failed. Text and the
+// inline keyboard are replayed from the stored row; image previews fall back to a
+// text message that still carries the approval buttons.
+export async function retryFailedTelegramNotifications(env, requestId) {
+  if (!isTelegramConfigured(env)) return { retried: 0 };
+  const db = requireDatabase(env);
+  const due = await db
+    .prepare(
+      `SELECT event_key, message_text, keyboard_json
+       FROM telegram_notifications
+       WHERE status = 'failed' AND attempt_count < ?
+         AND message_text IS NOT NULL
+         AND (next_retry_at IS NULL OR next_retry_at <= ?)
+       ORDER BY updated_at ASC
+       LIMIT 20`
+    )
+    .bind(TELEGRAM_NOTIFICATION_MAX_ATTEMPTS, now())
+    .all();
+  let retried = 0;
+  for (const row of due.results ?? []) {
+    let keyboard = null;
+    if (row.keyboard_json) {
+      try {
+        keyboard = JSON.parse(row.keyboard_json);
+      } catch {
+        keyboard = null;
+      }
+    }
+    try {
+      const telegram = new TelegramService(env);
+      if (keyboard) await telegram.sendInlineKeyboard(row.message_text, keyboard, requestId);
+      else await telegram.sendText(row.message_text, { requestId });
+      await db
+        .prepare(
+          `UPDATE telegram_notifications
+           SET status = 'sent', attempt_count = attempt_count + 1, sent_at = ?,
+               next_retry_at = NULL, updated_at = ?
+           WHERE event_key = ?`
+        )
+        .bind(now(), now(), row.event_key)
+        .run();
+      retried += 1;
+    } catch (error) {
+      await db
+        .prepare(
+          `UPDATE telegram_notifications
+           SET attempt_count = attempt_count + 1, last_error = ?, next_retry_at = ?, updated_at = ?
+           WHERE event_key = ?`
+        )
+        .bind(
+          String(error?.code || "telegram_error").slice(0, 100),
+          addSecondsIso(TELEGRAM_NOTIFICATION_RETRY_SECONDS),
+          now(),
+          row.event_key
+        )
+        .run();
+      logEvent("warn", "telegram_notification_retry_failed", {
+        requestId,
+        provider: "telegram",
+        code: error?.code || "telegram_error",
+      });
+    }
+  }
+  return { retried };
 }
 
 async function sendCampaignImagePreview(env, db, service, campaign, bundle, media, requestId) {
@@ -257,6 +359,7 @@ function serializeContentMedia(row) {
     updatedAt: row.updated_at,
     storedAt: row.stored_at,
     lastError: row.last_error,
+    supersededAt: row.superseded_at ?? null,
   } : null;
 }
 
@@ -265,7 +368,7 @@ async function getMainImageRow(db, campaignId) {
     .prepare(
       `SELECT id, campaign_id, media_type, r2_key, mime_type, byte_size, status,
               provider, model, attempt_count, telegram_preview_status,
-              created_at, updated_at, stored_at, last_error
+              created_at, updated_at, stored_at, last_error, superseded_at
        FROM content_media
        WHERE campaign_id = ? AND media_type = 'main_image'
        LIMIT 1`
@@ -356,7 +459,7 @@ async function generateContentCampaign(env, id, requestId, { regenerate = false 
     const generation = service.getLastRun() || {};
     const completedAt = now();
     const itemId = createId("content");
-    await db.batch([
+    const statements = [
       db
         .prepare(
           `INSERT INTO content_items (
@@ -382,7 +485,22 @@ async function generateContentCampaign(env, id, requestId, { regenerate = false 
            WHERE id = ? AND status = 'generating'`
         )
         .bind(completedAt, id),
-    ]);
+    ];
+    if (regenerate) {
+      // The stored main image was rendered from the previous bundle's prompt; mark
+      // it superseded so a fresh generate-image call rebuilds it.
+      statements.push(
+        db
+          .prepare(
+            `UPDATE content_media
+             SET superseded_at = ?, telegram_preview_status = 'blocked', updated_at = ?
+             WHERE campaign_id = ? AND media_type = 'main_image'
+               AND status = 'stored' AND superseded_at IS NULL`
+          )
+          .bind(completedAt, completedAt, id)
+      );
+    }
+    await db.batch(statements);
     const generated = await getContentCampaign(env, id);
     await sendTelegramNotificationOnce(env, {
       eventKey: `content_preview:${id}:${itemId}`,
@@ -407,22 +525,27 @@ async function generateContentCampaign(env, id, requestId, { regenerate = false 
 
 async function claimMainImageGeneration(db, campaignId, descriptor) {
   const existing = await getMainImageRow(db, campaignId);
-  if (existing?.status === "stored") return { row: existing, reused: true };
+  if (existing?.status === "stored" && !existing.superseded_at) {
+    return { row: existing, reused: true };
+  }
   if (existing?.status === "generating") {
     throw new ServiceError("image_generation_in_progress", { status: 409 });
   }
   const timestamp = now();
-  if (existing?.status === "failed") {
+  const reclaimable =
+    existing?.status === "failed" ||
+    (existing?.status === "stored" && Boolean(existing.superseded_at));
+  if (reclaimable) {
     const claimed = await db
       .prepare(
         `UPDATE content_media
          SET status = 'generating', provider = ?, model = ?, attempt_count = attempt_count + 1,
              mime_type = NULL, byte_size = NULL, stored_at = NULL, last_error = NULL,
-             updated_at = ?, telegram_preview_status = 'blocked'
-         WHERE id = ? AND status = 'failed'
+             superseded_at = NULL, updated_at = ?, telegram_preview_status = 'blocked'
+         WHERE id = ? AND (status = 'failed' OR (status = 'stored' AND superseded_at IS NOT NULL))
          RETURNING id, campaign_id, media_type, r2_key, mime_type, byte_size, status,
                    provider, model, attempt_count, telegram_preview_status,
-                   created_at, updated_at, stored_at, last_error`
+                   created_at, updated_at, stored_at, last_error, superseded_at`
       )
       .bind(descriptor.provider, descriptor.model, timestamp, existing.id)
       .first();
@@ -467,7 +590,7 @@ async function generateCampaignMainImage(env, campaignId, requestId) {
   if (!details.contentItem?.content) {
     throw new ServiceError("content_not_found", { status: 404 });
   }
-  if (details.mainImage?.status === "stored") {
+  if (details.mainImage?.status === "stored" && !details.mainImage.supersededAt) {
     return { ...details, imageGeneration: { reused: true } };
   }
   if (details.mainImage?.status === "generating") {
@@ -1093,7 +1216,7 @@ async function notifySalesEvent(env, type, input, conversation, result, profile)
   });
 }
 
-export async function handleSalesTurn(env, input) {
+export async function handleSalesTurn(env, input, waitUntil) {
   requireDatabase(env);
   if (input.channel === "website") {
     const ipRateLimit = await enforceWebsiteIpRateLimit(env, input);
@@ -1199,17 +1322,30 @@ export async function handleSalesTurn(env, input) {
     },
     input.externalEventId
   );
-  if (conversation.is_new_lead) {
-    await notifySalesEvent(env, "lead_created", input, conversation, result, updatedProfile);
-  }
-  if (result.stage === "proposal_ready" || result.isComplete) {
-    await notifySalesEvent(env, "proposal_ready", input, conversation, result, updatedProfile);
-  }
-  if (result.stage === "handoff") {
-    await notifySalesEvent(env, "handoff", input, conversation, result, updatedProfile);
-  }
-  if (providerFailed) {
-    await notifySalesEvent(env, "provider_failed", input, conversation, result, updatedProfile);
+  const notificationTypes = [];
+  if (conversation.is_new_lead) notificationTypes.push("lead_created");
+  if (result.stage === "proposal_ready" || result.isComplete) notificationTypes.push("proposal_ready");
+  if (result.stage === "handoff") notificationTypes.push("handoff");
+  if (providerFailed) notificationTypes.push("provider_failed");
+  const flushNotifications = async () => {
+    for (const notificationType of notificationTypes) {
+      try {
+        await notifySalesEvent(env, notificationType, input, conversation, result, updatedProfile);
+      } catch (error) {
+        logEvent("warn", "sales_notification_failed", {
+          requestId: input.requestId,
+          provider: "telegram",
+          code: error?.code || "notification_error",
+        });
+      }
+    }
+  };
+  if (notificationTypes.length > 0) {
+    // On the website request path this runs after the response so a slow Telegram
+    // bot never inflates user-facing chat latency; the Instagram path already runs
+    // the whole turn inside ctx.waitUntil.
+    if (typeof waitUntil === "function") waitUntil(flushNotifications());
+    else await flushNotifications();
   }
   return {
     conversationId: conversation.conversation_id,
@@ -1590,22 +1726,33 @@ function constantTimeEqual(left, right) {
 
 async function claimTelegramUpdate(env, update) {
   const timestamp = now();
-  const inserted = await requireDatabase(env)
-    .prepare(
-      `INSERT OR IGNORE INTO telegram_updates (
-        update_id, callback_id, callback_action, campaign_id, status, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, 'processing', ?, ?)`
-    )
-    .bind(
-      update.updateId,
-      update.callbackId,
-      update.action,
-      update.campaignId,
-      timestamp,
-      timestamp
-    )
-    .run();
-  return Number(inserted.meta?.changes ?? 0) > 0;
+  try {
+    const inserted = await requireDatabase(env)
+      .prepare(
+        `INSERT OR IGNORE INTO telegram_updates (
+          update_id, callback_id, callback_action, campaign_id, status, created_at, updated_at
+        ) VALUES (?, ?, ?, ?, 'processing', ?, ?)`
+      )
+      .bind(
+        update.updateId,
+        update.callbackId,
+        update.action,
+        update.campaignId,
+        timestamp,
+        timestamp
+      )
+      .run();
+    return Number(inserted.meta?.changes ?? 0) > 0;
+  } catch (error) {
+    // A dangling callback for a deleted campaign trips the campaign_id foreign key,
+    // which INSERT OR IGNORE does not suppress. Treat it as "nothing to process"
+    // instead of surfacing a 500 that Telegram would retry.
+    logEvent("warn", "telegram_update_claim_failed", {
+      provider: "telegram",
+      code: error?.code || "claim_error",
+    });
+    return false;
+  }
 }
 
 async function finishTelegramUpdate(env, updateId, status, errorCode = null) {
@@ -1620,7 +1767,7 @@ async function finishTelegramUpdate(env, updateId, status, errorCode = null) {
     .run();
 }
 
-async function processTelegramCallback(env, update, requestId) {
+async function processTelegramCallback(env, update, ctx, requestId) {
   const telegram = new TelegramService(env);
   let answer = "انجام شد";
   let status = "processed";
@@ -1646,7 +1793,7 @@ async function processTelegramCallback(env, update, requestId) {
       });
       answer = "محتوا رد شد";
     } else if (update.action === "regenerate") {
-      await regenerateCampaign(requireDatabase(env), {
+      const outcome = await regenerateCampaign(requireDatabase(env), {
         campaignId: update.campaignId,
         operationKey: `telegram:${update.updateId}`,
         actor: { type: "telegram", key: "configured_admin" },
@@ -1656,8 +1803,28 @@ async function processTelegramCallback(env, update, requestId) {
           requestId,
           { regenerate: true }
         ),
+        // Workers AI content generation can outrun Telegram's webhook timeout, so
+        // run it after the 200 response instead of inside the webhook turn.
+        background: ctx
+          ? (task) => ctx.waitUntil(
+              task
+                .then((taskResult) => {
+                  if (taskResult?.ok) return undefined;
+                  return sendTelegramNotificationOnce(env, {
+                    eventKey: `content_regenerate_failed:${update.campaignId}:${update.updateId}`,
+                    type: "content_regenerate_failed",
+                    entityId: update.campaignId,
+                    text: `تولید دوباره محتوا برای کمپین ${update.campaignId} ناموفق بود.`,
+                    requestId,
+                  });
+                })
+                .catch(() => undefined)
+            )
+          : undefined,
       });
-      answer = "محتوا دوباره تولید شد";
+      answer = outcome.outcome === "started"
+        ? "تولید دوباره در حال انجام است"
+        : "محتوا دوباره تولید شد";
     } else if (update.action === "view") {
       const campaign = await getContentCampaign(env, update.campaignId);
       if (!campaign.contentItem?.content) throw new ServiceError("content_not_found", { status: 404 });
@@ -1688,7 +1855,7 @@ async function processTelegramCallback(env, update, requestId) {
   }
 }
 
-async function handleTelegramWebhook(request, env, requestId) {
+async function handleTelegramWebhook(request, env, ctx, requestId) {
   if (!isTelegramWebhookConfigured(env)) {
     throw new ServiceError("telegram_not_configured", { status: 503 });
   }
@@ -1700,7 +1867,15 @@ async function handleTelegramWebhook(request, env, requestId) {
   }
   const body = await readJsonBody(request, 65_536);
   const validation = validateTelegramUpdate(body);
-  if (!validation.ok) throw new ServiceError("invalid_telegram_update", { status: 400 });
+  if (!validation.ok) {
+    // The secret token already proved this came from Telegram. Any well-formed
+    // update we do not handle (a plain message, my_chat_member, a malformed
+    // callback) must be 200-acked, otherwise Telegram retry-storms it.
+    if (isPlainRecord(body) && Number.isSafeInteger(body.update_id) && body.update_id >= 0) {
+      return { accepted: true, ignored: true };
+    }
+    throw new ServiceError("invalid_telegram_update", { status: 400 });
+  }
   const update = validation.value;
   if (update.chatId !== String(env.TELEGRAM_ADMIN_CHAT_ID) ||
       update.userId !== String(env.TELEGRAM_ADMIN_USER_ID)) {
@@ -1715,7 +1890,7 @@ async function handleTelegramWebhook(request, env, requestId) {
     }
     return { accepted: true, duplicate: true };
   }
-  await processTelegramCallback(env, update, requestId);
+  await processTelegramCallback(env, update, ctx, requestId);
   return { accepted: true, duplicate: false };
 }
 
@@ -1732,16 +1907,20 @@ async function getReadiness(env) {
   const mediaStorageReady = Boolean(
     env.MEDIA && typeof env.MEDIA.put === "function" && typeof env.MEDIA.get === "function"
   );
+  // Staging deliberately ships without an R2 bucket until image generation is
+  // activated; the dashboard reports "activation required" and image endpoints
+  // return configuration_missing, but /api/health must not be a permanent 503.
+  const mediaActivationDeferred = String(env.ENVIRONMENT || "").toLowerCase() === "staging";
   if (!contentAiReady) {
     if (contentProvider === "workers_ai") missing.push("AI");
     else if (contentProvider === "openai") missing.push("OPENAI_API_KEY");
     else missing.push("CONTENT_AI_PROVIDER");
   }
-  if (!imageAiReady) {
+  if (!imageAiReady && !mediaActivationDeferred) {
     if (imageProvider === "workers_ai") missing.push("AI");
     else missing.push("IMAGE_AI_PROVIDER");
   }
-  if (!mediaStorageReady) missing.push("MEDIA");
+  if (!mediaStorageReady && !mediaActivationDeferred) missing.push("MEDIA");
   if (!env.ADMIN_API_TOKEN) missing.push("ADMIN_API_TOKEN");
   if (!env.RATE_LIMIT_SALT) missing.push("RATE_LIMIT_SALT");
   if (!env.META_VERIFY_TOKEN) missing.push("META_VERIFY_TOKEN");
@@ -1794,14 +1973,16 @@ async function getReadiness(env) {
             env.DB.prepare(
               `SELECT campaign_id, media_type, r2_key, mime_type, byte_size, status,
                       provider, model, attempt_count, telegram_preview_status,
-                      stored_at, last_error
+                      stored_at, last_error, superseded_at
                FROM content_media LIMIT 1`
             ),
             env.DB.prepare(
               "SELECT update_id, callback_id, callback_action, campaign_id, status FROM telegram_updates LIMIT 1"
             ),
             env.DB.prepare(
-              "SELECT event_key, notification_type, entity_id, status FROM telegram_notifications LIMIT 1"
+              `SELECT event_key, notification_type, entity_id, status,
+                      message_text, keyboard_json, next_retry_at
+               FROM telegram_notifications LIMIT 1`
             ),
             env.DB.prepare(
               `SELECT operation_key, campaign_id, action, actor_type, actor_key,
@@ -1853,7 +2034,7 @@ export async function handleApi(request, env, ctx, url, requestId) {
   try {
     if (url.pathname === "/api/webhooks/telegram" && request.method === "POST") {
       requireDatabase(env);
-      return json(await handleTelegramWebhook(request, env, requestId), 200, requestId);
+      return json(await handleTelegramWebhook(request, env, ctx, requestId), 200, requestId);
     }
     if (url.pathname === "/api/admin/session") {
       if (request.method === "POST") {
@@ -2122,17 +2303,21 @@ export async function handleApi(request, env, ctx, url, requestId) {
       if (!validation.ok) {
         return json({ error: "invalid_request", issues: validation.issues }, 400, requestId);
       }
-      const result = await handleSalesTurn(env, {
-        ...validation.value,
-        channel: "website",
-        ipAddress:
-          request.headers.get("cf-connecting-ip") ||
-          (env.ENVIRONMENT !== "production"
-            ? request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
-            : null) ||
-          "unknown",
-        requestId,
-      });
+      const result = await handleSalesTurn(
+        env,
+        {
+          ...validation.value,
+          channel: "website",
+          ipAddress:
+            request.headers.get("cf-connecting-ip") ||
+            (env.ENVIRONMENT !== "production"
+              ? request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
+              : null) ||
+            "unknown",
+          requestId,
+        },
+        ctx ? (promise) => ctx.waitUntil(promise) : undefined
+      );
       if (result.error) return json({ error: result.error }, result.status, requestId);
       const payload = { ...result };
       delete payload.status;
@@ -2184,6 +2369,14 @@ const worker = {
     }
     if (controller.cron === "*/5 * * * *") {
       ctx.waitUntil(processDueWebhookRetries(env, requestId));
+      ctx.waitUntil(
+        retryFailedTelegramNotifications(env, requestId).catch((error) =>
+          logEvent("warn", "telegram_notification_retry_sweep_failed", {
+            requestId,
+            code: error?.code || "retry_error",
+          })
+        )
+      );
       return;
     }
     ctx.waitUntil(runRetentionCleanup(env, requestId));

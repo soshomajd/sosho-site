@@ -1,9 +1,9 @@
-import { createExecutionContext } from "cloudflare:test";
+import { createExecutionContext, waitOnExecutionContext } from "cloudflare:test";
 import { env } from "cloudflare:workers";
 import { HttpResponse, http } from "msw";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import worker from "../worker/index.js";
+import worker, { retryFailedTelegramNotifications } from "../worker/index.js";
 import {
   TelegramService,
   createCampaignCallbackData,
@@ -95,14 +95,17 @@ function telegramUpdate(campaignId, action, { updateId = 1, callbackId = "callba
 }
 
 async function postTelegram(body, { secret = "test-webhook-secret", currentEnv = runtimeEnv() } = {}) {
-  return worker.fetch(new Request("https://example.com/api/webhooks/telegram", {
+  const ctx = createExecutionContext();
+  const response = await worker.fetch(new Request("https://example.com/api/webhooks/telegram", {
     method: "POST",
     headers: {
       "content-type": "application/json",
       "x-telegram-bot-api-secret-token": secret,
     },
     body: JSON.stringify(body),
-  }), currentEnv, createExecutionContext());
+  }), currentEnv, ctx);
+  await waitOnExecutionContext(ctx);
+  return response;
 }
 
 function mockTelegram(onMethod = () => {}) {
@@ -281,6 +284,64 @@ describe("Telegram webhook and campaign approval", () => {
     ).first("status")).toBe("failed");
   });
 
+  it("200-acks a well-formed update it does not handle instead of retry-storming", async () => {
+    const response = await postTelegram({ update_id: 5001, message: { text: "سلام" } });
+    expect(response.status).toBe(200);
+    expect((await response.json()).ignored).toBe(true);
+  });
+
+  it("still 400s a payload that is not a Telegram update", async () => {
+    const response = await postTelegram({ not_an_update: true });
+    expect(response.status).toBe(400);
+  });
+
+  it("defers Telegram regenerate so the webhook returns before generation finishes", async () => {
+    let workersAiCalls = 0;
+    mockTelegram();
+    const currentEnv = runtimeEnv({
+      AI: { run: async () => {
+        workersAiCalls += 1;
+        return { response: JSON.stringify(validBundle()) };
+      } },
+    });
+    const id = `campaign_${crypto.randomUUID()}`;
+    await insertGeneratedCampaign(id);
+    const response = await postTelegram(
+      telegramUpdate(id, "regenerate", { updateId: 77, callbackId: "callback-defer" }),
+      { currentEnv }
+    );
+    expect(response.status).toBe(200);
+    // postTelegram drains ctx.waitUntil, so the background job has finished here.
+    expect(workersAiCalls).toBe(1);
+    expect(await env.DB.prepare(
+      "SELECT COUNT(*) AS total FROM content_items WHERE campaign_id = ?"
+    ).bind(id).first("total")).toBe(2);
+    expect(await env.DB.prepare(
+      "SELECT outcome FROM campaign_action_audit WHERE operation_key = 'telegram:77'"
+    ).first("outcome")).toBe("succeeded");
+  });
+
+  it("re-drives a failed Telegram notification from its stored payload", async () => {
+    let sends = 0;
+    network.use(http.post(/https:\/\/api\.telegram\.org\/bot[^/]+\/.+/u, () => {
+      sends += 1;
+      return HttpResponse.json({ ok: true, result: { message_id: 1 } });
+    }));
+    const past = new Date(Date.now() - 60_000).toISOString();
+    await env.DB.prepare(
+      `INSERT INTO telegram_notifications (
+        event_key, notification_type, entity_id, status, attempt_count,
+        message_text, keyboard_json, next_retry_at, created_at, updated_at
+      ) VALUES ('sales:handoff:conv-x', 'handoff', 'lead-x', 'failed', 1, 'نیاز به پیگیری انسانی', NULL, ?, ?, ?)`
+    ).bind(past, past, past).run();
+    const result = await retryFailedTelegramNotifications(runtimeEnv(), "req-retry");
+    expect(result.retried).toBe(1);
+    expect(sends).toBe(1);
+    expect(await env.DB.prepare(
+      "SELECT status FROM telegram_notifications WHERE event_key = 'sales:handoff:conv-x'"
+    ).first("status")).toBe("sent");
+  });
+
   it("works as optional integration when Telegram is not configured", async () => {
     const response = await postTelegram({}, { currentEnv: env });
     expect(response.status).toBe(503);
@@ -310,11 +371,13 @@ describe("Telegram outbound integration", () => {
     let sends = 0;
     mockTelegram((method) => { if (method === "sendMessage") sends += 1; });
     network.use(http.post("https://api.openai.com/v1/responses", () => new HttpResponse(null, { status: 503 })));
+    const ctx = createExecutionContext();
     const response = await worker.fetch(new Request("https://example.com/api/sales/chat", {
       method: "POST",
       headers: { "content-type": "application/json", origin: "https://example.com", "cf-connecting-ip": "203.0.113.90" },
       body: JSON.stringify({ conversationId: "conv_550e8400-e29b-41d4-a716-446655440090", locale: "fa", message: "سایت می‌خواهم" }),
-    }), runtimeEnv(), createExecutionContext());
+    }), runtimeEnv(), ctx);
+    await waitOnExecutionContext(ctx);
     expect(response.status).toBe(200);
     expect(sends).toBeGreaterThanOrEqual(1);
     expect(await env.DB.prepare("SELECT COUNT(*) AS total FROM telegram_notifications WHERE notification_type = 'lead_created'").first("total")).toBe(1);

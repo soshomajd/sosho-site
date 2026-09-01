@@ -42,6 +42,7 @@ export function parseCampaignCallbackData(value) {
 }
 
 export function splitTelegramText(text, limit = SAFE_CHUNK_LIMIT) {
+  if (text === undefined || text === null) return [];
   const normalized = String(text).trim();
   if (!normalized) return [];
   if (normalized.length <= limit) return [normalized];

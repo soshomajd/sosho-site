@@ -69,6 +69,7 @@ type DetailResponse = {
     model: string;
     telegramPreviewStatus: string;
     updatedAt: string;
+    supersededAt: string | null;
   } | null;
   mediaCapability: "available" | "activation_required";
   allowedActions: Record<ActionName, boolean>;
@@ -245,6 +246,11 @@ export default function CampaignDetailClient() {
                 ? "فعال‌سازی R2 لازم است"
                 : detail.media ? (statusLabels[detail.media.status] || detail.media.status) : "رسانه‌ای ثبت نشده"}
             </p>
+            {detail.media?.supersededAt ? (
+              <p className="mt-2 text-sm leading-7 text-amber-200">
+                متن کمپین بعد از ساخت این تصویر دوباره تولید شده است؛ تصویر باید با نسخه جدید بازتولید شود.
+              </p>
+            ) : null}
           </section>
 
           <section aria-labelledby="content-bundle">

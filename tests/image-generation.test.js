@@ -274,6 +274,31 @@ describe("approved campaign main image API", () => {
       .toBe(1);
   });
 
+  it("rebuilds a superseded image after the campaign text is regenerated", async () => {
+    const campaignId = await insertApprovedCampaign();
+    const run = vi.fn(async () => ({ image: jpegBase64() }));
+    const currentEnv = imageRuntime(run);
+    const first = await generateImage(campaignId, currentEnv);
+    const firstPayload = await first.json();
+    expect(firstPayload.imageGeneration.reused).toBe(false);
+    // A text regeneration marks the stored image as superseded.
+    await env.DB.prepare(
+      "UPDATE content_media SET superseded_at = ? WHERE campaign_id = ?"
+    ).bind(new Date().toISOString(), campaignId).run();
+    const second = await generateImage(campaignId, currentEnv);
+    const secondPayload = await second.json();
+    expect(second.status).toBe(200);
+    expect(secondPayload.imageGeneration.reused).toBe(false);
+    expect(secondPayload.mainImage.id).toBe(firstPayload.mainImage.id);
+    expect(secondPayload.mainImage.supersededAt).toBeNull();
+    expect(run).toHaveBeenCalledTimes(2);
+    expect(await env.DB.prepare("SELECT COUNT(*) AS total FROM content_media").first("total"))
+      .toBe(1);
+    const third = await generateImage(campaignId, currentEnv);
+    expect((await third.json()).imageGeneration.reused).toBe(true);
+    expect(run).toHaveBeenCalledTimes(2);
+  });
+
   it("rejects invalid model image data and records a safe failure", async () => {
     const campaignId = await insertApprovedCampaign();
     const response = await generateImage(
