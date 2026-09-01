@@ -284,10 +284,10 @@ npm run blog:cover -- --slug "post-slug" --tag "SEO"
 
 Command semantics:
 
-- `dev`: applies local D1 migrations and starts both Worker on port 8787 and Next on port 3000; Next proxies `/api/*` to the Worker.
+- `dev`: applies local D1 migrations and starts both Worker on port 8787 and Next on port 3000; Next proxies `/api/*` to the Worker. The first run needs Cloudflare auth because the `AI` binding still connects to Cloudflare in local dev: run `npx wrangler login` once, or set `CLOUDFLARE_API_TOKEN` in a non-interactive environment.
 - `dev:next` and `dev:worker`: start either side independently.
 - `test`: runs Worker-runtime unit/integration tests with isolated local D1 storage and outbound provider mocks.
-- `lint`: runs ESLint; config ignores `.next`, `out`, `dist`, and `build`.
+- `lint`: runs ESLint; config ignores `.next`, `out`, `dist`, `build`, and `.wrangler`.
 - `build:next`: ordinary `.next` build. Pair this with `start`.
 - `build`: aliases `build:sites`.
 - `build:sites`: creates the static client and custom Worker bundle under `dist/`.

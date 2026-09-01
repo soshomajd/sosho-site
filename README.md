@@ -63,6 +63,8 @@ npm run dev
 
 `npm run dev` ابتدا migrationهای D1 محلی را اجرا می‌کند، Worker را روی `127.0.0.1:8787` و Next.js را روی `localhost:3000` بالا می‌آورد و درخواست‌های `/api/*` را به Worker proxy می‌کند. فایل `.dev.vars` در Git نادیده گرفته می‌شود. تولید متن و تصویر به‌صورت پیش‌فرض از Binding استاندارد `AI` و Workers AI استفاده می‌کند و Binding محلی `MEDIA` با R2 محلی Wrangler شبیه‌سازی می‌شود؛ OpenAI همچنان برای Sales Chat و provider اختیاری متن موجود است.
 
+نکته: نخستین اجرای `npm run dev` به احراز هویت Cloudflare نیاز دارد، چون Binding `AI` در حالت توسعه نیز به Cloudflare متصل می‌شود؛ یک‌بار `npx wrangler login` را اجرا کنید (در محیط غیرتعاملی به‌جای آن `CLOUDFLARE_API_TOKEN` تنظیم شود).
+
 فرمان‌های جداگانه نیز موجودند:
 
 ```bash

@@ -13,6 +13,8 @@ const eslintConfig = defineConfig([
     "dist/**",
     "build/**",
     "next-env.d.ts",
+    // Wrangler build/dev artifacts.
+    ".wrangler/**",
   ]),
 ]);
 

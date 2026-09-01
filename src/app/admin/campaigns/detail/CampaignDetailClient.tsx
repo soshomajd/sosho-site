@@ -97,7 +97,7 @@ function TextBlock({ label, value }: Readonly<{ label: string; value: string | n
   return (
     <div className="rounded-xl border border-white/10 bg-black/15 p-4">
       <dt className="text-xs font-medium text-muted">{label}</dt>
-      <dd className="mt-2 whitespace-pre-wrap break-words text-sm leading-7 text-foreground">{value || "ثبت نشده"}</dd>
+      <dd className="mt-2 whitespace-pre-wrap break-words text-sm leading-7 text-foreground"><bdi>{value || "ثبت نشده"}</bdi></dd>
     </div>
   );
 }
