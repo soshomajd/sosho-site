@@ -8,6 +8,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The active application is the repository root itself. A former duplicate app was deliberately deleted — do not restore it from git history, and do not add a nested `package.json` or second app directory unless the owner explicitly asks.
 
+## Branch rule (standing owner instruction)
+
+**Do not touch `main` until the owner says the project is complete.** No merging into `main`, no PRs targeting `main`, no pushing to `main`. All work happens on `openai-chats` (or another feature branch the owner names). `main` is read-only reference — `git diff main...openai-chats` is fine. The whole AI sales system, admin dashboard, Telegram, and content/image generation exist only on `openai-chats`; `main` still holds just the older marketing site, and the owner wants the full branch reviewed and finished before it reaches `main`.
+
 ## Environment
 
 - Windows host; the default shell is PowerShell 5.1, with a Bash tool also available. `npm run dev` orchestration and Wrangler are cross-platform.
