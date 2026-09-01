@@ -275,6 +275,7 @@ export class OpenAiContentProvider {
   constructor(env, { fetcher = fetch } = {}) {
     this.env = env;
     this.fetcher = fetcher;
+    this.lastRun = null;
   }
 
   async generate(campaign, requestId) {
@@ -362,6 +363,10 @@ Return only the structured content bundle requested by the schema.`;
         status: response.status,
         durationMs: Date.now() - startedAt,
       });
+      this.lastRun = {
+        provider: "openai",
+        model: this.env.OPENAI_MODEL || "gpt-5.6-luna",
+      };
       return validation.value;
     }, {
       maxAttempts: getIntegerEnv(this.env, "OPENAI_MAX_ATTEMPTS", 3, { min: 1, max: 5 }),
@@ -375,20 +380,30 @@ export class ContentGenerationService {
   constructor(env, { fetcher = fetch } = {}) {
     this.env = env;
     this.fetcher = fetcher;
+    this.lastRun = null;
   }
 
   async generate(campaign, requestId) {
     const provider = String(this.env.CONTENT_AI_PROVIDER || "workers_ai").trim().toLowerCase();
     if (provider === "workers_ai") {
-      return new WorkersAiContentProvider(this.env, {
+      const implementation = new WorkersAiContentProvider(this.env, {
         schema: CONTENT_BUNDLE_SCHEMA,
         validate: validateContentBundle,
-      }).generate(campaign, requestId);
+      });
+      const bundle = await implementation.generate(campaign, requestId);
+      this.lastRun = implementation.lastRun;
+      return bundle;
     }
     if (provider === "openai") {
-      return new OpenAiContentProvider(this.env, { fetcher: this.fetcher })
-        .generate(campaign, requestId);
+      const implementation = new OpenAiContentProvider(this.env, { fetcher: this.fetcher });
+      const bundle = await implementation.generate(campaign, requestId);
+      this.lastRun = implementation.lastRun;
+      return bundle;
     }
     throw new ServiceError("configuration_missing", { status: 503 });
+  }
+
+  getLastRun() {
+    return this.lastRun;
   }
 }

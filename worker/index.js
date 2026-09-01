@@ -23,14 +23,21 @@ import {
   clearAdminSessionCookie,
   createAdminSession,
   getAdminCampaigns,
+  getAdminCampaignDetail,
   getAdminConversationDetail,
   getAdminConversations,
   getAdminLeads,
   getAdminOverview,
   requireAdminBearer,
+  requireAdminSessionAction,
   requireDashboardAdmin,
   verifyAdminToken,
 } from "./admin-dashboard.js";
+import {
+  approveCampaign,
+  regenerateCampaign,
+  rejectCampaign,
+} from "./campaign-actions.js";
 import {
   ContentGenerationService,
   validateCreateCampaignInput,
@@ -56,12 +63,15 @@ const REQUIRED_TABLES = [
   "content_campaigns",
   "content_items",
   "content_media",
+  "campaign_action_audit",
   "telegram_updates",
   "telegram_notifications",
 ];
 
 const CAMPAIGN_ID_PATTERN =
   /^campaign_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
+const IDEMPOTENCY_KEY_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
 
 function now() {
   return new Date().toISOString();
@@ -269,7 +279,8 @@ async function getContentCampaign(env, id) {
   const campaign = await db
     .prepare(
       `SELECT id, topic, target_audience, goal, language, status, approval_status,
-              approval_decided_at, approval_telegram_user_id, approval_callback_id,
+              approval_decided_at, rejection_reason,
+              approval_telegram_user_id, approval_callback_id,
               scheduled_at, created_at, updated_at
        FROM content_campaigns WHERE id = ? LIMIT 1`
     )
@@ -279,7 +290,7 @@ async function getContentCampaign(env, id) {
   const item = await db
     .prepare(
       `SELECT id, campaign_id, content_type, platform, content_json,
-              validation_status, created_at, updated_at
+              validation_status, provider, model, created_at, updated_at
        FROM content_items
        WHERE campaign_id = ? AND validation_status = 'valid'
        ORDER BY created_at DESC LIMIT 1`
@@ -297,6 +308,7 @@ async function getContentCampaign(env, id) {
       status: campaign.status,
       approvalStatus: campaign.approval_status,
       approvalDecidedAt: campaign.approval_decided_at,
+      rejectionReason: campaign.rejection_reason,
       approvalTelegramUserId: campaign.approval_telegram_user_id,
       approvalCallbackId: campaign.approval_callback_id,
       scheduledAt: campaign.scheduled_at,
@@ -310,6 +322,8 @@ async function getContentCampaign(env, id) {
       platform: item.platform,
       content: parseJson(item.content_json, null),
       validationStatus: item.validation_status,
+      provider: item.provider,
+      model: item.model,
       createdAt: item.created_at,
       updatedAt: item.updated_at,
     } : null,
@@ -322,8 +336,11 @@ async function generateContentCampaign(env, id, requestId, { regenerate = false 
   const claimed = await db
     .prepare(
       `UPDATE content_campaigns
-       SET status = 'generating', updated_at = ?
-       WHERE id = ? AND status IN (${regenerate ? "'generated'" : "'draft', 'failed'"})
+       SET status = 'generating', approval_status = 'pending',
+           approval_decided_at = NULL, rejection_reason = NULL,
+           approval_telegram_user_id = NULL, approval_callback_id = NULL,
+           updated_at = ?
+       WHERE id = ? AND status IN (${regenerate ? "'generated', 'failed'" : "'draft', 'failed'"})
        RETURNING id, topic, target_audience, goal, language`
     )
     .bind(now(), id)
@@ -334,7 +351,9 @@ async function generateContentCampaign(env, id, requestId, { regenerate = false 
     throw new ServiceError("invalid_campaign_state", { status: 409 });
   }
   try {
-    const bundle = await new ContentGenerationService(env).generate(claimed, requestId);
+    const service = new ContentGenerationService(env);
+    const bundle = await service.generate(claimed, requestId);
+    const generation = service.getLastRun() || {};
     const completedAt = now();
     const itemId = createId("content");
     await db.batch([
@@ -342,10 +361,18 @@ async function generateContentCampaign(env, id, requestId, { regenerate = false 
         .prepare(
           `INSERT INTO content_items (
             id, campaign_id, content_type, platform, content_json,
-            validation_status, created_at, updated_at
-          ) VALUES (?, ?, 'content_bundle', 'multi_platform', ?, 'valid', ?, ?)`
+            validation_status, provider, model, created_at, updated_at
+          ) VALUES (?, ?, 'content_bundle', 'multi_platform', ?, 'valid', ?, ?, ?, ?)`
         )
-        .bind(itemId, id, JSON.stringify(bundle), completedAt, completedAt),
+        .bind(
+          itemId,
+          id,
+          JSON.stringify(bundle),
+          typeof generation.provider === "string" ? generation.provider.slice(0, 80) : null,
+          typeof generation.model === "string" ? generation.model.slice(0, 200) : null,
+          completedAt,
+          completedAt
+        ),
       db
         .prepare(
           `UPDATE content_campaigns
@@ -554,7 +581,7 @@ async function readTextBody(request, maxBytes) {
 
 async function readJsonBody(request, maxBytes) {
   const contentType = request.headers.get("content-type") || "";
-  if (!contentType.toLowerCase().includes("application/json")) {
+  if (contentType.split(";", 1)[0].trim().toLowerCase() !== "application/json") {
     throw new ServiceError("unsupported_media_type", { status: 415 });
   }
   const text = await readTextBody(request, maxBytes);
@@ -1599,22 +1626,37 @@ async function processTelegramCallback(env, update, requestId) {
   let status = "processed";
   let errorCode = null;
   try {
-    if (update.action === "approve" || update.action === "reject") {
-      const decision = update.action === "approve" ? "approved" : "rejected";
-      const changed = await requireDatabase(env)
-        .prepare(
-          `UPDATE content_campaigns
-           SET approval_status = ?, approval_decided_at = ?,
-               approval_telegram_user_id = ?, approval_callback_id = ?, updated_at = ?
-           WHERE id = ? AND status = 'generated'
-           RETURNING id`
-        )
-        .bind(decision, now(), update.userId, update.callbackId, now(), update.campaignId)
-        .first();
-      if (!changed) throw new ServiceError("campaign_not_found_or_not_generated", { status: 409 });
-      answer = decision === "approved" ? "محتوا تأیید شد" : "محتوا رد شد";
+    if (update.action === "approve") {
+      await approveCampaign(requireDatabase(env), {
+        campaignId: update.campaignId,
+        operationKey: `telegram:${update.updateId}`,
+        actor: { type: "telegram", key: "configured_admin" },
+        telegramUserId: update.userId,
+        telegramCallbackId: update.callbackId,
+      });
+      answer = "محتوا تأیید شد";
+    } else if (update.action === "reject") {
+      await rejectCampaign(requireDatabase(env), {
+        campaignId: update.campaignId,
+        operationKey: `telegram:${update.updateId}`,
+        actor: { type: "telegram", key: "configured_admin" },
+        reason: "رد از طریق تلگرام",
+        telegramUserId: update.userId,
+        telegramCallbackId: update.callbackId,
+      });
+      answer = "محتوا رد شد";
     } else if (update.action === "regenerate") {
-      await generateContentCampaign(env, update.campaignId, requestId, { regenerate: true });
+      await regenerateCampaign(requireDatabase(env), {
+        campaignId: update.campaignId,
+        operationKey: `telegram:${update.updateId}`,
+        actor: { type: "telegram", key: "configured_admin" },
+        generate: () => generateContentCampaign(
+          env,
+          update.campaignId,
+          requestId,
+          { regenerate: true }
+        ),
+      });
       answer = "محتوا دوباره تولید شد";
     } else if (update.action === "view") {
       const campaign = await getContentCampaign(env, update.campaignId);
@@ -1722,7 +1764,7 @@ async function getReadiness(env) {
            WHERE type = 'table' AND name IN (
              'leads', 'conversations', 'messages', 'webhook_events', 'rate_limit_counters',
              'content_campaigns', 'content_items', 'content_media',
-             'telegram_updates', 'telegram_notifications'
+             'campaign_action_audit', 'telegram_updates', 'telegram_notifications'
            )`
         ).first();
         migrationsReady = Number(tables?.total ?? 0) === REQUIRED_TABLES.length;
@@ -1741,11 +1783,13 @@ async function getReadiness(env) {
             env.DB.prepare(
               `SELECT topic, target_audience, goal, language, status, scheduled_at,
                       approval_status, approval_decided_at, approval_telegram_user_id,
-                      approval_callback_id
+                      approval_callback_id, rejection_reason
                FROM content_campaigns LIMIT 1`
             ),
             env.DB.prepare(
-              "SELECT campaign_id, content_type, platform, content_json, validation_status FROM content_items LIMIT 1"
+              `SELECT campaign_id, content_type, platform, content_json,
+                      validation_status, provider, model
+               FROM content_items LIMIT 1`
             ),
             env.DB.prepare(
               `SELECT campaign_id, media_type, r2_key, mime_type, byte_size, status,
@@ -1758,6 +1802,11 @@ async function getReadiness(env) {
             ),
             env.DB.prepare(
               "SELECT event_key, notification_type, entity_id, status FROM telegram_notifications LIMIT 1"
+            ),
+            env.DB.prepare(
+              `SELECT operation_key, campaign_id, action, actor_type, actor_key,
+                      status, outcome, reason, error_code
+               FROM campaign_action_audit LIMIT 1`
             ),
           ]);
         }
@@ -1825,7 +1874,11 @@ export async function handleApi(request, env, ctx, url, requestId) {
         const session = await createAdminSession(env);
         const maxAge = Math.max(1, Math.floor((session.expiresAt - Date.now()) / 1000));
         return json(
-          { authenticated: true, expiresAt: new Date(session.expiresAt).toISOString() },
+          {
+            authenticated: true,
+            expiresAt: new Date(session.expiresAt).toISOString(),
+            csrfToken: session.csrfToken,
+          },
           200,
           requestId,
           { "set-cookie": adminSessionCookie(request, session.value, maxAge) }
@@ -1836,6 +1889,7 @@ export async function handleApi(request, env, ctx, url, requestId) {
         return json({
           authenticated: true,
           expiresAt: auth.expiresAt ? new Date(auth.expiresAt).toISOString() : null,
+          csrfToken: auth.type === "session" ? auth.csrfToken : null,
         }, 200, requestId);
       }
       if (request.method === "DELETE") {
@@ -1864,6 +1918,85 @@ export async function handleApi(request, env, ctx, url, requestId) {
       }
       await requireDashboardAdmin(request, env);
       return json(await getAdminCampaigns(requireDatabase(env), env, url), 200, requestId);
+    }
+    const adminCampaignRoute = url.pathname.match(
+      /^\/api\/admin\/campaigns\/([^/]+)(?:\/(approve|reject|regenerate))?$/u
+    );
+    if (adminCampaignRoute) {
+      let campaignId;
+      try {
+        campaignId = decodeURIComponent(adminCampaignRoute[1]);
+      } catch {
+        throw new ServiceError("invalid_campaign_id", { status: 400 });
+      }
+      if (!CAMPAIGN_ID_PATTERN.test(campaignId)) {
+        throw new ServiceError("invalid_campaign_id", { status: 400 });
+      }
+      const action = adminCampaignRoute[2] || null;
+      if (!action) {
+        if (request.method !== "GET") {
+          return json({ error: "method_not_allowed" }, 405, requestId);
+        }
+        await requireDashboardAdmin(request, env);
+        return json(
+          await getAdminCampaignDetail(requireDatabase(env), env, campaignId),
+          200,
+          requestId
+        );
+      }
+      if (request.method !== "POST") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      const origin = request.headers.get("origin");
+      if (!origin || !isAllowedWebsiteRequest(request, env)) {
+        throw new ServiceError("origin_not_allowed", { status: 403 });
+      }
+      await requireAdminSessionAction(request, env);
+      const body = await readJsonBody(request, 4096);
+      if (!isPlainRecord(body)) throw new ServiceError("invalid_request", { status: 400 });
+      const operationKey = request.headers.get("idempotency-key") || "";
+      if (!IDEMPOTENCY_KEY_PATTERN.test(operationKey)) {
+        throw new ServiceError("invalid_idempotency_key", { status: 400 });
+      }
+      const actionOptions = {
+        campaignId,
+        operationKey: `dashboard:${operationKey}`,
+        actor: { type: "dashboard", key: "admin_session" },
+      };
+      let operation;
+      if (action === "approve") {
+        if (Object.keys(body).length !== 0) {
+          throw new ServiceError("invalid_request", { status: 400 });
+        }
+        operation = await approveCampaign(requireDatabase(env), actionOptions);
+      } else if (action === "reject") {
+        const keys = Object.keys(body);
+        if (keys.length > 1 || (keys.length === 1 && keys[0] !== "reason")) {
+          throw new ServiceError("invalid_request", { status: 400 });
+        }
+        operation = await rejectCampaign(requireDatabase(env), {
+          ...actionOptions,
+          reason: body.reason,
+        });
+      } else {
+        if (Object.keys(body).length !== 0) {
+          throw new ServiceError("invalid_request", { status: 400 });
+        }
+        operation = await regenerateCampaign(requireDatabase(env), {
+          ...actionOptions,
+          generate: () => generateContentCampaign(env, campaignId, requestId, {
+            regenerate: true,
+          }),
+        });
+      }
+      return json({
+        operation: {
+          action: operation.action,
+          outcome: operation.outcome,
+          duplicate: operation.duplicate,
+        },
+        ...(await getAdminCampaignDetail(requireDatabase(env), env, campaignId)),
+      }, 200, requestId);
     }
     if (url.pathname === "/api/admin/leads") {
       if (request.method !== "GET") {

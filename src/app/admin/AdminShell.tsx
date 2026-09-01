@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import type { FormEvent, ReactNode } from "react";
 import { useCallback, useEffect, useState } from "react";
 
+import { AdminSessionProvider } from "./admin-session";
+
 type AuthState = "checking" | "authenticated" | "unauthenticated" | "unavailable";
 
 const navigation = [
@@ -25,6 +27,7 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
   const [token, setToken] = useState("");
   const [loginPending, setLoginPending] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [csrfToken, setCsrfToken] = useState<string | null>(null);
 
   const checkSession = useCallback(async () => {
     setAuthState("checking");
@@ -36,6 +39,7 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
         headers: { accept: "application/json" },
       });
       if (response.status === 401) {
+        setCsrfToken(null);
         setAuthState("unauthenticated");
         return;
       }
@@ -44,6 +48,13 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
         setMessage("سرویس ورود مدیریت در دسترس نیست. کمی بعد دوباره تلاش کنید.");
         return;
       }
+      const payload = await response.json() as { csrfToken?: unknown };
+      if (typeof payload.csrfToken !== "string" || payload.csrfToken.length < 1) {
+        setAuthState("unavailable");
+        setMessage("محافظت امنیتی نشست کامل نیست. دوباره وارد شوید.");
+        return;
+      }
+      setCsrfToken(payload.csrfToken);
       setAuthState("authenticated");
     } catch {
       setAuthState("unavailable");
@@ -57,6 +68,7 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
 
   useEffect(() => {
     const handleUnauthorized = () => {
+      setCsrfToken(null);
       setAuthState("unauthenticated");
       setMessage("نشست شما پایان یافته است. دوباره وارد شوید.");
     };
@@ -78,6 +90,13 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
         body: JSON.stringify({ token }),
       });
       if (response.ok) {
+        const payload = await response.json() as { csrfToken?: unknown };
+        if (typeof payload.csrfToken !== "string" || payload.csrfToken.length < 1) {
+          setAuthState("unavailable");
+          setMessage("محافظت امنیتی نشست کامل نیست. دوباره تلاش کنید.");
+          return;
+        }
+        setCsrfToken(payload.csrfToken);
         setAuthState("authenticated");
       } else if (response.status === 401) {
         setAuthState("unauthenticated");
@@ -101,8 +120,10 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
         method: "DELETE",
         credentials: "same-origin",
         cache: "no-store",
+        headers: csrfToken ? { "x-csrf-token": csrfToken } : undefined,
       });
     } finally {
+      setCsrfToken(null);
       setAuthState("unauthenticated");
       setMessage(null);
     }
@@ -165,6 +186,7 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
   }
 
   return (
+    <AdminSessionProvider value={{ csrfToken }}>
     <div className="min-h-screen bg-background" dir="rtl">
       <header className="border-b border-white/10 bg-surface/95">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8">
@@ -205,5 +227,6 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
       </header>
       <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">{children}</main>
     </div>
+    </AdminSessionProvider>
   );
 }

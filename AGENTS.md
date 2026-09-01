@@ -31,7 +31,7 @@ Primary capabilities:
 - Floating website sales assistant
 - Admin-only Persian AI content campaign generation with validated multi-platform bundles
 - Optional Telegram content approval and deduplicated sales notifications
-- Read-only Persian RTL admin dashboard with bounded D1 views and HttpOnly sessions
+- Persian RTL admin dashboard with bounded D1 views, HttpOnly sessions, and audited Campaign approval actions
 - Cloudflare Workers AI content generation with JSON Schema output and one-model fallback
 - Idempotent Workers AI main-image generation for approved campaigns with private R2 storage
 - OpenAI Responses API for Sales Chat and an optional future content provider
@@ -52,6 +52,7 @@ Primary capabilities:
 |- worker/
 |  |- index.js                           Runtime Worker and API source
 |  |- admin-dashboard.js                 Admin session security and bounded read-only D1 queries
+|  |- campaign-actions.js                Shared Dashboard/Telegram transitions, idempotency, and audit
 |  |- core.js                            Validation, policy, retry utilities
 |  |- content-generation.js              Content schema, validation, and provider selection
 |  |- workers-ai-content-provider.js     Workers AI primary/fallback content provider
@@ -190,6 +191,8 @@ Instagram webhook
 - `POST|GET|DELETE /api/admin/session`: exchanges the existing admin token for, checks, or clears a short-lived HttpOnly session.
 - `GET /api/admin/overview`: returns bounded real system counts and recent activity.
 - `GET /api/admin/campaigns`, `/api/admin/leads`, and `/api/admin/conversations`: return filtered, paginated, read-only admin views.
+- `GET /api/admin/campaigns/:id`: returns one safe full Campaign bundle, provenance, approval, and media state.
+- `POST /api/admin/campaigns/:id/{approve|reject|regenerate}`: performs session-only, CSRF-protected, idempotent Campaign actions.
 - `GET /api/admin/conversations/:id`: returns at most 50 redacted message previews for one conversation.
 - `GET /api/meta/webhook`: Meta verification handshake.
 - `POST /api/meta/webhook`: signed inbound message webhook, processed with `ctx.waitUntil`.
@@ -204,8 +207,9 @@ The ordered SQL migrations create and evolve:
 - `webhook_events`: `received -> processing -> processed|failed`, attempts, retry schedule, provider response cache, and payload retention.
 - `rate_limit_counters`: atomic IP, conversation, Instagram-user, and OpenAI quota windows.
 - `content_campaigns`: admin content requests and `draft -> generating -> generated|failed` state.
-- `content_items`: validated generated bundles linked to campaigns.
+- `content_items`: validated generated bundles linked to campaigns, including the actual provider/model used.
 - `content_media`: unique campaign media claims, private R2 keys, validated MIME/size, provider/model, and storage state.
+- `campaign_action_audit`: idempotency keys and safe actor/action/outcome audit records shared by Dashboard and Telegram.
 - `telegram_updates`: deduplicated Telegram update/callback processing records.
 - `telegram_notifications`: deduplicated content preview and sales notification delivery state.
 
@@ -234,6 +238,8 @@ The ordered SQL migrations create and evolve:
 - Preserve event-linked message uniqueness and cached webhook responses: retries must never recreate a completed sales turn.
 - Telegram is optional. Missing or failing Telegram configuration must never fail content persistence, Sales Chat, or Instagram processing.
 - Telegram callbacks must be limited to the configured admin chat/user, acknowledged with `answerCallbackQuery`, and deduplicated before side effects.
+- Dashboard Campaign writes require a valid signed session, an allowed Origin, JSON Content-Type, a session-bound CSRF token, and a UUID idempotency key.
+- Dashboard and Telegram approval/regeneration must use `campaign-actions.js`; direct approval-status writes in route handlers are not allowed.
 - OpenAI and Meta calls use finite timeouts, bounded exponential retry, and PII-safe structured logs carrying `requestId`.
 - Retention cron deletes expired messages/counters, anonymizes selected lead PII, purges raw Meta payloads, and later deletes webhook records.
 - Leads can contain PII such as names, phone numbers, budgets, and business details. Do not log, commit, or use production records as fixtures. Anonymize test data.

@@ -109,6 +109,7 @@ export class WorkersAiContentProvider {
     this.env = env;
     this.schema = schema;
     this.validate = validate;
+    this.lastRun = null;
   }
 
   async generate(campaign, requestId) {
@@ -142,6 +143,7 @@ export class WorkersAiContentProvider {
         if (!validation.ok) {
           throw new ServiceError(validation.code, { status: 502, retryable: true });
         }
+        this.lastRun = { provider: "workers_ai", model: models[index] };
         logEvent("info", "content_generation_succeeded", {
           requestId,
           provider: "workers_ai",

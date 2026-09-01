@@ -114,6 +114,7 @@ function mockTelegram(onMethod = () => {}) {
 
 beforeEach(async () => {
   await env.DB.batch([
+    env.DB.prepare("DELETE FROM campaign_action_audit"),
     env.DB.prepare("DELETE FROM telegram_updates"),
     env.DB.prepare("DELETE FROM telegram_notifications"),
     env.DB.prepare("DELETE FROM content_items"),
@@ -238,6 +239,46 @@ describe("Telegram webhook and campaign approval", () => {
     await postTelegram(update, { currentEnv });
     expect(workersAiCalls).toBe(1);
     expect(await env.DB.prepare("SELECT COUNT(*) AS total FROM content_items WHERE campaign_id = ?").bind(id).first("total")).toBe(2);
+  });
+
+  it("shares transition rules between Dashboard and Telegram", async () => {
+    mockTelegram();
+    const id = `campaign_${crypto.randomUUID()}`;
+    await insertGeneratedCampaign(id);
+    const login = await worker.fetch(new Request("https://example.com/api/admin/session", {
+      method: "POST",
+      headers: { origin: "https://example.com", "content-type": "application/json" },
+      body: JSON.stringify({ token: "test-admin-token" }),
+    }), env, createExecutionContext());
+    const session = await login.json();
+    const cookie = login.headers.get("set-cookie").split(";")[0];
+    const approved = await worker.fetch(new Request(
+      `https://example.com/api/admin/campaigns/${id}/approve`,
+      {
+        method: "POST",
+        headers: {
+          origin: "https://example.com",
+          cookie,
+          "content-type": "application/json",
+          "idempotency-key": crypto.randomUUID(),
+          "x-csrf-token": session.csrfToken,
+        },
+        body: "{}",
+      }
+    ), env, createExecutionContext());
+    expect(approved.status).toBe(200);
+
+    const telegramReject = telegramUpdate(id, "reject", {
+      updateId: 91,
+      callbackId: "callback-after-dashboard",
+    });
+    expect((await postTelegram(telegramReject)).status).toBe(200);
+    expect(await env.DB.prepare(
+      "SELECT approval_status FROM content_campaigns WHERE id = ?"
+    ).bind(id).first("approval_status")).toBe("approved");
+    expect(await env.DB.prepare(
+      "SELECT status FROM telegram_updates WHERE update_id = '91'"
+    ).first("status")).toBe("failed");
   });
 
   it("works as optional integration when Telegram is not configured", async () => {

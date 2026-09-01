@@ -51,7 +51,16 @@ export function useAdminResource<T>(url: string | null): ResourceState<T> {
     return () => controller.abort();
   }, [url, attempt]);
 
-  return { data, loading, error, retry: () => setAttempt((value) => value + 1) };
+  return {
+    data,
+    loading,
+    error,
+    retry: () => {
+      setLoading(true);
+      setError(null);
+      setAttempt((value) => value + 1);
+    },
+  };
 }
 
 export function formatDate(value: string | null | undefined) {

@@ -80,6 +80,7 @@ export type ContentCampaignRow = {
   status: "draft" | "generating" | "generated" | "failed";
   approval_status: "pending" | "approved" | "rejected";
   approval_decided_at: string | null;
+  rejection_reason: string | null;
   approval_telegram_user_id: string | null;
   approval_callback_id: string | null;
   scheduled_at: string | null;
@@ -118,8 +119,25 @@ export type ContentItemRow = {
   platform: "multi_platform";
   content_json: string;
   validation_status: "valid" | "invalid";
+  provider: string | null;
+  model: string | null;
   created_at: string;
   updated_at: string;
+};
+
+export type CampaignActionAuditRow = {
+  id: string;
+  operation_key: string;
+  campaign_id: string;
+  action: "approve" | "reject" | "regenerate";
+  actor_type: "dashboard" | "telegram";
+  actor_key: string;
+  status: "processing" | "completed";
+  outcome: "succeeded" | "noop" | "failed" | null;
+  reason: string | null;
+  error_code: string | null;
+  created_at: string;
+  completed_at: string | null;
 };
 
 export type ContentMediaRow = {

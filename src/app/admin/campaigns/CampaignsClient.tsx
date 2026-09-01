@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import {
@@ -110,7 +111,15 @@ export default function CampaignsClient() {
                   <div><dt className="text-muted">آخرین تغییر</dt><dd className="mt-1 text-foreground">{formatDate(campaign.updatedAt)}</dd></div>
                   <div className="sm:col-span-2"><dt className="text-muted">رسانه</dt><dd className="mt-1 text-foreground">{resource.data?.mediaCapability === "activation_required" ? "فعال‌سازی R2 لازم است" : campaign.media ? (statusLabels[campaign.media.status] || campaign.media.status) : "رسانه‌ای ثبت نشده"}</dd></div>
                 </dl>
-                <p className="mt-5 break-all border-t border-white/10 pt-4 text-xs text-muted" dir="ltr">{campaign.id}</p>
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
+                  <p className="break-all text-xs text-muted" dir="ltr">{campaign.id}</p>
+                  <Link
+                    href={`/admin/campaigns/detail?id=${encodeURIComponent(campaign.id)}`}
+                    className="rounded-xl border border-white/15 px-4 py-2 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent"
+                  >
+                    مشاهده جزئیات و عملیات
+                  </Link>
+                </div>
               </article>
             ))}
           </div>

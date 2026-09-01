@@ -47,6 +47,7 @@ Content Campaign
 - `rate_limit_counters`: شمارنده‌های atomic ساعتی/روزانه با تاریخ انقضا
 - `content_campaigns` و `content_items`: درخواست Campaign و آخرین Content Bundle معتبر
 - `content_media`: claim یکتا برای تصویر اصلی، کلید R2، MIME، اندازه، provider/model و وضعیت ذخیره
+- `campaign_action_audit`: کلید idempotency و audit امن action، Campaign، actor و outcome برای Dashboard و Telegram
 - `telegram_updates` و `telegram_notifications`: deduplication callback و اعلان
 
 راه‌اندازی production:
@@ -86,7 +87,7 @@ npx wrangler secret put RATE_LIMIT_SALT
 
 `RATE_LIMIT_SALT` باید مقدار تصادفی قوی و جدا از سایر Secretها باشد و برای hash کردن IP و Instagram user در کلیدهای rate limit استفاده می‌شود. تغییر آن شمارنده‌های فعال را عملاً reset می‌کند.
 
-Dashboard فقط خواندنی در مسیر `/admin` از همان `ADMIN_API_TOKEN` استفاده می‌کند. Token تنها در body درخواست ورود هم‌مبدأ دریافت می‌شود و در URL، bundle، log یا Local Storage قرار نمی‌گیرد. Worker پس از مقایسه constant-time یک نشست امضاشده هشت‌ساعته با cookieهای `HttpOnly`، `SameSite=Strict` و `Secure` در HTTPS صادر می‌کند. APIهای `/api/admin/*` فقط GETهای محدود و صفحه‌بندی‌شده برای Overview، Campaign، Lead و Conversation ارائه می‌کنند؛ جزئیات تماس کامل Lead بازگردانده نمی‌شود و preview پیام‌ها ایمیل و شماره تماس را پنهان می‌کند.
+Dashboard در مسیر `/admin` از همان `ADMIN_API_TOKEN` استفاده می‌کند. Token تنها در body درخواست ورود هم‌مبدأ دریافت می‌شود و در URL، bundle، log یا Local Storage قرار نمی‌گیرد. Worker پس از مقایسه constant-time یک نشست امضاشده هشت‌ساعته با cookieهای `HttpOnly`، `SameSite=Strict` و `Secure` در HTTPS صادر می‌کند. GETها محدود و صفحه‌بندی‌شده هستند؛ عملیات Approve، Reject و Regenerate فقط با Session معتبر، Origin مجاز، JSON، CSRF وابسته به Session و UUID idempotency اجرا و audit می‌شوند. Telegram و Dashboard همین transition service را مشترکاً استفاده می‌کنند. جزئیات تماس کامل Lead بازگردانده نمی‌شود و preview پیام‌ها ایمیل و شماره تماس را پنهان می‌کند.
 
 برای staging از Worker و D1 مستقل تعریف‌شده در `wrangler.staging.jsonc` استفاده می‌شود. این config فقط `workers.dev` را فعال می‌کند و هیچ route مربوط به دامنه Production ندارد. Secretهای staging باید با گزینه `--config wrangler.staging.jsonc` ثبت شوند تا به Worker Production متصل نشوند.
 

@@ -1,4 +1,6 @@
 import { ServiceError, parseJson } from "./core.js";
+import { campaignActionAvailability } from "./campaign-actions.js";
+import { validateContentBundle } from "./content-generation.js";
 
 const ADMIN_SESSION_COOKIE = "sosho_admin_session";
 const ADMIN_SESSION_VERSION = 1;
@@ -45,6 +47,10 @@ async function hmac(secret, value) {
     ["sign"]
   );
   return new Uint8Array(await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(value)));
+}
+
+async function csrfTokenForSession(secret, sessionValue) {
+  return encodeBase64Url(await hmac(secret, `csrf:${sessionValue}`));
 }
 
 async function constantTimeTextEquals(provided, expected) {
@@ -94,7 +100,12 @@ export async function createAdminSession(env, currentTimeMs = Date.now()) {
     nonce: crypto.randomUUID(),
   }));
   const signature = encodeBase64Url(await hmac(env.ADMIN_API_TOKEN, payload));
-  return { value: `${payload}.${signature}`, expiresAt };
+  const value = `${payload}.${signature}`;
+  return {
+    value,
+    expiresAt,
+    csrfToken: await csrfTokenForSession(env.ADMIN_API_TOKEN, value),
+  };
 }
 
 export async function verifyAdminSession(request, env, currentTimeMs = Date.now()) {
@@ -125,7 +136,21 @@ export async function verifyAdminSession(request, env, currentTimeMs = Date.now(
       payload.exp > currentTimeMs + ADMIN_SESSION_MAX_TTL_SECONDS * 1000) {
     return null;
   }
-  return { expiresAt: payload.exp };
+  return {
+    expiresAt: payload.exp,
+    csrfToken: await csrfTokenForSession(env.ADMIN_API_TOKEN, value),
+  };
+}
+
+export async function requireAdminSessionAction(request, env) {
+  const session = await verifyAdminSession(request, env);
+  if (!session) throw new ServiceError("unauthorized", { status: 401 });
+  const provided = request.headers.get("x-csrf-token") || "";
+  if (provided.length < 1 || provided.length > 128 ||
+      !(await constantTimeTextEquals(provided, session.csrfToken))) {
+    throw new ServiceError("invalid_csrf", { status: 403 });
+  }
+  return { type: "session", ...session };
 }
 
 export async function requireDashboardAdmin(request, env) {
@@ -311,8 +336,9 @@ export async function getAdminCampaigns(db, env, url) {
     db.prepare(
       `SELECT cc.id, cc.topic, cc.target_audience, cc.status, cc.approval_status,
               cc.created_at, cc.updated_at, ci.content_json,
+              ci.provider AS content_provider, ci.model AS content_model,
               cm.status AS media_status, cm.telegram_preview_status,
-              cm.provider, cm.model
+              cm.provider AS media_provider, cm.model AS media_model
        FROM content_campaigns cc
        LEFT JOIN content_items ci ON ci.id = (
          SELECT item.id FROM content_items item
@@ -336,8 +362,8 @@ export async function getAdminCampaigns(db, env, url) {
       targetAudience: row.target_audience,
       status: row.status,
       approvalStatus: row.approval_status,
-      provider: row.provider ?? null,
-      model: row.model ?? null,
+      provider: row.content_provider ?? null,
+      model: row.content_model ?? null,
       createdAt: row.created_at,
       updatedAt: row.updated_at,
       media: row.media_status ? {
@@ -351,6 +377,81 @@ export async function getAdminCampaigns(db, env, url) {
     pagination: paginationMeta(page, pageSize, total),
     filters: { status },
     mediaCapability: mediaCapability(env),
+  };
+}
+
+export async function getAdminCampaignDetail(db, env, campaignId) {
+  if (typeof campaignId !== "string" || campaignId.length > 100 ||
+      !/^campaign_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu
+        .test(campaignId)) {
+    throw new ServiceError("invalid_campaign_id", { status: 400 });
+  }
+  const campaign = await db.prepare(
+    `SELECT id, topic, target_audience, goal, language, status, approval_status,
+            approval_decided_at, rejection_reason, scheduled_at, created_at, updated_at
+     FROM content_campaigns WHERE id = ? LIMIT 1`
+  ).bind(campaignId).first();
+  if (!campaign) throw new ServiceError("campaign_not_found", { status: 404 });
+  const [contentItem, media] = await Promise.all([
+    db.prepare(
+      `SELECT id, content_type, platform, content_json, validation_status,
+              provider, model, created_at, updated_at
+       FROM content_items
+       WHERE campaign_id = ? AND validation_status = 'valid'
+       ORDER BY created_at DESC, id DESC LIMIT 1`
+    ).bind(campaignId).first(),
+    db.prepare(
+      `SELECT id, media_type, mime_type, byte_size, status, provider, model,
+              attempt_count, telegram_preview_status, created_at, updated_at, stored_at
+       FROM content_media
+       WHERE campaign_id = ? AND media_type = 'main_image' LIMIT 1`
+    ).bind(campaignId).first(),
+  ]);
+  const parsedContent = contentItem ? parseJson(contentItem.content_json, null) : null;
+  const contentValidation = parsedContent ? validateContentBundle(parsedContent) : { ok: false };
+  const content = contentValidation.ok ? contentValidation.value : null;
+  return {
+    campaign: {
+      id: campaign.id,
+      topic: campaign.topic,
+      targetAudience: campaign.target_audience,
+      goal: campaign.goal,
+      language: campaign.language,
+      status: campaign.status,
+      approvalStatus: campaign.approval_status,
+      approvalDecidedAt: campaign.approval_decided_at,
+      rejectionReason: campaign.rejection_reason,
+      scheduledAt: campaign.scheduled_at,
+      createdAt: campaign.created_at,
+      updatedAt: campaign.updated_at,
+    },
+    contentItem: contentItem ? {
+      id: contentItem.id,
+      contentType: contentItem.content_type,
+      platform: contentItem.platform,
+      content,
+      validationStatus: contentItem.validation_status,
+      provider: contentItem.provider,
+      model: contentItem.model,
+      createdAt: contentItem.created_at,
+      updatedAt: contentItem.updated_at,
+    } : null,
+    media: media ? {
+      id: media.id,
+      mediaType: media.media_type,
+      mimeType: media.mime_type,
+      byteSize: media.byte_size,
+      status: media.status,
+      provider: media.provider,
+      model: media.model,
+      attemptCount: media.attempt_count,
+      telegramPreviewStatus: media.telegram_preview_status,
+      createdAt: media.created_at,
+      updatedAt: media.updated_at,
+      storedAt: media.stored_at,
+    } : null,
+    mediaCapability: mediaCapability(env),
+    allowedActions: campaignActionAvailability(campaign),
   };
 }
 

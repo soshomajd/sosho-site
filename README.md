@@ -19,7 +19,7 @@
 - هسته تولید محتوای فارسی با Cloudflare Workers AI، خروجی JSON Schema، fallback تک‌مرحله‌ای و ذخیره در D1
 - تولید idempotent تصویر اصلی Campaign تأییدشده با FLUX، اعتبارسنجی binary و ذخیره خصوصی در R2
 - تأیید محتوای تولیدشده و اعلان‌های مهم فروش از طریق Telegram به‌صورت اختیاری
-- داشبورد مدیریتی فارسی و فقط خواندنی با نشست HttpOnly و داده‌های واقعی و صفحه‌بندی‌شده D1
+- داشبورد مدیریتی فارسی با نشست HttpOnly، داده‌های واقعی D1 و عملیات ثبت‌شده تأیید، رد و تولید دوباره متن
 
 ## ساختار اصلی
 
@@ -29,6 +29,7 @@
 |- worker/
 |  |- index.js                      Worker، API، D1، OpenAI و Instagram
 |  |- admin-dashboard.js            نشست امن Admin و queryهای محدود و فقط خواندنی
+|  |- campaign-actions.js           transition مشترک Dashboard/Telegram، idempotency و audit
 |  |- content-generation.js         Schema، validation و انتخاب provider محتوا
 |  |- workers-ai-content-provider.js provider اصلی و fallback مدل‌های Workers AI
 |  |- image-generation.js           prompt، اعتبارسنجی تصویر و adapter خصوصی R2
@@ -86,11 +87,15 @@ npm run dev:next
 | `/api/admin/session` | `POST/GET/DELETE` | ایجاد، بررسی و پایان نشست کوتاه‌مدت HttpOnly با توکن فعلی Admin |
 | `/api/admin/overview` | `GET` | آمار واقعی و فعالیت‌های اخیر سیستم |
 | `/api/admin/campaigns` | `GET` | فهرست فیلترشده و صفحه‌بندی‌شده Campaignها |
+| `/api/admin/campaigns/:id` | `GET` | جزئیات کامل و امن Campaign، Content Bundle، provenance و وضعیت رسانه |
+| `/api/admin/campaigns/:id/approve` | `POST` | تأیید idempotent با Admin Session و CSRF |
+| `/api/admin/campaigns/:id/reject` | `POST` | رد idempotent با دلیل کوتاه اجباری، Admin Session و CSRF |
+| `/api/admin/campaigns/:id/regenerate` | `POST` | تولید دوباره متن با جلوگیری از اجرای هم‌زمان |
 | `/api/admin/leads` | `GET` | فهرست امن و حداقلی Leadها بدون اطلاعات تماس کامل |
 | `/api/admin/conversations` | `GET` | فهرست گفتگوها و وضعیت AI/Handoff |
 | `/api/admin/conversations/:id` | `GET` | جزئیات محدود گفتگو با پنهان‌سازی ایمیل و شماره تماس |
 
-مسیر `/admin` داشبورد فارسی و RTL را نمایش می‌دهد. `ADMIN_API_TOKEN` فقط هنگام ورود و در body درخواست هم‌مبدأ ارسال می‌شود، در bundle، URL یا Local Storage قرار نمی‌گیرد و پس از اعتبارسنجی با یک cookie امضاشده `HttpOnly`، `SameSite=Strict` و کوتاه‌مدت جایگزین می‌شود. تمام APIهای داشبورد فقط خواندنی و queryهای فهرست حداکثر ۵۰ رکوردی هستند.
+مسیر `/admin` داشبورد فارسی و RTL را نمایش می‌دهد. `ADMIN_API_TOKEN` فقط هنگام ورود و در body درخواست هم‌مبدأ ارسال می‌شود، در bundle، URL یا Local Storage قرار نمی‌گیرد و پس از اعتبارسنجی با یک cookie امضاشده `HttpOnly`، `SameSite=Strict` و کوتاه‌مدت جایگزین می‌شود. Queryهای فهرست فقط خواندنی و حداکثر ۵۰ رکوردی هستند؛ عملیات Campaign فقط با Session، Origin مجاز، JSON، CSRF وابسته به Session و idempotency key اجرا می‌شوند و نتیجه در D1 audit می‌شود.
 
 ## کیفیت و build
 
