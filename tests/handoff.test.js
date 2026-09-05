@@ -127,6 +127,26 @@ describe("conversation human handoff", () => {
     ).bind(id).first("role")).toBe("user");
   });
 
+  it("still returns the acknowledgement when two tabs trigger handoff on the same conversation", async () => {
+    const id = conversationId(11);
+    await seedConversation(id, "ai_active");
+    const responses = await Promise.all([
+      postChat(id, "می‌خواهم با یک انسان صحبت کنم"),
+      postChat(id, "لطفا من را به یک انسان وصل کنید"),
+    ]);
+    for (const response of responses) {
+      expect(response.status).toBe(200);
+      expect((await response.json()).stage).toBe("handoff");
+    }
+    expect(await env.DB.prepare(
+      "SELECT handoff_state FROM conversations WHERE id = ?"
+    ).bind(id).first("handoff_state")).toBe("handoff_requested");
+    expect(await env.DB.prepare(
+      `SELECT COUNT(*) AS total FROM conversation_action_audit
+       WHERE conversation_id = ? AND outcome = 'succeeded'`
+    ).bind(id).first("total")).toBe(1);
+  });
+
   it("uses the Sales Chat handoff result as a server-side trigger", async () => {
     let modelCalls = 0;
     network.use(http.post("https://api.openai.com/v1/responses", () => {

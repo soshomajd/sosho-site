@@ -36,6 +36,17 @@ type DetailResponse = {
   messagesTruncated: boolean;
 };
 
+const labels: Record<string, string> = {
+  responded: "پاسخ داده شده",
+  waiting: "در انتظار پاسخ AI",
+  not_started: "شروع نشده",
+  paused: "متوقف برای مدیر",
+  ai_active: "فعال با AI",
+  handoff_requested: "نیازمند رسیدگی",
+  human_active: "در اختیار مدیر",
+  resolved: "حل‌شده",
+};
+
 export default function ConversationDetailClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -117,8 +128,8 @@ export default function ConversationDetailClient() {
             </div>
             <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-4">
               <div><dt className="text-muted">وضعیت گفتگو</dt><dd className="mt-1 text-foreground">{resource.data.conversation.status}</dd></div>
-              <div><dt className="text-muted">وضعیت AI</dt><dd className="mt-1 text-foreground">{resource.data.conversation.aiStatus}</dd></div>
-              <div><dt className="text-muted">وضعیت رسیدگی</dt><dd className="mt-1 text-foreground">{resource.data.conversation.needsAttention ? "نیازمند رسیدگی" : resource.data.conversation.handoffState}</dd></div>
+              <div><dt className="text-muted">وضعیت AI</dt><dd className="mt-1 text-foreground">{labels[resource.data.conversation.aiStatus] || resource.data.conversation.aiStatus}</dd></div>
+              <div><dt className="text-muted">وضعیت رسیدگی</dt><dd className="mt-1 text-foreground">{resource.data.conversation.needsAttention ? "نیازمند رسیدگی" : (labels[resource.data.conversation.handoffState] || resource.data.conversation.handoffState)}</dd></div>
               <div><dt className="text-muted">تعداد پیام</dt><dd className="mt-1 text-foreground">{resource.data.conversation.messageCount.toLocaleString("fa-IR")}</dd></div>
               <div><dt className="text-muted">آخرین تغییر</dt><dd className="mt-1 text-foreground">{formatDate(resource.data.conversation.updatedAt)}</dd></div>
             </dl>

@@ -1411,13 +1411,27 @@ export async function handleSalesTurn(env, input, waitUntil) {
   if (aiPaused || directHandoffRequest) {
     let handoffStarted = false;
     if (directHandoffRequest) {
-      const transition = await requestConversationHandoff(requireDatabase(env), {
-        conversationId: conversation.conversation_id,
-        operationKey: `handoff:${conversation.conversation_id}`,
-        actor: { type: "sales_user", key: "conversation_user" },
-      });
-      handoffStarted = transition.outcome === "succeeded";
-      conversation.handoff_state = transition.conversation.handoff_state;
+      // The user's message is already persisted above. A concurrent duplicate
+      // trigger for this same conversation (e.g. two open tabs sharing the
+      // localStorage conversationId) can lose the claim race and throw
+      // operation_in_progress/invalid_conversation_transition; that must not
+      // surface as a raw error to the chat widget when the winning request is
+      // already handling the transition and its notification.
+      try {
+        const transition = await requestConversationHandoff(requireDatabase(env), {
+          conversationId: conversation.conversation_id,
+          operationKey: `handoff:${conversation.conversation_id}`,
+          actor: { type: "sales_user", key: "conversation_user" },
+        });
+        handoffStarted = transition.outcome === "succeeded";
+        conversation.handoff_state = transition.conversation.handoff_state;
+      } catch (error) {
+        logEvent("warn", "handoff_request_race", {
+          requestId: input.requestId,
+          channel: input.channel,
+          code: error?.code || "handoff_request_failed",
+        });
+      }
     }
     const result = handoffAcknowledgement(input.locale);
     const notificationTypes = [];
