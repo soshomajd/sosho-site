@@ -11,12 +11,6 @@
       "migrations_dir": "db/migrations"
     }
   ],
-  "r2_buckets": [
-    {
-      "binding": "MEDIA",
-      "bucket_name": "sosho-media-local"
-    }
-  ],
   "ai": {
     "binding": "AI"
   },

@@ -1,3 +1,4 @@
+import { ArvanObjectStorage } from "./arvan-storage.js";
 import { ServiceError, getIntegerEnv } from "./core.js";
 import {
   DEFAULT_WORKERS_AI_IMAGE_MODEL,
@@ -79,52 +80,13 @@ export function createMainImageR2Key(campaignId) {
   return `content-campaigns/${campaignId}/main-image`;
 }
 
-export class R2MediaStorage {
-  constructor(env) {
-    this.env = env;
-  }
-
-  assertConfigured() {
-    if (
-      !this.env.MEDIA ||
-      typeof this.env.MEDIA.put !== "function" ||
-      typeof this.env.MEDIA.get !== "function"
-    ) {
-      throw new ServiceError("configuration_missing", { status: 503 });
-    }
-  }
-
-  async putMainImage(key, image, metadata) {
-    this.assertConfigured();
-    const stored = await this.env.MEDIA.put(key, image.bytes, {
-      httpMetadata: {
-        contentType: image.mimeType,
-        cacheControl: "private, no-store",
-        contentDisposition: "inline",
-      },
-      customMetadata: {
-        campaignId: metadata.campaignId,
-        mediaType: MAIN_IMAGE_MEDIA_TYPE,
-        provider: metadata.provider,
-      },
-    });
-    if (!stored) throw new ServiceError("media_storage_failed", { status: 502 });
-    return stored;
-  }
-
-  async getPrivateObject(key) {
-    this.assertConfigured();
-    return this.env.MEDIA.get(key);
-  }
-}
-
 export class ImageGenerationService {
   constructor(env) {
     this.env = env;
     this.providerName = String(env.IMAGE_AI_PROVIDER || DEFAULT_IMAGE_AI_PROVIDER)
       .trim()
       .toLowerCase();
-    this.storage = new R2MediaStorage(env);
+    this.storage = new ArvanObjectStorage(env);
     this.provider = this.providerName === "workers_ai" ? new WorkersAiImageProvider(env) : null;
   }
 
@@ -164,6 +126,7 @@ export class ImageGenerationService {
       await this.storage.putMainImage(r2Key, image, {
         campaignId: campaign.id,
         provider: generated.provider,
+        mediaType: MAIN_IMAGE_MEDIA_TYPE,
       });
     } catch (error) {
       if (error instanceof ServiceError && error.code === "configuration_missing") throw error;

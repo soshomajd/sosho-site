@@ -54,7 +54,7 @@ Pre-deploy / definition-of-done baseline (report each result separately): `npm r
 Two deployables in one package:
 
 1. **Static marketing site** — Next.js 16 App Router, React 19, React Compiler, TypeScript strict, Tailwind CSS 4 (CSS-first, no `tailwind.config.*`). Bilingual `fa` (default, RTL) / `en` (LTR). Built with `output: "export"` when `SITES_STATIC_EXPORT=1`. Every dynamic route must stay statically enumerable via `generateStaticParams`. `@/*` → `src/*`.
-2. **Cloudflare Worker** (`worker/`, plain ESM `.js`, no build step for local dev) — all runtime API, D1, OpenAI, Workers AI, R2, Instagram/Meta, and Telegram behavior. No Next API routes or server actions.
+2. **Cloudflare Worker** (`worker/`, plain ESM `.js`, no build step for local dev) — all runtime API, D1, OpenAI, Workers AI, ArvanCloud object storage, Instagram/Meta, and Telegram behavior. No Next API routes or server actions.
 
 ### Request path
 
@@ -73,7 +73,8 @@ Two deployables in one package:
 | `worker/campaign-actions.js` | Single source for approve/reject/regenerate transitions — idempotency via `campaign_action_audit` claim, shared by Dashboard route handlers and Telegram callbacks. Route handlers must never write approval status directly. |
 | `worker/content-generation.js` | Content bundle schema, local validation, provider selection |
 | `worker/workers-ai-content-provider.js` | Default `AI`-binding content provider: Qwen primary, one Llama fallback |
-| `worker/image-generation.js` + `worker/workers-ai-image-provider.js` | FLUX main-image generation, Base64/binary validation, private-R2 (`MEDIA`) adapter — never returns a public/signed URL |
+| `worker/image-generation.js` + `worker/workers-ai-image-provider.js` | FLUX main-image generation, Base64/binary validation |
+| `worker/arvan-storage.js` | Private ArvanCloud (S3-compatible) object storage adapter, signed via `aws4fetch`; Cloudflare R2 is not used — this account cannot enable R2 billing — and no public/signed URL is ever returned |
 | `worker/telegram-service.js` | Telegram Bot API transport, admin chat/user gating, `answerCallbackQuery`, multipart photo upload |
 
 ### Data / schema
@@ -92,7 +93,7 @@ Editing these drives cards / static params / sitemap / SEO — see the table in 
 - The website client sends only `conversationId`, `locale`, `message`. Never accept client-supplied `source`, `externalUserId`, message counts, or Instagram fields.
 - Preserve Meta HMAC signature verification and event-id deduplication; retries must never recreate a completed sales turn.
 - `CONTENT_AI_PROVIDER=workers_ai` (the default) must never call OpenAI. `OPENAI_API_KEY` powers Sales Chat + the optional OpenAI content provider only.
-- Missing `AI` / `MEDIA` bindings return `configuration_missing` and must not crash the Worker or affect text/Telegram/Sales/Instagram paths.
+- Missing `AI` binding or ArvanCloud credentials (`ARVAN_S3_*`) return `configuration_missing` and must not crash the Worker or affect text/Telegram/Sales/Instagram paths.
 - The assistant may recommend an economic/professional/exclusive tier but must not invent prices, discounts, delivery promises, or legal terms. There is no deterministic pricing engine.
 - Dashboard campaign writes require signed session + allowed Origin + JSON content-type + session-bound CSRF token + UUID idempotency key.
 - `/api/health` returns booleans only — never leak config values.

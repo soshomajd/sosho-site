@@ -226,11 +226,16 @@ describe("website sales API", () => {
     expect(response.headers.get("x-request-id")).toBe(payload.requestId);
   });
 
-  it("stays ready on staging when the R2 media binding is deliberately absent", async () => {
+  it("stays ready on staging when ArvanCloud media storage is deliberately unconfigured", async () => {
     const ctx = createExecutionContext();
     const response = await worker.fetch(
       new Request("https://example.com/api/health"),
-      { ...env, ENVIRONMENT: "staging", MEDIA: undefined, AI: { run: async () => ({ response: "{}" }) } },
+      {
+        ...env,
+        ENVIRONMENT: "staging",
+        ARVAN_S3_ACCESS_KEY: undefined,
+        AI: { run: async () => ({ response: "{}" }) },
+      },
       ctx
     );
     const payload = await response.json();

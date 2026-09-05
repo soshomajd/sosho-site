@@ -12,7 +12,6 @@ export default defineConfig({
         miniflare: {
           compatibilityDate: "2026-08-20",
           d1Databases: { DB: "sosho-sales-test" },
-          r2Buckets: ["MEDIA"],
           bindings: {
             TEST_MIGRATIONS: migrations,
             ENVIRONMENT: "test",
@@ -24,6 +23,11 @@ export default defineConfig({
             WORKERS_AI_IMAGE_MODEL: "@cf/black-forest-labs/flux-1-schnell",
             IMAGE_AI_TIMEOUT_MS: "1000",
             IMAGE_MAX_BYTES: "5000000",
+            ARVAN_S3_ACCESS_KEY: "test-arvan-access-key",
+            ARVAN_S3_SECRET_KEY: "test-arvan-secret-key",
+            ARVAN_S3_ENDPOINT: "https://s3.test.invalid",
+            ARVAN_S3_BUCKET: "test-media",
+            ARVAN_S3_TIMEOUT_MS: "1000",
             OPENAI_API_KEY: "test-openai-key",
             OPENAI_MODEL: "gpt-5.6-luna",
             ADMIN_API_TOKEN: "test-admin-token",

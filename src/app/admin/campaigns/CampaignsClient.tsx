@@ -86,7 +86,7 @@ export default function CampaignsClient() {
       {resource.error ? <ErrorState message={resource.error} retry={resource.retry} /> : null}
       {resource.data?.mediaCapability === "activation_required" ? (
         <div className="mb-6 rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4 text-sm leading-7 text-amber-100" role="status">
-          فعال‌سازی R2 لازم است؛ نمایش کمپین‌ها ادامه دارد اما تولید و ذخیره رسانه مسدود است.
+          فعال‌سازی ذخیره‌سازی رسانه لازم است؛ نمایش کمپین‌ها ادامه دارد اما تولید و ذخیره رسانه مسدود است.
         </div>
       ) : null}
       {resource.data && resource.data.items.length === 0 ? <EmptyState message="کمپینی با این فیلتر پیدا نشد." /> : null}
@@ -109,7 +109,7 @@ export default function CampaignsClient() {
                   <div><dt className="text-muted">Model</dt><dd className="mt-1 break-all text-foreground" dir="ltr">{campaign.model || "ثبت نشده"}</dd></div>
                   <div><dt className="text-muted">ایجاد</dt><dd className="mt-1 text-foreground">{formatDate(campaign.createdAt)}</dd></div>
                   <div><dt className="text-muted">آخرین تغییر</dt><dd className="mt-1 text-foreground">{formatDate(campaign.updatedAt)}</dd></div>
-                  <div className="sm:col-span-2"><dt className="text-muted">رسانه</dt><dd className="mt-1 text-foreground">{resource.data?.mediaCapability === "activation_required" ? "فعال‌سازی R2 لازم است" : campaign.media ? (statusLabels[campaign.media.status] || campaign.media.status) : "رسانه‌ای ثبت نشده"}</dd></div>
+                  <div className="sm:col-span-2"><dt className="text-muted">رسانه</dt><dd className="mt-1 text-foreground">{resource.data?.mediaCapability === "activation_required" ? "فعال‌سازی ذخیره‌سازی رسانه لازم است" : campaign.media ? (statusLabels[campaign.media.status] || campaign.media.status) : "رسانه‌ای ثبت نشده"}</dd></div>
                 </dl>
                 <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
                   <p className="break-all text-xs text-muted" dir="ltr">{campaign.id}</p>

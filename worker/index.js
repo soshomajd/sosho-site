@@ -2113,11 +2113,13 @@ async function getReadiness(env) {
     : contentProvider === "openai" && Boolean(env.OPENAI_API_KEY);
   const imageAiReady = imageProvider === "workers_ai" && workersAiReady;
   const mediaStorageReady = Boolean(
-    env.MEDIA && typeof env.MEDIA.put === "function" && typeof env.MEDIA.get === "function"
+    env.ARVAN_S3_ACCESS_KEY && env.ARVAN_S3_SECRET_KEY &&
+    env.ARVAN_S3_ENDPOINT && env.ARVAN_S3_BUCKET
   );
-  // Staging deliberately ships without an R2 bucket until image generation is
-  // activated; the dashboard reports "activation required" and image endpoints
-  // return configuration_missing, but /api/health must not be a permanent 503.
+  // Staging deliberately ships without ArvanCloud credentials until image
+  // generation is activated there; the dashboard reports "activation required"
+  // and image endpoints return configuration_missing, but /api/health must not
+  // be a permanent 503.
   const mediaActivationDeferred = String(env.ENVIRONMENT || "").toLowerCase() === "staging";
   if (!contentAiReady) {
     if (contentProvider === "workers_ai") missing.push("AI");

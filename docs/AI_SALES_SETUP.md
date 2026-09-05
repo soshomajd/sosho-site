@@ -29,7 +29,7 @@ Content Campaign
   -> D1 persistence + optional Telegram preview
   -> admin approval
   -> FLUX main-image generation + Base64/binary validation
-  -> private R2 object + D1 media metadata (no public URL)
+  -> private ArvanCloud object + D1 media metadata (no public URL)
 ```
 
 تمام پاسخ‌های JSON API دارای `requestId` و header متناظر `x-request-id` هستند. logهای JSON فقط اطلاعات عملیاتی امن را ثبت می‌کنند و شامل متن پیام، شناسه Instagram، شماره تماس، prompt یا Secret نیستند.
@@ -46,7 +46,7 @@ Content Campaign
 - `webhook_events`: state machine، attempt، retry، پاسخ ذخیره‌شده و retention payload
 - `rate_limit_counters`: شمارنده‌های atomic ساعتی/روزانه با تاریخ انقضا
 - `content_campaigns` و `content_items`: درخواست Campaign و آخرین Content Bundle معتبر
-- `content_media`: claim یکتا برای تصویر اصلی، کلید R2، MIME، اندازه، provider/model و وضعیت ذخیره
+- `content_media`: claim یکتا برای تصویر اصلی، کلید ArvanCloud، MIME، اندازه، provider/model، وضعیت ذخیره و `superseded_at` (وقتی regenerate متن تصویر ذخیره‌شده را منسوخ می‌کند)
 - `campaign_action_audit`: کلید idempotency و audit امن action، Campaign، actor و outcome برای Dashboard و Telegram
 - `conversation_action_audit`: audit امن transition، actor، timestamp و outcome برای درخواست Human Handoff و Take over
 - `telegram_updates` و `telegram_notifications`: deduplication callback و اعلان
@@ -106,7 +106,7 @@ Dashboard در مسیر `/admin` از همان `ADMIN_API_TOKEN` استفاده 
 | `IMAGE_AI_PROVIDER` | `workers_ai` | provider پیش‌فرض تولید تصویر |
 | `WORKERS_AI_IMAGE_MODEL` | `@cf/black-forest-labs/flux-1-schnell` | مدل تصویر اصلی Campaign تأییدشده |
 | `IMAGE_AI_TIMEOUT_MS` | `60000` | timeout محدود فراخوانی مدل تصویر |
-| `IMAGE_MAX_BYTES` | `5000000` | سقف binary پذیرفته‌شده پیش از ذخیره R2 |
+| `IMAGE_MAX_BYTES` | `5000000` | سقف binary پذیرفته‌شده پیش از ذخیره در ArvanCloud |
 | `OPENAI_MODEL` | `gpt-5.6-luna` | مدل Responses API |
 | `ADMIN_API_TOKEN` | Secret | Bearer token مستقل برای APIهای مدیریت محتوا؛ در Frontend قرار نگیرد |
 | `CONTENT_OPENAI_MAX_OUTPUT_TOKENS` | `6000` | سقف خروجی Content Bundle |
@@ -117,7 +117,7 @@ Dashboard در مسیر `/admin` از همان `ADMIN_API_TOKEN` استفاده 
 
 Telegram اختیاری است. اگر هرکدام از تنظیمات آن موجود نباشد، Content Generation، Sales Chat و Instagram بدون ارسال اعلان به کار خود ادامه می‌دهند. پس از ثبت webhook واقعی، مسیر callback باید `/api/webhooks/telegram` و allowed update آن `callback_query` باشد.
 
-Binding خصوصی R2 با نام `MEDIA` برای production تعریف شده است. در staging تا زمان فعال‌سازی R2، این Binding عمداً حذف می‌ماند تا Dashboard و قابلیت‌های غیررسانه‌ای deploy شوند و وضعیت `activation_required` را گزارش کنند. نام Bucketهای برنامه‌ریزی‌شده `sosho-media` و `sosho-media-staging` است، اما باید فقط بعد از مجوز صریح ساخته و متصل شوند. API تصویر URL عمومی یا signed URL برنمی‌گرداند؛ adapter خواندن خصوصی آماده است و `telegram_preview_status` تا smoke test واقعی R2/Telegram روی `blocked` می‌ماند.
+Cloudflare R2 روی این اکانت قابل فعال‌سازی نیست (فعال‌سازی R2 در Dashboard به کارت معتبر نیاز دارد و رد می‌شود)، پس رسانه‌ی خصوصی Campaign در **ArvanCloud Object Storage** (S3-compatible) ذخیره می‌شود؛ آداپتورش `worker/arvan-storage.js` است و درخواست‌ها را با `aws4fetch` امضا می‌کند. چهار متغیر `ARVAN_S3_ACCESS_KEY`/`ARVAN_S3_SECRET_KEY` (Secret) و `ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET` (غیر-Secret، در `vars`) برای production لازم‌اند. در staging تا زمان فعال‌سازی، این چهار متغیر عمداً حذف می‌مانند تا Dashboard و قابلیت‌های غیررسانه‌ای deploy شوند و وضعیت `activation_required` را گزارش کنند. نام Bucketهای برنامه‌ریزی‌شده `sosho-media` و `sosho-media-staging` است، اما باید فقط بعد از مجوز صریح ساخته و متصل شوند. API تصویر URL عمومی یا signed URL برنمی‌گرداند؛ adapter خواندن خصوصی آماده است و `telegram_preview_status` تا smoke test واقعی ArvanCloud/Telegram روی `blocked` می‌ماند.
 | `META_GRAPH_VERSION` | `v26.0` | نسخه Graph API |
 | `CHAT_IP_HOURLY_LIMIT` | `60` | سقف چت سایت برای IP در ساعت |
 | `CHAT_CONVERSATION_HOURLY_LIMIT` | `30` | سقف هر conversation در ساعت |
@@ -157,7 +157,7 @@ cron روزانه سیاست پیش‌فرض زیر را اجرا می‌کند:
 
 ## Readiness و بررسی انتشار
 
-`GET /api/health` فقط booleanها و نام تنظیمات مفقود را برمی‌گرداند؛ هیچ مقدار Secret افشا نمی‌شود. نبود D1، migrationهای لازم، provider انتخاب‌شده محتوا، Bindingهای `AI`/`MEDIA`، salt یا تنظیمات کامل Meta پاسخ `503` می‌دهد. OpenAI برای provider پیش‌فرض محتوا و تصویر اجباری نیست.
+`GET /api/health` فقط booleanها و نام تنظیمات مفقود را برمی‌گرداند؛ هیچ مقدار Secret افشا نمی‌شود. نبود D1، migrationهای لازم، provider انتخاب‌شده محتوا، Binding `AI`، متغیرهای `ARVAN_S3_*` (به‌جز روی staging که عمداً مستثنا شده)، salt یا تنظیمات کامل Meta پاسخ `503` می‌دهد. OpenAI برای provider پیش‌فرض محتوا و تصویر اجباری نیست.
 
 قبل از deploy:
 
@@ -168,7 +168,7 @@ NEXT_PUBLIC_SITE_URL=https://sosho-studio.net npm run build
 npx wrangler deploy --dry-run
 ```
 
-بعد از ساخت مجاز R2، apply migration و deploy مجاز، health، یک Campaign تأییدشده و تصویر واقعی، ذخیره R2/D1، یک چت website، handshake، signature نامعتبر، event واقعی و retry شکست‌خورده باید در محیط هدف smoke-test شوند. ارسال واقعی تصویر در Telegram در این مرحله پیاده‌سازی نشده و Preview متنی فعلی بدون تغییر باقی می‌ماند.
+بعد از ساخت مجاز Bucket ArvanCloud، apply migration و deploy مجاز، health، یک Campaign تأییدشده و تصویر واقعی، ذخیره ArvanCloud/D1، یک چت website، handshake، signature نامعتبر، event واقعی و retry شکست‌خورده باید در محیط هدف smoke-test شوند.
 
 ## محدودیت تجاری فعلی
 

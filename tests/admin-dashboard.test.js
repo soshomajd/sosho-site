@@ -263,10 +263,10 @@ describe("admin overview and campaign reads", () => {
     expect((await api("/api/admin/campaigns?unknown=true")).status).toBe(400);
   });
 
-  it("reports the R2 activation blocker without failing campaign reads", async () => {
+  it("reports the media activation blocker without failing campaign reads", async () => {
     await insertCampaign({ id: "campaign_r2", status: "generated", approvalStatus: "approved" });
     const response = await api("/api/admin/campaigns", {
-      runtimeEnv: { ...env, MEDIA: undefined },
+      runtimeEnv: { ...env, ARVAN_S3_ACCESS_KEY: undefined },
     });
     expect(response.status).toBe(200);
     expect(await response.json()).toMatchObject({
@@ -563,7 +563,7 @@ describe("secure campaign management actions", () => {
       timestamp
     ).run();
     const response = await api(`/api/admin/campaigns/${id}`, {
-      runtimeEnv: { ...env, MEDIA: undefined },
+      runtimeEnv: { ...env, ARVAN_S3_ACCESS_KEY: undefined },
     });
     expect(response.status).toBe(200);
     const text = await response.text();

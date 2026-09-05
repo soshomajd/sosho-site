@@ -243,7 +243,7 @@ export default function CampaignDetailClient() {
             <h2 id="media-status" className="text-lg font-semibold text-white">وضعیت رسانه</h2>
             <p className="mt-3 text-sm leading-7 text-foreground">
               {detail.mediaCapability === "activation_required"
-                ? "فعال‌سازی R2 لازم است"
+                ? "فعال‌سازی ذخیره‌سازی رسانه لازم است"
                 : detail.media ? (statusLabels[detail.media.status] || detail.media.status) : "رسانه‌ای ثبت نشده"}
             </p>
             {detail.media?.supersededAt ? (

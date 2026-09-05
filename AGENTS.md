@@ -33,7 +33,7 @@ Primary capabilities:
 - Optional Telegram content approval and deduplicated sales notifications
 - Persian RTL admin dashboard with bounded D1 views, HttpOnly sessions, audited Campaign actions, and Human Handoff take-over
 - Cloudflare Workers AI content generation with JSON Schema output and one-model fallback
-- Idempotent Workers AI main-image generation for approved campaigns with private R2 storage
+- Idempotent Workers AI main-image generation for approved campaigns with private ArvanCloud object storage
 - OpenAI Responses API for Sales Chat and an optional future content provider
 - Cloudflare D1 lead/conversation/message persistence
 - Signed and deduplicated Meta/Instagram webhook processing
@@ -57,7 +57,8 @@ Primary capabilities:
 |  |- core.js                            Validation, policy, retry utilities
 |  |- content-generation.js              Content schema, validation, and provider selection
 |  |- workers-ai-content-provider.js     Workers AI primary/fallback content provider
-|  |- image-generation.js                Image prompt, binary validation, and private R2 adapter
+|  |- image-generation.js                Image prompt, binary validation, and private storage service
+|  |- arvan-storage.js                   ArvanCloud (S3-compatible) private object storage adapter
 |  |- workers-ai-image-provider.js       Workers AI FLUX image provider
 |  `- telegram-service.js                Telegram Bot API transport, callbacks, and message safety
 |- db/
@@ -70,7 +71,7 @@ Primary capabilities:
 |  `- generate-cover.mjs                 1200x630 blog-cover renderer
 |- docs/AI_SALES_SETUP.md                AI/Meta/D1 production notes
 |- .env.example / .dev.vars.example      Variable names/placeholders only
-|- .openai/hosting.json                  Sites project plus `DB` and `MEDIA` bindings
+|- .openai/hosting.json                  Sites project plus `DB` binding
 |- .github/workflows/                    Root-discoverable CI/deploy workflows
 |- next.config.ts / vitest.config.mjs
 |- wrangler.jsonc / wrangler.staging.jsonc / wrangler.dev.jsonc
@@ -211,7 +212,7 @@ The ordered SQL migrations create and evolve:
 - `rate_limit_counters`: atomic IP, conversation, Instagram-user, and OpenAI quota windows.
 - `content_campaigns`: admin content requests and `draft -> generating -> generated|failed` state.
 - `content_items`: validated generated bundles linked to campaigns, including the actual provider/model used.
-- `content_media`: unique campaign media claims, private R2 keys, validated MIME/size, provider/model, and storage state.
+- `content_media`: unique campaign media claims, private ArvanCloud object keys, validated MIME/size, provider/model, storage state, and a `superseded_at` marker set when a text regeneration invalidates a stored image.
 - `campaign_action_audit`: idempotency keys and safe actor/action/outcome audit records shared by Dashboard and Telegram.
 - `conversation_action_audit`: safe actor, timestamp, transition, outcome, and idempotency records for handoff requests and take-over.
 - `telegram_updates`: deduplicated Telegram update/callback processing records.
@@ -229,9 +230,9 @@ The ordered SQL migrations create and evolve:
 - OpenAI requests use `store: false`, a strict JSON Schema, and a maximum output token limit.
 - Content generation defaults to the `AI` binding, requests JSON Schema output, validates every bundle locally, and invokes the configured fallback model at most once.
 - `CONTENT_AI_PROVIDER=workers_ai` must never call OpenAI. The OpenAI content provider remains available only when explicitly selected.
-- Image generation requires a generated and approved campaign, validates Base64 and binary type/size, stores only through `MEDIA`, and never returns a public R2 URL.
-- One `main_image` row and deterministic R2 key are allowed per campaign. Repeated successful requests return existing metadata without another model call.
-- Missing `AI` or `MEDIA` bindings return `configuration_missing`; they must not crash the Worker or affect text generation, Telegram, Sales Chat, or Instagram.
+- Image generation requires a generated and approved campaign, validates Base64 and binary type/size, stores only through the ArvanCloud object storage adapter (`worker/arvan-storage.js`, S3-compatible, signed requests via `aws4fetch`), and never returns a public or presigned URL.
+- One `main_image` row and deterministic object key are allowed per campaign. Repeated successful requests return existing metadata without another model call. Regenerating campaign text marks a stored image `superseded_at`; the next `generate-image` call rebuilds it in place.
+- Missing `AI` or ArvanCloud credentials (`ARVAN_S3_ACCESS_KEY`/`ARVAN_S3_SECRET_KEY`/`ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET`) return `configuration_missing`; they must not crash the Worker or affect text generation, Telegram, Sales Chat, or Instagram. Staging may run without them (`/api/health` still reports `mediaStorage: false` but stays ready); production is expected to have them.
 - If `OPENAI_API_KEY` is missing, provider quota is exhausted, the model call fails/times out, or the returned payload fails schema/policy validation, fixed bilingual discovery questions are used.
 - The assistant may recommend an economic, professional, or exclusive tier, but must not invent exact prices, discounts, delivery promises, legal terms, or unsupported features.
 - Deterministic pricing is not implemented yet. Do not present model-generated amounts as authoritative.
@@ -314,7 +315,8 @@ Worker bindings and secrets:
 
 - `DB`: D1 binding.
 - `AI`: Cloudflare Workers AI binding used by the default content provider.
-- `MEDIA`: private R2 binding for generated campaign media; no public bucket URL is exposed.
+- `ARVAN_S3_ACCESS_KEY`, `ARVAN_S3_SECRET_KEY`: ArvanCloud Object Storage (S3-compatible) credentials for private generated campaign media. Cloudflare R2 is not used because this account cannot enable it; no public bucket URL is exposed regardless of provider.
+- `ARVAN_S3_ENDPOINT`, `ARVAN_S3_BUCKET`: non-secret ArvanCloud Object Storage endpoint and bucket name.
 - `OPENAI_API_KEY`: enables Sales Chat model responses and the optional OpenAI content provider.
 - `ADMIN_API_TOKEN`: protects every `/api/content/*` endpoint and is exchanged only through the admin login POST for a short-lived signed HttpOnly cookie; it must never be bundled, persisted in browser storage, placed in URLs, or logged.
 - `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ADMIN_CHAT_ID`, `TELEGRAM_ADMIN_USER_ID`, and `TELEGRAM_WEBHOOK_SECRET`: optional Telegram approval/notification configuration.
@@ -333,6 +335,7 @@ Non-secret content provider settings:
 - `IMAGE_AI_PROVIDER`: defaults to `workers_ai`.
 - `WORKERS_AI_IMAGE_MODEL`: defaults to `@cf/black-forest-labs/flux-1-schnell`.
 - `IMAGE_AI_TIMEOUT_MS` / `IMAGE_MAX_BYTES`: bounded image generation and binary acceptance limits.
+- `ARVAN_S3_TIMEOUT_MS`: bounded timeout for ArvanCloud object storage requests; defaults to 15000.
 
 Non-secret limits, timeouts, retry counts, origins, model/version choices, and retention windows live under `vars` in Wrangler config. Keep `.env.example`, `.dev.vars.example`, `wrangler.jsonc`, `wrangler.dev.jsonc`, Worker defaults, tests, and setup documentation aligned.
 
@@ -349,7 +352,7 @@ Rules:
 - `wrangler.staging.jsonc` targets the isolated `sosho-site-staging` Worker and `sosho-sales-staging` D1 database on `workers.dev`; it must never declare the production routes.
 - Observability is enabled.
 - `.openai/hosting.json` identifies the Sites project and declares D1 binding `DB`.
-- `wrangler.jsonc` declares `DB`, its migration directory, vars, and cron triggers. Its zero UUID is an intentional placeholder that must be replaced with the manually created production D1 ID before deployment.
+- `wrangler.jsonc` declares `DB`, its migration directory, vars, and cron triggers. `DB.database_id` is set to the provisioned production D1 database (`sosho-sales`); `ARVAN_S3_ENDPOINT` is still a placeholder that must be replaced with the real ArvanCloud endpoint before deployment.
 - Root `.github/workflows/ci.yml` validates pushes/PRs. Root `.github/workflows/deploy.yml` is manual-only, validates first, applies remote D1 migrations, then deploys.
 - A deployment request must specify the target environment. Before deploying, verify branch, cwd, generated bundle, domain, Sites project, D1 binding/migrations, `NEXT_PUBLIC_SITE_URL`, and secrets.
 - Never deploy, migrate production data, provision/delete infrastructure, rotate credentials, or contact external users without explicit authorization.
@@ -402,11 +405,11 @@ These are documented facts, not permission to expand an unrelated task:
 8. There are no route-level `loading.tsx`, `error.tsx`, or `not-found.tsx` files.
 9. Contact and SEO constants are duplicated across layouts and components.
 10. There is no deterministic pricing engine or browser E2E suite.
-11. The production D1 UUID in `wrangler.jsonc` is a placeholder until the owner provisions the database.
+11. The production D1 database (`sosho-sales`) is provisioned and its UUID is set in `wrangler.jsonc`. `ARVAN_S3_ENDPOINT` in `wrangler.jsonc` is still a placeholder until the owner fills in the real ArvanCloud Object Storage endpoint.
 12. The Sales Chat OpenAI model, Workers AI content models, and Meta Graph version are configurable; external compatibility must be reviewed before production changes.
 13. Content generation creates bundles and one private main image for an approved campaign; text overlay, scheduling, and social publishing are intentionally not implemented.
-14. Telegram sends generated-image previews by reading private R2 objects and uploading them directly with multipart; social publishing is not implemented.
-15. The R2 binding names are declared, but staging and production buckets must be provisioned manually only after explicit owner authorization.
+14. Telegram sends generated-image previews by reading the private ArvanCloud object and uploading it directly with multipart; social publishing is not implemented.
+15. Cloudflare R2 is not usable on this account (R2 requires enabling billing in the Cloudflare dashboard, which rejects the owner's card); private campaign media storage uses ArvanCloud Object Storage instead (`worker/arvan-storage.js`, S3-compatible via `aws4fetch`). Staging and production ArvanCloud buckets/credentials must be provisioned manually only after explicit owner authorization.
 
 ## Change discipline
 

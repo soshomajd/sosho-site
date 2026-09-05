@@ -234,7 +234,8 @@ function boundedOptionalText(value, maxLength = 120) {
 }
 
 function mediaCapability(env) {
-  return env.MEDIA && typeof env.MEDIA.get === "function" && typeof env.MEDIA.put === "function"
+  return env.ARVAN_S3_ACCESS_KEY && env.ARVAN_S3_SECRET_KEY &&
+    env.ARVAN_S3_ENDPOINT && env.ARVAN_S3_BUCKET
     ? "available"
     : "activation_required";
 }

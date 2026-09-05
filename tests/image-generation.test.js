@@ -57,11 +57,32 @@ function toBase64(bytes) {
   return btoa(Array.from(bytes, (byte) => String.fromCharCode(byte)).join(""));
 }
 
-function jpegBase64(byteSize = 64) {
+function jpegBytes(byteSize = 64) {
   const bytes = new Uint8Array(byteSize);
   bytes.set([0xff, 0xd8, 0xff, 0xe0]);
   bytes.set([0xff, 0xd9], byteSize - 2);
-  return toBase64(bytes);
+  return bytes;
+}
+
+function jpegBase64(byteSize = 64) {
+  return toBase64(jpegBytes(byteSize));
+}
+
+const ARVAN_OBJECT_PATTERN = /^https:\/\/s3\.test\.invalid\/test-media\/.+$/u;
+
+function mockArvanPut(onRequest = () => {}) {
+  network.use(http.put(ARVAN_OBJECT_PATTERN, async ({ request }) => {
+    const bytes = new Uint8Array(await request.arrayBuffer());
+    onRequest({ request, bytes });
+    return new HttpResponse(null, { status: 200 });
+  }));
+}
+
+function mockArvanGet(bytes, mimeType) {
+  network.use(http.get(
+    ARVAN_OBJECT_PATTERN,
+    () => new HttpResponse(bytes, { status: 200, headers: { "content-type": mimeType } })
+  ));
 }
 
 function imageRuntime(run, overrides = {}) {
@@ -180,11 +201,11 @@ describe("approved campaign main image API", () => {
       .toBe(0);
   });
 
-  it("returns configuration_missing when the R2 binding is absent", async () => {
+  it("returns configuration_missing when ArvanCloud storage is not configured", async () => {
     const campaignId = await insertApprovedCampaign();
     const response = await generateImage(
       campaignId,
-      imageRuntime(vi.fn(), { MEDIA: undefined })
+      imageRuntime(vi.fn(), { ARVAN_S3_ACCESS_KEY: undefined })
     );
     expect(response.status).toBe(503);
     expect((await response.json()).error).toBe("configuration_missing");
@@ -192,9 +213,11 @@ describe("approved campaign main image API", () => {
       .toBe(0);
   });
 
-  it("stores the image in R2 and its safe metadata in D1", async () => {
+  it("stores the image with ArvanCloud and its safe metadata in D1", async () => {
     const campaignId = await insertApprovedCampaign();
     const bytes = jpegBase64(80);
+    let putRequest = null;
+    mockArvanPut((captured) => { putRequest = captured; });
     const response = await generateImage(campaignId, imageRuntime(async () => ({ image: bytes })));
     const payload = await response.json();
     expect(response.status).toBe(200);
@@ -209,18 +232,20 @@ describe("approved campaign main image API", () => {
       telegramPreviewStatus: "blocked",
     });
     expect(payload.mainImage).not.toHaveProperty("url");
-    const stored = await env.MEDIA.get(payload.mainImage.r2Key);
-    expect(stored).not.toBeNull();
-    expect(stored.httpMetadata.contentType).toBe("image/jpeg");
-    expect(stored.customMetadata.campaignId).toBe(campaignId);
-    expect(new Uint8Array(await stored.arrayBuffer()).byteLength).toBe(80);
+    expect(putRequest).not.toBeNull();
+    expect(putRequest.request.headers.get("content-type")).toBe("image/jpeg");
+    expect(putRequest.request.headers.get("x-amz-acl")).toBe("private");
+    expect(putRequest.request.headers.get("x-amz-meta-campaign-id")).toBe(campaignId);
+    expect(putRequest.bytes.byteLength).toBe(80);
     expect(await env.DB.prepare(
       "SELECT COUNT(*) AS total FROM content_media WHERE campaign_id = ? AND status = 'stored'"
     ).bind(campaignId).first("total")).toBe(1);
   });
 
-  it("reads the private R2 image and sends one multipart Telegram preview", async () => {
+  it("reads the private ArvanCloud image and sends one multipart Telegram preview", async () => {
     const campaignId = await insertApprovedCampaign();
+    mockArvanPut();
+    mockArvanGet(jpegBytes(80), "image/jpeg");
     let requestMethod;
     let photoSize;
     let photoType;
@@ -258,6 +283,7 @@ describe("approved campaign main image API", () => {
 
   it("returns the stored record without generating a duplicate", async () => {
     const campaignId = await insertApprovedCampaign();
+    mockArvanPut();
     const run = vi.fn(async () => ({ image: jpegBase64() }));
     const currentEnv = imageRuntime(run);
     const first = await generateImage(campaignId, currentEnv);
@@ -276,6 +302,7 @@ describe("approved campaign main image API", () => {
 
   it("rebuilds a superseded image after the campaign text is regenerated", async () => {
     const campaignId = await insertApprovedCampaign();
+    mockArvanPut();
     const run = vi.fn(async () => ({ image: jpegBase64() }));
     const currentEnv = imageRuntime(run);
     const first = await generateImage(campaignId, currentEnv);
@@ -311,16 +338,16 @@ describe("approved campaign main image API", () => {
       .bind(campaignId).first("status")).toBe("failed");
   });
 
-  it("rejects oversized model output before R2 storage", async () => {
+  it("rejects oversized model output before ArvanCloud storage", async () => {
     const campaignId = await insertApprovedCampaign();
-    const put = vi.fn();
+    // No PUT mock is registered: an unmocked request would fail the test, which
+    // is exactly how this proves storage is never reached for an oversized image.
     const response = await generateImage(campaignId, imageRuntime(
       async () => ({ image: jpegBase64(96) }),
-      { IMAGE_MAX_BYTES: "64", MEDIA: { put, get: vi.fn() } }
+      { IMAGE_MAX_BYTES: "64" }
     ));
     expect(response.status).toBe(502);
     expect((await response.json()).error).toBe("image_too_large");
-    expect(put).not.toHaveBeenCalled();
   });
 
   it("fails safely when Workers AI throws an internal error", async () => {
