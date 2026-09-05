@@ -352,10 +352,28 @@ Rules:
 - `wrangler.staging.jsonc` targets the isolated `sosho-site-staging` Worker and `sosho-sales-staging` D1 database on `workers.dev`; it must never declare the production routes.
 - Observability is enabled.
 - `.openai/hosting.json` identifies the Sites project and declares D1 binding `DB`.
-- `wrangler.jsonc` declares `DB`, its migration directory, vars, and cron triggers. `DB.database_id` is set to the provisioned production D1 database (`sosho-sales`); `ARVAN_S3_ENDPOINT` is still a placeholder that must be replaced with the real ArvanCloud endpoint before deployment.
+- `wrangler.jsonc` declares `DB`, its migration directory, vars, and cron triggers. `DB.database_id` is set to the provisioned production D1 database (`sosho-sales`); `ARVAN_S3_ENDPOINT` / `ARVAN_S3_BUCKET` are set to the real ArvanCloud values (`https://s3.ir-thr-at1.arvanstorage.ir`, bucket `soshosite`, path-style access confirmed with a live PUT/GET/DELETE probe).
 - Root `.github/workflows/ci.yml` validates pushes/PRs. Root `.github/workflows/deploy.yml` is manual-only, validates first, applies remote D1 migrations, then deploys.
 - A deployment request must specify the target environment. Before deploying, verify branch, cwd, generated bundle, domain, Sites project, D1 binding/migrations, `NEXT_PUBLIC_SITE_URL`, and secrets.
 - Never deploy, migrate production data, provision/delete infrastructure, rotate credentials, or contact external users without explicit authorization.
+
+### Production provisioning status (as of 2026-09-05, still pre-deploy)
+
+Done:
+
+- D1 `sosho-sales` created; `database_id` in `wrangler.jsonc`.
+- ArvanCloud bucket `soshosite` (region ir-thr-at1) created; `ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET` in `wrangler.jsonc`; live read/write verified.
+- Worker `sosho-site` secrets set: `ADMIN_API_TOKEN`, `RATE_LIMIT_SALT`, `ARVAN_S3_ACCESS_KEY`, `ARVAN_S3_SECRET_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ADMIN_CHAT_ID` (`104836498`), `TELEGRAM_ADMIN_USER_ID` (`104836498`), `TELEGRAM_WEBHOOK_SECRET`. The Worker script exists (created by the first `wrangler secret put`) but has never been deployed.
+- Telegram bot `@SoShoStudioStagingBot`; `allowed_updates` currently `["message","callback_query"]` for setup polling — the production `setWebhook` must re-assert `["callback_query"]`.
+
+Pending (needs owner):
+
+- `OPENAI_API_KEY` secret — owner deferred until final test (needs account top-up). Sales Chat fails closed without it; nothing else breaks.
+- `META_VERIFY_TOKEN` / `META_APP_SECRET` / `META_INSTAGRAM_ACCESS_TOKEN` secrets — Meta app not created yet. Instagram DM path is the only thing blocked.
+- The leaked `TELEGRAM_BOT_TOKEN` (pasted into a chat during setup) should be rotated via BotFather `/revoke`, then re-`wrangler secret put`.
+- Remote D1 migration apply (`npx wrangler d1 migrations apply DB --remote`, 8 migrations 0000–0007).
+- GitHub Actions secrets for `deploy.yml` (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`) if CI deploy is wanted; otherwise `npm run deploy` locally.
+- `npm run deploy` itself (explicit authorization required), then register the Telegram webhook against the production URL with the secret token and `allowed_updates: ["callback_query"]`, then the Meta webhook once Meta is set up, then post-deploy smoke test.
 
 ## Validation and definition of done
 
@@ -405,11 +423,11 @@ These are documented facts, not permission to expand an unrelated task:
 8. There are no route-level `loading.tsx`, `error.tsx`, or `not-found.tsx` files.
 9. Contact and SEO constants are duplicated across layouts and components.
 10. There is no deterministic pricing engine or browser E2E suite.
-11. The production D1 database (`sosho-sales`) is provisioned and its UUID is set in `wrangler.jsonc`. `ARVAN_S3_ENDPOINT` in `wrangler.jsonc` is still a placeholder until the owner fills in the real ArvanCloud Object Storage endpoint.
+11. The production D1 database (`sosho-sales`) is provisioned and its UUID is set in `wrangler.jsonc`. ArvanCloud `ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET` are set to real values and the credentials are stored as Worker secrets; remaining pre-deploy steps are tracked in "Production provisioning status" above.
 12. The Sales Chat OpenAI model, Workers AI content models, and Meta Graph version are configurable; external compatibility must be reviewed before production changes.
 13. Content generation creates bundles and one private main image for an approved campaign; text overlay, scheduling, and social publishing are intentionally not implemented.
 14. Telegram sends generated-image previews by reading the private ArvanCloud object and uploading it directly with multipart; social publishing is not implemented.
-15. Cloudflare R2 is not usable on this account (R2 requires enabling billing in the Cloudflare dashboard, which rejects the owner's card); private campaign media storage uses ArvanCloud Object Storage instead (`worker/arvan-storage.js`, S3-compatible via `aws4fetch`). Staging and production ArvanCloud buckets/credentials must be provisioned manually only after explicit owner authorization.
+15. Cloudflare R2 is not usable on this account (R2 requires enabling billing in the Cloudflare dashboard, which rejects the owner's card); private campaign media storage uses ArvanCloud Object Storage instead (`worker/arvan-storage.js`, S3-compatible via `aws4fetch`, path-style URLs). The production bucket `soshosite` and its credentials are provisioned; a staging bucket is not — `sosho-site-staging` has its own separate secret store and still needs one before staging image generation works.
 
 ## Change discipline
 

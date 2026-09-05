@@ -100,8 +100,8 @@ Editing these drives cards / static params / sitemap / SEO — see the table in 
 - Every user-facing feature ships Persian and English copy/metadata/labels/errors together. Prefer logical CSS (`start`/`end`/`ms`/`me`/`ps`/`pe`).
 - Leads hold real PII — never log it, commit it, or use production records as fixtures.
 - Edit source, not generated output (`.next/`, `out/`, `dist/`, `.wrangler/`, coverage).
-- The production D1 `database_id` in `wrangler.jsonc` is an intentional all-zero placeholder until the owner provisions the database.
+- The production D1 database (`sosho-sales`) is provisioned and its `database_id` is set in `wrangler.jsonc`; remote migrations have not been applied yet.
 
 ## Current working state
 
-Branch `openai-chats` has uncommitted work (Codex-authored) adding audited admin campaign approve/reject/regenerate: new `worker/campaign-actions.js`, `db/migrations/0005_campaign_admin_actions.sql`, `src/app/admin/campaigns/detail/`, `src/app/admin/admin-session.tsx`, plus edits across `worker/index.js`, `worker/admin-dashboard.js`, admin UI, docs, and tests. Preserve this in-flight work; `git status` should contain only intended changes plus this pre-existing set.
+The AI sales system, admin dashboard, audited campaign approve/reject/regenerate, human handoff, Telegram integration, and the R2→ArvanCloud media migration are all committed on `openai-chats`. Work is now in the production-provisioning phase (D1 + ArvanCloud done and secrets set; OpenAI/Meta secrets, remote D1 migrations, and the actual deploy still pending). See "Production provisioning status" in `AGENTS.md` for the live checklist.
