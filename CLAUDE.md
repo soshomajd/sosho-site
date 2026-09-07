@@ -100,7 +100,7 @@ Editing these drives cards / static params / sitemap / SEO — see the table in 
 - Every user-facing feature ships Persian and English copy/metadata/labels/errors together. Prefer logical CSS (`start`/`end`/`ms`/`me`/`ps`/`pe`).
 - Leads hold real PII — never log it, commit it, or use production records as fixtures.
 - Edit source, not generated output (`.next/`, `out/`, `dist/`, `.wrangler/`, coverage).
-- The production D1 database (`sosho-sales`) is provisioned and its `database_id` is set in `wrangler.jsonc`; remote migrations have not been applied yet.
+- The production D1 database (`sosho-sales`, on the `soheilshokoohi.23@gmail.com` Cloudflare account) is provisioned, its `database_id` is set in `wrangler.jsonc`, and all 8 migrations are applied remotely. The Worker bundle itself has not been deployed yet.
 
 ## Current working state
 

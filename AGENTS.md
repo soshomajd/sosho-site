@@ -357,22 +357,23 @@ Rules:
 - A deployment request must specify the target environment. Before deploying, verify branch, cwd, generated bundle, domain, Sites project, D1 binding/migrations, `NEXT_PUBLIC_SITE_URL`, and secrets.
 - Never deploy, migrate production data, provision/delete infrastructure, rotate credentials, or contact external users without explicit authorization.
 
-### Production provisioning status (as of 2026-09-05, still pre-deploy)
+### Production provisioning status (as of 2026-09-07, still pre-deploy)
+
+The production Cloudflare account is `soheilshokoohi.23@gmail.com` (account id `6249a52e85fd7dccd48884f0744bbcbc`). The owner has three Cloudflare accounts and briefly logged into the wrong ones during setup — always confirm `wrangler whoami` shows this account before running anything.
 
 Done:
 
-- D1 `sosho-sales` created; `database_id` in `wrangler.jsonc`.
-- ArvanCloud bucket `soshosite` (region ir-thr-at1) created; `ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET` in `wrangler.jsonc`; live read/write verified.
-- Worker `sosho-site` secrets set: `ADMIN_API_TOKEN`, `RATE_LIMIT_SALT`, `ARVAN_S3_ACCESS_KEY`, `ARVAN_S3_SECRET_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ADMIN_CHAT_ID` (`104836498`), `TELEGRAM_ADMIN_USER_ID` (`104836498`), `TELEGRAM_WEBHOOK_SECRET`. The Worker script exists (created by the first `wrangler secret put`) but has never been deployed.
+- D1 `sosho-sales` (`76f1648b-b8b8-44a4-8ed3-1e01e68db5b3`) created; `database_id` in `wrangler.jsonc`. All 8 migrations (0000–0007) applied to the remote database — 13 app tables live.
+- ArvanCloud bucket `soshosite` (region ir-thr-at1) created; `ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET` in `wrangler.jsonc`; live read/write verified. (ArvanCloud is independent of the Cloudflare account.)
+- Worker `sosho-site` secrets set: `ADMIN_API_TOKEN`, `RATE_LIMIT_SALT`, `ARVAN_S3_ACCESS_KEY`, `ARVAN_S3_SECRET_KEY`, `TELEGRAM_BOT_TOKEN` (rotated via BotFather `/revoke` after the original leaked in chat), `TELEGRAM_ADMIN_CHAT_ID` (`104836498`), `TELEGRAM_ADMIN_USER_ID` (`104836498`), `TELEGRAM_WEBHOOK_SECRET`. The Worker script exists (created by the first `wrangler secret put`) but the real bundle has never been deployed.
 - Telegram bot `@SoShoStudioStagingBot`; `allowed_updates` currently `["message","callback_query"]` for setup polling — the production `setWebhook` must re-assert `["callback_query"]`.
 
 Pending (needs owner):
 
 - `OPENAI_API_KEY` secret — owner deferred until final test (needs account top-up). Sales Chat fails closed without it; nothing else breaks.
 - `META_VERIFY_TOKEN` / `META_APP_SECRET` / `META_INSTAGRAM_ACCESS_TOKEN` secrets — Meta app not created yet. Instagram DM path is the only thing blocked.
-- The leaked `TELEGRAM_BOT_TOKEN` (pasted into a chat during setup) should be rotated via BotFather `/revoke`, then re-`wrangler secret put`.
-- Remote D1 migration apply (`npx wrangler d1 migrations apply DB --remote`, 8 migrations 0000–0007).
-- GitHub Actions secrets for `deploy.yml` (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`) if CI deploy is wanted; otherwise `npm run deploy` locally.
+- Confirm `sosho-studio.net` is an active zone on the production account (the `wrangler.jsonc` routes are `custom_domain: true`, so deploy fails to attach routes otherwise).
+- GitHub Actions secrets for `deploy.yml` (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`) plus repo variable `SITE_URL` if CI deploy is wanted; otherwise `npm run deploy` locally.
 - `npm run deploy` itself (explicit authorization required), then register the Telegram webhook against the production URL with the secret token and `allowed_updates: ["callback_query"]`, then the Meta webhook once Meta is set up, then post-deploy smoke test.
 
 ## Validation and definition of done
