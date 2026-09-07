@@ -2547,6 +2547,11 @@ export async function handleApi(request, env, ctx, url, requestId) {
       ctx.waitUntil(processWebhookIds(env, eventIds, requestId));
       return json({ accepted: true, eventCount: eventIds.length }, 200, requestId);
     }
+    if (url.pathname === "/api/sales/status" && request.method === "GET") {
+      // Public boolean the website widget polls on mount so it can stay hidden
+      // until Sales Chat is actually configured. No config values are leaked.
+      return json({ available: Boolean(env.OPENAI_API_KEY) }, 200, requestId);
+    }
     if (url.pathname === "/api/sales/chat" && request.method === "POST") {
       requireDatabase(env);
       if (!isAllowedWebsiteRequest(request, env)) {

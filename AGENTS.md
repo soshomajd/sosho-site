@@ -184,6 +184,7 @@ Instagram webhook
 ### Worker endpoints
 
 - `GET /api/health`: checks D1 connectivity, required tables/columns, and required provider settings; returns `200` ready or `503` not ready without exposing values.
+- `GET /api/sales/status`: public `{ "available": boolean }` — `true` only when `OPENAI_API_KEY` is set. The website `SalesAssistant` widget polls this on mount and renders nothing until it is `true`, so the launch is chat-free until OpenAI billing is arranged; setting the secret later makes the widget appear with no redeploy.
 - `POST /api/sales/chat`: website chat endpoint.
 - `POST /api/content/campaigns`: creates an admin-owned Persian content campaign.
 - `POST /api/content/campaigns/:id/generate`: generates and validates its content bundle.
@@ -367,13 +368,14 @@ Done:
 - ArvanCloud bucket `soshosite` (region ir-thr-at1) created; `ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET` in `wrangler.jsonc`; live read/write verified. (ArvanCloud is independent of the Cloudflare account.)
 - Worker `sosho-site` secrets set: `ADMIN_API_TOKEN`, `RATE_LIMIT_SALT`, `ARVAN_S3_ACCESS_KEY`, `ARVAN_S3_SECRET_KEY`, `TELEGRAM_BOT_TOKEN` (rotated via BotFather `/revoke` after the original leaked in chat), `TELEGRAM_ADMIN_CHAT_ID` (`104836498`), `TELEGRAM_ADMIN_USER_ID` (`104836498`), `TELEGRAM_WEBHOOK_SECRET`. The Worker script exists (created by the first `wrangler secret put`) but the real bundle has never been deployed.
 - Telegram bot `@SoShoStudioStagingBot`; `allowed_updates` currently `["message","callback_query"]` for setup polling — the production `setWebhook` must re-assert `["callback_query"]`.
+- `sosho-studio.net` zone is **active** on the production account (registrar joker.com via the iranserver reseller; nameservers moved to `liv`/`vick.ns.cloudflare.com`). DNS Setup: Full.
+- The first launch is deliberately **chat-free**: the `SalesAssistant` widget hides itself while `GET /api/sales/status` reports `available: false`. Adding the `OPENAI_API_KEY` secret later turns the widget on with no redeploy.
 
 Pending (needs owner):
 
-- `OPENAI_API_KEY` secret — owner deferred until final test (needs account top-up). Sales Chat fails closed without it; nothing else breaks.
+- `OPENAI_API_KEY` secret — owner deferred; OpenAI does not accept the owner's payment methods and does not serve Iran, so Sales Chat stays off until that is solved (fund the API account through someone abroad, or port `handleSalesTurn` to the Workers AI `AI` binding). Everything else works without it.
 - `META_VERIFY_TOKEN` / `META_APP_SECRET` / `META_INSTAGRAM_ACCESS_TOKEN` secrets — Meta app not created yet. Instagram DM path is the only thing blocked.
-- Confirm `sosho-studio.net` is an active zone on the production account (the `wrangler.jsonc` routes are `custom_domain: true`, so deploy fails to attach routes otherwise).
-- GitHub Actions secrets for `deploy.yml` (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`) plus repo variable `SITE_URL` if CI deploy is wanted; otherwise `npm run deploy` locally.
+- The owner holds a `CLOUDFLARE_API_TOKEN` (User API token, name `sosho-site-deploy`, scoped to this account/zone with Workers Scripts + D1 + Workers Routes + Zone:Read + DNS edit). It is only in their shell — agent tool calls do not see it, so the owner runs `npm run deploy` themselves. The same token is what `deploy.yml` needs as a repo secret (with `CLOUDFLARE_ACCOUNT_ID` and the `SITE_URL` variable) if CI deploy is ever wanted.
 - `npm run deploy` itself (explicit authorization required), then register the Telegram webhook against the production URL with the secret token and `allowed_updates: ["callback_query"]`, then the Meta webhook once Meta is set up, then post-deploy smoke test.
 
 ## Validation and definition of done

@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { FiMessageCircle, FiRefreshCw, FiSend, FiX, FiZap } from "react-icons/fi";
 
 import type { Locale } from "@/app/i18n";
@@ -124,6 +124,7 @@ function isSalesReply(value: unknown): value is SalesReply {
 
 export default function SalesAssistant({ locale }: { locale: Locale }) {
   const copy = COPY[locale];
+  const [isAvailable, setIsAvailable] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(() =>
@@ -145,6 +146,25 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
     () => messages.at(-1)?.quickReplies ?? [],
     [messages]
   );
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/sales/status", { signal: controller.signal })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: unknown) => {
+        if (
+          data &&
+          typeof data === "object" &&
+          (data as { available?: unknown }).available === true
+        ) {
+          setIsAvailable(true);
+        }
+      })
+      .catch(() => {
+        // Keep the assistant hidden when the readiness check cannot complete.
+      });
+    return () => controller.abort();
+  }, []);
 
   function openChat() {
     setIsOpen(true);
@@ -233,6 +253,8 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
     event.preventDefault();
     void sendMessage(draft);
   }
+
+  if (!isAvailable) return null;
 
   return (
     <div className="fixed bottom-4 end-4 z-[70] sm:bottom-6 sm:end-6">

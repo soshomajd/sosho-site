@@ -209,6 +209,30 @@ describe("website sales API", () => {
     expect(calls).toBe(2);
   });
 
+  it("advertises sales availability when the OpenAI key is configured", async () => {
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(
+      new Request("https://example.com/api/sales/status"),
+      env,
+      ctx
+    );
+    await waitOnExecutionContext(ctx);
+    expect(response.status).toBe(200);
+    expect((await response.json()).available).toBe(true);
+  });
+
+  it("reports sales unavailable when the OpenAI key is absent", async () => {
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(
+      new Request("https://example.com/api/sales/status"),
+      { ...env, OPENAI_API_KEY: undefined },
+      ctx
+    );
+    await waitOnExecutionContext(ctx);
+    expect(response.status).toBe(200);
+    expect((await response.json()).available).toBe(false);
+  });
+
   it("reports real readiness and adds a request id", async () => {
     const ctx = createExecutionContext();
     const response = await worker.fetch(
