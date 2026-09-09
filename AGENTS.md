@@ -49,6 +49,7 @@ Primary capabilities:
 |  |- proxy.ts                           Default-locale redirect
 |  `- app/                               Next.js pages and components
 |- public/                               Static images and brand assets
+|  `- _headers                           Security headers + asset cache policy (see below)
 |- worker/
 |  |- index.js                           Runtime Worker and API source
 |  |- admin-dashboard.js                 Admin session security and bounded read-only D1 queries
@@ -269,6 +270,16 @@ The ordered SQL migrations create and evolve:
 
 Production Wrangler uses generated `dist/server/index.js`; local Wrangler uses `worker/index.js`. Never inject migrations into the Worker bundle.
 
+### Response headers
+
+`public/_headers` is the single source for security headers and static-asset cache policy. The static export copies `public/` into `out/`, and step 4 above copies it into `dist/client/`, so it ships as `dist/client/_headers`.
+
+- `/*` sets Content-Security-Policy, Strict-Transport-Security, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, and Cross-Origin-Opener-Policy.
+- `/_next/static/*` overrides the asset-server default (`public, max-age=0, must-revalidate`) with `public, max-age=31536000, immutable`, which is safe because those filenames are content-hashed.
+- `/admin` and `/admin/*` add `X-Robots-Tag: noindex, nofollow, noarchive` and `Cache-Control: no-store` on top of the `noindex` metadata already in `src/app/admin/layout.tsx`.
+
+Cloudflare applies `_headers` only to responses the asset server returns directly, never to responses built inside `worker/index.js`. Because `run_worker_first` is limited to `["/"]`, every HTML page and static asset is served directly and is covered; `/api/*` responses set their own headers in the Worker. The CSP is deliberately `default-src 'self'` — the site loads no third-party resource — with `'unsafe-inline'` for scripts and styles, because a static export cannot issue per-request nonces and the locale layout and blog detail pages both emit inline JSON-LD. Verify with `curl -I https://sosho-studio.net/fa` after any deploy that touches this file.
+
 ## Commands
 
 Preferred from repository root:
@@ -293,7 +304,7 @@ npm run blog:cover -- --slug "post-slug" --tag "SEO"
 
 Command semantics:
 
-- `dev`: applies local D1 migrations and starts both Worker on port 8787 and Next on port 3000; Next proxies `/api/*` to the Worker. The first run needs Cloudflare auth because the `AI` binding still connects to Cloudflare in local dev: run `npx wrangler login` once, or set `CLOUDFLARE_API_TOKEN` in a non-interactive environment.
+- `dev`: applies local D1 migrations and starts both Worker on port 8787 and Next on port 3000; Next proxies `/api/*` to the Worker. The first run needs Cloudflare auth because the `AI` binding still connects to Cloudflare in local dev. On the owner's network `wrangler login` (OAuth) fails — `dash.cloudflare.com/oauth2/token` answers with a bot-challenge HTML page (HTTP 403), so Wrangler can neither obtain nor refresh an OAuth token — therefore set `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in a git-ignored root `.env`. Wrangler reads both from `.env` and then talks only to `api.cloudflare.com`, which is not challenge-gated.
 - `dev:next` and `dev:worker`: start either side independently.
 - `test`: runs Worker-runtime unit/integration tests with isolated local D1 storage and outbound provider mocks.
 - `lint`: runs ESLint; config ignores `.next`, `out`, `dist`, `build`, and `.wrangler`.
@@ -374,11 +385,12 @@ Live:
 
 Pending (needs owner):
 
+- **The live Worker is older than this branch.** `public/_headers` (security headers + asset caching), the `robots.txt` disallow rules, the removal of `@vercel/speed-insights`, and the Next 16.3.4 security bump are all committed and validated but not deployed. Until `npm run deploy` runs, `https://sosho-studio.net` still serves no security headers and re-validates every hashed asset on every request.
 - `OPENAI_API_KEY` secret — OpenAI does not accept the owner's payment methods and does not serve Iran, so Sales Chat stays off until that is solved (fund the API account through someone abroad, or port `handleSalesTurn` to the Workers AI `AI` binding). Setting the secret makes the widget appear with no redeploy.
 - `META_VERIFY_TOKEN` / `META_APP_SECRET` / `META_INSTAGRAM_ACCESS_TOKEN` secrets — Meta app not created yet. Instagram DM path is the only thing blocked.
 - The Telegram bot token leaked into chat twice during setup and should be rotated once more via BotFather `/revoke`, then re-`wrangler secret put TELEGRAM_BOT_TOKEN` and re-run `setWebhook` with the same `secret_token`.
 - End-to-end admin smoke test on production (log in at `/admin`, create a campaign, generate content + image, approve via Telegram) has not been run yet.
-- `CLOUDFLARE_API_TOKEN` is a User API token named `sosho-site-deploy` (Workers Scripts + D1 + Workers Routes + Zone:Read + DNS edit, scoped to this account/zone). It lives only in the owner's shell — agent tool calls never see it, so the owner runs `npm run deploy` and `wrangler secret put` themselves. The same token is what `deploy.yml` needs as a repo secret (with `CLOUDFLARE_ACCOUNT_ID` and the `SITE_URL` variable) if CI deploy is ever wanted.
+- `CLOUDFLARE_API_TOKEN` — a User API token still needs to be created. The production Worker was first deployed over `wrangler login` OAuth; that token expired on 2026-09-07 and OAuth can no longer be renewed on the owner's network (bot challenge on `dash.cloudflare.com`), so all further deploys and `wrangler` calls must use an API token. Create it from the **Edit Cloudflare Workers** template, then add **Account › D1 › Edit** (remote `wrangler d1` commands) and **Account › Workers AI › Edit** (`npm run dev` AI binding); scope it to this account and the `sosho-studio.net` zone. Store it with `CLOUDFLARE_ACCOUNT_ID` in a git-ignored root `.env` — agent tool calls never see it, so the owner runs `npm run deploy` and `wrangler secret put` themselves. The same token is what `deploy.yml` needs as a repo secret (with `CLOUDFLARE_ACCOUNT_ID` and the `SITE_URL` variable) if CI deploy is ever wanted.
 
 ## Validation and definition of done
 
