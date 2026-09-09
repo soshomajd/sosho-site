@@ -375,7 +375,8 @@ The production Cloudflare account is `soheilshokoohi.23@gmail.com` (account id `
 
 Live:
 
-- Worker `sosho-site` deployed (first live version `c6b906a4-8cb1-474c-940b-591e94c0750f`). `https://sosho-studio.net` and `https://www.sosho-studio.net` serve the site; `/` → 308 `/fa`; cron triggers active.
+- Worker `sosho-site` deployed (first live version `c6b906a4-8cb1-474c-940b-591e94c0750f`; current `36ed2a97-1206-465d-8556-c3b21703dcc5`). `https://sosho-studio.net` and `https://www.sosho-studio.net` serve the site; `/` → 308 `/fa`; cron triggers active.
+- `public/_headers` is live and verified: `/fa` returns Content-Security-Policy, Strict-Transport-Security, Cross-Origin-Opener-Policy, Permissions-Policy, Referrer-Policy, `x-content-type-options: nosniff` and `x-frame-options: DENY`; `/_next/static/*` returns `public, max-age=31536000, immutable`; `/admin` returns `x-robots-tag: noindex, nofollow, noarchive` and `cache-control: no-store`.
 - D1 `sosho-sales` (`76f1648b-b8b8-44a4-8ed3-1e01e68db5b3`); all 8 migrations (0000–0007) applied remotely — 13 app tables.
 - ArvanCloud bucket `soshosite` (region ir-thr-at1); `ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET` vars + `ARVAN_S3_ACCESS_KEY`/`ARVAN_S3_SECRET_KEY` secrets. `/api/health` reports `mediaStorage: true`. (One secret was first stored empty and silently failed the readiness check until re-set — re-`put` any secret whose check is unexpectedly false rather than trusting `wrangler secret list`, which only shows names.)
 - Worker secrets set: `ADMIN_API_TOKEN`, `RATE_LIMIT_SALT`, `ARVAN_S3_ACCESS_KEY`, `ARVAN_S3_SECRET_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ADMIN_CHAT_ID` (`104836498`), `TELEGRAM_ADMIN_USER_ID` (`104836498`), `TELEGRAM_WEBHOOK_SECRET`.
@@ -385,7 +386,6 @@ Live:
 
 Pending (needs owner):
 
-- **The live Worker is older than this branch.** `public/_headers` (security headers + asset caching), the `robots.txt` disallow rules, the removal of `@vercel/speed-insights`, and the Next 16.3.4 security bump are all committed and validated but not deployed. Until `npm run deploy` runs, `https://sosho-studio.net` still serves no security headers and re-validates every hashed asset on every request.
 - `OPENAI_API_KEY` secret — OpenAI does not accept the owner's payment methods and does not serve Iran, so Sales Chat stays off until that is solved (fund the API account through someone abroad, or port `handleSalesTurn` to the Workers AI `AI` binding). Setting the secret makes the widget appear with no redeploy.
 - `META_VERIFY_TOKEN` / `META_APP_SECRET` / `META_INSTAGRAM_ACCESS_TOKEN` secrets — Meta app not created yet. Instagram DM path is the only thing blocked.
 - The Telegram bot token leaked into chat twice during setup and should be rotated once more via BotFather `/revoke`, then re-`wrangler secret put TELEGRAM_BOT_TOKEN` and re-run `setWebhook` with the same `secret_token`.
@@ -445,6 +445,7 @@ These are documented facts, not permission to expand an unrelated task:
 13. Content generation creates bundles and one private main image for an approved campaign; text overlay, scheduling, and social publishing are intentionally not implemented.
 14. Telegram sends generated-image previews by reading the private ArvanCloud object and uploading it directly with multipart; social publishing is not implemented.
 15. Cloudflare R2 is not usable on this account (R2 requires enabling billing in the Cloudflare dashboard, which rejects the owner's card); private campaign media storage uses ArvanCloud Object Storage instead (`worker/arvan-storage.js`, S3-compatible via `aws4fetch`, path-style URLs). The production bucket `soshosite` and its credentials are provisioned; a staging bucket is not — `sosho-site-staging` has its own separate secret store and still needs one before staging image generation works.
+16. RSC prefetch 404s in the browser console on `/fa` and `/en`. The static export writes the dynamic-segment payload as a nested path (`fa/__next.$d$locale/__PAGE__.txt`, which serves 200) while the Next client runtime requests the same segment dot-joined (`fa/__next.$d$locale.__PAGE__.txt`, which 404s). This is a Next `output: export` mismatch on the `[locale]` dynamic route, not a Cloudflare or `_headers` problem, and it predates the 16.3.4 bump. Effect is limited to console noise, one wasted request per prefetch, and `<Link>` prefetch not warming the cache; navigation itself falls back correctly. Re-check after each Next upgrade before attempting a workaround.
 
 ## Change discipline
 
