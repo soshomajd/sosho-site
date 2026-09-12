@@ -1,7 +1,7 @@
 import type { Locale } from "@/app/i18n";
 import Hero3DClient from "./Hero3DClient";
 
-const COPY = {
+export const HERO_COPY = {
     fa: {
         eyebrow: "SOSHO STUDIO · طراحی × تکنولوژی × رشد",
         title: "از ایده تا یک تجربه دیجیتال ماندگار.",
@@ -25,7 +25,7 @@ const COPY = {
 } as const;
 
 export default function Hero({ locale }: { locale: Locale }) {
-    const copy = COPY[locale];
+    const copy = HERO_COPY[locale];
     const isFa = locale === "fa";
 
     return (
