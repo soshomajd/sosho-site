@@ -1,69 +1,76 @@
 "use client";
 
-import { Html } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import { type ReactNode, useMemo, useRef, useState } from "react";
-import * as THREE from "three";
+import { type MutableRefObject, type ReactNode, useEffect, useRef } from "react";
 
-import { type TourSectionId, getSectionPosition } from "./CameraPath";
-
-/** Distance at which a panel is fully lit; it fades out past twice this. */
-const FOCUS_DISTANCE = 6;
+import { type TourSectionId, sectionOpacityAt } from "./CameraPath";
 
 /**
- * One content panel parked on the camera path. The markup is real DOM rendered
- * through drei's `Html`, so headings stay selectable and reachable by keyboard
- * while the camera moves past them.
+ * A content panel for one leg of the journey.
+ *
+ * These deliberately live outside the R3F canvas rather than inside a drei
+ * `Html` node. Anchoring them to a point on the curve put them directly in the
+ * camera's way: the camera travels *through* each anchor, so the projected
+ * position swung to the edge of the screen and clipped the copy as it passed.
+ * A fixed overlay keeps every panel centred and legible while the 3D world
+ * still moves behind it.
+ *
+ * Opacity is written straight to the DOM from a rAF loop. Driving it through
+ * React state would re-render the whole panel on every frame of every fade.
  */
 export default function TourSection({
     id,
+    progress,
     isRtl,
     children,
 }: {
     id: TourSectionId;
+    progress: MutableRefObject<number>;
     isRtl: boolean;
     children: ReactNode;
 }) {
-    // Fade is driven by how close the camera actually is, so this component
-    // never needs the raw scroll value.
-    const anchor = useMemo(() => getSectionPosition(id), [id]);
-    const wrapper = useRef<HTMLDivElement>(null);
-    const [mounted, setMounted] = useState(false);
+    const panel = useRef<HTMLDivElement>(null);
 
-    useFrame(({ camera }) => {
-        const distance = camera.position.distanceTo(anchor);
-        const opacity = THREE.MathUtils.clamp(
-            1 - (distance - FOCUS_DISTANCE) / FOCUS_DISTANCE,
-            0,
-            1,
-        );
-        // Keep the panel in the tree but out of the tab order once it is behind
-        // the camera, otherwise keyboard focus jumps to invisible content.
-        const visible = opacity > 0.02;
-        if (visible !== mounted) setMounted(visible);
-        if (!wrapper.current) return;
-        wrapper.current.style.opacity = String(opacity);
-        wrapper.current.style.transform = `translateY(${(1 - opacity) * 24}px)`;
-    });
+    useEffect(() => {
+        let frame = 0;
+        let wasVisible: boolean | null = null;
+
+        const tick = () => {
+            const node = panel.current;
+            if (node) {
+                const opacity = sectionOpacityAt(progress.current, id);
+                const visible = opacity > 0.01;
+                node.style.opacity = String(opacity);
+                node.style.transform = `translateY(${(1 - opacity) * 26}px)`;
+                if (visible !== wasVisible) {
+                    wasVisible = visible;
+                    // Keep hidden panels out of the tab order and off the
+                    // accessibility tree, otherwise focus jumps into copy the
+                    // visitor cannot see.
+                    node.style.visibility = visible ? "visible" : "hidden";
+                    node.style.pointerEvents = visible ? "auto" : "none";
+                    node.inert = !visible;
+                }
+            }
+            frame = window.requestAnimationFrame(tick);
+        };
+
+        frame = window.requestAnimationFrame(tick);
+        return () => window.cancelAnimationFrame(frame);
+    }, [id, progress]);
 
     return (
-        <Html
-            position={anchor}
-            center
-            distanceFactor={9}
-            zIndexRange={[20, 0]}
-            style={{ pointerEvents: mounted ? "auto" : "none" }}
+        <div
+            className="pointer-events-none fixed inset-0 z-10 flex items-center justify-center px-5 py-24"
+            aria-hidden="true"
         >
             <div
-                ref={wrapper}
+                ref={panel}
                 dir={isRtl ? "rtl" : "ltr"}
-                aria-hidden={mounted ? undefined : true}
-                inert={!mounted}
-                className="w-[min(78vw,52rem)] transition-none"
-                style={{ opacity: 0 }}
+                className="max-h-full w-full max-w-5xl overflow-y-auto rounded-3xl border border-white/10 bg-background/80 p-6 shadow-2xl shadow-black/50 backdrop-blur-xl sm:p-9"
+                style={{ opacity: 0, visibility: "hidden" }}
             >
                 {children}
             </div>
-        </Html>
+        </div>
     );
 }

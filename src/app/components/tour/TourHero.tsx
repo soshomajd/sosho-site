@@ -44,6 +44,31 @@ export default function TourHero({ locale }: { locale: Locale }) {
                     </li>
                 ))}
             </ul>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+                <a
+                    href="https://www.instagram.com/sosho_studio/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-foreground px-6 text-sm font-bold text-background transition duration-300 hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none motion-reduce:transition-none"
+                >
+                    {copy.primaryAction}
+                    <span
+                        aria-hidden="true"
+                        className="text-lg transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1 motion-reduce:transition-none"
+                    >
+                        →
+                    </span>
+                </a>
+                <a
+                    href="https://wa.me/989120265102"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-12 items-center justify-center rounded-full border border-foreground/15 bg-surface/35 px-6 text-sm font-semibold text-foreground backdrop-blur-sm transition duration-300 hover:-translate-y-0.5 hover:border-accent/45 hover:bg-surface/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none motion-reduce:transition-none"
+                >
+                    {locale === "fa" ? "واتس‌اپ" : "WhatsApp"}
+                </a>
+            </div>
         </div>
     );
 }

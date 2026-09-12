@@ -4,7 +4,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { type MutableRefObject, type ReactNode, useRef } from "react";
 import * as THREE from "three";
 
-import { getCameraAt } from "./CameraPath";
+import { type TourStage, getCameraAt, stageAt } from "./CameraPath";
 import EffectsLight from "./EffectsLight";
 import SceneCable from "./SceneCable";
 import SceneCase from "./SceneCase";
@@ -33,6 +33,32 @@ function CameraRig({ progress }: { progress: MutableRefObject<number> }) {
     return null;
 }
 
+/**
+ * Hides scenery that belongs to a different leg of the journey.
+ *
+ * Everything lives in one world, so without this the tower case sits in frame
+ * as an unexplained dark block while the camera is still moving past the
+ * content sections.
+ */
+function StageGroup({
+    progress,
+    stages,
+    children,
+}: {
+    progress: MutableRefObject<number>;
+    stages: readonly TourStage[];
+    children: ReactNode;
+}) {
+    const group = useRef<THREE.Group>(null);
+
+    useFrame(() => {
+        if (!group.current) return;
+        group.current.visible = stages.includes(stageAt(progress.current));
+    });
+
+    return <group ref={group}>{children}</group>;
+}
+
 export default function TourCanvas({
     progress,
     children,
@@ -45,21 +71,33 @@ export default function TourCanvas({
             className="!fixed inset-0"
             dpr={[1, 1.75]}
             gl={{ antialias: true, powerPreference: "high-performance" }}
-            camera={{ fov: 55, near: 0.1, far: 200 }}
+            camera={{ fov: 50, near: 0.1, far: 200 }}
             frameloop="always"
         >
-            <color attach="background" args={["#05070c"]} />
-            <fog attach="fog" args={["#05070c", 18, 70]} />
+            <color attach="background" args={["#080c14"]} />
+            <fog attach="fog" args={["#080c14", 10, 46]} />
 
-            <ambientLight intensity={0.55} />
-            <directionalLight position={[4, 8, 6]} intensity={1.1} />
-            <pointLight position={[0, 1.1, -1]} intensity={4} distance={14} color="#22d3ee" />
+            {/* The desk is a dark scene, but it still has to read as a room. */}
+            <ambientLight intensity={1.5} />
+            <hemisphereLight args={["#9dd7ff", "#0b0f18", 1.1]} />
+            <directionalLight position={[5, 9, 8]} intensity={2.2} />
+            <directionalLight position={[-6, 4, 5]} intensity={0.9} color="#7dd3fc" />
+            <pointLight position={[0, 1.2, 2.4]} intensity={22} distance={16} color="#22d3ee" />
 
             <CameraRig progress={progress} />
 
-            <SceneDesk />
-            <SceneCable />
-            <SceneCase />
+            <StageGroup progress={progress} stages={["desk", "entering", "sections"]}>
+                <SceneDesk />
+            </StageGroup>
+
+            <StageGroup progress={progress} stages={["exiting", "cable", "light"]}>
+                <SceneCable />
+            </StageGroup>
+
+            <StageGroup progress={progress} stages={["light", "case"]}>
+                <SceneCase />
+            </StageGroup>
+
             <EffectsLight progress={progress} />
 
             {children}

@@ -58,13 +58,13 @@ export default function TourClient({
 
     return (
         <>
-            <TourCanvas progress={progress}>
-                {TOUR_SECTION_IDS.map((id) => (
-                    <TourSection key={id} id={id} isRtl={isRtl}>
-                        {slots[id]}
-                    </TourSection>
-                ))}
-            </TourCanvas>
+            <TourCanvas progress={progress} />
+
+            {TOUR_SECTION_IDS.map((id) => (
+                <TourSection key={id} id={id} progress={progress} isRtl={isRtl}>
+                    {slots[id]}
+                </TourSection>
+            ))}
 
             {/* Gives the page something to scroll; the canvas itself is fixed. */}
             <div style={{ height: `${SCROLL_VIEWPORTS * 100}vh` }} aria-hidden="true" />
