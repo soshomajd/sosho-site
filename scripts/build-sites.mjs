@@ -49,6 +49,33 @@ async function localizeEnglishHtml(dir) {
   }
 }
 await localizeEnglishHtml(resolve(clientDir, "en"));
+
+// Next writes per-segment prefetch payloads as nested folders
+// (fa/__next.$d$locale/__PAGE__.txt) while the client requests the dotted form
+// (fa/__next.$d$locale.__PAGE__.txt). Mirror every nested payload to the dotted
+// name so client-side prefetches resolve instead of returning 404.
+async function mirrorSegmentPayloads(segmentDir, parentDir, prefix) {
+  for (const entry of await readdir(segmentDir, { withFileTypes: true })) {
+    const full = resolve(segmentDir, entry.name);
+    if (entry.isDirectory()) {
+      await mirrorSegmentPayloads(full, parentDir, `${prefix}.${entry.name}`);
+    } else if (entry.name.endsWith(".txt")) {
+      await cp(full, resolve(parentDir, `${prefix}.${entry.name}`));
+    }
+  }
+}
+async function flattenSegmentPayloads(dir) {
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    if (!entry.isDirectory() || entry.name === "_next") continue;
+    const full = resolve(dir, entry.name);
+    if (entry.name.startsWith("__next.")) {
+      await mirrorSegmentPayloads(full, dir, entry.name);
+    } else {
+      await flattenSegmentPayloads(full);
+    }
+  }
+}
+await flattenSegmentPayloads(clientDir);
 const englishHome = resolve(clientDir, "en.html");
 try {
   await access(englishHome);

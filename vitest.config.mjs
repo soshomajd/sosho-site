@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 import { cloudflareTest, readD1Migrations } from "@cloudflare/vitest-plugin";
@@ -7,6 +8,7 @@ export default defineConfig({
   plugins: [
     cloudflareTest(async () => {
       const migrations = await readD1Migrations(resolve("db/migrations"));
+      const headersFile = await readFile(resolve("public/_headers"), "utf8");
       return {
         main: "./worker/index.js",
         miniflare: {
@@ -14,6 +16,7 @@ export default defineConfig({
           d1Databases: { DB: "sosho-sales-test" },
           bindings: {
             TEST_MIGRATIONS: migrations,
+            TEST_HEADERS_FILE: headersFile,
             ENVIRONMENT: "test",
             PUBLIC_SITE_ORIGINS: "https://example.com",
             CONTENT_AI_PROVIDER: "workers_ai",

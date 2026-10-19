@@ -122,9 +122,16 @@ function isSalesReply(value: unknown): value is SalesReply {
   );
 }
 
-export default function SalesAssistant({ locale }: { locale: Locale }) {
+export default function SalesAssistant({
+  locale,
+  preverified = false,
+}: {
+  locale: Locale;
+  /** True when SalesAssistantGate already confirmed /api/sales/status. */
+  preverified?: boolean;
+}) {
   const copy = COPY[locale];
-  const [isAvailable, setIsAvailable] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(preverified);
   const [isOpen, setIsOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(() =>
@@ -148,6 +155,7 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
   );
 
   useEffect(() => {
+    if (preverified) return;
     const controller = new AbortController();
     fetch("/api/sales/status", { signal: controller.signal })
       .then((response) => (response.ok ? response.json() : null))
@@ -164,7 +172,7 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
         // Keep the assistant hidden when the readiness check cannot complete.
       });
     return () => controller.abort();
-  }, []);
+  }, [preverified]);
 
   function openChat() {
     setIsOpen(true);

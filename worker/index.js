@@ -2705,6 +2705,96 @@ export async function handleApi(request, env, ctx, url, requestId) {
   }
 }
 
+const CANONICAL_HOST = "sosho-studio.net";
+
+// Mirror of the `/*` block in public/_headers. Cloudflare does not apply _headers
+// to responses that leave this Worker, and pages now run the Worker first, so the
+// Worker re-applies them itself (tests/routing.test.js keeps both in sync).
+export const PAGE_SECURITY_HEADERS = {
+  "content-security-policy":
+    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://d2ol7oe51mr4n9.cloudfront.net; font-src 'self' data:; connect-src 'self'; media-src 'self' blob: https://d8j0ntlcm91z4.cloudfront.net; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+  "strict-transport-security": "max-age=31536000; includeSubDomains",
+  "x-content-type-options": "nosniff",
+  "x-frame-options": "DENY",
+  "referrer-policy": "strict-origin-when-cross-origin",
+  "permissions-policy":
+    "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()",
+  "cross-origin-opener-policy": "same-origin",
+};
+
+function withPageHeaders(response, url) {
+  // Redirects carry no document; everything else gets the same headers as a direct asset hit.
+  if (response.status >= 300 && response.status < 400) return response;
+  const headers = new Headers(response.headers);
+  for (const [name, value] of Object.entries(PAGE_SECURITY_HEADERS)) headers.set(name, value);
+  if (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) {
+    headers.set("x-robots-tag", "noindex, nofollow, noarchive");
+    headers.set("cache-control", "no-store");
+  }
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+}
+
+// One permanent hop to the canonical URL: apex host over https, no trailing
+// slash, no ".html". Pages reach the Worker first (see run_worker_first in
+// wrangler.jsonc), so www and the asset server's 307 variants never get indexed.
+export function canonicalPageRedirect(request, url) {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const target = new URL(url);
+  if (target.hostname === `www.${CANONICAL_HOST}`) target.hostname = CANONICAL_HOST;
+  if (target.hostname === CANONICAL_HOST) target.protocol = "https:";
+  if (target.pathname.endsWith(".html")) {
+    target.pathname = target.pathname.slice(0, -".html".length).replace(/\/index$/u, "") || "/";
+  }
+  if (target.pathname.length > 1 && target.pathname.endsWith("/")) {
+    target.pathname = target.pathname.replace(/\/+$/u, "") || "/";
+  }
+  return target.href === url.href ? null : Response.redirect(target.href, 301);
+}
+
+async function notFoundPage(env, request, url) {
+  const wantsHtml = !url.pathname.split("/").pop().includes(".") || url.pathname.endsWith(".html");
+  if (wantsHtml && (request.method === "GET" || request.method === "HEAD")) {
+    const page = await env.ASSETS.fetch(new Request(new URL("/404", url), request));
+    if (page.ok) {
+      return new Response(request.method === "HEAD" ? null : page.body, {
+        status: 404,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "no-store",
+          "x-robots-tag": "noindex",
+        },
+      });
+    }
+  }
+  return new Response("Not Found", { status: 404, headers: { "x-robots-tag": "noindex" } });
+}
+
+async function serveAsset(request, env, url) {
+  // The exported 404 document must never answer with 200 at its own URL.
+  if (url.pathname === "/404" || url.pathname === "/_not-found") {
+    return notFoundPage(env, request, url);
+  }
+  let response = await env.ASSETS.fetch(request);
+  if (response.status !== 404) return response;
+  const candidates = url.pathname.endsWith("/")
+    ? [url.pathname + "index.html"]
+    : [url.pathname + ".html", url.pathname + "/index.html"];
+  for (const pathname of candidates) {
+    const candidateUrl = new URL(url);
+    candidateUrl.pathname = pathname;
+    response = await env.ASSETS.fetch(new Request(candidateUrl, request));
+    if (response.status !== 404) return response;
+  }
+  const firstSegment = url.pathname.split("/").filter(Boolean)[0];
+  if (firstSegment !== "fa" && firstSegment !== "en" && firstSegment !== "admin" &&
+      !url.pathname.includes(".")) {
+    const localized = new URL(url);
+    localized.pathname = "/fa" + url.pathname;
+    return Response.redirect(localized, 308);
+  }
+  return notFoundPage(env, request, url);
+}
+
 const worker = {
   async fetch(request, env, ctx) {
     const requestId = createId("req");
@@ -2712,27 +2802,11 @@ const worker = {
     if (url.pathname.startsWith("/api/")) {
       return handleApi(request, env, ctx, url, requestId);
     }
+    const canonical = canonicalPageRedirect(request, url);
+    if (canonical) return canonical;
     if (url.pathname === "/") return Response.redirect(new URL("/fa", url), 308);
     if (!env.ASSETS) return new Response("Not Found", { status: 404 });
-    let response = await env.ASSETS.fetch(request);
-    if (response.status !== 404) return response;
-    const candidates = url.pathname.endsWith("/")
-      ? [url.pathname + "index.html"]
-      : [url.pathname + ".html", url.pathname + "/index.html"];
-    for (const pathname of candidates) {
-      const candidateUrl = new URL(url);
-      candidateUrl.pathname = pathname;
-      response = await env.ASSETS.fetch(new Request(candidateUrl, request));
-      if (response.status !== 404) return response;
-    }
-    const firstSegment = url.pathname.split("/").filter(Boolean)[0];
-    if (firstSegment !== "fa" && firstSegment !== "en" && firstSegment !== "admin" &&
-        !url.pathname.includes(".")) {
-      const localized = new URL(url);
-      localized.pathname = "/fa" + url.pathname;
-      return Response.redirect(localized, 308);
-    }
-    return response;
+    return withPageHeaders(await serveAsset(request, env, url), url);
   },
   async scheduled(controller, env, ctx) {
     const requestId = createId("req");

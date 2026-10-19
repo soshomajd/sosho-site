@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { FiArrowUpRight } from "react-icons/fi";
 
+import { getBlogPostHref } from "@/app/blogs/posts";
+import { postsForService } from "@/app/blogs/related";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
+import { SERVICE_FAQ } from "@/app/components/Services/faq";
 import JsonLd from "@/app/components/JsonLd";
 import { getDictionary, isLocale, type Locale } from "@/app/i18n";
 import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, websiteId } from "@/app/seo";
@@ -44,13 +48,14 @@ export async function generateMetadata({
 
     return {
         metadataBase: new URL(siteUrl),
-        title: `${title} | ${dict.siteName}`,
+        title,
         description,
         alternates: {
             canonical,
             languages: {
                 fa: `/fa/services/${service.slug}`,
                 en: `/en/services/${service.slug}`,
+                "x-default": `/fa/services/${service.slug}`,
             },
         },
         openGraph: {
@@ -148,6 +153,8 @@ export default async function ServicePage({
         { name: isFa ? "خدمات" : "Services", path: `/${locale}#services` },
         { name: title, path: `/${locale}/services/${service.slug}` },
     ];
+    const faq = SERVICE_FAQ[service.slug];
+    const articles = postsForService(service.slug, 3);
 
     return (
         <main id="main-content" tabIndex={-1} className="container items-stretch gap-8 py-14 outline-none md:py-20">
@@ -178,6 +185,16 @@ export default async function ServicePage({
                             mainEntity: { "@id": `${pageUrl}#service` },
                         },
                         breadcrumbJsonLd([crumbs[0], crumbs[2]]),
+                        {
+                            "@type": "FAQPage",
+                            "@id": `${pageUrl}#faq`,
+                            inLanguage: languageTag(locale),
+                            mainEntity: faq.map((item) => ({
+                                "@type": "Question",
+                                name: item.question[locale],
+                                acceptedAnswer: { "@type": "Answer", text: item.answer[locale] },
+                            })),
+                        },
                     ],
                 }}
             />
@@ -224,6 +241,53 @@ export default async function ServicePage({
                     <BulletList items={deliverables} />
                 </Section>
             </div>
+
+            <section aria-labelledby="service-faq-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
+                <h2 id="service-faq-title" className="text-xl font-bold text-foreground">
+                    {isFa ? "پرسش‌های متداول" : "Frequently asked questions"}
+                </h2>
+                <div className="mt-5 divide-y divide-foreground/10">
+                    {faq.map((item) => (
+                        <div key={item.question.en} className="py-4 first:pt-0 last:pb-0">
+                            <h3 className="text-sm font-bold text-foreground md:text-base">{item.question[locale]}</h3>
+                            <p className="mt-1.5 text-sm leading-7 text-muted">{item.answer[locale]}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {articles.length > 0 ? (
+                <section aria-labelledby="service-articles-title">
+                    <h2 id="service-articles-title" className="text-xl font-bold text-foreground">
+                        {isFa ? "مقاله‌های مرتبط" : "Related articles"}
+                    </h2>
+                    <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+                        {articles.map((post) => (
+                            <article key={post.slug} className="contents">
+                                <Link
+                                    href={getBlogPostHref(locale, post.slug)}
+                                    className="group overflow-hidden rounded-2xl border border-foreground/10 bg-background/10 transition-colors hover:border-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                                >
+                                    {post.coverImage ? (
+                                        <div className="relative aspect-video w-full overflow-hidden">
+                                            <Image
+                                                src={post.coverImage}
+                                                alt={post.coverImageAlt?.[locale] ?? post.title[locale]}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, 33vw"
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                    ) : null}
+                                    <h3 className="p-4 text-sm font-semibold leading-7 text-foreground transition-colors group-hover:text-accent">
+                                        {post.title[locale]}
+                                    </h3>
+                                </Link>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            ) : null}
 
             <section className="mt-4 flex flex-col gap-6 rounded-3xl border border-accent/20 bg-surface/30 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9">
                 <div>

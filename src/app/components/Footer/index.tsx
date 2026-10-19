@@ -121,7 +121,6 @@ export default function Footer({ locale }: { locale: Locale }) {
                             <a
                                 href={CONTACT_INFO.phoneHref}
                                 className="-ms-2 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-                                aria-label={isFa ? "تماس تلفنی" : "Phone call"}
                             >
                                 <BsFillTelephoneOutboundFill className="h-5 w-5 shrink-0" aria-hidden="true" />
                                 <span dir="ltr" className="text-sm">{CONTACT_INFO.phoneDisplay}</span>
@@ -130,7 +129,6 @@ export default function Footer({ locale }: { locale: Locale }) {
                             <a
                                 href={`mailto:${CONTACT_INFO.email}`}
                                 className="-ms-2 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-                                aria-label={isFa ? "ارسال ایمیل" : "Send email"}
                             >
                                 <SiGmail className="h-5 w-5 shrink-0" aria-hidden="true" />
                                 <span dir="ltr" className="text-sm wrap-anywhere">{CONTACT_INFO.email}</span>

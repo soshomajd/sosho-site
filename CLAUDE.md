@@ -59,7 +59,7 @@ Two deployables in one package:
 ### Request path
 
 - `src/proxy.ts` (and the built Worker) redirect locale-less, extensionless, non-asset/non-API paths to `/fa/...`.
-- Production Worker (`worker/index.js` `worker.fetch`): `/api/*` → `handleApi`; `/` → 308 `/fa`; otherwise serve `dist/client` assets with `.html` / `index.html` fallback, then locale redirect. `run_worker_first: ["/"]` in `wrangler.jsonc`.
+- Production Worker (`worker/index.js` `worker.fetch`): `/api/*` → `handleApi`; page routes run the Worker first (`run_worker_first` in `wrangler.jsonc`) so it can 301 www/http/trailing-slash/`.html` to the canonical apex URL, serve `404.html` with a real 404, and re-apply the security headers from `PAGE_SECURITY_HEADERS` (keep it identical to the `/*` block of `public/_headers`; a test enforces this). `/` → 308 `/fa`; otherwise serve `dist/client` assets with `.html` / `index.html` fallback, then locale redirect.
 - `handleApi` is a flat sequence of `if (url.pathname === ... && method === ...)` / regex-match blocks ending in a 404. Every JSON response carries `requestId` + `x-request-id`.
 - `worker.scheduled`: cron `*/5 * * * *` → webhook retry sweep; `15 3 * * *` → retention cleanup.
 

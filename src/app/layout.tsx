@@ -102,16 +102,16 @@ export default function RootLayout({
       <head>
         <link
           rel="preload"
-          href="/fonts/iranyekan/iranyekan-regular.woff"
+          href="/fonts/iranyekan/iranyekan-regular.woff2"
           as="font"
-          type="font/woff"
+          type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/iranyekan/iranyekan-bold.woff"
+          href="/fonts/iranyekan/iranyekan-bold.woff2"
           as="font"
-          type="font/woff"
+          type="font/woff2"
           crossOrigin="anonymous"
         />
       </head>

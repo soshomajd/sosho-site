@@ -72,8 +72,8 @@ export const SERVICES: Service[] = [
     seo: {
       title: { fa: "طراحی و توسعه سایت از صفر تا صد", en: "Custom Website & Web App Development" },
       description: {
-        fa: "طراحی و توسعه صفر تا صد سایت و وب‌اپلیکیشن با UI/UX اختصاصی، فرانت‌اند، بک‌اند، استقرار و پشتیبانی.",
-        en: "End-to-end websites and web apps with custom UI/UX, front-end, back-end, deployment, and support.",
+        fa: "طراحی و توسعه صفر تا صد سایت و وب‌اپلیکیشن اختصاصی با UI/UX، فرانت‌اند و بک‌اند سریع، سئوی فنی، استقرار و پشتیبانی؛ از ایده تا لانچ با سوشو استودیو.",
+        en: "End-to-end custom websites and web apps: UI/UX, fast front-end and back-end, technical SEO, deployment, and support, from idea to launch with Sosho Studio.",
       },
     },
     detail: serviceDetail(
@@ -106,8 +106,8 @@ export const SERVICES: Service[] = [
     seo: {
       title: { fa: "طراحی سایت وردپرس و فروشگاه ووکامرس", en: "WordPress & WooCommerce Development" },
       description: {
-        fa: "طراحی اختصاصی سایت وردپرسی و فروشگاه ووکامرس با تمرکز بر سرعت، امنیت، سئو و مدیریت آسان.",
-        en: "Custom WordPress and WooCommerce websites focused on speed, security, SEO, and simple content management.",
+        fa: "طراحی سایت وردپرسی و فروشگاه ووکامرس اختصاصی با تمرکز بر سرعت، امنیت، سئو، درگاه پرداخت و مدیریت آسان محتوا؛ مناسب کسب‌وکارهایی که می‌خواهند سریع راه بیفتند.",
+        en: "Custom WordPress websites and WooCommerce stores built for speed, security, SEO, payments, and easy content management, ideal when you need to launch fast.",
       },
     },
     detail: serviceDetail(
@@ -140,8 +140,8 @@ export const SERVICES: Service[] = [
     seo: {
       title: { fa: "سئو سایت و خدمات گوگل", en: "SEO & Google Growth Services" },
       description: {
-        fa: "سئوی فنی و محتوایی، تحقیق کلمات کلیدی، سرچ کنسول، آنالیتیکس و برنامه رشد شفاف و داده‌محور.",
-        en: "Technical and on-page SEO, keyword research, Search Console, Analytics, and a transparent data-led growth plan.",
+        fa: "سئوی فنی و محتوایی، تحقیق کلمات کلیدی، راه‌اندازی سرچ کنسول و آنالیتیکس، بهینه‌سازی برای GEO و AEO و برنامه رشد شفاف و داده‌محور در گوگل.",
+        en: "Technical and on-page SEO, keyword research, Search Console and Analytics setup, GEO/AEO for AI answers, and a data-led Google growth plan.",
       },
     },
     detail: serviceDetail(
@@ -174,8 +174,8 @@ export const SERVICES: Service[] = [
     seo: {
       title: { fa: "راهکارهای هوش مصنوعی و اتوماسیون کسب‌وکار", en: "AI Integration & Business Automation" },
       description: {
-        fa: "طراحی و نصب چت‌بات، دستیار هوشمند، جست‌وجوی دانشی و اتوماسیون فرایندها متناسب با نیاز کسب‌وکار.",
-        en: "AI chatbots, assistants, knowledge search, and workflow automation designed around real business needs.",
+        fa: "طراحی و پیاده‌سازی چت‌بات و دستیار هوشمند، جست‌وجوی دانشی، اتصال به CRM و اتوماسیون فرایندهای تکراری؛ هوش مصنوعی کاربردی متناسب با نیاز واقعی کسب‌وکار.",
+        en: "AI chatbots and assistants, knowledge search, CRM integrations, and automation of repetitive workflows: practical AI designed around real business needs.",
       },
     },
     detail: serviceDetail(
@@ -208,8 +208,8 @@ export const SERVICES: Service[] = [
     seo: {
       title: { fa: "طراحی و توسعه Web3 و قرارداد هوشمند", en: "Web3 & Smart Contract Development" },
       description: {
-        fa: "طراحی و توسعه dApp، قرارداد هوشمند، اتصال کیف پول و پرداخت ارز دیجیتال با تست و مستندات.",
-        en: "dApp, smart contract, wallet, and crypto payment development with testing and documentation.",
+        fa: "طراحی و توسعه قرارداد هوشمند، dApp، اتصال کیف پول، پرداخت رمزارز و اتصال بلاکچین به ERP و CRM با تست، بازبینی امنیتی و مستندات کامل.",
+        en: "Smart contract, dApp, wallet and crypto payment development, plus blockchain-to-ERP/CRM integration, with testing, security review, and documentation.",
       },
     },
     detail: serviceDetail(
@@ -242,8 +242,8 @@ export const SERVICES: Service[] = [
     seo: {
       title: { fa: "طراحی هویت بصری، رابط و تجربه کاربری", en: "Brand Identity, UI & UX Design" },
       description: {
-        fa: "طراحی هویت بصری، وایرفریم، رابط کاربری، پروتوتایپ و دیزاین سیستم برای وب‌سایت و محصول دیجیتال.",
-        en: "Visual identity, wireframes, UI, prototypes, and design systems for websites and digital products.",
+        fa: "طراحی هویت بصری و لوگو، وایرفریم، رابط و تجربه کاربری، پروتوتایپ تعاملی و دیزاین سیستم برای وب‌سایت و محصول دیجیتال، به فارسی و انگلیسی.",
+        en: "Brand identity and logo, wireframes, UI and UX design, interactive prototypes, and design systems for websites and digital products, in Persian and English.",
       },
     },
     detail: serviceDetail(
@@ -276,8 +276,8 @@ export const SERVICES: Service[] = [
     seo: {
       title: { fa: "پشتیبانی، نگهداری و افزایش سرعت سایت", en: "Website Care, Maintenance & Performance" },
       description: {
-        fa: "پشتیبانی فنی سایت، افزایش سرعت، رفع خطا، امنیت، بکاپ و توسعه قابلیت‌های جدید برای وردپرس و سایت اختصاصی.",
-        en: "Technical support, speed improvements, fixes, security, backups, and ongoing feature development for custom and WordPress sites.",
+        fa: "پشتیبانی فنی سایت، افزایش سرعت و بهبود Core Web Vitals، رفع خطا، امنیت، بکاپ منظم و توسعه قابلیت‌های جدید برای سایت‌های وردپرسی و اختصاصی.",
+        en: "Website care: speed and Core Web Vitals improvements, bug fixes, security hardening, regular backups, and new features for WordPress and custom sites.",
       },
     },
     detail: serviceDetail(

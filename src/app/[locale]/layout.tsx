@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HtmlLangDir from "../components/HtmlLangDir";
-import SalesAssistant from "../components/SalesAssistant";
+import SalesAssistantGate from "../components/SalesAssistant/Gate";
 import { CONTACT_INFO } from "../contact-info";
 import { getDictionary, isLocale, locales, type Locale } from "../i18n";
 import JsonLd from "../components/JsonLd";
@@ -31,7 +31,7 @@ export async function generateMetadata({
     return {
         metadataBase: new URL(siteUrl),
         title: {
-            default: title,
+            absolute: title,
             template: `%s | ${siteName}`,
         },
         description,
@@ -157,7 +157,7 @@ export default async function LocaleLayout({
             <Header locale={locale} labels={dict} />
             {children}
             <Footer locale={locale} />
-            <SalesAssistant locale={locale} />
+            <SalesAssistantGate locale={locale} />
         </>
     );
 }

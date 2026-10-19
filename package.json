@@ -16,7 +16,9 @@
     "deploy:staging": "npm run build:sites && wrangler deploy --config wrangler.staging.jsonc",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "seo:indexnow": "node scripts/indexnow.mjs",
+    "blog:art": "node scripts/generate-blog-art.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

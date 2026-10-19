@@ -146,6 +146,7 @@ All dynamic page routes must remain statically enumerable through `generateStati
 | About/process/stack | `src/app/components/About/index.tsx` | Homepage studio/process/tool content |
 | Header dictionary | `src/app/i18n.ts` | Shared navigation labels only |
 | Blog art | `scripts/generate-blog-art.mjs` | Text-free SVG illustration per post, rendered to `public/blog/<slug>.jpg` (`node scripts/generate-blog-art.mjs`); each post carries `coverImage` and bilingual `coverImageAlt` |
+| SEO/GEO extras | `src/app/llms-content.ts`, `src/app/llms.txt/`, `src/app/llms-full.txt/`, `src/app/blogs/related.ts`, `src/app/components/Services/faq.ts`, `public/<key>.txt` | `/llms.txt` and `/llms-full.txt` for AI answer engines (built from services, service FAQs, and posts); tag-based related posts and article→service links; per-service FAQ rendered with FAQPage schema; IndexNow key file. Posts accept optional `seoTitle`/`seoDescription` when the headline or excerpt is too long or short for search results; bump `updatedAt` on real edits and `SITE_CONTENT_UPDATED_AT` in `src/app/seo.ts` when home or service copy changes (both feed sitemap `lastmod`) |
 | SEO helpers | `src/app/seo.ts`, `components/JsonLd.tsx`, `components/Breadcrumbs.tsx` | Base URL, `@id`s, BreadcrumbList builder, JSON-LD renderer, and visible breadcrumbs. Organization/Person/WebSite are site-wide (locale layout); every page emits its own WebPage node |
 | Contact details | `src/app/contact-info.ts` | Phone, email, WhatsApp, Telegram, Instagram, and LinkedIn used by Header, mobile menu, Footer, the contact section, and JSON-LD `sameAs` |
 | Contact form | `src/app/components/ContactForm/index.tsx` | Bilingual "leave a message" form posting to `/api/contact`; messages are read and answered in `/admin/messages` |
@@ -286,7 +287,9 @@ Production Wrangler uses generated `dist/server/index.js`; local Wrangler uses `
 - `/_next/static/*` overrides the asset-server default (`public, max-age=0, must-revalidate`) with `public, max-age=31536000, immutable`, which is safe because those filenames are content-hashed.
 - `/admin` and `/admin/*` add `X-Robots-Tag: noindex, nofollow, noarchive` and `Cache-Control: no-store` on top of the `noindex` metadata already in `src/app/admin/layout.tsx`.
 
-Cloudflare applies `_headers` only to responses the asset server returns directly, never to responses built inside `worker/index.js`. Because `run_worker_first` is limited to `["/"]`, every HTML page and static asset is served directly and is covered; `/api/*` responses set their own headers in the Worker. The CSP is deliberately `default-src 'self'` — the site loads no third-party resource — with `'unsafe-inline'` for scripts and styles, because a static export cannot issue per-request nonces and the locale layout and blog detail pages both emit inline JSON-LD. Verify with `curl -I https://sosho-studio.net/fa` after any deploy that touches this file.
+- `/fonts/*` is `immutable` for a year (rename a font file when replacing it); `/blog/*`, `/projects/*`, and `/og.jpg` get a week (day for og.jpg) plus `stale-while-revalidate`.
+
+Cloudflare applies `_headers` only to responses the asset server returns directly, never to responses built inside `worker/index.js`. Page routes (`/`, `/fa*`, `/en*`, `/admin*`, `*.html`, `/404`) run the Worker first (see `run_worker_first` in `wrangler.jsonc`), so the Worker re-applies the `/*` security headers itself from `PAGE_SECURITY_HEADERS` (plus the admin `noindex`/`no-store` pair); `tests/routing.test.js` fails if that constant drifts from `public/_headers`, so **change both together**. Hashed bundles, fonts, images, and RSC `.txt` payloads stay asset-first and are covered by `_headers` directly. The CSP is `default-src 'self'` plus the two CloudFront hosts of the hero poster (`img-src`) and video (`media-src`), with `'unsafe-inline'` for scripts and styles because a static export cannot issue per-request nonces and pages emit inline JSON-LD and inline CSS (`experimental.inlineCss`). Verify with `curl -I https://sosho-studio.net/fa` after any deploy that touches this file.
 
 ## Commands
 
@@ -308,6 +311,8 @@ npx wrangler deploy --dry-run
 npm run deploy
 npm run deploy:staging
 npm run blog:cover -- --slug "post-slug" --tag "SEO"
+npm run blog:art                 # regenerate every public/blog/<slug>.jpg illustration (add a scene in scripts/generate-blog-art.mjs for a new post)
+npm run seo:indexnow             # after a production deploy: submit the live sitemap URLs to IndexNow (Bing, Yandex...)
 ```
 
 Command semantics:
@@ -438,22 +443,24 @@ A change is done only when:
 
 These are documented facts, not permission to expand an unrelated task:
 
-1. Root HTML is server-rendered as `lang="fa" dir="rtl"` for all routes. `HtmlLangDir` changes English pages after hydration, so `/en` may initially have incorrect language/direction semantics and a visible direction/font flash.
-2. Unknown service slugs call `notFound()`, while unknown blog slugs render a custom missing-post view without `notFound()`, producing a soft HTTP 200 404.
-3. Locale title templates and service metadata may duplicate the site-name suffix.
-4. Locale-layout homepage `WebPage` JSON-LD also appears on service/blog descendants while still identifying the locale homepage URL.
+1. The shared root layout renders `lang="fa" dir="rtl"`; `scripts/build-sites.mjs` rewrites every exported `/en` HTML file to `lang="en" dir="ltr"` (and `HtmlLangDir` keeps them in sync after hydration). Keep that rewrite if the export layout changes.
+2. Unknown URLs are answered by the Worker with the exported `404.html` (`src/app/not-found.tsx`) and a real `404` status plus `x-robots-tag: noindex`; the blog page's in-component missing-post view only matters in `next dev`.
+3. Fixed: the locale layout title is `absolute` and service pages no longer add the brand themselves, so titles carry the brand once.
+4. Fixed: only Organization, founder Person, and WebSite are site-wide; each page (home, blog index, article, service) emits its own WebPage/CollectionPage node.
 5. `LanguageSwitch` replaces only the first path segment, drops query strings/hashes, and assumes identical localized slugs.
 6. New services do not automatically update fixed Hero modules or the locale-layout offer catalog.
 7. The mobile menu handles Escape, initial focus, and scroll locking, but lacks a full focus trap and trigger-focus restoration.
-8. There are no route-level `loading.tsx`, `error.tsx`, or `not-found.tsx` files.
-9. Contact and SEO constants are duplicated across layouts and components.
+8. There are no route-level `loading.tsx` or `error.tsx` files; the only `not-found.tsx` is the root one used for `404.html`.
+9. Contact details live in `src/app/contact-info.ts` and SEO constants in `src/app/seo.ts` / `src/app/seo-content.ts`; a few legacy literals (for example the Instagram URL in the locale layout) remain.
 10. There is no deterministic pricing engine or browser E2E suite.
 11. The production D1 database (`sosho-sales`) is provisioned and its UUID is set in `wrangler.jsonc`. ArvanCloud `ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET` are set to real values and the credentials are stored as Worker secrets; remaining pre-deploy steps are tracked in "Production provisioning status" above.
 12. The Sales Chat OpenAI model, Workers AI content models, and Meta Graph version are configurable; external compatibility must be reviewed before production changes.
 13. Content generation creates bundles and one private main image for an approved campaign; text overlay, scheduling, and social publishing are intentionally not implemented.
 14. Telegram sends generated-image previews by reading the private ArvanCloud object and uploading it directly with multipart; social publishing is not implemented.
 15. Cloudflare R2 is not usable on this account (R2 requires enabling billing in the Cloudflare dashboard, which rejects the owner's card); private campaign media storage uses ArvanCloud Object Storage instead (`worker/arvan-storage.js`, S3-compatible via `aws4fetch`, path-style URLs). The production bucket `soshosite` and its credentials are provisioned; a staging bucket is not — `sosho-site-staging` has its own separate secret store and still needs one before staging image generation works.
-16. RSC prefetch 404s in the browser console on `/fa` and `/en`. The static export writes the dynamic-segment payload as a nested path (`fa/__next.$d$locale/__PAGE__.txt`, which serves 200) while the Next client runtime requests the same segment dot-joined (`fa/__next.$d$locale.__PAGE__.txt`, which 404s). This is a Next `output: export` mismatch on the `[locale]` dynamic route, not a Cloudflare or `_headers` problem, and it predates the 16.3.4 bump. Effect is limited to console noise, one wasted request per prefetch, and `<Link>` prefetch not warming the cache; navigation itself falls back correctly. Re-check after each Next upgrade before attempting a workaround.
+16. RSC prefetch payloads: the static export writes dynamic-segment payloads as nested paths (`fa/__next.$d$locale/__PAGE__.txt`) while the Next client requests them dot-joined (`fa/__next.$d$locale.__PAGE__.txt`). `scripts/build-sites.mjs` mirrors every nested payload to the dot-joined name, which removes the console 404s and lets `<Link>` prefetch work. Re-check after each Next upgrade; drop the mirror step once Next writes the requested names itself.
+17. The homepage hero video (36 MB) and poster are hot-linked from the provider's CloudFront hosts, whose prompt forbids downloading or self-hosting them. The poster is the mobile LCP element; the clip loads only after `load`, never under data-saver/slow connections or reduced motion, and pauses off-screen. Self-hosting a compressed copy is the biggest remaining performance win but needs the provider's permission or an owned video.
+18. Cloudflare zone settings that affect SEO live outside the repo: `Always Use HTTPS` is on (set via API on 2026-10-19), while the Cloudflare-managed robots.txt prefix and AI Crawl Control block training crawlers (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot...) with a 403. That is an owner decision; search/answer crawlers (OAI-SearchBot, ChatGPT-User, PerplexityBot, Claude-SearchBot, Googlebot, Bingbot) are allowed. The current API token cannot read bot settings or edit redirect rules.
 
 ## Change discipline
 

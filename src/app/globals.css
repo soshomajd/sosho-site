@@ -17,7 +17,8 @@
  */
 @font-face {
   font-family: "IRANYekan";
-  src: url("/fonts/iranyekan/iranyekan-light.woff") format("woff");
+  src: url("/fonts/iranyekan/iranyekan-light.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekan-light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -26,7 +27,8 @@
 
 @font-face {
   font-family: "IRANYekan";
-  src: url("/fonts/iranyekan/iranyekan-regular.woff") format("woff");
+  src: url("/fonts/iranyekan/iranyekan-regular.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekan-regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -35,7 +37,8 @@
 
 @font-face {
   font-family: "IRANYekan";
-  src: url("/fonts/iranyekan/iranyekan-medium.woff") format("woff");
+  src: url("/fonts/iranyekan/iranyekan-medium.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekan-medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -44,7 +47,8 @@
 
 @font-face {
   font-family: "IRANYekan";
-  src: url("/fonts/iranyekan/iranyekan-bold.woff") format("woff");
+  src: url("/fonts/iranyekan/iranyekan-bold.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekan-bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -53,7 +57,8 @@
 
 @font-face {
   font-family: "IRANYekan";
-  src: url("/fonts/iranyekan/iranyekan-extrabold.woff") format("woff");
+  src: url("/fonts/iranyekan/iranyekan-extrabold.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekan-extrabold.woff") format("woff");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -62,7 +67,8 @@
 
 @font-face {
   font-family: "IRANYekan";
-  src: url("/fonts/iranyekan/iranyekan-black.woff") format("woff");
+  src: url("/fonts/iranyekan/iranyekan-black.woff2") format("woff2"),
+    url("/fonts/iranyekan/iranyekan-black.woff") format("woff");
   font-weight: 900;
   font-style: normal;
   font-display: swap;

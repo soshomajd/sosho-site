@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/app/blogs/posts";
 import { SERVICES } from "@/app/components/Services/data";
+import { SITE_CONTENT_UPDATED_AT } from "@/app/seo";
 
 export const dynamic = "force-static";
 
@@ -8,7 +9,12 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteUrl.replace(/\/$/, "");
-  const now = new Date();
+  // Real "last changed" dates instead of the build time, so lastmod stays trustworthy.
+  const latestPost = new Date(
+    Math.max(...BLOG_POSTS.map((post) => Date.parse(post.updatedAt ?? post.publishedAt)))
+  );
+  const siteUpdated = new Date(SITE_CONTENT_UPDATED_AT);
+  const homeUpdated = latestPost > siteUpdated ? latestPost : siteUpdated;
   const homeLanguages = {
     fa: `${base}/fa`,
     en: `${base}/en`,
@@ -29,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     return (["fa", "en"] as const).map((locale) => ({
       url: `${base}/${locale}/services/${service.slug}`,
-      lastModified: now,
+      lastModified: siteUpdated,
       changeFrequency: "monthly" as const,
       priority: 0.8,
       alternates: { languages },
@@ -57,28 +63,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: `${base}/fa`,
-      lastModified: now,
+      lastModified: homeUpdated,
       changeFrequency: "weekly",
       priority: 1,
       alternates: { languages: homeLanguages },
     },
     {
       url: `${base}/en`,
-      lastModified: now,
+      lastModified: homeUpdated,
       changeFrequency: "weekly",
       priority: 1,
       alternates: { languages: homeLanguages },
     },
     {
       url: `${base}/fa/blogs`,
-      lastModified: now,
+      lastModified: latestPost,
       changeFrequency: "weekly",
       priority: 0.7,
       alternates: { languages: blogLanguages },
     },
     {
       url: `${base}/en/blogs`,
-      lastModified: now,
+      lastModified: latestPost,
       changeFrequency: "weekly",
       priority: 0.7,
       alternates: { languages: blogLanguages },

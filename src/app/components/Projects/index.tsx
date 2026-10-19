@@ -17,7 +17,7 @@ const PROJECTS: Project[] = [
             en: "Focused information architecture and interface design for faster decisions and smoother operations.",
         },
         service: { fa: "طراحی محصول · توسعه اختصاصی", en: "Product design · Custom development" },
-        imageSrc: "/projects/1.png",
+        imageSrc: "/projects/1.webp",
         imageAlt: { fa: "پیش‌نمایش پروژه مدیریت داشبورد", en: "Admin dashboard preview" },
     },
     {
@@ -27,7 +27,7 @@ const PROJECTS: Project[] = [
             en: "A visual, low-friction experience for discovery, comparison, and booking.",
         },
         service: { fa: "UI/UX · فرانت‌اند", en: "UI/UX · Front-end" },
-        imageSrc: "/projects/2.jpg",
+        imageSrc: "/projects/2.webp",
         imageAlt: { fa: "پیش‌نمایش پروژه Travel و Booking", en: "Travel & booking preview" },
     },
     {
@@ -37,7 +37,7 @@ const PROJECTS: Project[] = [
             en: "A brand-led landing experience for services, featured work, and customer enquiries.",
         },
         service: { fa: "هویت بصری · طراحی سایت", en: "Visual identity · Web design" },
-        imageSrc: "/projects/3.jpg",
+        imageSrc: "/projects/3.webp",
         imageAlt: { fa: "پیش‌نمایش پروژه مزون بانوان", en: "Women’s salon preview" },
     },
 ];
@@ -99,7 +99,6 @@ export default function Projects({ locale }: { locale: Locale }) {
                     locale={locale}
                     project={PROJECTS[0]}
                     className="md:col-span-7 md:row-span-2 min-h-80 md:min-h-105"
-                    priority
                 />
 
                 <ProjectTile

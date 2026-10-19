@@ -42,8 +42,20 @@ export default function Hero({ locale }: { locale: Locale }) {
 
     return (
         <section id="studio-hero" aria-labelledby="studio-hero-title" className="sh-hero">
-            {/* React hoists this into <head>, so the poster is fetched first instead of queueing behind the video. */}
-            <link rel="preload" as="image" href={HERO_POSTER} fetchPriority="high" />
+            {/* The poster is a plain high-priority image in the HTML: the preload scanner finds it at once,
+                it is the LCP element, and (unlike a hoisted preload) it is not re-fetched by other pages
+                that prefetch the homepage. The clip fades in over it once it actually plays. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+                className="sh-art"
+                src={HERO_POSTER}
+                alt=""
+                aria-hidden="true"
+                width={1920}
+                height={1080}
+                fetchPriority="high"
+                decoding="async"
+            />
             <HeroVideo />
             <div className="sh-veil" aria-hidden="true" />
             <div className="sh-fade" aria-hidden="true" />

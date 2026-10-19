@@ -23,7 +23,7 @@ export async function generateMetadata({
     return {
         title:
             locale === "fa"
-                ? "مجله سوشو؛ راهنمای طراحی سایت، سئو، Web3 و هوش مصنوعی"
+                ? "مجله سوشو؛ راهنمای طراحی سایت، سئو و Web3"
                 : "Sosho Insights: Web Design, SEO, Web3 & AI Guides",
         description:
             locale === "fa"
@@ -31,10 +31,10 @@ export async function generateMetadata({
                 : "Practical Sosho Studio guides on web design, WordPress, SEO and Google, web development, smart contracts and Web3, ERP and CRM systems, and AI.",
         alternates: {
             canonical: `/${locale}/blogs`,
-            languages: { fa: "/fa/blogs", en: "/en/blogs" },
+            languages: { fa: "/fa/blogs", en: "/en/blogs", "x-default": "/fa/blogs" },
         },
         openGraph: {
-            title: locale === "fa" ? "مجله سوشو؛ راهنمای طراحی سایت، سئو، Web3 و هوش مصنوعی" : "Sosho Insights: Web Design, SEO, Web3 & AI Guides",
+            title: locale === "fa" ? "مجله سوشو؛ راهنمای طراحی سایت، سئو و Web3" : "Sosho Insights: Web Design, SEO, Web3 & AI Guides",
             description:
                 locale === "fa"
                     ? "راهنماها و تجربه‌های سوشو استودیو درباره طراحی سایت، وردپرس، سئو، Web3 و هوش مصنوعی."

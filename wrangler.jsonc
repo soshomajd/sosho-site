@@ -57,7 +57,9 @@
   "assets": {
     "directory": "dist/client",
     "binding": "ASSETS",
-    "run_worker_first": ["/"]
+    // Pages run the Worker first so it can 301 www/http/trailing-slash/.html to the canonical URL
+    // and serve the 404 page with a real 404 status. Hashed assets (/_next, /fonts, /blog...) stay asset-first.
+    "run_worker_first": ["/", "/fa", "/fa/*", "/en", "/en/*", "/admin", "/admin/*", "/*.html", "/404", "/_not-found", "!/fa/*.txt", "!/en/*.txt"]
   },
   "routes": [
     { "pattern": "sosho-studio.net", "custom_domain": true },

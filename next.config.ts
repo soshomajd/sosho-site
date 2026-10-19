@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   output: isSitesStaticBuild ? "export" : undefined,
   images: isSitesStaticBuild ? { unoptimized: true } : undefined,
+  experimental: {
+    // Ship the (small, ~15 KB gzip) stylesheet inline so first paint does not wait
+    // on separate render-blocking CSS requests.
+    inlineCss: true,
+  },
   ...(!isSitesStaticBuild && workerProxyUrl
     ? {
         async rewrites() {

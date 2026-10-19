@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/app/i18n";
 import { getDictionary, isLocale, locales } from "@/app/i18n";
-import { BLOG_POSTS, getBlogPostBySlug } from "@/app/blogs/posts";
+import { BLOG_POSTS, getBlogPostBySlug, getBlogPostHref } from "@/app/blogs/posts";
+import { relatedPosts, serviceForPost } from "@/app/blogs/related";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
+import { getService } from "@/app/components/Services/data";
 import JsonLd from "@/app/components/JsonLd";
 import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, siteName, websiteId } from "@/app/seo";
 
@@ -52,8 +54,8 @@ export async function generateMetadata({
         };
     }
 
-    const title = post.title[locale];
-    const description = post.excerpt[locale];
+    const title = post.seoTitle?.[locale] ?? post.title[locale];
+    const description = post.seoDescription?.[locale] ?? post.excerpt[locale];
     const articleImage = post.coverImage
         ? { url: new URL(post.coverImage, siteUrl).toString(), width: 1200, height: 630, alt: post.coverImageAlt?.[locale] ?? title }
         : { url: ogImageUrl, width: 1731, height: 909, alt: `${dict.siteName} — ${title}` };
@@ -66,6 +68,7 @@ export async function generateMetadata({
             languages: {
                 fa: `/fa/blogs/${post.slug}`,
                 en: `/en/blogs/${post.slug}`,
+                "x-default": `/fa/blogs/${post.slug}`,
             },
         },
         openGraph: {
@@ -197,11 +200,15 @@ export default async function BlogPostPage({
         );
     }
 
-    const formattedDate = new Date(post.publishedAt).toLocaleDateString(isFa ? "fa-IR" : "en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
+    const formatDate = (value: string) =>
+        new Date(value).toLocaleDateString(isFa ? "fa-IR" : "en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+    const formattedDate = formatDate(post.publishedAt);
+    const service = getService(serviceForPost(post));
+    const related = relatedPosts(post, 3);
 
     return (
         <main id="main-content" tabIndex={-1} className="container py-10 outline-none">
@@ -248,9 +255,18 @@ export default async function BlogPostPage({
                                 {t}
                             </span>
                         ))}
-                        <time dateTime={post.publishedAt} className="ms-auto text-xs text-muted/80">
-                            {formattedDate}
-                        </time>
+                        <span className="ms-auto flex flex-wrap items-center gap-x-3 text-xs text-muted/80">
+                            <span>
+                                {isFa ? "انتشار: " : "Published "}
+                                <time dateTime={post.publishedAt}>{formattedDate}</time>
+                            </span>
+                            {post.updatedAt && post.updatedAt !== post.publishedAt ? (
+                                <span>
+                                    {isFa ? "به‌روزرسانی: " : "Updated "}
+                                    <time dateTime={post.updatedAt}>{formatDate(post.updatedAt)}</time>
+                                </span>
+                            ) : null}
+                        </span>
                     </div>
 
                     <h1 className="mt-4 text-3xl font-extrabold text-foreground md:text-4xl">
@@ -322,6 +338,46 @@ export default async function BlogPostPage({
                 ) : null}
             </div>
             </article>
+
+            <aside aria-label={isFa ? "قدم بعدی و مطالب مرتبط" : "Next step and related reading"} className="mt-10 w-full space-y-8">
+                {service ? (
+                    <div className="flex flex-col gap-4 rounded-2xl border border-accent/25 bg-surface/30 p-6 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+                                {isFa ? "خدمت مرتبط" : "Related service"}
+                            </p>
+                            <p className="mt-2 text-base font-bold text-foreground">{service.title[locale]}</p>
+                            <p className="mt-1 text-sm leading-7 text-muted">{service.short[locale]}</p>
+                        </div>
+                        <Link
+                            href={`/${locale}/services/${service.slug}`}
+                            className="inline-flex h-11 shrink-0 items-center justify-center rounded-full bg-foreground px-5 text-sm font-bold text-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                        >
+                            {isFa ? "دیدن این خدمت" : "View this service"}
+                        </Link>
+                    </div>
+                ) : null}
+
+                {related.length > 0 ? (
+                    <section aria-labelledby="related-posts-title">
+                        <h2 id="related-posts-title" className="text-lg font-semibold text-foreground">
+                            {isFa ? "مقاله‌های مرتبط" : "Related articles"}
+                        </h2>
+                        <ul className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
+                            {related.map((item) => (
+                                <li key={item.slug}>
+                                    <Link
+                                        href={getBlogPostHref(locale, item.slug)}
+                                        className="block h-full rounded-2xl border border-foreground/10 bg-background/10 p-4 text-sm font-semibold leading-7 text-foreground transition-colors hover:border-accent/30 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                                    >
+                                        {item.title[locale]}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                ) : null}
+            </aside>
         </main>
     );
 }

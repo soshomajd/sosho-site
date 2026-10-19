@@ -58,6 +58,16 @@
   background: #03060c;
 }
 
+/* The clip stays invisible until it really plays, so the poster never blinks to black. */
+.sh-video {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.sh-video[data-ready] {
+  opacity: 1;
+}
+
 .sh-veil {
   position: absolute;
   inset: 0;
