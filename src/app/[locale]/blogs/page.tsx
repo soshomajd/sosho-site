@@ -123,7 +123,7 @@ export default async function BlogsPage({
             </header>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                {posts.map((p) => (
+                {posts.map((p, index) => (
                     <article key={p.slug} className="contents">
                     <Link
                         href={getBlogPostHref(locale, p.slug)}
@@ -136,6 +136,7 @@ export default async function BlogsPage({
                                     alt={p.coverImageAlt?.[locale] ?? p.title[locale]}
                                     fill
                                     sizes="(max-width: 768px) 100vw, 50vw"
+                                    priority={index === 0}
                                     className="object-cover transition-transform duration-500 motion-reduce:transition-none group-hover:scale-[1.03]"
                                 />
                             ) : (
