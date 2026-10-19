@@ -10,7 +10,7 @@ The active application is the repository root itself. A former duplicate app was
 
 ## Branch rule (standing owner instruction)
 
-**Do not touch `main` until the owner says the project is complete.** No merging into `main`, no PRs targeting `main`, no pushing to `main`. All work happens on `openai-chats` (or another feature branch the owner names). `main` is read-only reference — `git diff main...openai-chats` is fine. The whole AI sales system, admin dashboard, Telegram, and content/image generation exist only on `openai-chats`; `main` still holds just the older marketing site, and the owner wants the full branch reviewed and finished before it reaches `main`.
+**Updated 2026-10-19:** the owner explicitly asked to merge both `openai-chats` and `3d-scroll-tour` into `main`, and that is done locally (merge commits `e9b1509`, `9bd952a`). `main` is now the complete branch. Pushing `main` and deploying still need the owner's go-ahead each time. The `3d-scroll-tour` components are in the tree but **not wired into the homepage** — the owner rejected the blocked-out look, so `src/app/[locale]/page.tsx` keeps the approved layout. Do not hook the tour up without screenshots the owner has approved first.
 
 ## Environment
 
