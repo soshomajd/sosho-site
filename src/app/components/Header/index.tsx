@@ -86,7 +86,7 @@ export default function Header({
                         width={132}
                         height={44}
                         className="h-auto w-28 sm:w-32"
-                        priority
+                        preload
                     />
                     <span className="hidden rounded-full border border-foreground/10 px-2 py-1 text-[9px] font-bold tracking-[0.22em] text-muted sm:inline-flex">
                         STUDIO

@@ -233,7 +233,8 @@ export default async function BlogPostPage({
                             src={post.coverImage}
                             alt={post.coverImageAlt?.[locale] ?? post.title[locale]}
                             fill
-                            priority
+                            preload
+                            fetchPriority="high"
                             sizes="100vw"
                             className="object-cover"
                         />
