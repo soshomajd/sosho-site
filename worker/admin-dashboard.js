@@ -16,6 +16,7 @@ const CAMPAIGN_STATUSES = new Set([
 ]);
 const LEAD_STATUSES = new Set(["discovery", "qualification", "proposal_ready", "handoff"]);
 const SOURCES = new Set(["website", "instagram"]);
+const CONTACT_STATUSES = new Set(["new", "read", "replied", "archived"]);
 const CONVERSATION_STATUSES = new Set(["active", "closed"]);
 const HANDOFF_FILTERS = new Set(["true", "false"]);
 
@@ -513,6 +514,69 @@ export async function getAdminLeads(db, url) {
     pagination: paginationMeta(page, pageSize, total),
     filters: { status, source },
   };
+}
+
+function contactMessageItem(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    contact: row.contact,
+    message: row.message,
+    locale: row.locale,
+    status: row.status,
+    createdAt: row.created_at,
+    readAt: row.read_at ?? null,
+    repliedAt: row.replied_at ?? null,
+  };
+}
+
+const CONTACT_MESSAGE_COLUMNS =
+  "id, name, contact, message, locale, status, created_at, read_at, replied_at";
+
+// Visitor messages are shown in full: the owner has to read and answer them.
+// They stay behind the signed admin session and are never written to logs.
+export async function getAdminContactMessages(db, url) {
+  ensureAllowedParams(url, new Set(["page", "limit", "status"]));
+  const { page, pageSize, offset } = paginationFrom(url);
+  const status = parseEnum(url.searchParams.get("status"), CONTACT_STATUSES);
+  const whereSql = status ? "WHERE status = ?" : "";
+  const bindings = status ? [status] : [];
+  const [countResult, listResult, newResult] = await db.batch([
+    db.prepare(`SELECT COUNT(*) AS total FROM contact_messages ${whereSql}`).bind(...bindings),
+    db.prepare(
+      `SELECT ${CONTACT_MESSAGE_COLUMNS}
+       FROM contact_messages ${whereSql}
+       ORDER BY created_at DESC, id DESC
+       LIMIT ? OFFSET ?`
+    ).bind(...bindings, pageSize, offset),
+    db.prepare("SELECT COUNT(*) AS total FROM contact_messages WHERE status = 'new'"),
+  ]);
+  const total = Number(firstResult(countResult).total ?? 0);
+  return {
+    items: resultRows(listResult).map(contactMessageItem),
+    pagination: paginationMeta(page, pageSize, total),
+    filters: { status },
+    newTotal: Number(firstResult(newResult).total ?? 0),
+  };
+}
+
+export async function updateAdminContactMessageStatus(db, id, status) {
+  if (!CONTACT_STATUSES.has(status)) throw new ServiceError("invalid_request", { status: 400 });
+  const timestamp = new Date().toISOString();
+  const row = await db
+    .prepare(
+      `UPDATE contact_messages
+       SET status = ?1,
+           updated_at = ?2,
+           read_at = CASE WHEN ?1 IN ('read', 'replied') THEN COALESCE(read_at, ?2) ELSE read_at END,
+           replied_at = CASE WHEN ?1 = 'replied' THEN COALESCE(replied_at, ?2) ELSE replied_at END
+       WHERE id = ?3
+       RETURNING ${CONTACT_MESSAGE_COLUMNS}`
+    )
+    .bind(status, timestamp, id)
+    .first();
+  if (!row) throw new ServiceError("not_found", { status: 404 });
+  return contactMessageItem(row);
 }
 
 export async function getAdminConversations(db, url) {

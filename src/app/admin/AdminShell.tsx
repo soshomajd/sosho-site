@@ -12,6 +12,7 @@ type AuthState = "checking" | "authenticated" | "unauthenticated" | "unavailable
 const navigation = [
   { href: "/admin", label: "نمای کلی" },
   { href: "/admin/campaigns", label: "کمپین‌ها" },
+  { href: "/admin/messages", label: "پیام‌ها" },
   { href: "/admin/leads", label: "سرنخ‌ها" },
   { href: "/admin/conversations", label: "گفتگوها" },
 ];

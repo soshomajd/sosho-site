@@ -182,6 +182,20 @@ export type ContentMediaRow = {
   superseded_at: string | null;
 };
 
+export type ContactMessageRow = {
+  id: string;
+  name: string;
+  contact: string;
+  message: string;
+  locale: "fa" | "en";
+  status: "new" | "read" | "replied" | "archived";
+  created_at: string;
+  updated_at: string;
+  read_at: string | null;
+  replied_at: string | null;
+  expires_at: string;
+};
+
 export type LeadRequirements = {
   businessName: string | null;
   businessActivity: string | null;

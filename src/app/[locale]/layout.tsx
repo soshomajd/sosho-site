@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HtmlLangDir from "../components/HtmlLangDir";
 import SalesAssistant from "../components/SalesAssistant";
+import { CONTACT_INFO } from "../contact-info";
 import { getDictionary, isLocale, locales, type Locale } from "../i18n";
 import "../globals.css";
 
@@ -145,7 +146,7 @@ function createStructuredData(locale: Locale) {
                 email: "mailto:soheilshokouhimajd@gmail.com",
                 telephone: "+989120265102",
                 areaServed: "Worldwide",
-                sameAs: [instagramUrl],
+                sameAs: [instagramUrl, CONTACT_INFO.linkedinUrl],
                 contactPoint: {
                     "@type": "ContactPoint",
                     contactType: "sales",

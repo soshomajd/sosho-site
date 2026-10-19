@@ -224,6 +224,55 @@ export function validateWebsiteChatInput(input) {
   };
 }
 
+const CONTACT_MESSAGE_KEY_SET = new Set(["name", "contact", "message", "locale", "company"]);
+const CONTACT_EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u;
+const CONTACT_PHONE_PATTERN = /^\+?[\d۰-۹٠-٩\s().-]+$/u;
+const CONTROL_CHARACTERS = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/gu;
+
+export function isContactMethod(value) {
+  if (CONTACT_EMAIL_PATTERN.test(value)) return true;
+  if (!CONTACT_PHONE_PATTERN.test(value)) return false;
+  const digits = value.replace(/[^\d۰-۹٠-٩]/gu, "");
+  return digits.length >= 7 && digits.length <= 15;
+}
+
+/**
+ * Public "leave a message" form. `company` is a honeypot: real visitors never
+ * see or fill it, so a non-empty value is reported as `spam` and the caller
+ * must silently drop the message instead of storing it.
+ */
+export function validateContactMessageInput(input) {
+  const issues = [];
+  if (!isPlainRecord(input)) {
+    return { ok: false, issues: [{ path: "$", code: "object_required" }] };
+  }
+  for (const key of Object.keys(input)) {
+    if (!CONTACT_MESSAGE_KEY_SET.has(key)) issues.push({ path: key, code: "unknown_field" });
+  }
+  if (!WEBSITE_LOCALES.has(input.locale)) {
+    issues.push({ path: "locale", code: "invalid_locale" });
+  }
+  const text = (value) => (typeof value === "string" ? value : null);
+  const name = text(input.name)?.replace(/\s+/gu, " ").trim() ?? null;
+  const contact = text(input.contact)?.trim() ?? null;
+  const message = text(input.message)?.replace(CONTROL_CHARACTERS, "").trim() ?? null;
+  if (name === null || name.length < 2 || name.length > 80) {
+    issues.push({ path: "name", code: "invalid_length" });
+  }
+  if (contact === null || contact.length < 5 || contact.length > 120 || !isContactMethod(contact)) {
+    issues.push({ path: "contact", code: "invalid_contact" });
+  }
+  if (message === null || message.length < 10 || message.length > 2000) {
+    issues.push({ path: "message", code: "invalid_length" });
+  }
+  if (input.company !== undefined && typeof input.company !== "string") {
+    issues.push({ path: "company", code: "string_required" });
+  }
+  if (issues.length > 0) return { ok: false, issues };
+  const spam = typeof input.company === "string" && input.company.trim().length > 0;
+  return { ok: true, spam, value: { name, contact, message, locale: input.locale } };
+}
+
 function hasExactKeys(value, keys) {
   const actual = Object.keys(value).sort();
   const expected = [...keys].sort();

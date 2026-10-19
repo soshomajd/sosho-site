@@ -145,6 +145,8 @@ All dynamic page routes must remain statically enumerable through `generateStati
 | Projects | `src/app/components/Projects/index.tsx` | Hard-coded project records backed by `public/projects/*` |
 | About/process/stack | `src/app/components/About/index.tsx` | Homepage studio/process/tool content |
 | Header dictionary | `src/app/i18n.ts` | Shared navigation labels only |
+| Contact details | `src/app/contact-info.ts` | Phone, email, WhatsApp, Instagram, and LinkedIn used by Header, mobile menu, Footer, the contact section, and JSON-LD `sameAs` |
+| Contact form | `src/app/components/ContactForm/index.tsx` | Bilingual "leave a message" form posting to `/api/contact`; messages are read and answered in `/admin/messages` |
 | Sales UI | `src/app/components/SalesAssistant/index.tsx` | Client state, localized UI copy, API contract, and quick replies |
 | Sales backend | `worker/index.js` | Prompt, schema, persistence, fallback, rate limit, webhook, and API routing |
 
@@ -187,6 +189,7 @@ Instagram webhook
 - `GET /api/health`: checks D1 connectivity, required tables/columns, and required provider settings; returns `200` ready or `503` not ready without exposing values.
 - `GET /api/sales/status`: public `{ "available": boolean }` — `true` only when `OPENAI_API_KEY` is set. The website `SalesAssistant` widget polls this on mount and renders nothing until it is `true`, so the launch is chat-free until OpenAI billing is arranged; setting the secret later makes the widget appear with no redeploy.
 - `POST /api/sales/chat`: website chat endpoint.
+- `POST /api/contact`: public "leave a message" form (`name`, `contact` = phone or email, `message`, `locale`, honeypot `company`). Requires an allowed Origin and a JSON body, rejects unknown fields, is rate limited per hashed IP (`CONTACT_IP_HOURLY_LIMIT`, default 5/hour) plus a global daily cap (`CONTACT_DAILY_LIMIT`, default 200), and fails closed with `503` when D1 is down. A filled honeypot returns `201` without storing anything. The message is PII: never log it.
 - `POST /api/content/campaigns`: creates an admin-owned Persian content campaign.
 - `POST /api/content/campaigns/:id/generate`: generates and validates its content bundle.
 - `POST /api/content/campaigns/:id/generate-image`: generates one idempotent private main image for an approved campaign.
@@ -197,6 +200,8 @@ Instagram webhook
 - `GET /api/admin/campaigns`, `/api/admin/leads`, and `/api/admin/conversations`: return filtered, paginated, read-only admin views.
 - `GET /api/admin/campaigns/:id`: returns one safe full Campaign bundle, provenance, approval, and media state.
 - `POST /api/admin/campaigns/:id/{approve|reject|regenerate}`: performs session-only, CSRF-protected, idempotent Campaign actions.
+- `GET /api/admin/contact-messages`: lists visitor messages (newest first, max 50 per page, optional `status` filter, plus the `new` count). Unlike leads, these are shown in full because the owner must read and answer them; they stay behind the admin session.
+- `POST /api/admin/contact-messages/:id`: sets one message to `new|read|replied|archived` (`{ "status": ... }`) with session, Origin, JSON, and CSRF validation.
 - `GET /api/admin/conversations/:id`: returns at most 50 redacted message previews for one conversation.
 - `POST /api/admin/conversations/:id/take-over`: atomically claims a requested Human Handoff with session, Origin, JSON, CSRF, and idempotency validation.
 - `GET /api/meta/webhook`: Meta verification handshake.
@@ -219,6 +224,7 @@ The ordered SQL migrations create and evolve:
 - `conversation_action_audit`: safe actor, timestamp, transition, outcome, and idempotency records for handoff requests and take-over.
 - `telegram_updates`: deduplicated Telegram update/callback processing records.
 - `telegram_notifications`: deduplicated content preview and sales notification delivery state.
+- `contact_messages`: website contact-form messages (name, phone/email, text, locale, `new|read|replied|archived` status, read/replied timestamps) with an `expires_at` removed by the daily retention cron (`CONTACT_MESSAGE_RETENTION_DAYS`, default 365).
 
 `db/migrations/*.sql` is the only runtime schema source of truth. `db/schema.ts` is a TypeScript mirror and never creates tables. Worker requests must not execute DDL or bootstrap schema. Use standard `wrangler d1 migrations apply` commands and keep the SQL, type mirror, queries, tests, build, and setup docs synchronized.
 

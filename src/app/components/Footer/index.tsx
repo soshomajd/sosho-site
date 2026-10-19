@@ -4,25 +4,32 @@ import type { Locale } from "@/app/i18n";
 import {
     SiInstagram,
     SiGmail,
+    SiLinkedin,
     SiWhatsapp,
 } from "react-icons/si";
 import { BsFillTelephoneOutboundFill } from "react-icons/bs";
+import { CONTACT_INFO } from "@/app/contact-info";
 
 const SOCIAL_LINKS = [
     {
         label: "Email",
-        href: "mailto:soheilshokouhimajd@gmail.com",
+        href: `mailto:${CONTACT_INFO.email}`,
         Icon: SiGmail,
     },
     {
         label: "WhatsApp",
-        href: "https://wa.me/989120265102",
+        href: CONTACT_INFO.whatsappUrl,
         Icon: SiWhatsapp,
     },
     {
         label: "Sosho Studio on Instagram",
-        href: "https://www.instagram.com/sosho_studio/",
+        href: CONTACT_INFO.instagramUrl,
         Icon: SiInstagram,
+    },
+    {
+        label: "Soheil Shokouhi Majd on LinkedIn",
+        href: CONTACT_INFO.linkedinUrl,
+        Icon: SiLinkedin,
     },
 ] as const;
 
@@ -103,21 +110,21 @@ export default function Footer({ locale }: { locale: Locale }) {
 
                         <div className="mt-3 flex flex-col gap-3">
                             <a
-                                href="tel:+989120265102"
+                                href={CONTACT_INFO.phoneHref}
                                 className="-ms-2 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
                                 aria-label={isFa ? "تماس تلفنی" : "Phone call"}
                             >
                                 <BsFillTelephoneOutboundFill className="h-5 w-5 shrink-0" aria-hidden="true" />
-                                <span dir="ltr" className="text-sm">+98 912 026 5102</span>
+                                <span dir="ltr" className="text-sm">{CONTACT_INFO.phoneDisplay}</span>
                             </a>
 
                             <a
-                                href="mailto:soheilshokouhimajd@gmail.com"
+                                href={`mailto:${CONTACT_INFO.email}`}
                                 className="-ms-2 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
                                 aria-label={isFa ? "ارسال ایمیل" : "Send email"}
                             >
                                 <SiGmail className="h-5 w-5 shrink-0" aria-hidden="true" />
-                                <span dir="ltr" className="text-sm wrap-anywhere">soheilshokouhimajd@gmail.com</span>
+                                <span dir="ltr" className="text-sm wrap-anywhere">{CONTACT_INFO.email}</span>
                             </a>
 
                             <div className="-ms-2 flex flex-wrap items-center gap-1 pt-1">

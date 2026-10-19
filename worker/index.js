@@ -15,6 +15,7 @@ import {
   parseJson,
   readOpenAIErrorDiagnostics,
   retryWithBackoff,
+  validateContactMessageInput,
   validateSalesResponse,
   validateWebsiteChatInput,
 } from "./core.js";
@@ -25,12 +26,14 @@ import {
   getAdminCampaigns,
   getAdminCampaignDetail,
   getAdminConversationDetail,
+  getAdminContactMessages,
   getAdminConversations,
   getAdminLeads,
   getAdminOverview,
   requireAdminBearer,
   requireAdminSessionAction,
   requireDashboardAdmin,
+  updateAdminContactMessageStatus,
   verifyAdminToken,
 } from "./admin-dashboard.js";
 import {
@@ -72,8 +75,11 @@ const REQUIRED_TABLES = [
   "conversation_action_audit",
   "telegram_updates",
   "telegram_notifications",
+  "contact_messages",
 ];
 
+const CONTACT_MESSAGE_ID_PATTERN =
+  /^contact_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
 const CAMPAIGN_ID_PATTERN =
   /^campaign_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
 const IDEMPOTENCY_KEY_PATTERN =
@@ -1049,6 +1055,55 @@ async function enforceAdminLoginRateLimit(request, env) {
   });
 }
 
+function clientIpAddress(request, env) {
+  return (
+    request.headers.get("cf-connecting-ip") ||
+    (env.ENVIRONMENT !== "production"
+      ? request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
+      : null) ||
+    "unknown"
+  );
+}
+
+async function enforceContactRateLimit(env, ipAddress) {
+  const db = requireDatabase(env);
+  const ipResult = await consumeRateLimit(db, {
+    key: await hashedRateKey(env, "contact_ip", ipAddress),
+    limit: getIntegerEnv(env, "CONTACT_IP_HOURLY_LIMIT", 5, { min: 1, max: 1000 }),
+    windowSeconds: 3600,
+  });
+  if (!ipResult.allowed) return { allowed: false, scope: "ip" };
+  const globalResult = await consumeRateLimit(db, {
+    key: "contact:global:daily",
+    limit: getIntegerEnv(env, "CONTACT_DAILY_LIMIT", 200, { min: 1, max: 100_000 }),
+    windowSeconds: 86_400,
+  });
+  return { allowed: globalResult.allowed, scope: "daily" };
+}
+
+async function createContactMessage(env, value) {
+  const timestamp = now();
+  const id = createId("contact");
+  await requireDatabase(env)
+    .prepare(
+      `INSERT INTO contact_messages (
+        id, name, contact, message, locale, status, created_at, updated_at, expires_at
+      ) VALUES (?, ?, ?, ?, ?, 'new', ?, ?, ?)`
+    )
+    .bind(
+      id,
+      value.name,
+      value.contact,
+      value.message,
+      value.locale,
+      timestamp,
+      timestamp,
+      addDaysIso(new Date(), getRetentionDays(env, "CONTACT_MESSAGE_RETENTION_DAYS", 365))
+    )
+    .run();
+  return id;
+}
+
 async function enforceWebsiteIpRateLimit(env, input) {
   const db = requireDatabase(env);
   const ipKey = await hashedRateKey(env, "website_ip", input.ipAddress || "unknown");
@@ -1864,6 +1919,7 @@ export async function runRetentionCleanup(env, requestId) {
       .bind(current, current, current),
     db.prepare("DELETE FROM webhook_events WHERE expires_at <= ? OR created_at <= ?").bind(current, webhookCutoff),
     db.prepare("DELETE FROM rate_limit_counters WHERE expires_at <= ?").bind(current),
+    db.prepare("DELETE FROM contact_messages WHERE expires_at <= ?").bind(current),
   ]);
   const leads = await db
     .prepare(
@@ -2154,7 +2210,7 @@ async function getReadiness(env) {
              'leads', 'conversations', 'messages', 'webhook_events', 'rate_limit_counters',
              'content_campaigns', 'content_items', 'content_media',
              'campaign_action_audit', 'conversation_action_audit',
-             'telegram_updates', 'telegram_notifications'
+             'telegram_updates', 'telegram_notifications', 'contact_messages'
            )`
         ).first();
         migrationsReady = Number(tables?.total ?? 0) === REQUIRED_TABLES.length;
@@ -2208,6 +2264,10 @@ async function getReadiness(env) {
               `SELECT operation_key, conversation_id, action, actor_type, actor_key,
                       from_state, to_state, status, outcome, error_code
                FROM conversation_action_audit LIMIT 1`
+            ),
+            env.DB.prepare(
+              `SELECT name, contact, message, locale, status, read_at, replied_at, expires_at
+               FROM contact_messages LIMIT 1`
             ),
           ]);
         }
@@ -2406,6 +2466,43 @@ export async function handleApi(request, env, ctx, url, requestId) {
       await requireDashboardAdmin(request, env);
       return json(await getAdminLeads(requireDatabase(env), url), 200, requestId);
     }
+    if (url.pathname === "/api/admin/contact-messages") {
+      if (request.method !== "GET") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      await requireDashboardAdmin(request, env);
+      return json(await getAdminContactMessages(requireDatabase(env), url), 200, requestId);
+    }
+    const adminContactRoute = url.pathname.match(/^\/api\/admin\/contact-messages\/([^/]+)$/u);
+    if (adminContactRoute) {
+      if (request.method !== "POST") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      let messageId;
+      try {
+        messageId = decodeURIComponent(adminContactRoute[1]);
+      } catch {
+        throw new ServiceError("invalid_contact_message_id", { status: 400 });
+      }
+      if (!CONTACT_MESSAGE_ID_PATTERN.test(messageId)) {
+        throw new ServiceError("invalid_contact_message_id", { status: 400 });
+      }
+      const origin = request.headers.get("origin");
+      if (!origin || !isAllowedWebsiteRequest(request, env)) {
+        throw new ServiceError("origin_not_allowed", { status: 403 });
+      }
+      await requireAdminSessionAction(request, env);
+      const body = await readJsonBody(request, 1024);
+      if (!isPlainRecord(body) || Object.keys(body).length !== 1 || typeof body.status !== "string") {
+        throw new ServiceError("invalid_request", { status: 400 });
+      }
+      const item = await updateAdminContactMessageStatus(
+        requireDatabase(env),
+        messageId,
+        body.status
+      );
+      return json({ item }, 200, requestId);
+    }
     if (url.pathname === "/api/admin/conversations") {
       if (request.method !== "GET") {
         return json({ error: "method_not_allowed" }, 405, requestId);
@@ -2546,6 +2643,25 @@ export async function handleApi(request, env, ctx, url, requestId) {
       const eventIds = await registerInstagramEvents(env, payload, requestId);
       ctx.waitUntil(processWebhookIds(env, eventIds, requestId));
       return json({ accepted: true, eventCount: eventIds.length }, 200, requestId);
+    }
+    if (url.pathname === "/api/contact" && request.method === "POST") {
+      requireDatabase(env);
+      if (!isAllowedWebsiteRequest(request, env)) {
+        throw new ServiceError("origin_not_allowed", { status: 403 });
+      }
+      const body = await readJsonBody(request, 8192);
+      const validation = validateContactMessageInput(body);
+      if (!validation.ok) {
+        return json({ error: "invalid_request", issues: validation.issues }, 400, requestId);
+      }
+      const rateLimit = await enforceContactRateLimit(env, clientIpAddress(request, env));
+      if (!rateLimit.allowed) {
+        logEvent("warn", "contact_rate_limited", { requestId, code: rateLimit.scope });
+        throw new ServiceError("rate_limited", { status: 429 });
+      }
+      // Honeypot hit: answer like a success so bots learn nothing, store nothing.
+      if (!validation.spam) await createContactMessage(env, validation.value);
+      return json({ received: true }, 201, requestId);
     }
     if (url.pathname === "/api/sales/status" && request.method === "GET") {
       // Public boolean the website widget polls on mount so it can stay hidden
