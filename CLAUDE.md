@@ -85,7 +85,7 @@ Two deployables in one package:
 
 Editing these drives cards / static params / sitemap / SEO — see the table in `AGENTS.md`. Key ones: `src/app/components/Services/data.ts`, `src/app/blogs/posts.ts`, `src/app/components/Projects/index.tsx`, `src/app/i18n.ts` (nav labels only). Slugs are shared across locales and must stay stable (add aliases deliberately). New services do **not** auto-update the fixed Hero modules or the locale-layout offer catalog.
 
-`/admin` is a Persian RTL dashboard (`src/app/admin/`, `noindex`); client components talk to `/api/admin/*`. Server Components are the default everywhere; add `"use client"` only for hooks/browser APIs/WebGL. `Hero3DClient.tsx` is the `ssr: false` boundary around the Three.js scene — keep that separation.
+`/admin` is a Persian RTL dashboard (`src/app/admin/`, `noindex`); client components talk to `/api/admin/*`. Server Components are the default everywhere; add `"use client"` only for hooks/browser APIs/WebGL. The homepage hero is a looping video (`Hero/HeroVideo.tsx`); the old WebGL hero was removed.
 
 ## Non-negotiable invariants (see AGENTS.md "AI sales system" for the full list)
 

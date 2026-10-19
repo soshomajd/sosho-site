@@ -113,8 +113,8 @@ All dynamic page routes must remain statically enumerable through `generateStati
 - `src/app/[locale]/layout.tsx` owns locale metadata, JSON-LD, Header, Footer, `HtmlLangDir`, and `SalesAssistant`.
 - `src/app/[locale]/page.tsx` composes Hero, Services, Projects, About, BlogPreview, and Contact.
 - Server Components are the default. Add `"use client"` only for hooks, browser APIs, portals, or interactive/WebGL behavior.
-- Existing client boundaries include `MobileMenu`, `LanguageSwitch`, `HtmlLangDir`, `Hero3DClient`, `Hero3D`, and `SalesAssistant`.
-- `Hero3DClient.tsx` is the `ssr: false` boundary around the WebGL scene. Preserve that separation.
+- Existing client boundaries include `MobileMenu`, `LanguageSwitch`, `HtmlLangDir`, `HeroVideo`, `ContactForm`, and `SalesAssistant`.
+- The homepage hero (`src/app/components/Hero`) is a looping video (`HeroVideo.tsx`, remote CloudFront URLs allowed in `public/_headers` CSP: `media-src` and `img-src`) with `hero.css` carrying the entrance animation; it replaced the old WebGL scene. Site font is IRANYekan from `public/fonts/iranyekan` (licensed commercial font — see the license note before redistributing).
 
 ### Localization and RTL/LTR
 

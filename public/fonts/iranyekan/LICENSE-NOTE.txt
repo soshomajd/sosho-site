@@ -1,0 +1,12 @@
+IRANYekan (version 3.0, "web fanum" build) by Moslem Ebrahimi / FontIran.
+
+The CSS header shipped with these files states:
+  Copyright: Commercial/Proprietary Software
+  "IRANYekan fonts are considered proprietary software. To gain information
+   about the laws regarding the use of these fonts, please visit www.fontiran.com"
+
+These files were taken from the npm package @alibaba-aero/iranyekan, not from
+FontIran directly. Before this site is served commercially, confirm that a
+license covering web use exists for Sosho Studio (or replace the font, e.g.
+with the open-source Vazirmatn, by editing the @font-face blocks in
+src/app/globals.css and the preload links in src/app/layout.tsx).

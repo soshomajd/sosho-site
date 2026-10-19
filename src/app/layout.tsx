@@ -99,6 +99,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/iranyekan/iranyekan-regular.woff"
+          as="font"
+          type="font/woff"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/iranyekan/iranyekan-bold.woff"
+          as="font"
+          type="font/woff"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="antialiased">
         {children}
       </body>
