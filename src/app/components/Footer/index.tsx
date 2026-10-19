@@ -5,6 +5,7 @@ import {
     SiInstagram,
     SiGmail,
     SiLinkedin,
+    SiTelegram,
     SiWhatsapp,
 } from "react-icons/si";
 import { BsFillTelephoneOutboundFill } from "react-icons/bs";
@@ -20,6 +21,11 @@ const SOCIAL_LINKS = [
         label: "WhatsApp",
         href: CONTACT_INFO.whatsappUrl,
         Icon: SiWhatsapp,
+    },
+    {
+        label: "Telegram",
+        href: CONTACT_INFO.telegramUrl,
+        Icon: SiTelegram,
     },
     {
         label: "Sosho Studio on Instagram",

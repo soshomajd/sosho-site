@@ -1,5 +1,5 @@
 import { FiArrowUpRight, FiPhone } from "react-icons/fi";
-import { SiGmail, SiInstagram, SiLinkedin, SiWhatsapp } from "react-icons/si";
+import { SiGmail, SiInstagram, SiLinkedin, SiTelegram, SiWhatsapp } from "react-icons/si";
 
 import type { Locale } from "../i18n";
 import { CONTACT_INFO } from "../contact-info";
@@ -24,6 +24,13 @@ const contactChannels = [
     Icon: SiWhatsapp,
     label: { fa: "واتس‌اپ", en: "WhatsApp" },
     value: CONTACT_INFO.phoneDisplay,
+  },
+  {
+    href: CONTACT_INFO.telegramUrl,
+    external: true,
+    Icon: SiTelegram,
+    label: { fa: "تلگرام", en: "Telegram" },
+    value: CONTACT_INFO.telegramHandle,
   },
   {
     href: CONTACT_INFO.linkedinUrl,

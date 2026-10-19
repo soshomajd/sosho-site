@@ -6,5 +6,7 @@ export const CONTACT_INFO = {
   email: "soheilshokouhimajd@gmail.com",
   whatsappUrl: "https://wa.me/989120265102",
   instagramUrl: "https://www.instagram.com/sosho_studio/",
+  telegramUrl: "https://t.me/s0h3ill",
+  telegramHandle: "@s0h3ill",
   linkedinUrl: "https://www.linkedin.com/in/soheil-shokouhi-majd-100144244",
 } as const;

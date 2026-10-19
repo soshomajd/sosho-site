@@ -145,7 +145,7 @@ All dynamic page routes must remain statically enumerable through `generateStati
 | Projects | `src/app/components/Projects/index.tsx` | Hard-coded project records backed by `public/projects/*` |
 | About/process/stack | `src/app/components/About/index.tsx` | Homepage studio/process/tool content |
 | Header dictionary | `src/app/i18n.ts` | Shared navigation labels only |
-| Contact details | `src/app/contact-info.ts` | Phone, email, WhatsApp, Instagram, and LinkedIn used by Header, mobile menu, Footer, the contact section, and JSON-LD `sameAs` |
+| Contact details | `src/app/contact-info.ts` | Phone, email, WhatsApp, Telegram, Instagram, and LinkedIn used by Header, mobile menu, Footer, the contact section, and JSON-LD `sameAs` |
 | Contact form | `src/app/components/ContactForm/index.tsx` | Bilingual "leave a message" form posting to `/api/contact`; messages are read and answered in `/admin/messages` |
 | Sales UI | `src/app/components/SalesAssistant/index.tsx` | Client state, localized UI copy, API contract, and quick replies |
 | Sales backend | `worker/index.js` | Prompt, schema, persistence, fallback, rate limit, webhook, and API routing |

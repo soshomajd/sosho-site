@@ -146,7 +146,7 @@ function createStructuredData(locale: Locale) {
                 email: "mailto:soheilshokouhimajd@gmail.com",
                 telephone: "+989120265102",
                 areaServed: "Worldwide",
-                sameAs: [instagramUrl, CONTACT_INFO.linkedinUrl],
+                sameAs: [instagramUrl, CONTACT_INFO.linkedinUrl, CONTACT_INFO.telegramUrl],
                 contactPoint: {
                     "@type": "ContactPoint",
                     contactType: "sales",

@@ -6,6 +6,7 @@ import MobileMenu from "./MobileMenu";
 import {
     SiInstagram,
     SiLinkedin,
+    SiTelegram,
     SiWhatsapp,
 } from "react-icons/si";
 import { FiPhone } from "react-icons/fi";
@@ -34,6 +35,12 @@ const SOCIAL_LINKS = [
         label: "WhatsApp",
         href: CONTACT_INFO.whatsappUrl,
         Icon: SiWhatsapp,
+        external: true,
+    },
+    {
+        label: "Telegram",
+        href: CONTACT_INFO.telegramUrl,
+        Icon: SiTelegram,
         external: true,
     },
     {
