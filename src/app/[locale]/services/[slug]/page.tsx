@@ -3,7 +3,10 @@ import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { FiArrowUpRight } from "react-icons/fi";
 
+import Breadcrumbs from "@/app/components/Breadcrumbs";
+import JsonLd from "@/app/components/JsonLd";
 import { getDictionary, isLocale, type Locale } from "@/app/i18n";
+import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, websiteId } from "@/app/seo";
 import {
     getService,
     SERVICES,
@@ -138,15 +141,51 @@ export default async function ServicePage({
     const process = locale === "fa" ? detail.process.fa : detail.process.en;
     const deliverables = locale === "fa" ? detail.deliverables.fa : detail.deliverables.en;
 
+    const pageUrl = `${baseUrl}/${locale}/services/${service.slug}`;
+    const seoDescription = locale === "fa" ? service.seo.description.fa : service.seo.description.en;
+    const crumbs = [
+        { name: isFa ? "خانه" : "Home", path: `/${locale}` },
+        { name: isFa ? "خدمات" : "Services", path: `/${locale}#services` },
+        { name: title, path: `/${locale}/services/${service.slug}` },
+    ];
+
     return (
-        <main className="container items-stretch gap-8 py-14 md:py-20">
+        <main id="main-content" tabIndex={-1} className="container items-stretch gap-8 py-14 outline-none md:py-20">
+            <JsonLd
+                data={{
+                    "@context": "https://schema.org",
+                    "@graph": [
+                        {
+                            "@type": "Service",
+                            "@id": `${pageUrl}#service`,
+                            name: title,
+                            serviceType: title,
+                            description: seoDescription,
+                            url: pageUrl,
+                            inLanguage: languageTag(locale),
+                            areaServed: "Worldwide",
+                            provider: { "@id": organizationId },
+                        },
+                        {
+                            "@type": "WebPage",
+                            "@id": `${pageUrl}#webpage`,
+                            url: pageUrl,
+                            name: title,
+                            description: seoDescription,
+                            inLanguage: languageTag(locale),
+                            isPartOf: { "@id": websiteId },
+                            breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+                            mainEntity: { "@id": `${pageUrl}#service` },
+                        },
+                        breadcrumbJsonLd([crumbs[0], crumbs[2]]),
+                    ],
+                }}
+            />
             <div className="flex flex-wrap items-center justify-between gap-4">
-                <Link
-                    href={`/${locale}#services`}
-                    className="text-sm font-bold text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-                >
-                    {isFa ? "بازگشت به همه خدمات" : "Back to all services"}
-                </Link>
+                <Breadcrumbs
+                    locale={locale}
+                    items={crumbs.map((crumb) => ({ name: crumb.name, href: crumb.path }))}
+                />
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
                     SOSHO STUDIO
                 </span>
@@ -198,15 +237,13 @@ export default async function ServicePage({
                         {isFa ? "هدفتان را بفرستید تا مسیر مناسب و محدوده اولیه را با هم مشخص کنیم." : "Share the goal and we’ll help define the right approach and an initial scope."}
                     </p>
                 </div>
-                <a
-                    href="https://www.instagram.com/sosho_studio/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <Link
+                    href={`/${locale}#contact`}
                     className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-foreground px-6 text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
                 >
                     {isFa ? "شروع گفتگو" : "Start a conversation"}
-                    <FiArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                </a>
+                    <FiArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
+                </Link>
             </section>
         </main>
     );

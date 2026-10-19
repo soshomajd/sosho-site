@@ -6,6 +6,9 @@ import { CONTACT_INFO } from "../contact-info";
 import About from "../components/About";
 import BlogPreview from "../components/BlogPreview";
 import ContactForm from "../components/ContactForm";
+import JsonLd from "../components/JsonLd";
+import { baseUrl, languageTag, organizationId, websiteId } from "../seo";
+import { seoContent } from "../seo-content";
 import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import Services from "../components/Services";
@@ -87,8 +90,25 @@ export default async function Home({
   const { locale } = await params;
   const isFa = locale === "fa";
 
+  const pageUrl = `${baseUrl}/${locale}`;
+  const content = seoContent[locale];
+
   return (
-    <main>
+    <main id="main-content" tabIndex={-1} className="outline-none">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": `${pageUrl}#webpage`,
+          url: pageUrl,
+          name: content.title,
+          description: content.description,
+          inLanguage: languageTag(locale),
+          isPartOf: { "@id": websiteId },
+          about: { "@id": organizationId },
+          primaryImageOfPage: `${baseUrl}/og.jpg`,
+        }}
+      />
       <Hero locale={locale} />
 
       <div className="container items-stretch gap-24 py-20 md:gap-32 md:py-28">

@@ -5,71 +5,15 @@ import HtmlLangDir from "../components/HtmlLangDir";
 import SalesAssistant from "../components/SalesAssistant";
 import { CONTACT_INFO } from "../contact-info";
 import { getDictionary, isLocale, locales, type Locale } from "../i18n";
+import JsonLd from "../components/JsonLd";
+import { baseUrl, organizationId, siteName, websiteId } from "../seo";
+import { seoContent } from "../seo-content";
 import "../globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const baseUrl = siteUrl.replace(/\/$/, "");
 const ogImageUrl = new URL("/og.jpg", siteUrl).toString();
-const siteName = "Sosho Studio";
 const instagramUrl = "https://www.instagram.com/sosho_studio/";
-
-const seoContent: Record<
-    Locale,
-    {
-        title: string;
-        description: string;
-        keywords: string[];
-        catalogName: string;
-        services: string[];
-    }
-> = {
-    fa: {
-        title: "سوشو استودیو | طراحی سایت، وردپرس، سئو، Web3 و هوش مصنوعی",
-        description:
-            "سوشو استودیو از ایده تا اجرا، طراحی و توسعه سایت‌های اختصاصی و وردپرسی، سئو و رشد در گوگل، راهکارهای Web3 و یکپارچه‌سازی هوش مصنوعی را انجام می‌دهد.",
-        keywords: [
-            "سوشو استودیو",
-            "طراحی سایت",
-            "طراحی سایت اختصاصی",
-            "طراحی سایت وردپرس",
-            "سئو سایت",
-            "سئو گوگل",
-            "طراحی Web3",
-            "هوش مصنوعی",
-        ],
-        catalogName: "خدمات طراحی، توسعه و رشد دیجیتال",
-        services: [
-            "طراحی و توسعه سایت اختصاصی",
-            "طراحی و توسعه سایت وردپرسی",
-            "سئو و بهینه‌سازی برای گوگل",
-            "طراحی و توسعه تجربه‌های Web3",
-            "اتوماسیون و یکپارچه‌سازی هوش مصنوعی",
-        ],
-    },
-    en: {
-        title: "Sosho Studio | Web Design, WordPress, SEO, Web3 & AI",
-        description:
-            "Sosho Studio delivers end-to-end web design and development, WordPress, SEO and Google growth, Web3 experiences, and practical AI integrations.",
-        keywords: [
-            "Sosho Studio",
-            "web design studio",
-            "custom web development",
-            "WordPress design",
-            "SEO services",
-            "Google SEO",
-            "Web3 development",
-            "AI integration",
-        ],
-        catalogName: "Web design, development and growth services",
-        services: [
-            "Custom website design and development",
-            "WordPress design and development",
-            "SEO and Google optimization",
-            "Web3 experience design and development",
-            "AI automation and integration",
-        ],
-    },
-};
+const founderId = `${baseUrl}/#founder`;
 
 export function generateStaticParams() {
     return locales.map((locale) => ({ locale }));
@@ -129,29 +73,30 @@ export async function generateMetadata({
 
 function createStructuredData(locale: Locale) {
     const content = seoContent[locale];
-    const language = locale === "fa" ? "fa-IR" : "en-US";
-    const pageUrl = `${baseUrl}/${locale}`;
 
+    // Organization, founder and WebSite are site-wide. The per-page WebPage node
+    // lives in each page, so descendants never claim to be the locale homepage.
     return {
         "@context": "https://schema.org",
         "@graph": [
             {
                 "@type": "Organization",
-                "@id": `${baseUrl}/#organization`,
+                "@id": organizationId,
                 name: siteName,
                 alternateName: "سوشو استودیو",
                 url: baseUrl,
                 logo: `${baseUrl}/sosho.svg`,
                 description: content.description,
-                email: "mailto:soheilshokouhimajd@gmail.com",
-                telephone: "+989120265102",
+                email: CONTACT_INFO.email,
+                telephone: CONTACT_INFO.phoneE164,
                 areaServed: "Worldwide",
+                founder: { "@id": founderId },
                 sameAs: [instagramUrl, CONTACT_INFO.linkedinUrl, CONTACT_INFO.telegramUrl],
                 contactPoint: {
                     "@type": "ContactPoint",
                     contactType: "sales",
-                    telephone: "+989120265102",
-                    email: "soheilshokouhimajd@gmail.com",
+                    telephone: CONTACT_INFO.phoneE164,
+                    email: CONTACT_INFO.email,
                     availableLanguage: ["Persian", "English"],
                 },
                 hasOfferCatalog: {
@@ -167,23 +112,21 @@ function createStructuredData(locale: Locale) {
                 },
             },
             {
+                "@type": "Person",
+                "@id": founderId,
+                name: "Soheil Shokouhi Majd",
+                jobTitle: locale === "fa" ? "مؤسس سوشو استودیو" : "Founder of Sosho Studio",
+                worksFor: { "@id": organizationId },
+                sameAs: [CONTACT_INFO.linkedinUrl, CONTACT_INFO.telegramUrl],
+            },
+            {
                 "@type": "WebSite",
-                "@id": `${baseUrl}/#website`,
+                "@id": websiteId,
                 url: baseUrl,
                 name: siteName,
                 alternateName: "سوشو استودیو",
                 inLanguage: ["fa-IR", "en-US"],
-                publisher: { "@id": `${baseUrl}/#organization` },
-            },
-            {
-                "@type": "WebPage",
-                "@id": `${pageUrl}/#webpage`,
-                url: pageUrl,
-                name: content.title,
-                description: content.description,
-                inLanguage: language,
-                isPartOf: { "@id": `${baseUrl}/#website` },
-                about: { "@id": `${baseUrl}/#organization` },
+                publisher: { "@id": organizationId },
             },
         ],
     };
@@ -203,13 +146,13 @@ export default async function LocaleLayout({
 
     return (
         <>
-            <script
-                id={`sosho-studio-structured-data-${locale}`}
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
-                }}
-            />
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-foreground focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-background"
+            >
+                {locale === "fa" ? "پرش به محتوای اصلی" : "Skip to main content"}
+            </a>
+            <JsonLd id={`sosho-studio-structured-data-${locale}`} data={structuredData} />
             <HtmlLangDir lang={locale} dir={locale === "fa" ? "rtl" : "ltr"} />
             <Header locale={locale} labels={dict} />
             {children}

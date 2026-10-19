@@ -145,6 +145,8 @@ All dynamic page routes must remain statically enumerable through `generateStati
 | Projects | `src/app/components/Projects/index.tsx` | Hard-coded project records backed by `public/projects/*` |
 | About/process/stack | `src/app/components/About/index.tsx` | Homepage studio/process/tool content |
 | Header dictionary | `src/app/i18n.ts` | Shared navigation labels only |
+| Blog art | `scripts/generate-blog-art.mjs` | Text-free SVG illustration per post, rendered to `public/blog/<slug>.jpg` (`node scripts/generate-blog-art.mjs`); each post carries `coverImage` and bilingual `coverImageAlt` |
+| SEO helpers | `src/app/seo.ts`, `components/JsonLd.tsx`, `components/Breadcrumbs.tsx` | Base URL, `@id`s, BreadcrumbList builder, JSON-LD renderer, and visible breadcrumbs. Organization/Person/WebSite are site-wide (locale layout); every page emits its own WebPage node |
 | Contact details | `src/app/contact-info.ts` | Phone, email, WhatsApp, Telegram, Instagram, and LinkedIn used by Header, mobile menu, Footer, the contact section, and JSON-LD `sameAs` |
 | Contact form | `src/app/components/ContactForm/index.tsx` | Bilingual "leave a message" form posting to `/api/contact`; messages are read and answered in `/admin/messages` |
 | Sales UI | `src/app/components/SalesAssistant/index.tsx` | Client state, localized UI copy, API contract, and quick replies |

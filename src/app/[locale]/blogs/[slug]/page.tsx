@@ -4,11 +4,23 @@ import Link from "next/link";
 import type { Locale } from "@/app/i18n";
 import { getDictionary, isLocale, locales } from "@/app/i18n";
 import { BLOG_POSTS, getBlogPostBySlug } from "@/app/blogs/posts";
+import Breadcrumbs from "@/app/components/Breadcrumbs";
+import JsonLd from "@/app/components/JsonLd";
+import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, siteName, websiteId } from "@/app/seo";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const baseUrl = siteUrl.replace(/\/$/, "");
 const ogImageUrl = new URL("/og.jpg", siteUrl).toString();
-const siteName = "Sosho Studio";
+
+type Post = NonNullable<ReturnType<typeof getBlogPostBySlug>>;
+
+function countWords(post: Post, locale: Locale) {
+    const parts: string[] = [post.title[locale], post.excerpt[locale], post.directAnswer?.[locale] ?? ""];
+    for (const section of post.sections) {
+        parts.push(section.heading[locale], ...section.paragraphs[locale], ...(section.bullets?.[locale] ?? []));
+    }
+    for (const item of post.faq ?? []) parts.push(item.question[locale], item.answer[locale]);
+    return parts.join(" ").split(/\s+/u).filter(Boolean).length;
+}
 
 export function generateStaticParams() {
     return locales.flatMap((locale) => BLOG_POSTS.map((p) => ({ locale, slug: p.slug })));
@@ -78,38 +90,67 @@ export async function generateMetadata({
     };
 }
 
-function ArticleStructuredData({ locale, post }: { locale: Locale; post: NonNullable<ReturnType<typeof getBlogPostBySlug>> }) {
+function ArticleStructuredData({ locale, post }: { locale: Locale; post: Post }) {
+    const isFa = locale === "fa";
     const title = post.title[locale];
     const description = post.excerpt[locale];
     const pageUrl = `${baseUrl}/${locale}/blogs/${post.slug}`;
     const imageUrl = post.coverImage ? new URL(post.coverImage, siteUrl).toString() : ogImageUrl;
+    const crumbs = [
+        { name: isFa ? "خانه" : "Home", path: `/${locale}` },
+        { name: isFa ? "مجله" : "Insights", path: `/${locale}/blogs` },
+        { name: title, path: `/${locale}/blogs/${post.slug}` },
+    ];
 
     const data = {
         "@context": "https://schema.org",
         "@graph": [
             {
-                "@type": "Article",
+                "@type": "BlogPosting",
                 "@id": `${pageUrl}#article`,
                 headline: title,
                 description,
-                image: [imageUrl],
+                image: {
+                    "@type": "ImageObject",
+                    url: imageUrl,
+                    width: 1200,
+                    height: 630,
+                    caption: post.coverImageAlt?.[locale] ?? title,
+                },
                 datePublished: post.publishedAt,
                 dateModified: post.updatedAt ?? post.publishedAt,
-                inLanguage: locale === "fa" ? "fa-IR" : "en-US",
-                mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
-                author: { "@type": "Organization", name: siteName, url: baseUrl },
+                inLanguage: languageTag(locale),
+                wordCount: countWords(post, locale),
+                articleSection: post.tags[0],
+                keywords: post.tags.join(", "),
+                mainEntityOfPage: { "@type": "WebPage", "@id": `${pageUrl}#webpage` },
+                isPartOf: { "@id": `${baseUrl}/${locale}/blogs#blog` },
+                author: { "@type": "Organization", "@id": organizationId, name: siteName, url: baseUrl },
                 publisher: {
                     "@type": "Organization",
+                    "@id": organizationId,
                     name: siteName,
                     logo: { "@type": "ImageObject", url: `${baseUrl}/sosho.svg` },
                 },
-                keywords: post.tags.join(", "),
             },
+            {
+                "@type": "WebPage",
+                "@id": `${pageUrl}#webpage`,
+                url: pageUrl,
+                name: title,
+                description,
+                inLanguage: languageTag(locale),
+                isPartOf: { "@id": websiteId },
+                primaryImageOfPage: imageUrl,
+                breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+            },
+            breadcrumbJsonLd(crumbs),
             ...(post.faq && post.faq.length > 0
                 ? [
                         {
                             "@type": "FAQPage",
                             "@id": `${pageUrl}#faq`,
+                            inLanguage: languageTag(locale),
                             mainEntity: post.faq.map((item) => ({
                                 "@type": "Question",
                                 name: item.question[locale],
@@ -121,12 +162,7 @@ function ArticleStructuredData({ locale, post }: { locale: Locale; post: NonNull
         ],
     };
 
-    return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
-        />
-    );
+    return <JsonLd data={data} />;
 }
 
 export default async function BlogPostPage({
@@ -142,7 +178,7 @@ export default async function BlogPostPage({
 
     if (!post) {
         return (
-            <main className="container py-10">
+            <main id="main-content" tabIndex={-1} className="container py-10 outline-none">
                 <h1 className="text-3xl font-extrabold text-foreground">
                     {isFa ? "مقاله پیدا نشد" : "Post not found"}
                 </h1>
@@ -168,20 +204,23 @@ export default async function BlogPostPage({
     });
 
     return (
-        <main className="container py-10">
+        <main id="main-content" tabIndex={-1} className="container py-10 outline-none">
             <ArticleStructuredData locale={locale} post={post} />
 
-            <div className="mb-6">
-                <Link
-                    href={`/${locale}/blogs`}
-                    className="text-sm font-semibold text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-                >
-                    {isFa ? "← بازگشت به بلاگ" : "← Back to blog"}
-                </Link>
+            <div className="mb-6 w-full">
+                <Breadcrumbs
+                    locale={locale}
+                    items={[
+                        { name: isFa ? "خانه" : "Home", href: `/${locale}` },
+                        { name: isFa ? "مجله" : "Insights", href: `/${locale}/blogs` },
+                        { name: post.title[locale], href: `/${locale}/blogs/${post.slug}` },
+                    ]}
+                />
             </div>
 
+            <article className="w-full">
             <header className="overflow-hidden rounded-2xl border border-foreground/10 bg-surface/10">
-                <div className="relative aspect-video w-full overflow-hidden bg-background/30 sm:aspect-21/9">
+                <figure className="relative m-0 aspect-video w-full overflow-hidden bg-background/30 sm:aspect-21/9">
                     {post.coverImage ? (
                         <Image
                             src={post.coverImage}
@@ -197,7 +236,7 @@ export default async function BlogPostPage({
                             className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(99,102,241,0.35),transparent_55%),radial-gradient(circle_at_80%_75%,rgba(34,211,238,0.28),transparent_55%),linear-gradient(180deg,#0b0f14_0%,#090d12_100%)]"
                         />
                     )}
-                </div>
+                </figure>
 
                 <div className="p-6">
                     <div className="flex flex-wrap items-center gap-2">
@@ -224,17 +263,20 @@ export default async function BlogPostPage({
             </header>
 
             {post.directAnswer ? (
-                <div className="mt-6 rounded-2xl border border-accent/25 bg-accent/6 p-6">
+                <section
+                    aria-label={isFa ? "پاسخ کوتاه" : "Quick answer"}
+                    className="mt-6 rounded-2xl border border-accent/25 bg-accent/6 p-6"
+                >
                     <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
                         {isFa ? "پاسخ کوتاه" : "Quick answer"}
                     </p>
                     <p className="mt-2 text-sm leading-8 text-foreground/90 md:text-base">
                         {post.directAnswer[locale]}
                     </p>
-                </div>
+                </section>
             ) : null}
 
-            <article className="mt-8 space-y-8">
+            <div className="mt-8 space-y-8">
                 {post.sections.map((s) => (
                     <section key={s.heading.en} className="rounded-2xl border border-foreground/10 bg-background/10 p-6">
                         <h2 className="text-lg font-semibold text-foreground">{s.heading[locale]}</h2>
@@ -278,6 +320,7 @@ export default async function BlogPostPage({
                         </div>
                     </section>
                 ) : null}
+            </div>
             </article>
         </main>
     );

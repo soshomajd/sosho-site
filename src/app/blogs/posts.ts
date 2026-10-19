@@ -40,6 +40,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["WordPress", "Strategy"],
     publishedAt: "2026-02-03",
+    coverImage: "/blog/wordpress-or-custom-website.jpg",
+    coverImageAlt: {
+      fa: "مقایسه یک قالب آماده وردپرس با کد سفارشی؛ دو پنجره مرورگر کنار هم",
+      en: "A WordPress-style template layout beside a custom-code window, compared side by side",
+    },
     sections: [
       {
         heading: { fa: "با تکنولوژی شروع نکنید", en: "Do not start with the technology" },
@@ -90,6 +95,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["SEO", "Google"],
     publishedAt: "2026-02-17",
+    coverImage: "/blog/google-seo-launch-checklist.jpg",
+    coverImageAlt: {
+      fa: "چک‌لیست سئو و ذره‌بین روی نمودار رشد، نمادی از آماده‌سازی سایت برای گوگل",
+      en: "An SEO launch checklist next to a magnifying glass over a rising growth chart",
+    },
     sections: [
       {
         heading: { fa: "اول مطمئن شوید سایت قابل کشف است", en: "First, make sure the site is discoverable" },
@@ -134,6 +144,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["AI", "Automation"],
     publishedAt: "2026-03-03",
+    coverImage: "/blog/practical-ai-automation.jpg",
+    coverImageAlt: {
+      fa: "شبکه‌ای از گره‌های متصل به یک تراشه هوش مصنوعی در مرکز",
+      en: "Connected nodes around a central AI chip, representing workflow automation",
+    },
     sections: [
       {
         heading: { fa: "از مدل شروع نکنید؛ از اصطکاک شروع کنید", en: "Start with friction, not a model" },
@@ -184,6 +199,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Next.js", "Frontend"],
     publishedAt: "2026-03-17",
+    coverImage: "/blog/nextjs-performance-app-router.jpg",
+    coverImageAlt: {
+      fa: "سرعت‌سنج با عقربه در ناحیه سریع و نماد رعد برای عملکرد Next.js",
+      en: "A speed gauge with the needle in the fast zone and a lightning bolt, for Next.js performance",
+    },
     sections: [
       {
         heading: {
@@ -236,6 +256,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["UI/UX", "Tailwind"],
     publishedAt: "2026-03-31",
+    coverImage: "/blog/tailwind-clean-ui-patterns.jpg",
+    coverImageAlt: {
+      fa: "کارت‌هایی از دکمه، کلید، فیلد ورودی و پروفایل که الگوهای رابط کاربری تمیز را نشان می‌دهند",
+      en: "UI component cards (button, toggles, input field, profile) showing clean interface patterns",
+    },
     sections: [
       {
         heading: { fa: "از توکن‌ها شروع کن", en: "Start with tokens" },
@@ -283,6 +308,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Node.js", "Backend"],
     publishedAt: "2026-04-14",
+    coverImage: "/blog/nodejs-clean-api-architecture.jpg",
+    coverImageAlt: {
+      fa: "لایه‌های مسیر، سرویس و پایگاه داده در معماری تمیز API با Node.js",
+      en: "Route, service and database layers in a clean Node.js API architecture",
+    },
     sections: [
       {
         heading: { fa: "لایه‌ها را جدا کن", en: "Separate layers" },
@@ -315,6 +345,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["MongoDB", "Backend"],
     publishedAt: "2026-04-28",
+    coverImage: "/blog/mongodb-data-modeling.jpg",
+    coverImageAlt: {
+      fa: "سندهای JSON متصل با ارجاع و یک سند تو در تو برای مدل‌سازی داده در MongoDB",
+      en: "JSON documents linked by references and an embedded sub-document, modelling data in MongoDB",
+    },
     sections: [
       {
         heading: { fa: "Embed یا Reference؟", en: "Embed or reference?" },
@@ -343,6 +378,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Security", "Backend"],
     publishedAt: "2026-05-12",
+    coverImage: "/blog/api-validation-security.jpg",
+    coverImageAlt: {
+      fa: "سپر امنیتی با علامت تأیید که درخواست معتبر را عبور می‌دهد و درخواست نامعتبر را رد می‌کند",
+      en: "A security shield with a checkmark letting valid requests through and blocking an invalid one",
+    },
     sections: [
       {
         heading: {
@@ -388,6 +428,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Solidity", "Blockchain"],
     publishedAt: "2026-05-26",
+    coverImage: "/blog/solidity-contract-design.jpg",
+    coverImageAlt: {
+      fa: "سند کد قرارداد هوشمند با قفل دسترسی و نماد اتریوم",
+      en: "A smart contract code document with an access lock and an Ethereum-style diamond",
+    },
     sections: [
       {
         heading: { fa: "طراحی برای تست", en: "Design for tests" },
@@ -416,6 +461,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Hardhat", "Solidity"],
     publishedAt: "2026-06-09",
+    coverImage: "/blog/hardhat-testing-deploy.jpg",
+    coverImageAlt: {
+      fa: "فهرست تست‌های موفق و زنجیره‌ای از بلوک‌ها که استقرار مرحله‌ای قرارداد را نشان می‌دهد",
+      en: "A list of passing tests followed by a chain of blocks, showing staged contract deployment",
+    },
     sections: [
       {
         heading: {
@@ -451,6 +501,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["ethers.js", "Blockchain"],
     publishedAt: "2026-06-23",
+    coverImage: "/blog/ethersjs-wallets-transactions.jpg",
+    coverImageAlt: {
+      fa: "کیف پول، تراکنش امضاشده و دو گره شبکه در حال انتقال آن",
+      en: "A wallet, a signed transaction and two network nodes exchanging it",
+    },
     sections: [
       {
         heading: {
@@ -482,6 +537,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Frontend", "Backend"],
     publishedAt: "2026-07-07",
+    coverImage: "/blog/frontend-backend-api-contracts.jpg",
+    coverImageAlt: {
+      fa: "رابط کاربری و سرور که با نشان قرارداد API به هم وصل شده‌اند",
+      en: "A frontend window and a server stack connected by an API contract badge",
+    },
     sections: [
       {
         heading: { fa: "قرارداد را ثابت نگه دار", en: "Keep contracts stable" },
@@ -522,6 +582,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Website", "SEO"],
     publishedAt: "2026-07-21",
+    coverImage: "/blog/fast-seo-websites.jpg",
+    coverImageAlt: {
+      fa: "سه حلقه امتیاز عملکرد، سئو و دسترس‌پذیری داخل یک صفحه مرورگر",
+      en: "Three score rings for performance, SEO and accessibility inside a browser window",
+    },
     sections: [
       {
         heading: {
@@ -701,10 +766,10 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Web3", "Blockchain", "Smart Contract", "DEX", "CEX"],
     publishedAt: "2026-10-19",
-    coverImage: "/blog/smart-contracts-web3-dex-cex-guide.png",
+    coverImage: "/blog/smart-contracts-web3-dex-cex-guide.jpg",
     coverImageAlt: {
-      fa: "پوستر مقاله قرارداد هوشمند و Web3: ساخت DEX و CEX",
-      en: "Cover art for Smart Contracts and Web3: building DEXs and CEXs",
+      fa: "دفتر سفارش صرافی متمرکز کنار منحنی استخر نقدینگی صرافی غیرمتمرکز",
+      en: "A centralized exchange order book beside the liquidity-pool curve of a decentralized exchange",
     },
     directAnswer: {
       fa: "قرارداد هوشمند برنامه‌ای است که روی بلاکچین اجرا می‌شود و بدون واسطه، شرط‌هایی را که از قبل نوشته شده اعمال می‌کند. صرافی متمرکز (CEX) مثل یک بانک عمل می‌کند: دارایی کاربر را نزد خود نگه می‌دارد و سفارش‌ها را روی سرورهای خودش تطبیق می‌دهد. صرافی غیرمتمرکز (DEX) همین کار را با قراردادهای هوشمند انجام می‌دهد و کاربر دارایی‌اش را خودش نگه می‌دارد. ساخت CEX بیشتر مسئله امنیت زیرساخت، نقدینگی و الزامات قانونی است؛ ساخت DEX بیشتر مسئله امنیت کد و جذب نقدینگی. هیچ‌کدام برای همه مناسب نیستند و انتخاب درست به مخاطب، بازار هدف و توان نگهداری تیم بستگی دارد.",
@@ -1009,10 +1074,10 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["ERP", "Business", "Automation"],
     publishedAt: "2026-10-19",
-    coverImage: "/blog/erp-system-guide-buy-or-build.png",
+    coverImage: "/blog/erp-system-guide-buy-or-build.jpg",
     coverImageAlt: {
-      fa: "پوستر مقاله سیستم ERP: خرید یا ساخت اختصاصی",
-      en: "Cover art for the ERP guide: buy or build",
+      fa: "هاب مرکزی ERP متصل به ماژول‌های مالی، انبار، فروش، مشتری و تولید",
+      en: "A central ERP hub connected to finance, inventory, sales, customer and operations modules",
     },
     directAnswer: {
       fa: "ERP (برنامه‌ریزی منابع سازمان) نرم‌افزاری است که بخش‌های مختلف کسب‌وکار مثل حسابداری، انبار، خرید، فروش و منابع انسانی را روی یک پایگاه داده مشترک و یکپارچه اجرا می‌کند تا اطلاعات فقط یک‌بار ثبت شود و همه از همان یک منبع درست استفاده کنند. وقتی با اکسل و چند نرم‌افزار جدا، ناهماهنگی موجودی، گزارش دیر یا ثبت تکراری اطلاعات دارید، زمان بررسی ERP است. در اغلب موارد، پیاده‌سازی یک محصول آماده یا متن‌باز با سفارشی‌سازی محدود، منطقی‌تر از ساخت کامل از صفر است؛ ساخت اختصاصی فقط وقتی ارزش دارد که فرایندهای شما واقعاً با محصولات موجود جور نباشد.",
@@ -1267,6 +1332,270 @@ export const BLOG_POSTS: BlogPost[] = [
         answer: {
           fa: "بله. با API یا افزونه‌های اختصاصی می‌توان موجودی، سفارش‌ها و وضعیت پرداخت را بین فروشگاه آنلاین و ERP به‌صورت خودکار همگام کرد و ثبت دستی را حذف نمود.",
           en: "Yes. Through an API or custom plugins, stock, orders, and payment status can sync automatically between the online store and the ERP, removing manual entry.",
+        },
+      },
+    ],
+  },
+  {
+    slug: "smart-contract-erp-crm-integration",
+    title: {
+      fa: "قرارداد هوشمند و ERP/CRM: چطور داده بلاکچین را به فرایند کسب‌وکار وصل کنیم؟",
+      en: "Smart Contracts Meet ERP and CRM: Connecting On-Chain Data to Your Business Processes",
+    },
+    excerpt: {
+      fa: "معماری، سناریوهای واقعی، حسابداری، امنیت و نکات ایران و بازار جهانی برای اتصال قرارداد هوشمند به ERP و CRM بدون ثبت تکراری و ناهماهنگی.",
+      en: "Architecture, real scenarios, accounting, security, and Iran versus global considerations for wiring smart contracts into ERP and CRM without duplicate or mismatched records.",
+    },
+    tags: ["Web3", "ERP", "CRM", "Smart Contract", "Integration"],
+    publishedAt: "2026-10-19",
+    coverImage: "/blog/smart-contract-erp-crm-integration.jpg",
+    coverImageAlt: {
+      fa: "زنجیره‌ای از بلوک‌ها که از طریق یک دروازه به داشبورد ERP و CRM وصل می‌شود",
+      en: "A chain of blocks connected through a gateway to an ERP and CRM dashboard",
+    },
+    directAnswer: {
+      fa: "برای اتصال قرارداد هوشمند به ERP یا CRM، قرارداد را منبع رویداد بدانید: یک سرویس میانی (listener یا indexer) رویدادهای معتبر را بعد از تعداد کافی تأیید از بلاکچین می‌خواند، تبدیل و اعتبارسنجی می‌کند و با API به ERP (سند حسابداری، موجودی، تسویه) یا CRM (وضعیت معامله و مشتری) می‌فرستد. ERP و CRM مستقیم به بلاکچین وصل نمی‌شوند و کلید خصوصی هرگز نباید داخل آن‌ها باشد؛ لایه میانی با کلید یکتای تراکنش، مدیریت خطا، تطبیق دوره‌ای و پایش جلوی ثبت تکراری و ناهماهنگی را می‌گیرد.",
+      en: "To connect a smart contract to an ERP or CRM, treat the contract as an event source: a middle service (a listener or indexer) reads valid events from the chain after enough confirmations, validates and maps them, and posts them through an API to the ERP (accounting entries, stock, settlement) or the CRM (deal and customer status). The ERP and CRM never talk to the blockchain directly and private keys must never live inside them; the middle layer prevents duplicate and mismatched records through unique transaction keys, error handling, periodic reconciliation, and monitoring.",
+    },
+    sections: [
+      {
+        heading: {
+          fa: "چرا قرارداد هوشمند را به ERP و CRM وصل کنیم؟",
+          en: "Why connect a smart contract to your ERP and CRM?",
+        },
+        paragraphs: {
+          fa: [
+            "بلاکچین و قرارداد هوشمند در یک کار خوب‌اند: ثبت و اجرای قواعد مشترک بین طرف‌هایی که به هم اعتماد کامل ندارند، مثل پرداخت، امانت‌داری یا مالکیت یک دارایی. اما کسب‌وکار شما فقط تسویه نیست؛ فاکتور، موجودی، مشتری، قیمت، تحویل و گزارش هم دارد، و این‌ها در ERP و CRM زندگی می‌کنند.",
+            "اگر این دو دنیا به هم وصل نباشند، یک نفر باید هر روز تراکنش‌های بلاکچین را باز کند، با فاکتورها تطبیق دهد و دستی در سیستم حسابداری وارد کند. این کار کند و پرخطاست و خیلی زود به همان اکسل‌هایی برمی‌گردد که ERP برای حذفشان آمده بود. اتصال درست یعنی هر رویداد مهم روی زنجیره، خودکار و قابل ردیابی، به رکورد درست در سیستم داخلی تبدیل شود.",
+          ],
+          en: [
+            "Blockchains and smart contracts are good at one thing: recording and enforcing shared rules between parties that do not fully trust each other, such as payments, escrow, or ownership of an asset. But your business is not only settlement; it has invoices, stock, customers, pricing, delivery, and reporting, and those live in the ERP and CRM.",
+            "If the two worlds are not connected, someone has to open blockchain transactions every day, match them to invoices, and key them into accounting by hand. That is slow and error-prone, and it quickly drifts back to the spreadsheets an ERP was meant to remove. A proper integration turns every important on-chain event into the right internal record, automatically and traceably.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "سه سناریوی عملی",
+          en: "Three practical scenarios",
+        },
+        paragraphs: {
+          fa: [
+            "این الگو در چند مورد واقعی بیشتر از بقیه دیده می‌شود. در هر سه، قرارداد هوشمند فقط بخشی از کار را انجام می‌دهد و بقیه با سیستم‌های داخلی هماهنگ می‌شود.",
+          ],
+          en: [
+            "This pattern shows up most often in a few real situations. In all three the smart contract does only part of the job and the rest is coordinated with internal systems.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "پرداخت فاکتور با استیبل‌کوین: قرارداد یا آدرس دریافت، پرداخت را ثبت می‌کند و سیستم میانی بعد از تأیید کافی، فاکتور را در ERP تسویه می‌کند و سند حسابداری می‌سازد",
+            "امانت‌داری مرحله‌ای پروژه (escrow): با تحویل هر مرحله، بخشی از مبلغ آزاد می‌شود و CRM وضعیت معامله را از «در انتظار پرداخت» به «در حال اجرا» یا «تحویل‌شده» تغییر می‌دهد",
+            "باشگاه مشتریان توکنی: امتیاز یا توکن وفاداری روی زنجیره صادر می‌شود و CRM همان را به پروفایل مشتری و کمپین‌های بعدی وصل می‌کند",
+            "ردیابی زنجیره تأمین: ثبت مراحل حمل و تحویل روی زنجیره، موجودی و وضعیت سفارش را در ERP به‌روز می‌کند",
+          ],
+          en: [
+            "Invoice payment with a stablecoin: a contract or receiving address records the payment, and after enough confirmations the middle service settles the invoice in the ERP and creates the accounting entry",
+            "Milestone escrow for a project: each delivered milestone releases part of the funds, and the CRM moves the deal from awaiting payment to in progress or delivered",
+            "A token-based loyalty program: points or loyalty tokens are issued on-chain and the CRM links them to the customer profile and later campaigns",
+            "Supply-chain tracking: shipping and delivery steps recorded on-chain update stock and order status in the ERP",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "معماری پیشنهادی: یک لایه میانی، نه اتصال مستقیم",
+          en: "The recommended architecture: a middle layer, not a direct link",
+        },
+        paragraphs: {
+          fa: [
+            "ERP و CRM برای کار با تراکنش‌های بلاکچین ساخته نشده‌اند. بیشتر آن‌ها از طریق API، وب‌هوک یا میان‌افزار به سیستم‌های بیرونی وصل می‌شوند، و همین مسیر برای بلاکچین هم درست است. بین زنجیره و سیستم داخلی یک سرویس واسط بگذارید که تنها همین کار را انجام دهد.",
+            "اجزای اصلی این لایه ساده‌اند و هر کدام جلوی یک خطای مشخص را می‌گیرند.",
+          ],
+          en: [
+            "ERPs and CRMs were not built to handle blockchain transactions. Most connect to outside systems through APIs, webhooks, or middleware, and the same route is right for a blockchain. Put a dedicated service between the chain and the internal system that does only this job.",
+            "The main pieces of that layer are simple, and each one prevents a specific class of failure.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "شنونده رویداد (listener یا indexer): رویدادهای قرارداد را از یک یا چند RPC می‌خواند",
+            "صف و پردازشگر: رویداد را بعد از تعداد تأیید کافی پردازش می‌کند و در خطا دوباره تلاش می‌کند",
+            "نگاشت و اعتبارسنجی: مقدار، ارز، شناسه فاکتور یا سفارش را با رکورد داخلی تطبیق می‌دهد",
+            "کلید یکتای تراکنش (idempotency): با ترکیب شناسه تراکنش و شماره رویداد، یک رویداد را فقط یک بار در ERP یا CRM ثبت می‌کند",
+            "اتصال‌دهنده ERP/CRM: همه نوشتن‌ها از طریق API رسمی و با مجوز محدود انجام می‌شود",
+            "تطبیق دوره‌ای و پایش: هر شب موجودی و تراکنش‌های دو طرف را مقایسه و ناهماهنگی را اعلام می‌کند",
+          ],
+          en: [
+            "Event listener or indexer: reads contract events from one or more RPC providers",
+            "Queue and worker: processes an event after enough confirmations and retries on failure",
+            "Mapping and validation: matches amount, currency, and invoice or order id against the internal record",
+            "Idempotency key: combines the transaction id and log index so an event is written to the ERP or CRM only once",
+            "ERP/CRM connector: every write goes through the official API with narrowly scoped permissions",
+            "Reconciliation and monitoring: a nightly job compares both sides and flags mismatches",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "از زنجیره به ERP/CRM: جزئیاتی که خطا می‌سازند",
+          en: "From chain to ERP/CRM: the details that cause errors",
+        },
+        paragraphs: {
+          fa: [
+            "ساده‌ترین اشتباه این است که به محض دیدن تراکنش، فاکتور را تسویه کنید. تراکنشی که هنوز تأیید کافی ندارد ممکن است در بازسازی زنجیره (reorg) از بین برود. قاعده امن این است که فقط بعد از تعداد تأیید مشخص برای همان شبکه ثبت کنید و پیش از آن، حداکثر وضعیت «در انتظار تأیید» نشان دهید.",
+            "نکته بعدی تطبیق است. اگر در پرداخت نشانه‌ای از فاکتور نباشد، تطبیق خودکار سخت می‌شود. بهتر است شناسه فاکتور را در داده رویداد قرارداد، یا با یک آدرس دریافت اختصاصی برای هر فاکتور، همراه پرداخت کنید. مبلغ ناقص، اضافه، یا ارز اشتباه هم باید مسیر مشخص داشته باشد: نه تسویه کامل خودکار و نه نادیده گرفتن، بلکه ارجاع به بررسی انسانی.",
+          ],
+          en: [
+            "The simplest mistake is settling an invoice the moment you see a transaction. A transaction without enough confirmations can disappear in a chain reorganization. The safe rule is to record only after a defined number of confirmations for that network and, before that, show at most a pending status.",
+            "The next issue is matching. If a payment carries no sign of the invoice, automatic matching is hard. It is better to attach the invoice id in the contract's event data, or to use a dedicated receiving address per invoice. Underpayment, overpayment, or the wrong currency also need a defined path: neither full automatic settlement nor ignoring it, but a handoff to human review.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "از ERP/CRM به قرارداد: کلید و تأیید",
+          en: "From ERP/CRM to the contract: keys and approvals",
+        },
+        paragraphs: {
+          fa: [
+            "جهت برعکس حساس‌تر است، چون اینجا پول از سیستم شما بیرون می‌رود. کلید خصوصی نباید داخل ERP، CRM یا پایگاه داده آن‌ها باشد. تراکنش‌های خروجی را از یک سرویس امضا یا کیف پول چندامضایی (multisig) عبور دهید، سقف مبلغ و فهرست مقصدهای مجاز تعریف کنید و بالاتر از یک آستانه، تأیید انسانی بخواهید.",
+            "هر درخواست پرداخت باید یک شناسه یکتا داشته باشد تا با تکرار درخواست (مثلاً به‌خاطر خطای شبکه) دو بار پول ارسال نشود. و همه چیز را ثبت کنید: چه کسی تأیید کرد، کدام رکورد ERP مبنا بود، شناسه تراکنش چه بود.",
+          ],
+          en: [
+            "The reverse direction is more sensitive because money leaves your system here. Private keys must not live inside the ERP, the CRM, or their databases. Route outgoing transactions through a signing service or a multisig wallet, define amount limits and an allowlist of destinations, and require human approval above a threshold.",
+            "Every payment request needs a unique id so that a retried request (for example after a network error) does not send funds twice. And record everything: who approved it, which ERP record it was based on, and what the transaction id was.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "حسابداری و داده شخصی",
+          en: "Accounting and personal data",
+        },
+        paragraphs: {
+          fa: [
+            "برای حسابداری، هر تراکنش را با شناسه تراکنش، ارز، مقدار و نرخ تبدیل لحظه ثبت در سند ذخیره کنید تا بعداً قابل حسابرسی باشد. نحوه شناسایی دارایی دیجیتال در حسابداری و مالیات به قوانین هر کشور بستگی دارد و باید با حسابدار یا مشاور مالیاتی خود روشن شود؛ این مقاله مشاوره مالی یا حقوقی نیست.",
+            "نکته مهم دیگر داده شخصی است. چیزی که روی بلاکچین نوشته شود تقریباً برای همیشه می‌ماند. نام، شماره تماس، ایمیل یا هر اطلاعات شخصی مشتری را هرگز روی زنجیره ننویسید؛ فقط یک شناسه ناشناس یا هش را روی زنجیره بگذارید و داده واقعی را در CRM و ERP نگه دارید.",
+          ],
+          en: [
+            "For accounting, store each transaction with its transaction id, currency, amount, and the conversion rate at posting time so it can be audited later. How digital assets are recognized for accounting and tax depends on each country and should be settled with your accountant or tax adviser; this article is not financial or legal advice.",
+            "Personal data is the other key point. Whatever is written to a blockchain stays almost forever. Never write a customer's name, phone number, email, or any personal data on-chain; put only an anonymous identifier or a hash on-chain and keep the real data in the CRM and ERP.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "ایران و بازار جهانی: انتخاب ERP و CRM",
+          en: "Iran and global markets: choosing the ERP and CRM",
+        },
+        paragraphs: {
+          fa: [
+            "در بازار جهانی، گزینه‌هایی مثل Odoo، ERPNext، NetSuite، Microsoft Dynamics یا SAP برای ERP و HubSpot، Salesforce، Zoho یا SuiteCRM برای CRM رایج‌اند و همه API یا وب‌هوک دارند. در ایران، نرم‌افزارهای حسابداری و ERP داخلی مثل سپیدار، هلو یا راهکاران بیشتر روی نیازهای مالیاتی و مالی داخلی تمرکز دارند و اتصال آن‌ها به بلاکچین معمولاً با یک سرویس واسط اختصاصی انجام می‌شود. قابلیت‌ها و API هر محصول را پیش از تصمیم از فروشنده بپرسید و روی نسخه آزمایشی امتحان کنید.",
+            "برای کسب‌وکارهایی که در ایران کار می‌کنند یا کاربر ایرانی دارند، تحریم‌ها و محدودیت‌های پرداخت می‌تواند دسترسی به برخی سرویس‌های ابری و پرداخت‌های بین‌المللی را محدود کند. ERP و CRM متن‌باز روی سرور خودتان معمولاً وابستگی کمتری ایجاد می‌کند و داده‌ها را نزد شما نگه می‌دارد. ما مشاوره حقوقی نمی‌دهیم؛ قوانین و محدودیت‌های مرتبط با رمزارز، تحریم و پرداخت را پیش از اجرا از منابع رسمی و متخصص حقوقی بررسی کنید.",
+          ],
+          en: [
+            "In global markets, options such as Odoo, ERPNext, NetSuite, Microsoft Dynamics, or SAP for ERP and HubSpot, Salesforce, Zoho, or SuiteCRM for CRM are common, and all offer APIs or webhooks. In Iran, domestic accounting and ERP products such as Sepidar, Holoo, or Rahkaran focus mostly on local tax and financial needs, and connecting them to a blockchain is usually done through a custom middle service. Ask each vendor about capabilities and APIs before deciding and test on a trial version.",
+            "For businesses operating in Iran or serving Iranian users, sanctions and payment restrictions can limit access to some cloud services and international payments. A self-hosted open-source ERP and CRM usually creates less dependency and keeps data with you. We do not give legal advice; check the rules on crypto, sanctions, and payments with official sources and a qualified lawyer before building.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "مسیر اجرا: از فقط‌خواندنی تا خودکار",
+          en: "Rollout: from read-only to automated",
+        },
+        paragraphs: {
+          fa: [
+            "کم‌ریسک‌ترین راه این است که اتصال را مرحله‌ای بسازید و در هر مرحله نتیجه را با انسان تطبیق دهید.",
+          ],
+          en: [
+            "The lowest-risk way is to build the integration in stages and reconcile each stage against a human check.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "۱. فقط خواندن: رویدادهای زنجیره را در یک داشبورد نشان دهید و با رکوردهای ERP/CRM مقایسه کنید",
+            "۲. پیش‌نویس: رکورد را به‌صورت پیش‌نویس در ERP/CRM بسازید و یک نفر تأیید کند",
+            "۳. ثبت خودکار: برای موارد ساده و کم‌مبلغ ثبت مستقیم را فعال کنید و موارد غیرعادی را به بررسی بفرستید",
+            "۴. دوطرفه: درخواست‌های پرداخت از ERP/CRM را با تأیید و امضای امن به قرارداد برگردانید",
+            "هر مرحله را اول روی شبکه آزمایشی و محیط آزمایشی ERP/CRM امتحان کنید",
+          ],
+          en: [
+            "1. Read-only: show chain events on a dashboard and compare them with ERP/CRM records",
+            "2. Draft: create the record as a draft in the ERP/CRM and have a person confirm it",
+            "3. Automatic posting: enable direct posting for simple, low-value cases and send unusual ones to review",
+            "4. Two-way: send payment requests from the ERP/CRM back to the contract with secure approval and signing",
+            "Test every stage first on a test network and a sandbox ERP/CRM",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "جمع‌بندی",
+          en: "The takeaway",
+        },
+        paragraphs: {
+          fa: [
+            "قرارداد هوشمند و ERP/CRM رقیب هم نیستند؛ یکی تسویه و اعتماد بین طرف‌ها را حل می‌کند و دیگری عملیات و حافظه کسب‌وکار را. اتصال امن آن‌ها به یک لایه میانی ساده، کلید یکتا برای هر رویداد، تأیید کافی پیش از ثبت و تطبیق دوره‌ای نیاز دارد.",
+            "اگر قصد دارید قرارداد هوشمند یا یک dApp را به ERP و CRM خود وصل کنید، تیم سوشو استودیو می‌تواند در طراحی معماری، ساخت قرارداد و سرویس واسط، API و داشبورد همراه شما باشد. هدف و سیستم‌های فعلی‌تان را از بخش تماس برای ما بنویسید.",
+          ],
+          en: [
+            "Smart contracts and ERP/CRM are not rivals; one solves settlement and trust between parties and the other holds the operations and memory of the business. Connecting them safely takes a simple middle layer, a unique key for every event, enough confirmations before posting, and periodic reconciliation.",
+            "If you plan to connect a smart contract or a dApp to your ERP and CRM, the Sosho Studio team can help with the architecture, building the contract and the middle service, the APIs, and the dashboard. Tell us your goal and current systems through the contact section.",
+          ],
+        },
+      },
+    ],
+    faq: [
+      {
+        question: {
+          fa: "آیا ERP یا CRM می‌تواند مستقیم به بلاکچین وصل شود؟",
+          en: "Can an ERP or CRM connect to a blockchain directly?",
+        },
+        answer: {
+          fa: "بیشتر آن‌ها قابلیت بومی خواندن تراکنش بلاکچین ندارند. روش رایج این است که یک سرویس میانی رویدادها را بخواند و از طریق API یا وب‌هوک به ERP یا CRM بفرستد. قابلیت‌های هر محصول را از فروشنده بپرسید.",
+          en: "Most do not natively read blockchain transactions. The usual approach is a middle service that reads events and sends them to the ERP or CRM through an API or webhook. Ask each vendor about its capabilities.",
+        },
+      },
+      {
+        question: {
+          fa: "چه زمانی با خیال راحت فاکتور را تسویه کنیم؟",
+          en: "When is it safe to settle an invoice?",
+        },
+        answer: {
+          fa: "فقط بعد از تعداد تأیید مشخص برای همان شبکه. پیش از آن فقط وضعیت «در انتظار تأیید» نشان دهید، چون تراکنش تأییدنشده ممکن است در بازسازی زنجیره از بین برود.",
+          en: "Only after a defined number of confirmations for that network. Before that, show only a pending status, because an unconfirmed transaction can vanish in a chain reorganization.",
+        },
+      },
+      {
+        question: {
+          fa: "آیا اطلاعات مشتری را می‌توان روی بلاکچین نوشت؟",
+          en: "Can customer data be written on the blockchain?",
+        },
+        answer: {
+          fa: "توصیه نمی‌شود. داده روی بلاکچین عملاً ماندگار است. فقط یک شناسه ناشناس یا هش بگذارید و اطلاعات واقعی مشتری را در CRM و ERP نگه دارید.",
+          en: "It is not recommended. Data on a blockchain is effectively permanent. Put only an anonymous identifier or a hash on-chain and keep the real customer information in the CRM and ERP.",
+        },
+      },
+      {
+        question: {
+          fa: "کلید خصوصی کجا باید نگهداری شود؟",
+          en: "Where should the private key be kept?",
+        },
+        answer: {
+          fa: "بیرون از ERP و CRM، در یک سرویس امضای امن یا کیف پول چندامضایی، با سقف مبلغ، فهرست مقصدهای مجاز و تأیید انسانی برای مبالغ بالا.",
+          en: "Outside the ERP and CRM, in a secure signing service or a multisig wallet, with amount limits, an allowlist of destinations, and human approval for large amounts.",
+        },
+      },
+      {
+        question: {
+          fa: "از کجا شروع کنیم؟",
+          en: "Where should we start?",
+        },
+        answer: {
+          fa: "با یک سناریوی کوچک و فقط‌خواندنی: رویدادهای زنجیره را روی داشبورد نشان دهید و با ERP یا CRM مقایسه کنید. بعد به پیش‌نویس با تأیید انسانی و در نهایت ثبت خودکار بروید.",
+          en: "With one small read-only scenario: show chain events on a dashboard and compare them with the ERP or CRM. Then move to drafts with human approval and finally automatic posting.",
         },
       },
     ],

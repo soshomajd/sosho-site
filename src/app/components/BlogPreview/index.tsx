@@ -12,8 +12,8 @@ export default function BlogPreview({ locale }: { locale: Locale }) {
         <div className="mt-4">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 {posts.map((p) => (
+                    <article key={p.slug} className="contents">
                     <Link
-                        key={p.slug}
                         href={getBlogPostHref(locale, p.slug)}
                         className="group overflow-hidden rounded-2xl border border-foreground/10 bg-background/10 transition-transform duration-200 hover:-translate-y-1 motion-reduce:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     >
@@ -44,6 +44,7 @@ export default function BlogPreview({ locale }: { locale: Locale }) {
                             <p className="mt-2 text-sm leading-7 text-muted">{p.excerpt[locale]}</p>
                         </div>
                     </Link>
+                    </article>
                 ))}
             </div>
 

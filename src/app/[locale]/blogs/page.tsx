@@ -4,6 +4,9 @@ import { getDictionary, isLocale } from "@/app/i18n";
 import Image from "next/image";
 import Link from "next/link";
 import { getBlogPostHref, getBlogPosts } from "@/app/blogs/posts";
+import Breadcrumbs from "@/app/components/Breadcrumbs";
+import JsonLd from "@/app/components/JsonLd";
+import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, websiteId } from "@/app/seo";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const ogImageUrl = new URL("/og.jpg", siteUrl).toString();
@@ -18,17 +21,20 @@ export async function generateMetadata({
     const dict = getDictionary(locale);
 
     return {
-        title: locale === "fa" ? "بلاگ" : "Blog",
+        title:
+            locale === "fa"
+                ? "مجله سوشو؛ راهنمای طراحی سایت، سئو، Web3 و هوش مصنوعی"
+                : "Sosho Insights: Web Design, SEO, Web3 & AI Guides",
         description:
             locale === "fa"
-                ? "راهنماها و تجربه‌های سوشو استودیو درباره طراحی سایت، وردپرس، سئو و گوگل، توسعه وب، Web3 و هوش مصنوعی."
-                : "Practical Sosho Studio guides on web design, WordPress, SEO and Google, web development, Web3, and AI.",
+                ? "راهنماها و تجربه‌های سوشو استودیو درباره طراحی سایت، وردپرس، سئو و گوگل، توسعه وب، قرارداد هوشمند و Web3، سیستم ERP و CRM و هوش مصنوعی."
+                : "Practical Sosho Studio guides on web design, WordPress, SEO and Google, web development, smart contracts and Web3, ERP and CRM systems, and AI.",
         alternates: {
             canonical: `/${locale}/blogs`,
             languages: { fa: "/fa/blogs", en: "/en/blogs" },
         },
         openGraph: {
-            title: locale === "fa" ? "بلاگ" : "Blog",
+            title: locale === "fa" ? "مجله سوشو؛ راهنمای طراحی سایت، سئو، Web3 و هوش مصنوعی" : "Sosho Insights: Web Design, SEO, Web3 & AI Guides",
             description:
                 locale === "fa"
                     ? "راهنماها و تجربه‌های سوشو استودیو درباره طراحی سایت، وردپرس، سئو، Web3 و هوش مصنوعی."
@@ -54,9 +60,54 @@ export default async function BlogsPage({
     const { locale: rawLocale } = await params;
     const locale: Locale = isLocale(rawLocale) ? rawLocale : "fa";
     const isFa = locale === "fa";
+    const posts = getBlogPosts();
+    const pageUrl = `${baseUrl}/${locale}/blogs`;
+    const crumbs = [
+        { name: isFa ? "خانه" : "Home", path: `/${locale}` },
+        { name: isFa ? "مجله" : "Insights", path: `/${locale}/blogs` },
+    ];
 
     return (
-        <main className="container items-stretch py-14 md:py-20">
+        <main id="main-content" tabIndex={-1} className="container items-stretch py-14 outline-none md:py-20">
+            <JsonLd
+                data={{
+                    "@context": "https://schema.org",
+                    "@graph": [
+                        {
+                            "@type": "CollectionPage",
+                            "@id": `${pageUrl}#webpage`,
+                            url: pageUrl,
+                            name: isFa ? "مجله سوشو" : "Sosho Insights",
+                            inLanguage: languageTag(locale),
+                            isPartOf: { "@id": websiteId },
+                            breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+                            mainEntity: { "@id": `${pageUrl}#blog` },
+                        },
+                        {
+                            "@type": "Blog",
+                            "@id": `${pageUrl}#blog`,
+                            name: isFa ? "مجله سوشو" : "Sosho Insights",
+                            url: pageUrl,
+                            inLanguage: languageTag(locale),
+                            publisher: { "@id": organizationId },
+                            blogPost: posts.map((post) => ({
+                                "@type": "BlogPosting",
+                                headline: post.title[locale],
+                                url: `${baseUrl}${getBlogPostHref(locale, post.slug)}`,
+                                datePublished: post.publishedAt,
+                                ...(post.coverImage ? { image: `${baseUrl}${post.coverImage}` } : {}),
+                            })),
+                        },
+                        breadcrumbJsonLd(crumbs),
+                    ],
+                }}
+            />
+            <div className="mb-6 w-full">
+                <Breadcrumbs
+                    locale={locale}
+                    items={crumbs.map((crumb) => ({ name: crumb.name, href: crumb.path }))}
+                />
+            </div>
             <header className="mb-10 w-full">
                 <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent">
                     SOSHO STUDIO
@@ -72,9 +123,9 @@ export default async function BlogsPage({
             </header>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                {getBlogPosts().map((p) => (
+                {posts.map((p) => (
+                    <article key={p.slug} className="contents">
                     <Link
-                        key={p.slug}
                         href={getBlogPostHref(locale, p.slug)}
                         className="group overflow-hidden rounded-2xl border border-foreground/10 bg-surface/10 transition-colors hover:bg-surface/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     >
@@ -125,6 +176,7 @@ export default async function BlogsPage({
                             </div>
                         </div>
                     </Link>
+                    </article>
                 ))}
             </div>
         </main>

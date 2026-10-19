@@ -96,7 +96,10 @@ export default function Footer({ locale }: { locale: Locale }) {
                         <p className="text-sm font-semibold text-foreground">
                             {isFa ? "لینک‌ها" : "Links"}
                         </p>
-                        <nav className="mt-3 flex flex-col gap-1 text-sm">
+                        <nav
+                            aria-label={isFa ? "پیوندهای پاورقی" : "Footer navigation"}
+                            className="mt-3 flex flex-col gap-1 text-sm"
+                        >
                             {links.map((l) => (
                                 <Link
                                     key={l.href}
@@ -114,7 +117,7 @@ export default function Footer({ locale }: { locale: Locale }) {
                             {isFa ? "شروع همکاری" : "Start a project"}
                         </p>
 
-                        <div className="mt-3 flex flex-col gap-3">
+                        <address className="mt-3 flex flex-col gap-3 not-italic">
                             <a
                                 href={CONTACT_INFO.phoneHref}
                                 className="-ms-2 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
@@ -148,7 +151,7 @@ export default function Footer({ locale }: { locale: Locale }) {
                                     </a>
                                 ))}
                             </div>
-                        </div>
+                        </address>
                     </div>
                 </div>
 
