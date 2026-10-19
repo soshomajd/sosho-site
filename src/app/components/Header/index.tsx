@@ -76,6 +76,7 @@ export default function Header({
             <div className="container flex-row items-center justify-between gap-3 py-3">
                 <Link
                     href={`/${locale}`}
+                    prefetch={false}
                     aria-label={locale === "fa" ? "صفحه اصلی سوشو استودیو" : "Sosho Studio home"}
                     className="group inline-flex shrink-0 items-center gap-2 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >

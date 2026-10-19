@@ -32,6 +32,7 @@ export default function NotFound() {
             <Link
               key={link.href}
               href={link.href}
+              prefetch={false}
               className="inline-flex h-11 items-center justify-center rounded-full border border-foreground/15 px-5 text-sm font-semibold text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
             >
               {link.fa}
@@ -40,6 +41,7 @@ export default function NotFound() {
           ))}
           <Link
             href="/en"
+            prefetch={false}
             lang="en"
             className="inline-flex h-11 items-center justify-center rounded-full bg-foreground px-5 text-sm font-bold text-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
           >

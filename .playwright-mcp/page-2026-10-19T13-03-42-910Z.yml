@@ -1,0 +1,165 @@
+- generic [active] [ref=f26e1]:
+  - link "Skip to main content" [ref=f26e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=f26e3]:
+    - generic [ref=f26e4]:
+      - link "Sosho Studio home" [ref=f26e5] [cursor=pointer]:
+        - /url: /en
+        - img "Sosho Studio logo" [ref=f26e6]
+        - generic [ref=f26e7]: STUDIO
+      - navigation "Primary navigation" [ref=f26e8]:
+        - link "Services" [ref=f26e9] [cursor=pointer]:
+          - /url: /en#services
+        - link "Work" [ref=f26e10] [cursor=pointer]:
+          - /url: /en#projects
+        - link "About" [ref=f26e11] [cursor=pointer]:
+          - /url: /en#about
+        - link "Insights" [ref=f26e12] [cursor=pointer]:
+          - /url: /en#blog
+      - generic [ref=f26e13]:
+        - link "Switch to Persian" [ref=f26e14] [cursor=pointer]:
+          - /url: /fa/services/seo-google-growth
+        - generic [ref=f26e19]:
+          - link "Phone" [ref=f26e20] [cursor=pointer]:
+            - /url: tel:+989120265102
+          - link "WhatsApp" [ref=f26e23] [cursor=pointer]:
+            - /url: https://wa.me/989120265102
+          - link "Telegram" [ref=f26e26] [cursor=pointer]:
+            - /url: https://t.me/s0h3ill
+          - link "Sosho Studio on Instagram" [ref=f26e29] [cursor=pointer]:
+            - /url: https://www.instagram.com/sosho_studio/
+          - link "Soheil Shokouhi Majd on LinkedIn" [ref=f26e32] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/soheil-shokouhi-majd-100144244
+        - link "Start a project" [ref=f26e35] [cursor=pointer]:
+          - /url: /en#contact
+  - main [ref=f26e36]:
+    - generic [ref=f26e37]:
+      - navigation "Breadcrumb" [ref=f26e38]:
+        - list [ref=f26e39]:
+          - listitem [ref=f26e40]:
+            - link "Home" [ref=f26e41] [cursor=pointer]:
+              - /url: /en
+            - generic [aria-hidden] [ref=f26e42]: ›
+          - listitem [ref=f26e43]:
+            - link "Services" [ref=f26e44] [cursor=pointer]:
+              - /url: /en#services
+            - generic [aria-hidden] [ref=f26e45]: ›
+          - listitem [ref=f26e46]:
+            - generic [ref=f26e47]: SEO & Google Growth
+      - generic [ref=f26e48]: SOSHO STUDIO
+    - generic [ref=f26e51]:
+      - paragraph [ref=f26e52]: Sosho Studio services
+      - heading "SEO & Google Growth" [level=1] [ref=f26e53]
+      - paragraph [ref=f26e54]: We do not sell guaranteed rankings. We improve the website, content, and measurement system so the right audience can find you and growth can compound.
+    - generic [ref=f26e60]:
+      - generic [ref=f26e61]:
+        - text: "01"
+        - heading "What you get" [level=2] [ref=f26e62]
+        - list [ref=f26e63]:
+          - listitem [ref=f26e64]:
+            - generic [ref=f26e67]: Technical audit, Core Web Vitals, and indexation fixes
+          - listitem [ref=f26e68]:
+            - generic [ref=f26e71]: Keyword research and intent-led content architecture
+          - listitem [ref=f26e72]:
+            - generic [ref=f26e75]: On-page optimization, schema, and internal linking
+          - listitem [ref=f26e76]:
+            - generic [ref=f26e79]: Search Console, GA4, and clear performance reporting
+      - generic [ref=f26e80]:
+        - text: "02"
+        - heading "How we work" [level=2] [ref=f26e81]
+        - list [ref=f26e82]:
+          - listitem [ref=f26e83]:
+            - generic [ref=f26e86]: Baseline audit and meaningful success metrics
+          - listitem [ref=f26e87]:
+            - generic [ref=f26e90]: Prioritize technical issues and content opportunities
+          - listitem [ref=f26e91]:
+            - generic [ref=f26e94]: Implement fixes and publish focused content
+          - listitem [ref=f26e95]:
+            - generic [ref=f26e98]: Measure, report, and iterate continuously
+      - generic [ref=f26e99]:
+        - text: "03"
+        - heading "Deliverables" [level=2] [ref=f26e100]
+        - list [ref=f26e101]:
+          - listitem [ref=f26e102]:
+            - generic [ref=f26e105]: An audit report and prioritized roadmap
+          - listitem [ref=f26e106]:
+            - generic [ref=f26e109]: Google tooling and conversion tracking setup
+          - listitem [ref=f26e110]:
+            - generic [ref=f26e113]: An actionable monthly SEO and content plan
+    - region [ref=f26e114]:
+      - heading "Frequently asked questions" [level=2] [ref=f26e115]
+      - generic [ref=f26e116]:
+        - generic [ref=f26e117]:
+          - heading "Do you guarantee the first position on Google?" [level=3] [ref=f26e118]
+          - paragraph [ref=f26e119]: No. Nobody can guarantee Google rankings. We improve the site, content, and measurement system and report progress with transparent data.
+        - generic [ref=f26e120]:
+          - heading "How long does SEO take to show results?" [level=3] [ref=f26e121]
+          - paragraph [ref=f26e122]: Usually a few months before meaningful changes appear. The pace depends on competition in your field, the site's current state, and the volume and quality of content.
+        - generic [ref=f26e123]:
+          - heading "Do you optimize for ChatGPT and AI answers (GEO and AEO)?" [level=3] [ref=f26e124]
+          - paragraph [ref=f26e125]: Yes. We optimize content structure, direct answers, FAQs, structured data, and AI crawler access to raise your chances of appearing in ChatGPT, Perplexity, and Google answers.
+    - region [ref=f26e126]:
+      - heading "Related articles" [level=2] [ref=f26e127]
+      - generic [ref=f26e128]:
+        - article [ref=f26e129]:
+          - link [ref=f26e130] [cursor=pointer]:
+            - /url: /en/blogs/geo-aeo-answer-engine-optimization
+            - 'img "Cover art for The Next SEO: GEO and AEO" [ref=f26e132]'
+            - 'heading "The Next SEO: What GEO and AEO Mean for 2026" [level=3] [ref=f26e133]'
+        - article [ref=f26e134]:
+          - link [ref=f26e135] [cursor=pointer]:
+            - /url: /en/blogs/google-seo-launch-checklist
+            - img "An SEO launch checklist next to a magnifying glass over a rising growth chart" [ref=f26e137]
+            - heading "The SEO and Google Checklist Before Launching a Website" [level=3] [ref=f26e138]
+    - generic [ref=f26e139]:
+      - generic [ref=f26e140]:
+        - paragraph [ref=f26e141]: Next step
+        - heading "Let’s discuss your project" [level=2] [ref=f26e142]
+        - paragraph [ref=f26e143]: Share the goal and we’ll help define the right approach and an initial scope.
+      - link "Start a conversation" [ref=f26e144] [cursor=pointer]:
+        - /url: /en#contact
+  - contentinfo [ref=f26e148]:
+    - generic [ref=f26e149]:
+      - generic [ref=f26e150]:
+        - generic [ref=f26e151]:
+          - link "Sosho Studio home" [ref=f26e152] [cursor=pointer]:
+            - /url: /en
+            - img "Sosho Studio logo" [ref=f26e153]
+          - paragraph [ref=f26e154]: Sosho Studio
+          - paragraph [ref=f26e155]: End-to-end web design, WordPress, SEO, Web3 and AI solutions
+          - paragraph [ref=f26e156]: One team for strategy, design, engineering, launch, and continuous digital growth.
+        - generic [ref=f26e157]:
+          - paragraph [ref=f26e158]: Links
+          - navigation "Footer navigation" [ref=f26e159]:
+            - link "Services" [ref=f26e160] [cursor=pointer]:
+              - /url: /en#services
+            - link "Selected work" [ref=f26e161] [cursor=pointer]:
+              - /url: /en#projects
+            - link "About" [ref=f26e162] [cursor=pointer]:
+              - /url: /en#about
+            - link "Insights" [ref=f26e163] [cursor=pointer]:
+              - /url: /en#blog
+            - link "Start a project" [ref=f26e164] [cursor=pointer]:
+              - /url: /en#contact
+        - generic [ref=f26e165]:
+          - paragraph [ref=f26e166]: Start a project
+          - generic [ref=f26e167]:
+            - link "+98 912 026 5102" [ref=f26e168] [cursor=pointer]:
+              - /url: tel:+989120265102
+            - link "soheilshokouhimajd@gmail.com" [ref=f26e172] [cursor=pointer]:
+              - /url: mailto:soheilshokouhimajd@gmail.com
+            - generic [ref=f26e176]:
+              - link "Email" [ref=f26e177] [cursor=pointer]:
+                - /url: mailto:soheilshokouhimajd@gmail.com
+              - link "WhatsApp" [ref=f26e180] [cursor=pointer]:
+                - /url: https://wa.me/989120265102
+              - link "Telegram" [ref=f26e183] [cursor=pointer]:
+                - /url: https://t.me/s0h3ill
+              - link "Sosho Studio on Instagram" [ref=f26e186] [cursor=pointer]:
+                - /url: https://www.instagram.com/sosho_studio/
+              - link "Soheil Shokouhi Majd on LinkedIn" [ref=f26e189] [cursor=pointer]:
+                - /url: https://www.linkedin.com/in/soheil-shokouhi-majd-100144244
+      - generic [ref=f26e192]:
+        - paragraph [ref=f26e193]: © 2026 Sosho Studio. All rights reserved.
+        - paragraph [ref=f26e194]: From idea to launch and growth
+  - alert [ref=f26e195]

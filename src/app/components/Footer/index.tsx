@@ -65,6 +65,7 @@ export default function Footer({ locale }: { locale: Locale }) {
                     <div className="space-y-3 md:col-span-5">
                         <Link
                             href={`/${locale}`}
+                            prefetch={false}
                             className="inline-flex items-center gap-3 rounded-lg text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                             aria-label={isFa ? "صفحه اصلی سوشو استودیو" : "Sosho Studio home"}
                         >
@@ -104,6 +105,7 @@ export default function Footer({ locale }: { locale: Locale }) {
                                 <Link
                                     key={l.href}
                                     href={l.href}
+                                    prefetch={false}
                                     className="rounded-md py-1.5 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
                                 >
                                     {l.label}

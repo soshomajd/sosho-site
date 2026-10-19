@@ -21,6 +21,7 @@ export default function Breadcrumbs({ locale, items }: { locale: Locale; items: 
                 <>
                   <Link
                     href={item.href}
+                    prefetch={false}
                     className="transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
                   >
                     {item.name}
