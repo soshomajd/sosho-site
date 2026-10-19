@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import "./globals.css";
 
@@ -102,7 +101,6 @@ export default function RootLayout({
     <html lang="fa" dir="rtl">
       <body className="antialiased">
         {children}
-        <SpeedInsights />
       </body>
     </html>
   );

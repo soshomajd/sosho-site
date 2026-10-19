@@ -13,7 +13,9 @@ function hasLocale(pathname: string) {
 function handle(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (hasLocale(pathname)) return NextResponse.next();
+  if (hasLocale(pathname) || pathname === "/admin" || pathname.startsWith("/admin/")) {
+    return NextResponse.next();
+  }
 
   const url = request.nextUrl.clone();
   url.pathname = `/${defaultLocale}${pathname}`;

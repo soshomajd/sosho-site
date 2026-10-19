@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { FiMessageCircle, FiRefreshCw, FiSend, FiX, FiZap } from "react-icons/fi";
 
 import type { Locale } from "@/app/i18n";
@@ -124,6 +124,7 @@ function isSalesReply(value: unknown): value is SalesReply {
 
 export default function SalesAssistant({ locale }: { locale: Locale }) {
   const copy = COPY[locale];
+  const [isAvailable, setIsAvailable] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(() =>
@@ -145,6 +146,25 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
     () => messages.at(-1)?.quickReplies ?? [],
     [messages]
   );
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/sales/status", { signal: controller.signal })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: unknown) => {
+        if (
+          data &&
+          typeof data === "object" &&
+          (data as { available?: unknown }).available === true
+        ) {
+          setIsAvailable(true);
+        }
+      })
+      .catch(() => {
+        // Keep the assistant hidden when the readiness check cannot complete.
+      });
+    return () => controller.abort();
+  }, []);
 
   function openChat() {
     setIsOpen(true);
@@ -234,8 +254,10 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
     void sendMessage(draft);
   }
 
+  if (!isAvailable) return null;
+
   return (
-    <div className="fixed bottom-4 end-4 z-[70] sm:bottom-6 sm:end-6">
+    <div className="fixed bottom-4 end-4 z-70 sm:bottom-6 sm:end-6">
       {isOpen ? (
         <section
           aria-label={copy.title}
@@ -244,7 +266,7 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
           <header className="relative overflow-hidden border-b border-white/10 px-4 py-4 sm:px-5">
             <div className="pointer-events-none absolute -end-8 -top-12 h-36 w-36 rounded-full bg-primary/30 blur-3xl" />
             <div className="relative flex items-center gap-3">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-primary to-accent text-white shadow-lg shadow-primary/20">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-linear-to-br from-primary to-accent text-white shadow-lg shadow-primary/20">
                 <FiZap className="h-5 w-5" aria-hidden="true" />
               </span>
               <div className="min-w-0 flex-1">
@@ -284,7 +306,7 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
                   className={`max-w-[88%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-6 ${
                     message.role === "user"
                       ? "rounded-ee-md bg-primary text-white"
-                      : "rounded-es-md border border-white/10 bg-white/[0.06] text-slate-200"
+                      : "rounded-es-md border border-white/10 bg-white/6 text-slate-200"
                   }`}
                 >
                   {message.content}
@@ -309,7 +331,7 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
 
             {isSending ? (
               <div className="flex justify-start">
-                <p className="rounded-2xl rounded-es-md border border-white/10 bg-white/[0.06] px-4 py-3 text-xs text-slate-400">
+                <p className="rounded-2xl rounded-es-md border border-white/10 bg-white/6 px-4 py-3 text-xs text-slate-400">
                   {copy.typing}
                 </p>
               </div>
@@ -317,7 +339,7 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
           </div>
 
           <form onSubmit={submit} className="border-t border-white/10 bg-black/15 p-3 sm:p-4">
-            <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.05] p-2 focus-within:border-accent/45">
+            <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-2 focus-within:border-accent/45">
               <input
                 ref={inputRef}
                 value={draft}
@@ -345,7 +367,7 @@ export default function SalesAssistant({ locale }: { locale: Locale }) {
           className="group flex h-14 items-center gap-3 rounded-full border border-white/10 bg-[#101827]/95 px-4 text-sm font-extrabold text-white shadow-[0_18px_55px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent motion-reduce:transform-none sm:h-16 sm:px-5"
           aria-label={copy.launcher}
         >
-          <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/20 sm:h-11 sm:w-11">
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-linear-to-br from-primary to-accent shadow-lg shadow-primary/20 sm:h-11 sm:w-11">
             <FiMessageCircle className="h-5 w-5" aria-hidden="true" />
           </span>
           <span>{copy.launcher}</span>

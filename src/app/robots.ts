@@ -12,6 +12,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
+        // /admin already ships a noindex meta tag; this is the second layer.
+        // /api/* is never useful to a crawler.
+        disallow: ["/admin", "/api/"],
       },
     ],
     sitemap: `${base}/sitemap.xml`,

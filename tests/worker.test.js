@@ -209,11 +209,35 @@ describe("website sales API", () => {
     expect(calls).toBe(2);
   });
 
+  it("advertises sales availability when the OpenAI key is configured", async () => {
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(
+      new Request("https://example.com/api/sales/status"),
+      env,
+      ctx
+    );
+    await waitOnExecutionContext(ctx);
+    expect(response.status).toBe(200);
+    expect((await response.json()).available).toBe(true);
+  });
+
+  it("reports sales unavailable when the OpenAI key is absent", async () => {
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(
+      new Request("https://example.com/api/sales/status"),
+      { ...env, OPENAI_API_KEY: undefined },
+      ctx
+    );
+    await waitOnExecutionContext(ctx);
+    expect(response.status).toBe(200);
+    expect((await response.json()).available).toBe(false);
+  });
+
   it("reports real readiness and adds a request id", async () => {
     const ctx = createExecutionContext();
     const response = await worker.fetch(
       new Request("https://example.com/api/health"),
-      env,
+      { ...env, AI: { run: async () => ({ response: "{}" }) } },
       ctx
     );
     const payload = await response.json();
@@ -221,7 +245,28 @@ describe("website sales API", () => {
     expect(payload.ready).toBe(true);
     expect(payload.checks.database).toBe(true);
     expect(payload.checks.migrations).toBe(true);
+    expect(payload.checks.contentAi).toBe(true);
+    expect(payload.checks.workersAi).toBe(true);
     expect(response.headers.get("x-request-id")).toBe(payload.requestId);
+  });
+
+  it("stays ready on staging when ArvanCloud media storage is deliberately unconfigured", async () => {
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(
+      new Request("https://example.com/api/health"),
+      {
+        ...env,
+        ENVIRONMENT: "staging",
+        ARVAN_S3_ACCESS_KEY: undefined,
+        AI: { run: async () => ({ response: "{}" }) },
+      },
+      ctx
+    );
+    const payload = await response.json();
+    expect(response.status).toBe(200);
+    expect(payload.ready).toBe(true);
+    expect(payload.checks.mediaStorage).toBe(false);
+    expect(payload.missing).not.toContain("MEDIA");
   });
 });
 

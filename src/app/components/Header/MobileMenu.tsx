@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiPhone, FiX } from "react-icons/fi";
 
 type NavItem = { label: string; href: string };
 type SocialLink = { label: string; href: string; icon: ReactNode };
@@ -11,6 +11,7 @@ export default function MobileMenu({
     locale,
     navItems,
     socialLinks,
+    phone,
     ctaHref,
     ctaLabel,
     openLabel,
@@ -19,6 +20,7 @@ export default function MobileMenu({
     locale: string;
     navItems: readonly NavItem[];
     socialLinks: readonly SocialLink[];
+    phone: { href: string; display: string; label: string };
     ctaHref: string;
     ctaLabel: string;
     openLabel: string;
@@ -109,6 +111,15 @@ export default function MobileMenu({
                                     className="mt-4 inline-flex h-12 w-full items-center justify-center rounded-full bg-foreground text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
                                 >
                                     {ctaLabel}
+                                </a>
+
+                                <a
+                                    href={phone.href}
+                                    aria-label={`${phone.label} ${phone.display}`}
+                                    className="mt-3 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-foreground/15 text-sm font-bold text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                                >
+                                    <FiPhone className="h-4 w-4 text-accent" aria-hidden="true" />
+                                    <span dir="ltr">{phone.display}</span>
                                 </a>
 
                                 <div className="mt-5 flex items-center justify-center gap-2 border-t border-foreground/10 pt-4">

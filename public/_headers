@@ -1,0 +1,33 @@
+# Cloudflare Workers Assets header rules.
+# https://developers.cloudflare.com/workers/static-assets/headers/
+#
+# These rules apply to responses the asset server returns directly, which covers
+# every static file and every pre-rendered HTML page. They do NOT apply to
+# responses generated inside worker/index.js (/api/*, the `/` redirect, the
+# locale redirects) - those set their own headers there.
+#
+# The static export copies public/ into out/, and scripts/build-sites.mjs copies
+# out/ into dist/client, so this file ships as dist/client/_headers.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# Content-hashed bundles never change under the same URL, so cache them forever
+# instead of the asset server default of `public, max-age=0, must-revalidate`.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Admin dashboard: never indexed, never cached anywhere.
+/admin
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-store
+
+/admin/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-store

@@ -689,6 +689,588 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "smart-contracts-web3-dex-cex-guide",
+    title: {
+      fa: "قرارداد هوشمند و Web3: راهنمای کامل ساخت DEX و CEX برای کسب‌وکارهای ایرانی و بین‌المللی",
+      en: "Smart Contracts and Web3: A Complete Guide to Building DEXs and CEXs for Iranian and International Businesses",
+    },
+    excerpt: {
+      fa: "قرارداد هوشمند چیست، DEX و CEX چطور کار می‌کنند، کدام را بسازیم و امنیت، تحریم و الزامات بازار ایران و خارج از ایران چه تفاوتی ایجاد می‌کنند.",
+      en: "What smart contracts are, how DEXs and CEXs actually work, which one to build, and how security, sanctions, and local-market constraints differ between Iran and the rest of the world.",
+    },
+    tags: ["Web3", "Blockchain", "Smart Contract", "DEX", "CEX"],
+    publishedAt: "2026-10-19",
+    coverImage: "/blog/smart-contracts-web3-dex-cex-guide.png",
+    coverImageAlt: {
+      fa: "پوستر مقاله قرارداد هوشمند و Web3: ساخت DEX و CEX",
+      en: "Cover art for Smart Contracts and Web3: building DEXs and CEXs",
+    },
+    directAnswer: {
+      fa: "قرارداد هوشمند برنامه‌ای است که روی بلاکچین اجرا می‌شود و بدون واسطه، شرط‌هایی را که از قبل نوشته شده اعمال می‌کند. صرافی متمرکز (CEX) مثل یک بانک عمل می‌کند: دارایی کاربر را نزد خود نگه می‌دارد و سفارش‌ها را روی سرورهای خودش تطبیق می‌دهد. صرافی غیرمتمرکز (DEX) همین کار را با قراردادهای هوشمند انجام می‌دهد و کاربر دارایی‌اش را خودش نگه می‌دارد. ساخت CEX بیشتر مسئله امنیت زیرساخت، نقدینگی و الزامات قانونی است؛ ساخت DEX بیشتر مسئله امنیت کد و جذب نقدینگی. هیچ‌کدام برای همه مناسب نیستند و انتخاب درست به مخاطب، بازار هدف و توان نگهداری تیم بستگی دارد.",
+      en: "A smart contract is a program that runs on a blockchain and enforces pre-written rules without an intermediary. A centralized exchange (CEX) works like a bank: it holds user funds and matches orders on its own servers. A decentralized exchange (DEX) does the same job with smart contracts while users keep custody of their assets. Building a CEX is mostly a problem of infrastructure security, liquidity, and regulation; building a DEX is mostly a problem of code security and liquidity bootstrapping. Neither fits everyone, and the right choice depends on your audience, target market, and the team's ability to operate it long term.",
+    },
+    sections: [
+      {
+        heading: {
+          fa: "قرارداد هوشمند دقیقاً چیست و چه چیزی نیست؟",
+          en: "What exactly is a smart contract, and what is it not?",
+        },
+        paragraphs: {
+          fa: [
+            "قرارداد هوشمند یک برنامه کوچک است که روی یک بلاکچین مثل اتریوم مستقر می‌شود. هر کس می‌تواند توابع آن را صدا بزند و نتیجه را همه گره‌های شبکه تأیید می‌کنند. مثال ساده: قراردادی که می‌گوید «اگر خریدار مبلغ را واریز کرد، توکن به او منتقل شود». این منطق بدون نیاز به شرکت، بانک یا وکیل اجرا می‌شود.",
+            "اما چند تصور غلط رایج وجود دارد. قرارداد هوشمند «هوشمند» به معنای هوش مصنوعی نیست؛ فقط کدی است که دقیقاً همان چیزی را انجام می‌دهد که نوشته شده، چه درست باشد و چه اشتباه. همچنین «قرارداد» به معنای حقوقی کلمه نیست و بدون چارچوب قانونی، خودبه‌خود قابل پیگیری قضایی نیست. و مهم‌تر از همه: اگر قراردادی مستقر شد، تغییر آن سخت یا غیرممکن است. اشتباه در کد، یعنی اشتباه در پولی که دست آن کد است.",
+            "به همین دلیل کیفیت مهندسی، تست و بازبینی امنیتی در پروژه‌های Web3 از بقیه نرم‌افزارها جدی‌تر است. در وب‌سایت معمولی، باگ را فردا اصلاح می‌کنید؛ در یک قرارداد مستقرشده، ممکن است همان شب دارایی کاربران از بین برود.",
+          ],
+          en: [
+            "A smart contract is a small program deployed to a blockchain such as Ethereum. Anyone can call its functions, and every node on the network verifies the result. A simple example: a contract that says, if the buyer pays the agreed amount, transfer the token to them. That logic runs without a company, a bank, or a lawyer in the middle.",
+            "A few misconceptions are common. Smart does not mean artificial intelligence; the contract is just code that does exactly what it was written to do, right or wrong. Contract also does not mean a legal contract, and without a legal framework it is not automatically enforceable in court. Most importantly, once a contract is deployed it is hard or impossible to change. A bug in the code is a bug in whatever money that code controls.",
+            "That is why engineering quality, testing, and security review matter more in Web3 than in most software. On a normal website you fix a bug tomorrow; on a deployed contract, user funds can be gone the same night.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "کدام شبکه و کدام زبان؟ انتخاب بستر فنی",
+          en: "Which chain and which language? Choosing the technical foundation",
+        },
+        paragraphs: {
+          fa: [
+            "اکثر پروژه‌ها از شبکه‌های سازگار با EVM شروع می‌کنند، چون ابزارها، کتابخانه‌ها و توسعه‌دهندگان بیشتری دارند. زبان اصلی آن‌ها Solidity است و ابزارهای رایج برای تست و استقرار، Hardhat و Foundry هستند. کتابخانه‌هایی مثل OpenZeppelin پیاده‌سازی‌های بازبینی‌شده استانداردهایی مثل ERC-20 را در اختیار می‌گذارند و بهتر است به‌جای نوشتن از صفر، از همین‌ها استفاده شود.",
+            "انتخاب شبکه به هزینه تراکنش، سرعت و مخاطب بستگی دارد. اتریوم اصلی امنیت و اعتبار بالایی دارد اما کارمزد آن در زمان شلوغی بالا می‌رود. شبکه‌های لایه دوم مثل Arbitrum، Optimism و Base کارمزد کمتری دارند و همچنان به امنیت اتریوم تکیه می‌کنند. TRON برای انتقال USDT بسیار رایج است و Solana معماری و زبان متفاوتی دارد (Rust) که مسیر توسعه را جدا می‌کند.",
+          ],
+          en: [
+            "Most projects start on EVM-compatible chains because the tooling, libraries, and developer pool are largest there. The main language is Solidity, and the usual tools for testing and deployment are Hardhat and Foundry. Libraries such as OpenZeppelin ship reviewed implementations of standards like ERC-20, and it is almost always better to use those than to write them from scratch.",
+            "Choosing a network comes down to transaction cost, speed, and where your users are. Ethereum mainnet offers strong security and credibility but fees rise when the network is busy. Layer-2 networks such as Arbitrum, Optimism, and Base cost less while inheriting Ethereum's security. TRON is widely used for USDT transfers, and Solana uses a different architecture and language (Rust), which splits the development path entirely.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "استاندارد توکن‌های fungible: ERC-20؛ توکن‌های یکتا (NFT): ERC-721 و ERC-1155",
+            "ابتدا روی testnet مستقر کنید و فقط بعد از تست و بازبینی، به mainnet بروید",
+            "تصمیم بگیرید قرارداد قابل ارتقا (upgradeable) باشد یا ثابت؛ هر کدام ریسک و مزیت خودش را دارد",
+          ],
+          en: [
+            "Fungible token standard: ERC-20; unique tokens (NFTs): ERC-721 and ERC-1155",
+            "Deploy to a testnet first, and move to mainnet only after testing and review",
+            "Decide whether the contract is upgradeable or fixed; each has its own risks and benefits",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "صرافی متمرکز (CEX) چطور کار می‌کند؟",
+          en: "How does a centralized exchange (CEX) work?",
+        },
+        paragraphs: {
+          fa: [
+            "در CEX کاربر ثبت‌نام و احراز هویت می‌کند، دارایی‌اش را به کیف پول صرافی واریز می‌کند و در عمل صرافی نگهدار دارایی او می‌شود. سفارش‌های خرید و فروش وارد یک موتور تطبیق (matching engine) روی سرورهای صرافی می‌شوند و معامله‌ها در پایگاه داده صرافی ثبت می‌شوند، نه روی بلاکچین. بلاکچین فقط هنگام واریز و برداشت وارد کار می‌شود.",
+            "این معماری سرعت و تجربه کاربری عالی می‌دهد: سفارش‌های حدی و بازاری، اهرم، پشتیبانی مشتری و درگاه ریالی یا فیات. اما قیمتش اعتماد است. کاربر باید به امنیت و صداقت صرافی اعتماد کند، و تاریخ بازار نمونه‌های متعددی از هک شدن یا ورشکستگی صرافی‌ها را نشان داده است؛ فروپاشی FTX در سال ۲۰۲۲ شناخته‌شده‌ترین مثال است.",
+            "ساخت یک CEX جدی فقط نوشتن یک موتور تطبیق نیست. باید مدیریت کیف پول گرم و سرد، سیستم دفتر کل دقیق، احراز هویت و AML، پایش تقلب، پشتیبانی، و مهم‌تر از همه نقدینگی و مجوزهای لازم را در نظر گرفت.",
+          ],
+          en: [
+            "On a CEX the user signs up, completes identity verification, deposits assets into the exchange's wallets, and effectively lets the exchange hold them. Buy and sell orders go into a matching engine on the exchange's servers, and trades are recorded in the exchange's database, not on the blockchain. The blockchain only gets involved at deposit and withdrawal time.",
+            "That architecture delivers speed and a polished experience: limit and market orders, leverage, customer support, and fiat gateways. The price is trust. Users must trust the exchange's security and honesty, and market history is full of exchange hacks and collapses; the FTX failure in 2022 is the best-known example.",
+            "Building a serious CEX is far more than writing a matching engine. You need hot and cold wallet management, an accurate ledger, KYC and AML, fraud monitoring, support, and above all liquidity and the right licenses.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "مزیت‌ها: سرعت بالا، سفارش‌های پیشرفته، پشتیبانی انسانی، امکان درگاه فیات",
+            "ریسک‌ها: نگهداری دارایی کاربران، هک، الزامات قانونی و مجوز، اعتماد کاربر",
+            "هزینه اصلی: زیرساخت امنیتی، تیم عملیات و انطباق (compliance)، نه فقط توسعه",
+          ],
+          en: [
+            "Strengths: high speed, advanced order types, human support, fiat gateway options",
+            "Risks: custody of user funds, hacks, regulation and licensing, user trust",
+            "Main cost: security infrastructure, operations, and compliance teams, not just development",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "صرافی غیرمتمرکز (DEX) چطور کار می‌کند؟",
+          en: "How does a decentralized exchange (DEX) work?",
+        },
+        paragraphs: {
+          fa: [
+            "در DEX کاربر با کیف پول خودش (مثل MetaMask) وصل می‌شود و دارایی‌اش هیچ‌وقت به حساب صرافی نمی‌رود. معامله مستقیم با یک قرارداد هوشمند انجام می‌شود. محبوب‌ترین مدل، AMM یا بازارساز خودکار است: به‌جای دفتر سفارش، یک استخر نقدینگی شامل دو توکن وجود دارد و قیمت بر اساس نسبت موجودی استخر محاسبه می‌شود. در ساده‌ترین حالت (مدل Uniswap نسخه ۲) حاصل‌ضرب موجودی دو توکن ثابت می‌ماند: x × y = k.",
+            "نقدینگی را کاربرانی به نام liquidity provider تأمین می‌کنند و در ازای آن سهمی از کارمزد معاملات می‌گیرند. این مدل ریسک‌هایی هم دارد: ضرر ناپایدار (impermanent loss)، لغزش قیمت (slippage) در استخرهای کم‌عمق، و حملاتی مثل front-running و MEV که در آن‌ها ربات‌ها از ترتیب تراکنش‌ها سود می‌برند.",
+            "نکته مهم: کپی کردن کد یک DEX معروف از نظر فنی ساده است، اما بخش سخت کسب‌وکار، جذب نقدینگی و کاربر است. بدون نقدینگی، قیمت‌ها بد می‌شوند و کاربر برنمی‌گردد. پس برنامه جذب نقدینگی را از روز اول با طراحی فنی کنار هم بنویسید.",
+          ],
+          en: [
+            "On a DEX the user connects their own wallet (such as MetaMask) and the assets never move into an exchange account. Trades happen directly against a smart contract. The most popular model is the AMM, or automated market maker: instead of an order book there is a liquidity pool holding two tokens, and the price is computed from the pool's balances. In the simplest form (Uniswap v2), the product of the two balances stays constant: x × y = k.",
+            "Liquidity is supplied by users called liquidity providers, who earn a share of trading fees. The model has its own risks: impermanent loss, slippage in shallow pools, and attacks such as front-running and MEV, where bots profit from transaction ordering.",
+            "One important point: copying a well-known DEX's code is technically easy, but the hard business problem is attracting liquidity and users. Without liquidity, prices are poor and users do not return, so plan liquidity acquisition together with the technical design from day one.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "مزیت‌ها: کاربر دارایی‌اش را خودش نگه می‌دارد، شفافیت کد و تراکنش‌ها، دسترسی بدون ثبت‌نام",
+            "ریسک‌ها: باگ قرارداد، دستکاری اوراکل قیمت، تجربه کاربری سخت‌تر برای تازه‌کارها",
+            "هزینه اصلی: امنیت کد، ممیزی مستقل و جذب نقدینگی",
+          ],
+          en: [
+            "Strengths: users keep custody, code and transactions are transparent, no signup required",
+            "Risks: contract bugs, price-oracle manipulation, a harder experience for newcomers",
+            "Main cost: code security, independent audits, and liquidity acquisition",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "DEX یا CEX؟ چطور انتخاب کنیم",
+          en: "DEX or CEX? How to choose",
+        },
+        paragraphs: {
+          fa: [
+            "جواب به یک پرسش ساده برمی‌گردد: چه کسی دارایی کاربر را نگه می‌دارد و شما چه مسئولیتی را حاضرید بپذیرید؟ اگر مخاطب شما کاربران عادی و تازه‌کار است که پشتیبانی و درگاه ریالی می‌خواهند، مدل متمرکز طبیعی‌تر است، با همه الزامات و ریسک‌هایش. اگر مخاطب کاربران آشنا با کیف پول و DeFi است و می‌خواهید بازار یک توکن یا دارایی مشخص را راه بیندازید، DEX یا یک استخر نقدینگی ساده معمولاً مسیر کوتاه‌تری است.",
+            "بسیاری از پروژه‌ها اصلاً به ساخت صرافی کامل نیاز ندارند. اگر هدف شما ساخت توکن، پاداش وفاداری، فروش اولیه، استخر staking یا بازار NFT است، یک یا چند قرارداد هوشمند به‌همراه یک فرانت‌اند خوب کافی است و هزینه و ریسک بسیار کمتری دارد.",
+          ],
+          en: [
+            "It comes down to one question: who holds the user's assets, and what responsibility are you willing to take on? If your audience is everyday, less technical users who want support and a local-currency gateway, the centralized model is more natural, along with all its obligations and risks. If your audience already uses wallets and DeFi and you want a market for a specific token or asset, a DEX or a simple liquidity pool is usually the shorter path.",
+            "Many projects do not need a full exchange at all. If the goal is a token, loyalty rewards, an initial sale, a staking pool, or an NFT marketplace, one or a few smart contracts plus a good frontend are enough, at much lower cost and risk.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "کاربر عادی + درگاه ریالی + پشتیبانی → CEX یا همکاری با صرافی موجود",
+            "کاربر آشنا با کیف پول + بازار توکن مشخص → DEX یا استخر نقدینگی",
+            "فقط توکن، staking یا NFT → چند قرارداد هوشمند و یک dApp، بدون ساخت صرافی",
+          ],
+          en: [
+            "Everyday users + local-currency gateway + support → CEX or partnering with an existing exchange",
+            "Wallet-native users + a specific token market → DEX or a liquidity pool",
+            "Just a token, staking, or NFTs → a few smart contracts and a dApp, no exchange needed",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "امنیت: جایی که پروژه‌های Web3 زمین می‌خورند",
+          en: "Security: where Web3 projects fail",
+        },
+        paragraphs: {
+          fa: [
+            "بیشتر حمله‌های بزرگ به پروژه‌های Web3 از چند الگوی مشخص می‌آیند و بیشتر آن‌ها قابل پیشگیری هستند. نکته مهم این است که امنیت یک مرحله پایانی نیست؛ از روز اول باید در طراحی باشد.",
+          ],
+          en: [
+            "Most major attacks on Web3 projects come from a handful of known patterns, and most are preventable. Security is not a final step; it has to be part of the design from day one.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "Reentrancy: قرارداد پیش از به‌روزرسانی وضعیت، به قرارداد دیگر پول می‌دهد. الگوی checks-effects-interactions و محافظ reentrancy آن را کنترل می‌کند",
+            "کنترل دسترسی ضعیف: توابع حساس بدون محدودیت صدا زده می‌شوند. دسترسی را حداقلی و شفاف نگه دارید",
+            "دستکاری اوراکل قیمت: قیمت لحظه‌ای یک استخر کوچک را نباید به‌تنهایی مبنای تصمیم گذاشت",
+            "کلیدهای خصوصی و ادمین: از multisig و timelock استفاده کنید تا یک کلید لو رفته کل پروژه را نبرد",
+            "تست و ممیزی: تست واحد، fuzzing، بازبینی داخلی و سپس ممیزی مستقل پیش از mainnet؛ در نهایت یک برنامه bug bounty",
+            "در Solidity نسخه ۰٫۸ به بعد، سرریز عددی به‌صورت پیش‌فرض خطا می‌دهد، اما بقیه باگ‌های منطقی هنوز با خود شماست",
+          ],
+          en: [
+            "Reentrancy: the contract sends funds to another contract before updating its own state. The checks-effects-interactions pattern and a reentrancy guard control it",
+            "Weak access control: sensitive functions callable by anyone. Keep permissions minimal and explicit",
+            "Price oracle manipulation: never base decisions solely on the spot price of a small pool",
+            "Admin and private keys: use multisig and timelocks so one leaked key cannot take down the whole project",
+            "Testing and audits: unit tests, fuzzing, internal review, then an independent audit before mainnet, and finally a bug bounty",
+            "Since Solidity 0.8, arithmetic overflow reverts by default, but logic bugs remain entirely your responsibility",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "ایران و بازار بین‌المللی: چه تفاوتی در عمل وجود دارد؟",
+          en: "Iran and international markets: what actually differs in practice",
+        },
+        paragraphs: {
+          fa: [
+            "از نظر فنی، قرارداد هوشمند در همه‌جا یکسان است؛ تفاوت اصلی در محیط پیرامونی است. در بازار بین‌المللی، مهم‌ترین مسئله پیروی از قوانین هر کشور هدف است: مجوز ارائه خدمات دارایی دیجیتال، الزامات KYC/AML و محدودیت‌های جغرافیایی. این الزامات بین کشورها تفاوت زیادی دارند و باید پیش از ساخت از مشاور حقوقی همان بازار پرسید.",
+            "برای کسب‌وکارهایی که در ایران فعالیت می‌کنند یا کاربر ایرانی دارند، چند عامل دیگر هم مطرح است. تحریم‌ها و محدودیت‌های پرداخت، دسترسی به برخی خدمات بین‌المللی (از جمله بعضی صرافی‌ها، پرداخت‌ها و سرویس‌های ابری) را محدود می‌کند و انتخاب زیرساخت را تحت تأثیر قرار می‌دهد. مقررات داخلی حوزه رمزارز نیز ممکن است مرتب تغییر کند. ما مشاوره حقوقی نمی‌دهیم و پیشنهاد می‌کنیم پیش از هر تصمیم، آخرین وضعیت قوانین و الزامات را از منابع رسمی و متخصص حقوقی بررسی کنید؛ نباید هیچ پروژه‌ای بر دور زدن قوانین بنا شود.",
+            "از نظر محصول هم تفاوت‌هایی هست: کاربران ایرانی معمولاً به رابط فارسی و راست‌چین، پشتیبانی به زبان فارسی و تجربه ساده‌ای برای واریز و برداشت نیاز دارند، و بازار داخلی به‌شدت به تبدیل ریال و ثبات قیمت حساس است. در مقابل، بازار بین‌المللی انتظار مستندات انگلیسی، ممیزی عمومی قراردادها و شفافیت بیشتر دارد. به همین دلیل پروژه‌هایی که هر دو بازار را هدف می‌گیرند، معمولاً از ابتدا دوزبانه، با معماری ماژولار و رعایت استانداردهای امنیتی بین‌المللی ساخته می‌شوند.",
+          ],
+          en: [
+            "Technically a smart contract is the same everywhere; what differs is the surrounding environment. In international markets the main concern is compliance with each target country's rules: licensing for digital-asset services, KYC/AML requirements, and geographic restrictions. These vary widely between countries, and you should consult legal counsel in the specific market before you build.",
+            "For businesses operating in Iran or serving Iranian users, a few more factors apply. Sanctions and payment restrictions limit access to some international services (including certain exchanges, payment providers, and cloud services) and shape infrastructure choices. Domestic crypto regulation may also change frequently. We do not provide legal advice, and we recommend checking the current rules with official sources and a qualified lawyer before deciding anything; no project should be built on circumventing the law.",
+            "Product expectations differ too: Iranian users usually need a Persian, right-to-left interface, Persian-language support, and a simple deposit and withdrawal experience, and the domestic market is highly sensitive to currency conversion and price stability. International markets expect English documentation, public contract audits, and more transparency. That is why projects targeting both markets are usually built bilingual from the start, with a modular architecture and international security standards.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "مسیر پیشنهادی برای شروع یک پروژه",
+          en: "A suggested path for starting a project",
+        },
+        paragraphs: {
+          fa: [
+            "ساخت پروژه Web3 با یک مرحله سنگین و ناگهانی شروع نمی‌شود. مسیر منطقی، قدم‌به‌قدم است و در هر مرحله می‌توانید ادامه دهید یا متوقف شوید.",
+          ],
+          en: [
+            "A Web3 project should not begin with one heavy, sudden step. A sensible path is incremental, and at each stage you can continue or stop.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "۱. تعریف مسئله: چه کسی استفاده می‌کند؟ چه دارایی‌ای در گردش است؟ آیا واقعاً به بلاکچین نیاز دارید؟",
+            "۲. معماری و مدل تهدید: انتخاب شبکه، استانداردها، نقش‌ها و نقاط ریسک",
+            "۳. توسعه قراردادها با کتابخانه‌های بازبینی‌شده و تست سناریومحور (Hardhat یا Foundry)",
+            "۴. استقرار روی testnet، ساخت فرانت‌اند dApp و اتصال کیف پول",
+            "۵. ممیزی مستقل، بازبینی نتایج و انتشار تدریجی با سقف محدود",
+            "۶. پایش، پشتیبانی و برنامه به‌روزرسانی بعد از انتشار",
+          ],
+          en: [
+            "1. Define the problem: who uses it, what assets move, and do you genuinely need a blockchain?",
+            "2. Architecture and threat model: chain choice, standards, roles, and risk points",
+            "3. Build the contracts with reviewed libraries and scenario-driven tests (Hardhat or Foundry)",
+            "4. Deploy to a testnet, build the dApp frontend, and connect wallets",
+            "5. Independent audit, fix findings, and release gradually with capped limits",
+            "6. Monitoring, support, and an update plan after launch",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "جمع‌بندی",
+          en: "The takeaway",
+        },
+        paragraphs: {
+          fa: [
+            "قرارداد هوشمند ابزار قدرتمندی است، اما فقط وقتی که مسئله درستی را حل کند. پیش از ساخت DEX یا CEX از خودتان بپرسید که آیا واقعاً یک صرافی لازم است یا یک توکن و چند قرارداد ساده کافی است. بعد از آن، امنیت، نقدینگی و پیروی از قوانین را همان‌قدر جدی بگیرید که خود کد را.",
+            "اگر قصد ساخت یک پروژه Web3 دارید، تیم سوشو استودیو می‌تواند در طراحی معماری، توسعه و تست قراردادهای هوشمند و ساخت فرانت‌اند dApp همراه شما باشد. با توضیح هدف و بازار هدف‌تان از بخش تماس شروع کنید.",
+          ],
+          en: [
+            "A smart contract is a powerful tool, but only when it solves the right problem. Before building a DEX or CEX, ask yourself whether you truly need an exchange or whether a token and a few simple contracts are enough. After that, treat security, liquidity, and compliance as seriously as the code itself.",
+            "If you plan a Web3 project, the Sosho Studio team can help with architecture, smart contract development and testing, and building the dApp frontend. Start from the contact section by describing your goal and target market.",
+          ],
+        },
+      },
+    ],
+    faq: [
+      {
+        question: {
+          fa: "تفاوت اصلی DEX و CEX چیست؟",
+          en: "What is the main difference between a DEX and a CEX?",
+        },
+        answer: {
+          fa: "در CEX صرافی دارایی کاربر را نگه می‌دارد و سفارش‌ها را روی سرورهای خودش تطبیق می‌دهد. در DEX معامله با قرارداد هوشمند انجام می‌شود و کاربر دارایی‌اش را در کیف پول خودش نگه می‌دارد.",
+          en: "On a CEX the exchange holds user assets and matches orders on its own servers. On a DEX trades execute against a smart contract and users keep their assets in their own wallets.",
+        },
+      },
+      {
+        question: {
+          fa: "ساخت یک DEX ساده‌تر است یا CEX؟",
+          en: "Is it easier to build a DEX or a CEX?",
+        },
+        answer: {
+          fa: "از نظر فنی کد یک DEX پایه کوچک‌تر است، اما امنیت قرارداد و جذب نقدینگی چالش اصلی است. CEX به زیرساخت امنیتی بزرگ‌تر، تیم عملیات و انطباق قانونی نیاز دارد. هیچ‌کدام ساده نیست و هزینه و ریسک هر دو به مقیاس پروژه بستگی دارد.",
+          en: "Technically a basic DEX has less code, but contract security and liquidity acquisition are the main challenges. A CEX needs larger security infrastructure, operations, and regulatory compliance. Neither is simple, and the cost and risk of both depend on the project's scale.",
+        },
+      },
+      {
+        question: {
+          fa: "آیا برای هر پروژه Web3 باید ممیزی امنیتی انجام داد؟",
+          en: "Does every Web3 project need a security audit?",
+        },
+        answer: {
+          fa: "اگر قرارداد دارایی واقعی کاربران را نگه می‌دارد یا جابه‌جا می‌کند، ممیزی مستقل پیش از انتشار اکیداً توصیه می‌شود. برای نمونه‌های آزمایشی روی testnet لازم نیست، اما تست و بازبینی داخلی همیشه ضروری است.",
+          en: "If the contract holds or moves real user assets, an independent audit before release is strongly recommended. It is not needed for experimental testnet prototypes, but testing and internal review are always necessary.",
+        },
+      },
+      {
+        question: {
+          fa: "آیا می‌توان قرارداد هوشمند را بعد از استقرار تغییر داد؟",
+          en: "Can a smart contract be changed after deployment?",
+        },
+        answer: {
+          fa: "به‌صورت پیش‌فرض خیر. اگر از الگوی قرارداد قابل ارتقا (proxy) استفاده شود، می‌توان منطق را تغییر داد، اما این کار ریسک‌های خودش را دارد و اعتماد کاربر به مدیر ارتقا را می‌طلبد؛ معمولاً با multisig و timelock کنترل می‌شود.",
+          en: "Not by default. With an upgradeable (proxy) pattern the logic can be changed, but it brings its own risks and requires users to trust whoever controls upgrades; this is usually controlled with a multisig and a timelock.",
+        },
+      },
+      {
+        question: {
+          fa: "آیا ساخت صرافی رمزارز در ایران و برای بازار جهانی قانونی است؟",
+          en: "Is building a crypto exchange legal in Iran and for global markets?",
+        },
+        answer: {
+          fa: "این به قوانین هر بازار و وضعیت مجوزها بستگی دارد و مرتباً تغییر می‌کند. ما مشاوره حقوقی نمی‌دهیم؛ پیش از ساخت، آخرین مقررات و محدودیت‌ها (از جمله تحریم‌ها) را از منابع رسمی و یک متخصص حقوقی همان بازار بررسی کنید.",
+          en: "It depends on each market's laws and licensing situation, and it changes often. We do not give legal advice; before building, check the current rules and restrictions (including sanctions) with official sources and a qualified lawyer in that market.",
+        },
+      },
+    ],
+  },
+  {
+    slug: "erp-system-guide-buy-or-build",
+    title: {
+      fa: "سیستم ERP چیست؟ چه زمانی به آن نیاز دارید و خرید بهتر است یا ساخت اختصاصی؟",
+      en: "What Is an ERP System? When You Need One and Whether to Buy or Build",
+    },
+    excerpt: {
+      fa: "راهنمای عملی برای مدیران: ERP چه مشکلی را حل می‌کند، چه ماژول‌هایی دارد، گزینه‌های ایرانی و خارجی کدام‌اند و چطور بدون شکست پیاده‌سازی کنیم.",
+      en: "A practical guide for business owners: what problem ERP solves, which modules matter, how Iranian and international options compare, and how to implement without failing.",
+    },
+    tags: ["ERP", "Business", "Automation"],
+    publishedAt: "2026-10-19",
+    coverImage: "/blog/erp-system-guide-buy-or-build.png",
+    coverImageAlt: {
+      fa: "پوستر مقاله سیستم ERP: خرید یا ساخت اختصاصی",
+      en: "Cover art for the ERP guide: buy or build",
+    },
+    directAnswer: {
+      fa: "ERP (برنامه‌ریزی منابع سازمان) نرم‌افزاری است که بخش‌های مختلف کسب‌وکار مثل حسابداری، انبار، خرید، فروش و منابع انسانی را روی یک پایگاه داده مشترک و یکپارچه اجرا می‌کند تا اطلاعات فقط یک‌بار ثبت شود و همه از همان یک منبع درست استفاده کنند. وقتی با اکسل و چند نرم‌افزار جدا، ناهماهنگی موجودی، گزارش دیر یا ثبت تکراری اطلاعات دارید، زمان بررسی ERP است. در اغلب موارد، پیاده‌سازی یک محصول آماده یا متن‌باز با سفارشی‌سازی محدود، منطقی‌تر از ساخت کامل از صفر است؛ ساخت اختصاصی فقط وقتی ارزش دارد که فرایندهای شما واقعاً با محصولات موجود جور نباشد.",
+      en: "ERP (enterprise resource planning) is software that runs the different parts of a business, such as accounting, inventory, purchasing, sales, and HR, on one shared, integrated database, so data is entered once and everyone works from the same source of truth. When spreadsheets and disconnected tools cause stock mismatches, slow reports, or duplicate data entry, it is time to evaluate ERP. In most cases, implementing a ready-made or open-source product with limited customization makes more sense than building from scratch; a fully custom build is worth it only when your processes genuinely do not fit existing products.",
+    },
+    sections: [
+      {
+        heading: {
+          fa: "ERP دقیقاً چه مشکلی را حل می‌کند؟",
+          en: "What problem does ERP actually solve?",
+        },
+        paragraphs: {
+          fa: [
+            "بیشتر کسب‌وکارها در شروع کار با ابزارهای پراکنده شروع می‌کنند: یک فایل اکسل برای انبار، یک نرم‌افزار حسابداری، یک فایل دیگر برای فروش و پیام‌رسان برای هماهنگی. تا وقتی کار کوچک است این روش جواب می‌دهد، اما با رشد حجم کار، مشکل‌ها شروع می‌شوند: موجودی انبار با واقعیت نمی‌خواند، گزارش فروش و حسابداری عدد متفاوتی نشان می‌دهند و بستن حساب آخر ماه چند روز طول می‌کشد.",
+            "ریشه همه این مشکلات یکی است: اطلاعات در چند جا نگهداری می‌شوند و باید دستی هماهنگ شوند. ERP این مسئله را با یک پایگاه داده مشترک حل می‌کند. وقتی فاکتور فروش ثبت می‌شود، همان لحظه موجودی انبار کم می‌شود، حساب مشتری به‌روز می‌شود و سند حسابداری ساخته می‌شود؛ بدون اینکه کسی سه بار اطلاعات را وارد کند.",
+          ],
+          en: [
+            "Most businesses start with scattered tools: a spreadsheet for stock, an accounting application, another file for sales, and a messaging app to coordinate. That works while the business is small, but as volume grows the problems begin: stock levels do not match reality, sales and accounting reports show different numbers, and closing the books at month-end takes days.",
+            "All of these share one root cause: information lives in several places and has to be reconciled by hand. ERP solves this with a shared database. When a sales invoice is recorded, stock is reduced at that moment, the customer's balance updates, and the accounting entry is created, without anyone typing the data three times.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "ماژول‌های اصلی یک ERP",
+          en: "The core modules of an ERP",
+        },
+        paragraphs: {
+          fa: [
+            "ERP یک نرم‌افزار واحد نیست، مجموعه‌ای از ماژول‌هاست که به هم وصل‌اند. لازم نیست همه را یک‌جا راه‌اندازی کنید؛ بهتر است با ماژولی شروع کنید که بیشترین درد را دارد.",
+          ],
+          en: [
+            "ERP is not a single program but a set of connected modules. You do not need to launch all of them at once; it is better to begin with the module where the pain is greatest.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "مالی و حسابداری: اسناد، حساب‌های دریافتنی و پرداختنی، چک، بانک و گزارش‌های مالی",
+            "انبار و موجودی: ورود و خروج کالا، چند انبار، شماره سریال و حداقل موجودی",
+            "خرید و فروش: پیش‌فاکتور، سفارش، فاکتور، قیمت‌گذاری و مدیریت تأمین‌کننده",
+            "مدیریت ارتباط با مشتری (CRM): سرنخ‌ها، پیگیری‌ها و تاریخچه مشتری",
+            "تولید: فرمول ساخت (BOM)، دستور کار و بهای تمام‌شده",
+            "منابع انسانی و حقوق: پرسنل، حضور و غیاب، حقوق و دستمزد",
+            "گزارش‌گیری و داشبورد: دید لحظه‌ای مدیر به فروش، موجودی و سودآوری",
+          ],
+          en: [
+            "Finance and accounting: journal entries, receivables and payables, cheques, banking, and financial reports",
+            "Inventory: stock in and out, multiple warehouses, serial numbers, and reorder levels",
+            "Purchasing and sales: quotes, orders, invoices, pricing, and supplier management",
+            "Customer relationship management (CRM): leads, follow-ups, and customer history",
+            "Manufacturing: bills of materials, work orders, and cost of goods",
+            "HR and payroll: employee records, attendance, and salaries",
+            "Reporting and dashboards: a live view of sales, stock, and profitability",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "نشانه‌هایی که می‌گویند وقت ERP رسیده است",
+          en: "Signs it is time for an ERP",
+        },
+        paragraphs: {
+          fa: [
+            "ERP یک سرمایه‌گذاری و تغییر سازمانی است، نه فقط خرید نرم‌افزار. اگر مشکلات زیر برای شما آشناست، ارزش بررسی دارد؛ اگر نه، شاید یک اصلاح فرایند یا یک ابزار ساده‌تر کافی باشد.",
+          ],
+          en: [
+            "ERP is an investment and an organizational change, not just a software purchase. If the problems below sound familiar it is worth evaluating; if not, a process fix or a simpler tool may be enough.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "یک اطلاعات را در چند فایل یا نرم‌افزار دو یا چند بار وارد می‌کنید",
+            "موجودی انبار با شمارش واقعی همیشه اختلاف دارد",
+            "تهیه یک گزارش ساده مدیریتی چند ساعت یا چند روز زمان می‌برد",
+            "رشد کار، شعبه یا انبار جدید، هماهنگی را بسیار سخت کرده است",
+            "فروشگاه آنلاین، انبار و حسابداری با هم هماهنگ نیستند",
+            "اطلاعات مهم در ذهن یا فایل شخصی چند نفر است و با رفتن آن‌ها از بین می‌رود",
+          ],
+          en: [
+            "You enter the same data two or more times across files or programs",
+            "Stock levels never match the physical count",
+            "A simple management report takes hours or days to prepare",
+            "Growth, a new branch, or a new warehouse has made coordination painful",
+            "Your online store, warehouse, and accounting are out of sync",
+            "Critical knowledge lives in a few people's heads or personal files and leaves when they do",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "خرید ERP آماده، متن‌باز یا ساخت اختصاصی؟",
+          en: "Buy a ready-made ERP, use open source, or build custom?",
+        },
+        paragraphs: {
+          fa: [
+            "سه مسیر اصلی وجود دارد و هر کدام برای شرایط متفاوتی مناسب است. انتخاب باید بر اساس فرایندهای واقعی شما باشد، نه تبلیغات محصولات.",
+            "محصولات آماده (مثل SAP، Microsoft Dynamics 365 و Oracle NetSuite در سطح بین‌المللی و نرم‌افزارهایی مانند سپیدار، هلو، راهکاران و همکاران سیستم در ایران) سریع‌ترین راه‌اندازی را دارند و پشتیبانی رسمی ارائه می‌دهند. معمولاً هزینه لایسنس یا اشتراک دارند و سفارشی‌سازی عمیق آن‌ها محدود یا گران است. ERP متن‌باز (مثل Odoo و ERPNext) انعطاف بیشتری دارد: می‌توانید روی سرور خودتان نصب کنید و ماژول‌های اختصاصی اضافه کنید. در عوض به یک تیم فنی برای نصب، سفارشی‌سازی و نگهداری نیاز دارید. ساخت اختصاصی بیشترین کنترل را می‌دهد اما گران‌ترین و پرریسک‌ترین راه است، چون باید همه چیز از حسابداری تا گزارش را خودتان بسازید و سال‌ها نگه دارید.",
+            "قاعده خوب این است: تا جایی که ممکن است استاندارد بمانید و فقط جایی سفارشی‌سازی کنید که مزیت رقابتی شما آنجاست. ساخت کامل از صفر فقط وقتی منطقی است که فرایند اصلی کسب‌وکارتان آن‌قدر خاص باشد که هیچ محصول موجودی با آن جور نشود.",
+          ],
+          en: [
+            "There are three main paths, each suited to different situations. The choice should follow your real processes, not product marketing.",
+            "Ready-made products (such as SAP, Microsoft Dynamics 365, and Oracle NetSuite internationally, and Sepidar, Holoo, Rahkaran, and Hamkaran System in Iran) are the fastest to start and come with official support. They usually carry license or subscription costs, and deep customization is limited or expensive. Open-source ERPs (such as Odoo and ERPNext) are more flexible: you can host them yourself and add custom modules, but you need a technical team to install, customize, and maintain them. A fully custom build offers the most control but is the most expensive and riskiest path, because you must build everything from accounting to reporting and maintain it for years.",
+            "A good rule is to stay as standard as possible and customize only where your competitive advantage lives. Building from scratch is sensible only when your core process is so specific that no existing product fits.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "محصول آماده: راه‌اندازی سریع، پشتیبانی رسمی؛ سفارشی‌سازی محدود",
+            "متن‌باز (Odoo، ERPNext): انعطاف‌پذیر، بدون وابستگی به یک فروشنده؛ نیازمند تیم فنی",
+            "ساخت اختصاصی: کنترل کامل؛ گران، زمان‌بر و پرریسک",
+            "ترکیبی (هیبریدی): یک هسته آماده یا متن‌باز به‌علاوه سرویس‌ها و اتصالات اختصاصی؛ اغلب بهترین تعادل",
+          ],
+          en: [
+            "Ready-made: quick start, official support; limited customization",
+            "Open source (Odoo, ERPNext): flexible, no single-vendor lock-in; needs a technical team",
+            "Custom build: full control; expensive, slow, and risky",
+            "Hybrid: a ready-made or open-source core plus custom services and integrations; often the best balance",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "ملاحظات ویژه کسب‌وکارهای ایرانی",
+          en: "Considerations specific to Iranian businesses",
+        },
+        paragraphs: {
+          fa: [
+            "ERP در ایران چند نیاز خاص دارد که در محصولات خارجی معمولاً به‌صورت پیش‌فرض وجود ندارند. تقویم شمسی و رابط فارسی راست‌چین، مدیریت چک (دریافتی و پرداختی با وضعیت‌های مختلف)، اسناد حسابداری مطابق روال رایج کشور، مالیات بر ارزش افزوده و ارتباط با سامانه مودیان مالیاتی برای صدور صورتحساب الکترونیکی از مهم‌ترین آن‌هاست. همچنین نوسان قیمت و تورم بر قیمت‌گذاری، ارزش‌گذاری موجودی و بهای تمام‌شده اثر مستقیم دارد.",
+            "از طرف دیگر، دسترسی به برخی محصولات بین‌المللی ابری یا پرداخت اشتراک آن‌ها از ایران ممکن است با محدودیت روبه‌رو شود. این یکی از دلایلی است که راهکارهای داخلی یا ERP متن‌باز قابل نصب روی سرور خودتان در ایران محبوب‌اند. هر راهکاری را پیش از تصمیم نهایی روی سناریوهای واقعی خودتان آزمایش کنید: ثبت فاکتور، چک، گزارش مالیاتی و بستن ماه.",
+            "اگر بازار بین‌المللی هم دارید، مثلاً صادرات یا شرکت زیرمجموعه خارجی، ممکن است به چند ارز، چند زبان و گزارش‌های استاندارد بین‌المللی هم نیاز داشته باشید. این موضوع باید در همان انتخاب اول در نظر گرفته شود، چون تغییر آن بعداً پرهزینه است.",
+          ],
+          en: [
+            "ERP in Iran has several specific needs that foreign products usually do not provide out of the box. The Jalali (Solar Hijri) calendar and a Persian right-to-left interface, cheque management (received and issued, with many statuses), accounting entries aligned with common local practice, VAT, and integration with the national tax system (Moadian) for electronic invoicing are among the most important. Price volatility and inflation also directly affect pricing, inventory valuation, and cost of goods.",
+            "On the other hand, access to some international cloud products, or paying for their subscriptions from Iran, may be restricted. That is one reason domestic solutions, or open-source ERPs you can host on your own server in Iran, are popular. Whatever you choose, test it on your real scenarios before the final decision: recording an invoice, a cheque, a tax report, and closing a month.",
+            "If you also serve international markets, for example through exports or a foreign subsidiary, you may need multiple currencies, languages, and standard international reports. Factor that into the very first choice, because changing it later is costly.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "چطور پیاده‌سازی کنیم که شکست نخورد؟",
+          en: "How to implement without failing",
+        },
+        paragraphs: {
+          fa: [
+            "بیشتر پروژه‌های ERP به‌خاطر نرم‌افزار شکست نمی‌خورند؛ به‌خاطر مسیر پیاده‌سازی شکست می‌خورند. این‌ها رایج‌ترین دلایل و راه جلوگیری از آن‌هاست:",
+          ],
+          en: [
+            "Most ERP projects do not fail because of the software; they fail because of how they were implemented. Here are the most common causes and how to avoid them:",
+          ],
+        },
+        bullets: {
+          fa: [
+            "اول فرایند، بعد نرم‌افزار: فرایندهای فعلی را روی کاغذ بیاورید. خودکارسازی یک فرایند خراب فقط خرابی را سریع‌تر می‌کند",
+            "کوچک شروع کنید: ماژول به ماژول جلو بروید (مثلاً انبار و فروش، سپس حسابداری) به‌جای راه‌اندازی همه‌چیز در یک روز",
+            "تمیزکاری داده: کالاهای تکراری، مشتریان ناقص و موجودی غلط را قبل از انتقال به سیستم جدید اصلاح کنید",
+            "مسئول پروژه از داخل سازمان: یک نفر باید صاحب پروژه باشد و تصمیم بگیرد؛ پیمانکار به‌تنهایی کافی نیست",
+            "آموزش کاربران: بهترین سیستم هم اگر کاربر از آن استفاده نکند بی‌فایده است",
+            "سفارشی‌سازی با احتیاط: هر سفارشی‌سازی هزینه به‌روزرسانی و نگهداری آینده دارد",
+            "دوره اجرای موازی: برای مدتی سیستم قدیم و جدید را کنار هم نگه دارید و نتایج را مقایسه کنید",
+          ],
+          en: [
+            "Process first, software second: document your current processes. Automating a broken process only makes the breakage faster",
+            "Start small: go module by module (for example inventory and sales first, then accounting) instead of launching everything in one day",
+            "Clean the data: fix duplicate items, incomplete customers, and wrong stock before migrating to the new system",
+            "An internal project owner: someone inside the company must own the project and make decisions; a contractor alone is not enough",
+            "Train users: even the best system is useless if people do not use it",
+            "Customize with caution: every customization adds future upgrade and maintenance cost",
+            "Run in parallel for a while: keep the old and new systems side by side and compare results",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "اتصال ERP به سایت، فروشگاه آنلاین و بقیه سیستم‌ها",
+          en: "Connecting ERP to your website, online store, and other systems",
+        },
+        paragraphs: {
+          fa: [
+            "ارزش واقعی ERP وقتی کامل می‌شود که به بقیه سیستم‌ها وصل باشد. فروشگاه آنلاین (مثلاً ووکامرس یا یک فروشگاه اختصاصی) می‌تواند موجودی را از ERP بخواند و سفارش‌ها را مستقیم به آن بفرستد، درگاه پرداخت می‌تواند وضعیت پرداخت را به سند حسابداری وصل کند، و پیامک یا ایمیل می‌توانند به‌صورت خودکار از وضعیت سفارش ارسال شوند. این اتصال‌ها معمولاً از طریق API ساخته می‌شوند.",
+            "داشبوردهای مدیریتی سفارشی هم از همین راه ساخته می‌شوند: به‌جای باز کردن چند گزارش، مدیر در یک صفحه فروش امروز، موجودی کم‌شده و مطالبات معوق را می‌بیند. اتوماسیون‌های مبتنی بر هوش مصنوعی هم می‌توانند روی داده‌های ERP کار کنند، مثلاً خلاصه‌سازی گزارش‌ها یا پیش‌بینی نیاز به سفارش مجدد.",
+            "تیم سوشو استودیو در طراحی سایت و فروشگاه، ساخت API و اتصال سیستم‌ها و ساخت داشبورد و اتوماسیون تجربه دارد و می‌تواند این لایه اتصال را برای ERP انتخابی شما بسازد.",
+          ],
+          en: [
+            "ERP's real value shows when it is connected to your other systems. An online store (for example WooCommerce or a custom shop) can read stock from the ERP and push orders straight into it, a payment gateway can tie payment status to the accounting entry, and SMS or email can be sent automatically from order status. These connections are usually built through APIs.",
+            "Custom management dashboards are built the same way: instead of opening several reports, a manager sees today's sales, low stock, and overdue receivables on one page. AI-based automation can also work on ERP data, for example summarizing reports or predicting reorder needs.",
+            "The Sosho Studio team has experience in website and store design, building APIs and system integrations, and creating dashboards and automation, and can build this integration layer for whichever ERP you choose.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "جمع‌بندی",
+          en: "The takeaway",
+        },
+        paragraphs: {
+          fa: [
+            "ERP جادو نیست؛ ابزاری است که فرایندهای خوب را سریع‌تر و قابل‌اعتمادتر می‌کند. قبل از انتخاب نرم‌افزار، فرایندها و مشکل اصلی‌تان را مشخص کنید، با ماژول کوچکی شروع کنید و تا حد ممکن استاندارد بمانید. در بیشتر موارد، یک محصول آماده یا متن‌باز به‌همراه چند اتصال اختصاصی، منطقی‌ترین و اقتصادی‌ترین مسیر است.",
+          ],
+          en: [
+            "ERP is not magic; it is a tool that makes good processes faster and more reliable. Before choosing software, define your processes and your core problem, start with a small module, and stay as standard as you can. In most cases a ready-made or open-source product plus a few custom integrations is the most sensible and economical route.",
+          ],
+        },
+      },
+    ],
+    faq: [
+      {
+        question: {
+          fa: "ERP با نرم‌افزار حسابداری چه فرقی دارد؟",
+          en: "How is ERP different from accounting software?",
+        },
+        answer: {
+          fa: "نرم‌افزار حسابداری فقط بخش مالی را پوشش می‌دهد. ERP علاوه بر مالی، انبار، خرید، فروش، تولید و منابع انسانی را هم روی یک پایگاه داده مشترک اجرا می‌کند تا اطلاعات بین بخش‌ها خودکار هماهنگ شود.",
+          en: "Accounting software covers only finance. ERP also runs inventory, purchasing, sales, manufacturing, and HR on one shared database, so data stays in sync across departments automatically.",
+        },
+      },
+      {
+        question: {
+          fa: "پیاده‌سازی ERP چقدر طول می‌کشد؟",
+          en: "How long does ERP implementation take?",
+        },
+        answer: {
+          fa: "بسته به اندازه سازمان، تعداد ماژول‌ها و کیفیت داده‌ها از چند هفته تا چند ماه متغیر است. شروع با یک یا دو ماژول مهم و گسترش مرحله‌ای، معمولاً سریع‌تر و کم‌ریسک‌تر از راه‌اندازی یک‌باره است.",
+          en: "It ranges from a few weeks to several months depending on company size, number of modules, and data quality. Starting with one or two key modules and expanding in stages is usually faster and less risky than a single big launch.",
+        },
+      },
+      {
+        question: {
+          fa: "آیا شرکت کوچک هم به ERP نیاز دارد؟",
+          en: "Does a small company need an ERP?",
+        },
+        answer: {
+          fa: "همیشه نه. اگر حجم کار کم است و اطلاعات هماهنگ هستند، یک نرم‌افزار حسابداری و انبار ساده کافی است. وقتی ثبت تکراری، اختلاف موجودی یا گزارش‌های دیر به مشکل تبدیل شد، زمان بررسی ERP است.",
+          en: "Not always. If volume is low and information is consistent, simple accounting and inventory software is enough. When duplicate entry, stock mismatches, or slow reports become a problem, it is time to evaluate ERP.",
+        },
+      },
+      {
+        question: {
+          fa: "ساخت ERP اختصاصی بهتر است یا خرید ERP آماده؟",
+          en: "Is a custom ERP better than a ready-made one?",
+        },
+        answer: {
+          fa: "در بیشتر موارد خرید یا استفاده از ERP متن‌باز با سفارشی‌سازی محدود اقتصادی‌تر و کم‌ریسک‌تر است. ساخت اختصاصی فقط وقتی ارزش دارد که فرایند اصلی کسب‌وکار شما با هیچ محصول موجودی سازگار نباشد.",
+          en: "In most cases a ready-made or open-source ERP with limited customization is cheaper and less risky. A custom build is worth it only when your core process fits no existing product.",
+        },
+      },
+      {
+        question: {
+          fa: "آیا می‌توان ERP را به فروشگاه آنلاین وصل کرد؟",
+          en: "Can an ERP be connected to an online store?",
+        },
+        answer: {
+          fa: "بله. با API یا افزونه‌های اختصاصی می‌توان موجودی، سفارش‌ها و وضعیت پرداخت را بین فروشگاه آنلاین و ERP به‌صورت خودکار همگام کرد و ثبت دستی را حذف نمود.",
+          en: "Yes. Through an API or custom plugins, stock, orders, and payment status can sync automatically between the online store and the ERP, removing manual entry.",
+        },
+      },
+    ],
+  },
 ];
 
 export function getBlogPosts() {

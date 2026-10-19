@@ -5,8 +5,12 @@ import LanguageSwitch from "./LanguageSwitch";
 import MobileMenu from "./MobileMenu";
 import {
     SiInstagram,
+    SiLinkedin,
+    SiTelegram,
     SiWhatsapp,
 } from "react-icons/si";
+import { FiPhone } from "react-icons/fi";
+import { CONTACT_INFO } from "@/app/contact-info";
 
 
 type HeaderLabels = {
@@ -22,14 +26,34 @@ type HeaderLabels = {
 
 const SOCIAL_LINKS = [
     {
+        label: "Phone",
+        href: CONTACT_INFO.phoneHref,
+        Icon: FiPhone,
+        external: false,
+    },
+    {
         label: "WhatsApp",
-        href: "https://wa.me/989120265102",
+        href: CONTACT_INFO.whatsappUrl,
         Icon: SiWhatsapp,
+        external: true,
+    },
+    {
+        label: "Telegram",
+        href: CONTACT_INFO.telegramUrl,
+        Icon: SiTelegram,
+        external: true,
     },
     {
         label: "Sosho Studio on Instagram",
-        href: "https://www.instagram.com/sosho_studio/",
+        href: CONTACT_INFO.instagramUrl,
         Icon: SiInstagram,
+        external: true,
+    },
+    {
+        label: "Soheil Shokouhi Majd on LinkedIn",
+        href: CONTACT_INFO.linkedinUrl,
+        Icon: SiLinkedin,
+        external: true,
     },
 ] as const;
 
@@ -87,14 +111,13 @@ export default function Header({
                     <LanguageSwitch />
                     <span className="hidden h-4 w-px bg-foreground/10 sm:block" aria-hidden="true" />
                     <div className="hidden items-center sm:flex">
-                        {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                        {SOCIAL_LINKS.map(({ href, label, Icon, external }) => (
                             <a
                                 key={href}
                                 href={href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={label}
-                                title={label}
+                                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                aria-label={label === "Phone" && locale === "fa" ? "تماس تلفنی" : label}
+                                title={label === "Phone" ? CONTACT_INFO.phoneDisplay : label}
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors duration-200 hover:bg-foreground/5 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                             >
                                 <Icon className="h-4 w-4" aria-hidden="true" />
@@ -111,11 +134,16 @@ export default function Header({
                         key={locale}
                         locale={locale}
                         navItems={NAV_ITEMS.map(({ label, href }) => ({ label, href }))}
-                        socialLinks={SOCIAL_LINKS.map(({ href, label, Icon }) => ({
+                        socialLinks={SOCIAL_LINKS.filter(({ external }) => external).map(({ href, label, Icon }) => ({
                             href,
                             label,
                             icon: <Icon className="h-5 w-5" aria-hidden="true" />,
                         }))}
+                        phone={{
+                            href: CONTACT_INFO.phoneHref,
+                            display: CONTACT_INFO.phoneDisplay,
+                            label: locale === "fa" ? "تماس تلفنی" : "Call us",
+                        }}
                         ctaHref={`/${locale}#contact`}
                         ctaLabel={locale === "fa" ? "شروع پروژه" : "Start a project"}
                         openLabel={locale === "fa" ? "باز کردن منو" : "Open menu"}

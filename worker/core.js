@@ -137,6 +137,9 @@ const EXTRACTED_FIELD_SET = new Set(EXTRACTED_FIELDS);
 const SAFE_LOG_FIELDS = new Set([
   "requestId",
   "provider",
+  "providerRequestId",
+  "providerErrorType",
+  "providerErrorCode",
   "attempt",
   "status",
   "code",
@@ -219,6 +222,55 @@ export function validateWebsiteChatInput(input) {
       message,
     },
   };
+}
+
+const CONTACT_MESSAGE_KEY_SET = new Set(["name", "contact", "message", "locale", "company"]);
+const CONTACT_EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u;
+const CONTACT_PHONE_PATTERN = /^\+?[\d۰-۹٠-٩\s().-]+$/u;
+const CONTROL_CHARACTERS = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/gu;
+
+export function isContactMethod(value) {
+  if (CONTACT_EMAIL_PATTERN.test(value)) return true;
+  if (!CONTACT_PHONE_PATTERN.test(value)) return false;
+  const digits = value.replace(/[^\d۰-۹٠-٩]/gu, "");
+  return digits.length >= 7 && digits.length <= 15;
+}
+
+/**
+ * Public "leave a message" form. `company` is a honeypot: real visitors never
+ * see or fill it, so a non-empty value is reported as `spam` and the caller
+ * must silently drop the message instead of storing it.
+ */
+export function validateContactMessageInput(input) {
+  const issues = [];
+  if (!isPlainRecord(input)) {
+    return { ok: false, issues: [{ path: "$", code: "object_required" }] };
+  }
+  for (const key of Object.keys(input)) {
+    if (!CONTACT_MESSAGE_KEY_SET.has(key)) issues.push({ path: key, code: "unknown_field" });
+  }
+  if (!WEBSITE_LOCALES.has(input.locale)) {
+    issues.push({ path: "locale", code: "invalid_locale" });
+  }
+  const text = (value) => (typeof value === "string" ? value : null);
+  const name = text(input.name)?.replace(/\s+/gu, " ").trim() ?? null;
+  const contact = text(input.contact)?.trim() ?? null;
+  const message = text(input.message)?.replace(CONTROL_CHARACTERS, "").trim() ?? null;
+  if (name === null || name.length < 2 || name.length > 80) {
+    issues.push({ path: "name", code: "invalid_length" });
+  }
+  if (contact === null || contact.length < 5 || contact.length > 120 || !isContactMethod(contact)) {
+    issues.push({ path: "contact", code: "invalid_contact" });
+  }
+  if (message === null || message.length < 10 || message.length > 2000) {
+    issues.push({ path: "message", code: "invalid_length" });
+  }
+  if (input.company !== undefined && typeof input.company !== "string") {
+    issues.push({ path: "company", code: "string_required" });
+  }
+  if (issues.length > 0) return { ok: false, issues };
+  const spam = typeof input.company === "string" && input.company.trim().length > 0;
+  return { ok: true, spam, value: { name, contact, message, locale: input.locale } };
 }
 
 function hasExactKeys(value, keys) {
@@ -389,6 +441,73 @@ export function logEvent(level, event, details = {}) {
   }
   const writer = level === "error" ? console.error : level === "warn" ? console.warn : console.log;
   writer(JSON.stringify(record));
+}
+
+function safeProviderDiagnostic(value, maxLength = 100) {
+  if (typeof value !== "string") return undefined;
+  const normalized = value.trim();
+  if (
+    normalized.length < 1 ||
+    normalized.length > maxLength ||
+    !/^[a-z0-9_.:-]+$/iu.test(normalized)
+  ) {
+    return undefined;
+  }
+  return normalized;
+}
+
+async function readBoundedResponseText(response, maxBytes) {
+  const declaredLength = Number(response.headers.get("content-length") || 0);
+  if (declaredLength > maxBytes || !response.body) return "";
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let totalBytes = 0;
+  let text = "";
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      totalBytes += value.byteLength;
+      if (totalBytes > maxBytes) {
+        await reader.cancel();
+        return "";
+      }
+      text += decoder.decode(value, { stream: true });
+    }
+    return text + decoder.decode();
+  } catch {
+    return "";
+  }
+}
+
+export async function readOpenAIErrorDiagnostics(response, maxBytes = 16_384) {
+  const diagnostics = {};
+  const providerRequestId = safeProviderDiagnostic(
+    response.headers.get("x-request-id"),
+    200
+  );
+  if (providerRequestId) diagnostics.providerRequestId = providerRequestId;
+
+  const text = await readBoundedResponseText(response, maxBytes);
+  if (!text) return diagnostics;
+
+  let payload;
+  try {
+    payload = JSON.parse(text);
+  } catch {
+    return diagnostics;
+  }
+  const providerError = isPlainRecord(payload) && isPlainRecord(payload.error)
+    ? payload.error
+    : null;
+  if (!providerError) return diagnostics;
+
+  const providerErrorType = safeProviderDiagnostic(providerError.type);
+  const providerErrorCode = safeProviderDiagnostic(providerError.code);
+  if (providerErrorType) diagnostics.providerErrorType = providerErrorType;
+  if (providerErrorCode) diagnostics.providerErrorCode = providerErrorCode;
+  return diagnostics;
 }
 
 export function isRetryableStatus(status) {
