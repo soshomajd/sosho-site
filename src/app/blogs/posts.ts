@@ -2968,6 +2968,340 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "future-of-ai-and-blockchain-in-iran",
+    title: {
+      fa: "آینده هوش مصنوعی و بلاکچین در ایران: فرصت‌ها، محدودیت‌ها و مسیر پیش رو",
+      en: "The Future of AI and Blockchain in Iran: Opportunities, Constraints, and the Road Ahead",
+    },
+    seoTitle: {
+      fa: "آینده هوش مصنوعی و بلاکچین در ایران",
+      en: "The Future of AI and Blockchain in Iran",
+    },
+    excerpt: {
+      fa: "تحلیلی واقع‌بینانه از وضعیت هوش مصنوعی و بلاکچین در ایران، محدودیت‌ها، کاربردهای عملی، سه سناریوی آینده و توصیه‌هایی برای کسب‌وکارها و متخصصان.",
+      en: "A realistic look at AI and blockchain in Iran: today's picture, real constraints, practical uses, three scenarios for the future, and advice for businesses.",
+    },
+    tags: ["AI", "Blockchain", "Web3", "Strategy", "Iran"],
+    publishedAt: "2026-10-20",
+    coverImage: "/blog/future-of-ai-and-blockchain-in-iran.jpg",
+    coverImageAlt: {
+      fa: "شبکه عصبی در سمت چپ و زنجیره‌ای از بلوک‌ها در سمت راست که در مرکز به نقش یک ستاره هشت‌پر ایرانی می‌رسند",
+      en: "A neural network on the left and a chain of blocks on the right meeting at a Persian eight-pointed star in the center",
+    },
+    directAnswer: {
+      fa: "آینده هوش مصنوعی و بلاکچین در ایران بیشتر به زیرساخت و قانون بستگی دارد تا به خود فناوری. در هوش مصنوعی، محدودیت دسترسی به سرویس‌ها و پردازنده‌های خارجی، بازار را به سمت مدل‌های متن‌باز روی سرور داخلی، مدل‌های فارسی و کاربردهای مشخص مثل پشتیبانی مشتری، پردازش اسناد و اتوماسیون فروش می‌برد. در بلاکچین، استخراج با مجوز، صرافی‌های زیر نظر بانک مرکزی و طرح ریال دیجیتال چارچوب اصلی را می‌سازند و ارزش پایدار در کاربردهای زیرساختی مثل ردیابی، تسویه و احراز اصالت اسناد است. محتمل‌ترین آینده، مسیری ترکیبی و تدریجی است؛ کسب‌وکاری جلو می‌افتد که از یک مسئله واقعی شروع کند، داده را نزد خود نگه دارد و برای قطعی و تغییر قوانین برنامه داشته باشد.",
+      en: "The future of AI and blockchain in Iran depends more on infrastructure and regulation than on the technology itself. In AI, limited access to foreign services and GPUs pushes the market toward open-weight models on local servers, Persian-language models, and focused uses such as customer support, document processing, and sales automation. In blockchain, licensed mining, exchanges supervised by the Central Bank, and the digital rial pilot set the main framework, and the lasting value lies in infrastructure uses such as traceability, settlement, and document verification. The most likely future is hybrid and gradual; the businesses that pull ahead will start from a real problem, keep their data in-house, and plan for outages and regulatory change.",
+    },
+    sections: [
+      {
+        heading: {
+          fa: "تصویر امروز: دو فناوری در یک اقتصاد خاص",
+          en: "Where things stand: two technologies in a unique economy",
+        },
+        paragraphs: {
+          fa: [
+            "هوش مصنوعی و بلاکچین در ایران با سرعت زیادی وارد زندگی کاری شده‌اند، اما در شرایطی متفاوت از بیشتر کشورها. از یک سو، جمعیت جوان و تحصیل‌کرده، دانشگاه‌های فنی قوی و جامعه فعال برنامه‌نویسان، هم تقاضا و هم توان ساخت را فراهم کرده است. از سوی دیگر، تحریم‌ها، محدودیت اینترنت، کمبود برق و تغییرات مکرر مقررات، مسیر را برای هر دو فناوری پیچیده‌تر می‌کند.",
+            "در هوش مصنوعی، سند ملی هوش مصنوعی که در سال ۱۴۰۳ در شورای عالی انقلاب فرهنگی تصویب شد، این حوزه را به یکی از اولویت‌های سیاست‌گذاری تبدیل کرد و هم‌زمان شرکت‌ها و تیم‌های ایرانی مدل‌های زبانی فارسی و محصولات مبتنی بر هوش مصنوعی عرضه کرده‌اند. در بلاکچین، استخراج رمزارز از سال ۱۳۹۸ با مجوز به‌عنوان یک فعالیت صنعتی شناخته شد، صرافی‌های داخلی زیر نظر بانک مرکزی فعالیت می‌کنند و بانک مرکزی طرح آزمایشی ریال دیجیتال را از سال ۱۴۰۱ آغاز کرده است.",
+          ],
+          en: [
+            "AI and blockchain have entered working life in Iran quickly, but under conditions unlike most countries. On one side, a young and educated population, strong technical universities, and an active developer community provide both demand and the ability to build. On the other, sanctions, internet restrictions, power shortages, and frequently changing regulations make the path harder for both technologies.",
+            "In AI, the National AI Document approved by the Supreme Council of the Cultural Revolution in 2024 made the field a policy priority, while Iranian companies and teams have released Persian language models and AI-based products. In blockchain, crypto mining has been recognized as a licensed industrial activity since 2019, domestic exchanges operate under Central Bank supervision, and the Central Bank began a digital rial pilot in 2022.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "محدودیت‌های واقعی که آینده را شکل می‌دهند",
+          en: "The real constraints that shape the future",
+        },
+        paragraphs: {
+          fa: [
+            "هر پیش‌بینی درباره آینده این دو فناوری در ایران، اگر چند محدودیت مشخص را نادیده بگیرد، یا بیش از حد خوش‌بینانه است یا بیش از حد بدبینانه. این محدودیت‌ها مانع کامل نیستند، اما تعیین می‌کنند چه راهکاری عملی است.",
+          ],
+          en: [
+            "Any forecast for these two technologies in Iran that ignores a few specific constraints will be either too optimistic or too pessimistic. They are not absolute barriers, but they decide which solutions are practical.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "دسترسی به سرویس‌های جهانی: بسیاری از سرویس‌های ابری، APIهای هوش مصنوعی و صرافی‌های بین‌المللی، کاربران ایرانی را به‌دلیل تحریم محدود می‌کنند",
+            "سخت‌افزار و پردازش: تهیه پردازنده گرافیکی (GPU) برای آموزش و اجرای مدل‌های بزرگ گران و دشوار است",
+            "اینترنت: فیلترینگ، کندی و قطعی‌های دوره‌ای، اتکا به سرویس‌های خارج از کشور را پرریسک می‌کند",
+            "برق: کمبود برق در فصل‌های اوج مصرف، هم بر استخراج و هم بر مراکز داده اثر می‌گذارد",
+            "مقررات متغیر: قوانین مربوط به رمزارز، درگاه‌های پرداخت ریالی و داده بارها تغییر کرده و برنامه‌ریزی بلندمدت را سخت می‌کند",
+            "مهاجرت نیروی متخصص: بخشی از بهترین متخصصان داده و بلاکچین جذب بازارهای خارجی می‌شوند",
+          ],
+          en: [
+            "Access to global services: many cloud services, AI APIs, and international exchanges restrict Iranian users because of sanctions",
+            "Hardware and compute: getting GPUs to train and run large models is expensive and difficult",
+            "Internet: filtering, slow connections, and periodic shutdowns make relying on foreign services risky",
+            "Power: electricity shortages in peak seasons affect both mining and data centers",
+            "Changing regulation: rules on crypto, rial payment gateways, and data have changed many times, which makes long-term planning hard",
+            "Talent emigration: some of the best data and blockchain specialists are drawn to foreign markets",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "هوش مصنوعی در ایران: از API خارجی به مدل‌های باز و محلی",
+          en: "AI in Iran: from foreign APIs to open, local models",
+        },
+        paragraphs: {
+          fa: [
+            "مهم‌ترین روند هوش مصنوعی در ایران، حرکت از سرویس‌های خارجی به سمت مدل‌هایی است که روی سرور داخلی یا سرور خود سازمان اجرا می‌شوند. مدل‌های متن‌باز (open-weight) مثل Llama، Qwen، Mistral، Gemma و DeepSeek را می‌توان با رعایت مجوز هر مدل، بدون وابستگی به یک API خارجی اجرا کرد. نسخه‌های فارسی‌شده‌ای مثل خانواده Dorna از شرکت PartAI، و مدل‌هایی مثل PersianMind و Maral، نشان می‌دهد تیم‌های ایرانی روی کیفیت زبان فارسی هم کار می‌کنند.",
+            "این مسیر یک مزیت مهم دیگر هم دارد: داده از سازمان بیرون نمی‌رود. برای بانک، بیمه، بیمارستان یا هر سازمانی که با داده حساس کار می‌کند، اجرای مدل روی زیرساخت خودی و اتصال آن به اسناد داخلی با روش RAG (بازیابی و تولید پاسخ)، اغلب از ارسال داده به یک سرویس خارجی امن‌تر و پایدارتر است. کمبود GPU هم باعث شده مدل‌های کوچک‌تر، فشرده‌سازی (quantization) و تعریف دقیق مسئله اهمیت بیشتری پیدا کند. کاربردهایی که زودتر نتیجه می‌دهند این‌ها هستند:",
+          ],
+          en: [
+            "The most important AI trend in Iran is the move from foreign services to models that run on local servers or on the organization's own hardware. Open-weight models such as Llama, Qwen, Mistral, Gemma, and DeepSeek can run without depending on a foreign API, as long as each model's license is respected. Persian-tuned versions such as PartAI's Dorna family, and models such as PersianMind and Maral, show that Iranian teams are also working on Persian-language quality.",
+            "This route has another important advantage: data does not leave the organization. For a bank, an insurer, a hospital, or any organization handling sensitive data, running a model on its own infrastructure and connecting it to internal documents with RAG (retrieval-augmented generation) is often safer and more resilient than sending data to a foreign service. The GPU shortage has also made smaller models, quantization, and a precise problem definition more important. These are the uses that pay off first:",
+          ],
+        },
+        bullets: {
+          fa: [
+            "پشتیبانی و پاسخ‌گویی فارسی به مشتری در سایت، پیام‌رسان‌ها و مرکز تماس",
+            "خواندن و دسته‌بندی اسناد: فاکتور، قرارداد، نامه اداری و فرم‌های اسکن‌شده",
+            "اتوماسیون فروش و CRM: پیگیری سرنخ، خلاصه گفت‌وگو و پیشنهاد اقدام بعدی",
+            "جست‌وجوی هوشمند در دانش داخلی و آیین‌نامه‌های سازمان",
+            "تولید و ویرایش محتوای فارسی با بازبینی انسانی",
+            "تشخیص تقلب و ناهنجاری در تراکنش‌های بانکی و فروشگاهی",
+          ],
+          en: [
+            "Persian customer support on the website, messaging apps, and call centers",
+            "Reading and classifying documents: invoices, contracts, official letters, and scanned forms",
+            "Sales and CRM automation: lead follow-up, conversation summaries, and next-step suggestions",
+            "Smart search across the organization's internal knowledge and policies",
+            "Creating and editing Persian content with human review",
+            "Fraud and anomaly detection in banking and retail transactions",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "بلاکچین در ایران: از معامله‌گری به زیرساخت",
+          en: "Blockchain in Iran: from trading to infrastructure",
+        },
+        paragraphs: {
+          fa: [
+            "برای بیشتر مردم، بلاکچین در ایران با خرید و فروش رمزارز و نگهداری تتر برای حفظ ارزش پول شناخته می‌شود. این بازار بزرگ است، اما شکننده هم هست: محدودیت درگاه‌های ریالی، سقف‌های معامله و سیاست‌های متغیر بانک مرکزی بارها بر آن اثر گذاشته است، و حمله سایبری خرداد ۱۴۰۴ به نوبیتکس، بزرگ‌ترین صرافی داخلی، نشان داد ریسک نگهداری دارایی در صرافی متمرکز تا چه اندازه جدی است.",
+            "آینده پایدارتر بلاکچین در ایران احتمالاً در لایه زیرساخت است؛ جایی که چند طرف به یک دفتر ثبت مشترک و قابل اعتماد نیاز دارند. زیرساخت بلاکچینی مجوزدار برنا که برای شبکه بانکی توسعه داده شده، طرح ریال دیجیتال بانک مرکزی و اعلام ثبت نخستین سفارش واردات با رمزارز در سال ۱۴۰۱ نشان می‌دهد نهادهای رسمی هم به این لایه توجه دارند. ریال دیجیتال یک ارز دیجیتال بانک مرکزی (CBDC) و ذاتاً متمرکز است؛ یعنی جایگزین رمزارزهای غیرمتمرکز نیست. کاربردهای زیرساختی که ارزش واقعی دارند:",
+          ],
+          en: [
+            "For most people, blockchain in Iran means buying and selling crypto and holding Tether to protect the value of their money. That market is large but fragile: limits on rial payment gateways, trading caps, and shifting Central Bank policies have hit it repeatedly, and the June 2025 cyberattack on Nobitex, the largest domestic exchange, showed how serious the risk of keeping assets on a centralized exchange is.",
+            "The more durable future of blockchain in Iran probably lies in the infrastructure layer, where several parties need a shared, trusted record. Borna, a permissioned blockchain platform developed for the banking network, the Central Bank's digital rial pilot, and the 2022 announcement of the first import order settled in crypto show that official institutions are paying attention to that layer too. The digital rial is a central bank digital currency (CBDC) and centralized by design, so it is not a replacement for decentralized cryptocurrencies. Infrastructure uses with real value:",
+          ],
+        },
+        bullets: {
+          fa: [
+            "ردیابی زنجیره تأمین: ثبت مراحل تولید، حمل و تحویل برای کالاهایی مثل دارو، زعفران یا قطعات",
+            "احراز اصالت اسناد: ثبت هش مدرک، گواهی یا قرارداد برای اثبات اینکه سند تغییر نکرده است",
+            "تسویه بین سازمان‌ها: دفتر مشترک برای بانک‌ها، بیمه‌ها یا شرکت‌های یک زنجیره",
+            "باشگاه مشتریان و امتیاز توکنی روی شبکه‌های خصوصی یا مجوزدار",
+            "قرارداد هوشمند امانت‌داری برای پروژه‌ها و معاملات مرحله‌ای، در چارچوب قانون",
+          ],
+          en: [
+            "Supply-chain traceability: recording production, shipping, and delivery for goods such as medicine, saffron, or parts",
+            "Document verification: recording the hash of a degree, certificate, or contract to prove the document has not changed",
+            "Settlement between organizations: a shared ledger for banks, insurers, or companies in one supply chain",
+            "Loyalty programs and token-based points on private or permissioned networks",
+            "Escrow smart contracts for projects and milestone deals, within the law",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "جایی که هوش مصنوعی و بلاکچین به هم می‌رسند",
+          en: "Where AI and blockchain meet",
+        },
+        paragraphs: {
+          fa: [
+            "این دو فناوری رقیب نیستند و در چند نقطه یکدیگر را کامل می‌کنند. بلاکچین داده‌ای شفاف و غیرقابل‌تغییر می‌سازد و هوش مصنوعی در فهم و تحلیل همین نوع داده قوی است. ترکیب درست آن‌ها معمولاً کاربردی ساده و مشخص است، نه یک پروژه بزرگ و مبهم.",
+          ],
+          en: [
+            "These two technologies are not rivals; they complement each other in several places. A blockchain produces transparent, tamper-evident data, and AI is strong at understanding and analyzing exactly that kind of data. The right combination is usually a simple, specific use, not a large, vague project.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "تحلیل داده زنجیره با هوش مصنوعی برای کشف تقلب، پول‌شویی و رفتار مشکوک در صرافی‌ها و کیف پول‌ها",
+            "کمک به بررسی امنیتی قرارداد هوشمند؛ هوش مصنوعی خطاهای رایج را سریع‌تر پیدا می‌کند، اما جای ممیزی (audit) انسانی را نمی‌گیرد",
+            "اثبات اصالت محتوا: ثبت هش یک خروجی یا داده آموزشی روی زنجیره برای اثبات منبع و زمان آن، در دوره‌ای که تشخیص محتوای واقعی از ساختگی سخت‌تر می‌شود",
+            "دستیار هوشمند برای کاربران Web3 که پیش از امضای تراکنش، آن را به زبان ساده فارسی توضیح دهد",
+            "عامل‌های هوش مصنوعی با کیف پول؛ حوزه‌ای جذاب اما پرریسک که بدون سقف مبلغ و تأیید انسانی نباید به کار رود",
+          ],
+          en: [
+            "AI analysis of on-chain data to detect fraud, money laundering, and suspicious behavior at exchanges and wallets",
+            "Help with smart-contract security reviews; AI finds common bugs faster but does not replace a human audit",
+            "Content provenance: recording the hash of an output or of training data on-chain to prove its source and time, as telling real content from synthetic gets harder",
+            "An assistant for Web3 users that explains a transaction in plain Persian before it is signed",
+            "AI agents with wallets: an exciting but risky area that should not be used without amount limits and human approval",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "سه سناریو برای پنج سال آینده",
+          en: "Three scenarios for the next five years",
+        },
+        paragraphs: {
+          fa: [
+            "آینده قطعی نیست و به عواملی مثل سیاست خارجی، وضعیت اقتصادی و تصمیم‌های قانون‌گذار بستگی دارد. به‌جای یک پیش‌بینی، بهتر است سه سناریو را در نظر بگیرید و برای هر کدام برنامه داشته باشید.",
+            "نکته مهم این است که در هر سه سناریو، تیمی که از امروز مهارت، داده و محصول واقعی می‌سازد از بقیه جلوتر است.",
+          ],
+          en: [
+            "The future is not certain and depends on factors such as foreign policy, the economy, and lawmakers' decisions. Instead of one forecast, it is better to consider three scenarios and have a plan for each.",
+            "The key point is that in all three, a team that starts building real skills, data, and products today will be ahead of the rest.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "سناریوی محدود: تحریم و محدودیت اینترنت شدیدتر می‌شود. ابزارها بیشتر داخلی و مدل‌ها کوچک‌تر می‌شوند، بازار رمزارز کنترل‌شده‌تر می‌شود و مهاجرت متخصصان ادامه پیدا می‌کند. در این حالت، کسب‌وکاری موفق است که از قبل روی زیرساخت خودی و مدل‌های متن‌باز سرمایه‌گذاری کرده باشد",
+            "سناریوی ترکیبی و تدریجی (محتمل‌تر): شرایط کم‌وبیش همین می‌ماند، اما ابزارها بالغ‌تر می‌شوند. سازمان‌ها از هوش مصنوعی برای کارهای داخلی به‌طور گسترده استفاده می‌کنند، صرافی‌ها زیر نظارت دقیق‌تری کار می‌کنند و ریال دیجیتال و شبکه‌های مجوزدار مرحله‌به‌مرحله گسترش می‌یابند",
+            "سناریوی باز: دسترسی به سرویس‌ها و بازارهای جهانی بهتر می‌شود. سرمایه‌گذاری، پردازش ابری و همکاری بین‌المللی رشد می‌کند و تیم‌هایی که امروز تجربه و محصول ساخته‌اند، زودتر از بقیه وارد بازار جهانی می‌شوند",
+          ],
+          en: [
+            "Restricted: sanctions and internet restrictions tighten. Tools become more domestic and models smaller, the crypto market becomes more controlled, and talent keeps emigrating. Here the winners are businesses that already invested in their own infrastructure and open-weight models",
+            "Hybrid and gradual (most likely): conditions stay roughly as they are, but the tools mature. Organizations use AI widely for internal work, exchanges operate under tighter supervision, and the digital rial and permissioned networks expand step by step",
+            "Open: access to global services and markets improves. Investment, cloud compute, and international collaboration grow, and teams that built experience and products today enter global markets before everyone else",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "توصیه برای کسب‌وکارها و استارتاپ‌ها",
+          en: "Advice for businesses and startups",
+        },
+        paragraphs: {
+          fa: [
+            "در شرایط نامطمئن، بهترین راهبرد این است که کوچک، مشخص و مستقل شروع کنید. این اصول در هر سه سناریو کار می‌کنند.",
+          ],
+          en: [
+            "In uncertain conditions, the best strategy is to start small, specific, and independent. These principles work in all three scenarios.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "از یک مسئله واقعی شروع کنید، نه از فناوری؛ مثلاً «زمان پاسخ به مشتری را نصف کنیم» به‌جای «یک پروژه هوش مصنوعی داشته باشیم»",
+            "وابستگی را کم کنید: هر جا ممکن است از مدل‌ها و ابزارهای متن‌باز روی سرور خودتان یا سرور داخلی استفاده کنید",
+            "داده را نزد خود نگه دارید و پیش از هر پروژه هوش مصنوعی، داده‌هایتان را مرتب و دسته‌بندی کنید",
+            "برای قطعی برنامه داشته باشید: هیچ فرایند حیاتی نباید فقط به یک سرویس خارجی وابسته باشد",
+            "در بلاکچین، بدون مجوز دارایی کاربران را نگهداری نکنید و اطلاعات شخصی را هرگز روی زنجیره ننویسید",
+            "پیش از اجرا، قوانین بانک مرکزی، مالیات و تحریم را از منابع رسمی و با مشاور حقوقی بررسی کنید",
+            "نتیجه را با عدد بسنجید: زمان، هزینه و خطا را پیش و پس از اجرا مقایسه کنید",
+          ],
+          en: [
+            "Start from a real problem, not from the technology; for example “cut customer response time in half” instead of “have an AI project”",
+            "Reduce dependency: wherever possible, use open-weight models and open-source tools on your own or local servers",
+            "Keep data in-house, and organize and label your data before any AI project",
+            "Plan for outages: no critical process should depend on a single foreign service",
+            "In blockchain, do not hold users' assets without a license, and never write personal data on-chain",
+            "Before building, check Central Bank, tax, and sanctions rules with official sources and a legal adviser",
+            "Measure results with numbers: compare time, cost, and errors before and after",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "مهارت‌هایی که ارزشمندتر می‌شوند",
+          en: "Skills that will be worth more",
+        },
+        paragraphs: {
+          fa: [
+            "برای متخصصان ایرانی، فرصت فقط در بازار داخلی نیست. بسیاری از تیم‌های جهانی به‌صورت دورکاری کار می‌کنند و مهارت در این حوزه‌ها، هم در ایران و هم در پروژه‌های بین‌المللی ارزش دارد.",
+          ],
+          en: [
+            "For Iranian specialists, the opportunity is not only in the domestic market. Many global teams work remotely, and skills in these areas are valuable both in Iran and in international projects.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "اجرا و بهینه‌سازی مدل‌های متن‌باز روی سخت‌افزار محدود",
+            "ساخت سیستم‌های RAG و ارزیابی کیفیت پاسخ مدل به فارسی",
+            "مهندسی داده: جمع‌آوری، پاک‌سازی و برچسب‌گذاری داده فارسی",
+            "توسعه و امنیت قرارداد هوشمند با Solidity و ابزارهایی مثل Hardhat",
+            "یکپارچه‌سازی هوش مصنوعی و بلاکچین با سیستم‌های موجود مثل ERP، CRM و درگاه‌های پرداخت",
+            "طراحی محصول و تجربه کاربری برای ابزارهای هوشمندی که کاربر عادی هم بتواند به آن‌ها اعتماد کند",
+          ],
+          en: [
+            "Running and optimizing open-weight models on limited hardware",
+            "Building RAG systems and evaluating answer quality in Persian",
+            "Data engineering: collecting, cleaning, and labeling Persian data",
+            "Smart-contract development and security with Solidity and tools such as Hardhat",
+            "Integrating AI and blockchain with existing systems such as ERP, CRM, and payment gateways",
+            "Product and UX design for intelligent tools that ordinary users can trust",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "جمع‌بندی",
+          en: "The takeaway",
+        },
+        paragraphs: {
+          fa: [
+            "آینده هوش مصنوعی و بلاکچین در ایران نه به‌اندازه تبلیغات درخشان است و نه به‌اندازه نگرانی‌ها تاریک. محدودیت‌ها واقعی‌اند، اما مسیر را مشخص‌تر هم می‌کنند: مدل‌های باز و محلی، داده در اختیار خود سازمان، کاربردهای مشخص و زیرساخت‌های مجوزدار. کسانی که امروز با واقع‌بینی شروع می‌کنند، در هر سناریویی جلوتر خواهند بود.",
+            "این مقاله یک تحلیل عمومی است و مشاوره حقوقی، مالی یا سرمایه‌گذاری محسوب نمی‌شود. اگر می‌خواهید هوش مصنوعی یا بلاکچین را در کسب‌وکار خود به کار بگیرید، تیم سوشو استودیو می‌تواند در انتخاب کاربرد درست، طراحی معماری، ساخت دستیار هوشمند یا قرارداد هوشمند و اتصال آن‌ها به سیستم‌های فعلی‌تان همراه شما باشد. هدف خود را از بخش تماس برای ما بنویسید.",
+          ],
+          en: [
+            "The future of AI and blockchain in Iran is neither as bright as the hype nor as dark as the worries. The constraints are real, but they also make the path clearer: open, local models, data kept by the organization, focused use cases, and permissioned infrastructure. Those who start realistically today will be ahead in any scenario.",
+            "This article is a general analysis and is not legal, financial, or investment advice. If you want to use AI or blockchain in your business, the Sosho Studio team can help you choose the right use case, design the architecture, build an AI assistant or a smart contract, and connect them to your current systems. Tell us your goal through the contact section.",
+          ],
+        },
+      },
+    ],
+    faq: [
+      {
+        question: {
+          fa: "آیا استفاده از رمزارز در ایران قانونی است؟",
+          en: "Is using cryptocurrency legal in Iran?",
+        },
+        answer: {
+          fa: "وضعیت آن پیچیده است و بارها تغییر کرده است. استخراج با مجوز مجاز است، صرافی‌های داخلی زیر نظر بانک مرکزی فعالیت می‌کنند و استفاده از رمزارز به‌عنوان ابزار پرداخت داخلی مجاز نیست. پیش از هر اقدامی آخرین مقررات را از منابع رسمی بررسی کنید؛ این پاسخ مشاوره حقوقی نیست.",
+          en: "The situation is complex and has changed many times. Licensed mining is permitted, domestic exchanges operate under Central Bank supervision, and crypto is not allowed as a means of domestic payment. Check the latest rules with official sources before acting; this answer is not legal advice.",
+        },
+      },
+      {
+        question: {
+          fa: "با وجود تحریم‌ها، کسب‌وکار ایرانی چطور از هوش مصنوعی استفاده کند؟",
+          en: "How can an Iranian business use AI despite sanctions?",
+        },
+        answer: {
+          fa: "رایج‌ترین راه، اجرای مدل‌های متن‌باز روی سرور داخلی یا سرور خود سازمان با رعایت مجوز هر مدل، و استفاده از مدل‌های فارسی و سرویس‌های داخلی است. این روش داده را هم نزد شما نگه می‌دارد.",
+          en: "The most common route is running open-weight models on a local or company server while respecting each model's license, and using Persian models and domestic services. This also keeps your data with you.",
+        },
+      },
+      {
+        question: {
+          fa: "ریال دیجیتال چیست و چه فرقی با بیت‌کوین دارد؟",
+          en: "What is the digital rial and how is it different from Bitcoin?",
+        },
+        answer: {
+          fa: "ریال دیجیتال ارز دیجیتال بانک مرکزی (CBDC) است؛ بانک مرکزی آن را صادر و کنترل می‌کند و ارزش آن برابر ریال است. بیت‌کوین غیرمتمرکز است، ناشر مرکزی ندارد و قیمت آن در بازار تعیین می‌شود.",
+          en: "The digital rial is a central bank digital currency (CBDC): the Central Bank issues and controls it, and it is worth the same as the rial. Bitcoin is decentralized, has no central issuer, and its price is set by the market.",
+        },
+      },
+      {
+        question: {
+          fa: "کدام کسب‌وکارها زودتر از هوش مصنوعی نتیجه می‌گیرند؟",
+          en: "Which businesses benefit from AI first?",
+        },
+        answer: {
+          fa: "کسب‌وکارهایی که حجم زیادی کار تکراری متنی دارند؛ مثل فروشگاه اینترنتی، پشتیبانی مشتری، بیمه، بانک، خدمات حقوقی و آموزش. پاسخ به سؤال‌های تکراری و پردازش اسناد معمولاً سریع‌ترین بازگشت سرمایه را دارد.",
+          en: "Businesses with a lot of repetitive text work, such as online stores, customer support, insurance, banking, legal services, and education. Answering repeated questions and processing documents usually pays back fastest.",
+        },
+      },
+      {
+        question: {
+          fa: "آیا هر کسب‌وکاری به بلاکچین نیاز دارد؟",
+          en: "Does every business need a blockchain?",
+        },
+        answer: {
+          fa: "خیر. بلاکچین فقط وقتی ارزش دارد که چند طرف به یک دفتر ثبت مشترک نیاز داشته باشند و به یکدیگر اعتماد کامل نداشته باشند. برای بیشتر نیازهای داخلی، یک پایگاه داده معمولی ساده‌تر، ارزان‌تر و سریع‌تر است.",
+          en: "No. A blockchain is worth it only when several parties need a shared record and do not fully trust each other. For most internal needs, a regular database is simpler, cheaper, and faster.",
+        },
+      },
+    ],
+  },
 ];
 
 export function getBlogPosts() {

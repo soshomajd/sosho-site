@@ -35,8 +35,10 @@ const dots = (x, y) =>
   [0, 1, 2]
     .map((i) => `<circle cx="${x + i * 16}" cy="${y}" r="4.5" fill="${["#f87171", "#fbbf24", "#4ade80"][i]}" opacity=".85"/>`)
     .join("");
+// A gradient stroke (objectBoundingBox units) is not painted on a perfectly horizontal or
+// vertical line, whose box has zero height or width, so nudge the end by a hair.
 const line = (x1, y1, x2, y2, stroke = "url(#acc)", w = 3, dash = "") =>
-  `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${stroke}" stroke-width="${w}" stroke-linecap="round" ${dash ? `stroke-dasharray="${dash}"` : ""}/>`;
+  `<line x1="${x1}" y1="${y1}" x2="${x2 === x1 && stroke.startsWith("url(") ? x2 + 0.01 : x2}" y2="${y2 === y1 && stroke.startsWith("url(") ? y2 + 0.01 : y2}" stroke="${stroke}" stroke-width="${w}" stroke-linecap="round" ${dash ? `stroke-dasharray="${dash}"` : ""}/>`;
 const path = (d, stroke = "url(#acc)", w = 3, fill = "none", extra = "") =>
   `<path d="${d}" stroke="${stroke}" stroke-width="${w}" fill="${fill}" stroke-linecap="round" stroke-linejoin="round" ${extra}/>`;
 const circle = (cx, cy, r, fill = "url(#glass)", stroke = "url(#edge)", w = 1.5) =>
@@ -329,6 +331,43 @@ const SCENES = {
       ${card(760, 130, 320, 370, 22)}${dots(786, 160)}
       ${[0, 1, 2].map((i) => card(786 + i * 98, 190, 88, 130, 12, 'stroke="url(#acc)" opacity=".95"') + `<rect x="${798 + i * 98}" y="204" width="64" height="12" rx="6" fill="url(#acc)"/>` + card(798 + i * 98, 232, 64, 28, 8) + (i < 2 ? card(798 + i * 98, 270, 64, 28, 8) : "")).join("")}
       ${[0, 1, 2].map((i) => bar(786, 350 + i * 40, 280 - i * 40, 12, i === 0 ? "url(#acc)" : "rgba(255,255,255,.14)") + circle(1052, 356 + i * 40, 7, i === 2 ? "rgba(255,255,255,.14)" : "#34d399", "none", 0)).join("")}`,
+  },
+  "future-of-ai-and-blockchain-in-iran": {
+    palette: "indigo",
+    svg: () => {
+      // A neural network (AI) and a block chain meeting at a Persian eight-pointed star (shamseh).
+      const layers = [
+        [175, [205, 315, 425]],
+        [290, [165, 260, 370, 465]],
+        [405, [225, 315, 405]],
+      ];
+      const links = [];
+      for (let l = 0; l < layers.length - 1; l += 1) {
+        const [x1, ys1] = layers[l];
+        const [x2, ys2] = layers[l + 1];
+        for (const y1 of ys1) for (const y2 of ys2) links.push(line(x1, y1, x2, y2, "rgba(255,255,255,.14)", 1.6));
+      }
+      const nodes = layers.flatMap(([x, ys]) => ys.map((y) => circle(x, y, 15, "rgba(8,12,20,.92)", "url(#acc)", 3) + glowDot(x, y, 5)));
+      const square = (cx, cy, r, rot, stroke, w, fill) =>
+        `<rect x="${cx - r}" y="${cy - r}" width="${2 * r}" height="${2 * r}" rx="6" transform="rotate(${rot} ${cx} ${cy})" fill="${fill}" stroke="${stroke}" stroke-width="${w}"/>`;
+      const star = (cx, cy, r, stroke, w, fill = "none") => square(cx, cy, r, 0, stroke, w, fill) + square(cx, cy, r, 45, stroke, w, fill);
+      return `
+      ${links.join("")}
+      ${nodes.join("")}
+      ${line(422, 315, 484, 315, "#818cf8", 3, "6 8")}
+      ${circle(600, 315, 150, "none", "rgba(255,255,255,.08)", 1.5)}
+      ${star(600, 315, 80, "url(#acc)", 5, "rgba(255,255,255,.04)")}
+      ${star(600, 315, 54, "rgba(255,255,255,.22)", 2)}
+      ${circle(600, 315, 34, "rgba(8,12,20,.92)", "url(#edge)", 2)}
+      ${glowDot(600, 315, 16)}${circle(600, 315, 6, "#fff", "none", 0)}
+      ${line(716, 315, 760, 315, "#22d3ee", 3, "6 8")}
+      ${[0, 1, 2].map((i) => cube(770 + i * 95, 283, 64)).join("")}
+      ${[0, 1].map((i) => line(834 + i * 95, 315, 865 + i * 95, 315, "#22d3ee", 4)).join("")}
+      ${line(897, 230, 897, 280, "rgba(255,255,255,.28)", 2.5, "5 7")}${line(897, 350, 897, 397, "rgba(255,255,255,.28)", 2.5, "5 7")}
+      ${diamond(897, 190, 34)}
+      ${card(770, 400, 254, 72, 16)}${accBar(794, 422, 120, 11)}${bar(794, 444, 180, 9)}
+      ${glowDot(484, 315, 6)}${glowDot(716, 315, 6)}`;
+    },
   },
 };
 
