@@ -35,6 +35,8 @@ npx wrangler deploy --dry-run # validate the production bundle
 npm run deploy                # build:sites then wrangler deploy — CHANGES PRODUCTION, only with explicit authorization
 npm run deploy:staging       # build + deploy sosho-site-staging on workers.dev (no prod routes)
 npm run blog:cover -- --slug "post-slug" --tag "SEO"   # Playwright 1200x630 cover PNG
+npm run blog:art              # regenerate the per-post SVG illustrations in public/blog/*.jpg
+npm run seo:indexnow          # after a production deploy: submit live sitemap URLs to IndexNow
 ```
 
 Run one test file / one test:
@@ -100,8 +102,8 @@ Editing these drives cards / static params / sitemap / SEO — see the table in 
 - Every user-facing feature ships Persian and English copy/metadata/labels/errors together. Prefer logical CSS (`start`/`end`/`ms`/`me`/`ps`/`pe`).
 - Leads hold real PII — never log it, commit it, or use production records as fixtures.
 - Edit source, not generated output (`.next/`, `out/`, `dist/`, `.wrangler/`, coverage).
-- The production D1 database (`sosho-sales`, on the `soheilshokoohi.23@gmail.com` Cloudflare account) is provisioned, its `database_id` is set in `wrangler.jsonc`, and all 8 migrations are applied remotely. The Worker bundle itself has not been deployed yet.
+- The production D1 database (`sosho-sales`, on the `soheilshokoohi.23@gmail.com` Cloudflare account) is provisioned, its `database_id` is set in `wrangler.jsonc`, and all 9 migrations (through `0008_contact_messages`) are applied remotely. The Worker is deployed and live; apply new migrations remotely before deploying code that needs them.
 
 ## Current working state
 
-The AI sales system, admin dashboard, audited campaign approve/reject/regenerate, human handoff, Telegram integration, and the R2→ArvanCloud media migration are all committed on `openai-chats`, which is now **deployed and live** at `https://sosho-studio.net` (Worker `sosho-site` on the `soheilshokoohi.23@gmail.com` account). Launched chat-free: the `SalesAssistant` widget is gated on `GET /api/sales/status` and stays hidden until `OPENAI_API_KEY` is set. Still pending: OpenAI billing (blocked by sanctions), Meta/Instagram secrets, a production admin smoke test, and a final Telegram bot-token rotation. See "Production provisioning status" in `AGENTS.md` for the live checklist. `main` is still untouched per the branch rule.
+The AI sales system, admin dashboard, audited campaign approve/reject/regenerate, human handoff, Telegram integration, and the R2→ArvanCloud media migration are merged into `main` (with `openai-chats`), which is **deployed and live** at `https://sosho-studio.net` (Worker `sosho-site` on the `soheilshokoohi.23@gmail.com` account). Launched chat-free: the `SalesAssistant` widget is gated on `GET /api/sales/status` and stays hidden until `OPENAI_API_KEY` is set. Still pending: OpenAI billing (blocked by sanctions), Meta/Instagram secrets, a production admin smoke test, and a final Telegram bot-token rotation. See "Production provisioning status" in `AGENTS.md` for the live checklist. SEO/GEO state (llms.txt, IndexNow, redirects, Cloudflare zone settings, the hero-video licence constraint) is tracked under "Known issues" in `AGENTS.md`.
