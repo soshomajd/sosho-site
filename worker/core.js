@@ -288,7 +288,7 @@ export function findBusinessPolicyViolation(reply) {
 
   const digits = "0-9۰-۹٠-٩";
   const currencyAmount = new RegExp(
-    `[${digits}][${digits}\\s,.٬]{0,20}(?:تومان|ریال|دلار|یورو|usd|eur|tomans?|rials?)`,
+    `[${digits}][${digits}\\s,.٬]{0,20}(?:\\s*(?:میلیون|ملیون|میلیارد|هزار|million|billion|thousand))?\\s*(?:تومان|ریال|دلار|یورو|usd|eur|tomans?|rials?)`,
     "iu"
   );
   const labelledAmount = new RegExp(

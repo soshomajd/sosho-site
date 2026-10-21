@@ -94,7 +94,7 @@ Editing these drives cards / static params / sitemap / SEO — see the table in 
 - D1 is mandatory; `/api/sales/chat` fails closed with `503` when it is down.
 - The website client sends only `conversationId`, `locale`, `message`. Never accept client-supplied `source`, `externalUserId`, message counts, or Instagram fields.
 - Preserve Meta HMAC signature verification and event-id deduplication; retries must never recreate a completed sales turn.
-- `CONTENT_AI_PROVIDER=workers_ai` (the default) must never call OpenAI. `OPENAI_API_KEY` powers Sales Chat + the optional OpenAI content provider only.
+- `CONTENT_AI_PROVIDER=workers_ai` (the default) must never call OpenAI. `OPENAI_API_KEY` is optional: Sales Chat runs on the Workers AI `AI` binding without it (`resolveSalesProvider`), and the key also enables the optional OpenAI content provider.
 - Missing `AI` binding or ArvanCloud credentials (`ARVAN_S3_*`) return `configuration_missing` and must not crash the Worker or affect text/Telegram/Sales/Instagram paths.
 - The assistant may recommend an economic/professional/exclusive tier but must not invent prices, discounts, delivery promises, or legal terms. There is no deterministic pricing engine.
 - Dashboard campaign writes require signed session + allowed Origin + JSON content-type + session-bound CSRF token + UUID idempotency key.

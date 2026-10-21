@@ -29,7 +29,7 @@ function normalizeProviderError(error) {
   });
 }
 
-async function runWithTimeout(ai, model, input, timeoutMs) {
+export async function runWithTimeout(ai, model, input, timeoutMs) {
   const controller = new AbortController();
   let timeoutId;
   const timeout = new Promise((_, reject) => {
@@ -70,7 +70,7 @@ function parseJsonText(value) {
   }
 }
 
-function extractStructuredOutput(output) {
+export function extractStructuredOutput(output) {
   if (typeof output === "string") return parseJsonText(output);
   if (!isPlainRecord(output)) {
     throw new ServiceError("workers_ai_invalid_output", { status: 502, retryable: true });

@@ -54,6 +54,7 @@ import {
   ImageGenerationService,
   createMainImageR2Key,
 } from "./image-generation.js";
+import { callWorkersAiSalesModel } from "./workers-ai-sales-provider.js";
 import {
   TelegramService,
   campaignApprovalKeyboard,
@@ -1140,17 +1141,34 @@ async function enforceInstagramRateLimit(env, externalUserId) {
   return { allowed: instagramResult.allowed, scope: "instagram_user" };
 }
 
-async function reserveOpenAiQuota(env) {
+// Sales Chat provider: "openai" when its key is set (unless SALES_AI_PROVIDER says otherwise),
+// else the Cloudflare `AI` binding ("workers_ai"), else null (deterministic fallback only).
+export function resolveSalesProvider(env) {
+  const hasWorkersAi = Boolean(env.AI && typeof env.AI.run === "function");
+  const hasOpenAi = Boolean(env.OPENAI_API_KEY);
+  const choice = String(env.SALES_AI_PROVIDER || "auto").toLowerCase();
+  if (choice === "openai") return hasOpenAi ? "openai" : null;
+  if (choice === "workers_ai") return hasWorkersAi ? "workers_ai" : null;
+  if (hasOpenAi) return "openai";
+  return hasWorkersAi ? "workers_ai" : null;
+}
+
+async function reserveSalesAiQuota(env, provider) {
   const db = requireDatabase(env);
+  const workersAi = provider === "workers_ai";
   const hourly = await consumeRateLimit(db, {
-    key: "openai:global:hourly",
-    limit: getIntegerEnv(env, "OPENAI_HOURLY_LIMIT", 100, { min: 1, max: 1_000_000 }),
+    key: `${provider}:global:hourly`,
+    limit: workersAi
+      ? getIntegerEnv(env, "WORKERS_AI_SALES_HOURLY_LIMIT", 300, { min: 1, max: 1_000_000 })
+      : getIntegerEnv(env, "OPENAI_HOURLY_LIMIT", 100, { min: 1, max: 1_000_000 }),
     windowSeconds: 3600,
   });
   if (!hourly.allowed) return { allowed: false, scope: "hourly" };
   const daily = await consumeRateLimit(db, {
-    key: "openai:global:daily",
-    limit: getIntegerEnv(env, "OPENAI_DAILY_LIMIT", 500, { min: 1, max: 10_000_000 }),
+    key: `${provider}:global:daily`,
+    limit: workersAi
+      ? getIntegerEnv(env, "WORKERS_AI_SALES_DAILY_LIMIT", 1500, { min: 1, max: 10_000_000 })
+      : getIntegerEnv(env, "OPENAI_DAILY_LIMIT", 500, { min: 1, max: 10_000_000 }),
     windowSeconds: 86_400,
   });
   if (!daily.allowed) return { allowed: false, scope: "daily" };
@@ -1171,18 +1189,33 @@ async function callSalesModel(
   env,
   { locale, history, profile, messageCount, conversationId, requestId }
 ) {
-  if (!env.OPENAI_API_KEY) return fallbackReply(locale, messageCount);
+  const provider = resolveSalesProvider(env);
+  if (!provider) return fallbackReply(locale, messageCount);
   const isFa = locale === "fa";
   const instructions = `You are the autonomous sales consultant for SoSho Studio, a web design and development studio serving Iran.
 Reply in ${isFa ? "natural Persian" : "clear English"}.
 Your job is to qualify requests for every website category: landing pages, corporate websites, portfolios, ecommerce, booking, marketplaces, learning platforms, media sites, SaaS/web apps, AI systems, and Web3 projects.
-Ask exactly one high-value question per turn. Do not repeat information already collected. Be concise, warm, and consultative.
+Every reply has two parts: first a short sentence that acknowledges what the customer just said, then exactly one new high-value question about the next missing item (unless isComplete is true). A reply without a question is only allowed when isComplete is true.
+Ask in this order and skip whatever is already known or obvious: business goal, pages and features, design style or references, content readiness (copy, logo, images), budget level (economic, professional, or exclusive), deadline, then contact name and phone. Never ask what kind of project it is when the customer has already described it; set projectType yourself.
+Before asking, read the whole conversation and the extracted profile: never ask for anything the customer already told you, and never repeat an earlier question. Fill every extracted field you can from what they wrote (for example a shop of home appliances gives businessActivity and a goal of more sales gives goal).
+quickReplies are two to four short answers (at most five words each) that the customer could tap in reply to your question. They are never questions or instructions; use an empty array when the question is open-ended, such as asking for a name or phone number.
+If the customer asks for a price, a quote, or a time estimate, say that the exact amount is confirmed after the scope is clear and that you can describe the economic, professional, and exclusive tiers in words, then continue with your next question. Do not give any number, range, or estimate.
+Be concise, warm, and consultative.
 Collect: business name/activity, business goal, project type, pages/features, design style/references, content readiness, languages, budget in toman, deadline, contact name, phone, and preferred contact channel.
 Recommend economic for simple/template-led work, professional for custom business websites and stores, and exclusive for complex custom systems, marketplaces, AI, Web3, or advanced integrations.
 Never invent or promise an exact price, discount, deadline, legal term, or technical feature. Exact pricing is calculated later by deterministic business rules.
 When the essential scope and contact details are complete, set isComplete=true and stage=proposal_ready, then give a compact summary instead of asking another question.
 If the user asks something unrelated, answer briefly and guide them back to their website request.
+Return only one JSON object that matches the schema: include every key, use null for any extracted field the customer has not given yet, keep confidence between 0 and 1, and offer at most four short quickReplies.
 Existing extracted profile: ${JSON.stringify(profile)}.`;
+
+  if (provider === "workers_ai") {
+    const quota = await reserveSalesAiQuota(env, provider);
+    if (!quota.allowed) {
+      throw new ServiceError(`workers_ai_${quota.scope}_quota_exceeded`, { status: 429 });
+    }
+    return callWorkersAiSalesModel(env, { instructions, history, requestId });
+  }
 
   const safetyIdentifier = await hashIdentifier(
     conversationId,
@@ -1191,7 +1224,7 @@ Existing extracted profile: ${JSON.stringify(profile)}.`;
   const startedAt = Date.now();
   return retryWithBackoff(
     async (attempt) => {
-      const quota = await reserveOpenAiQuota(env);
+      const quota = await reserveSalesAiQuota(env, "openai");
       if (!quota.allowed) {
         throw new ServiceError(`openai_${quota.scope}_quota_exceeded`, { status: 429 });
       }
@@ -1528,7 +1561,7 @@ export async function handleSalesTurn(env, input, waitUntil) {
     providerFailed = true;
     logEvent("warn", "sales_model_fallback", {
       requestId: input.requestId,
-      provider: "openai",
+      provider: resolveSalesProvider(env) ?? "none",
       code: error?.code || "provider_error",
       channel: input.channel,
     });
@@ -2288,6 +2321,7 @@ async function getReadiness(env) {
       mediaStorage: mediaStorageReady,
       workersAi: workersAiReady,
       openai: Boolean(env.OPENAI_API_KEY),
+      salesAi: resolveSalesProvider(env) !== null,
       adminAuth: Boolean(env.ADMIN_API_TOKEN),
       rateLimitPrivacy: Boolean(env.RATE_LIMIT_SALT),
       instagram: Boolean(
@@ -2666,7 +2700,7 @@ export async function handleApi(request, env, ctx, url, requestId) {
     if (url.pathname === "/api/sales/status" && request.method === "GET") {
       // Public boolean the website widget polls on mount so it can stay hidden
       // until Sales Chat is actually configured. No config values are leaked.
-      return json({ available: Boolean(env.OPENAI_API_KEY) }, 200, requestId);
+      return json({ available: resolveSalesProvider(env) !== null }, 200, requestId);
     }
     if (url.pathname === "/api/sales/chat" && request.method === "POST") {
       requireDatabase(env);

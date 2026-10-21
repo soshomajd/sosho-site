@@ -81,7 +81,7 @@ npm run dev:next
 | مسیر | روش | نتیجه |
 | --- | --- | --- |
 | `/api/health` | `GET` | readiness واقعی DB، migration و تنظیمات ضروری؛ `200` آماده و `503` ناآماده |
-| `/api/sales/status` | `GET` | `{ "available": boolean }` عمومی؛ فقط وقتی `OPENAI_API_KEY` تنظیم شده `true` است. ویجت وب تا `true` نشدن پنهان می‌ماند |
+| `/api/sales/status` | `GET` | `{ "available": boolean }` عمومی؛ وقتی یک Provider برای چت فروش آماده باشد (`OPENAI_API_KEY` یا بایندینگ `AI` کلودفلر) `true` است. ویجت وب تا `true` نشدن پنهان می‌ماند |
 | `/api/sales/chat` | `POST` | قرارداد عمومی فقط شامل `conversationId`، `locale` و `message` |
 | `/api/meta/webhook` | `GET` | handshake تأیید Meta |
 | `/api/meta/webhook` | `POST` | دریافت امضاشده پیام Instagram و پردازش background |

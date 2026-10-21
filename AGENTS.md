@@ -34,7 +34,7 @@ Primary capabilities:
 - Persian RTL admin dashboard with bounded D1 views, HttpOnly sessions, audited Campaign actions, and Human Handoff take-over
 - Cloudflare Workers AI content generation with JSON Schema output and one-model fallback
 - Idempotent Workers AI main-image generation for approved campaigns with private ArvanCloud object storage
-- OpenAI Responses API for Sales Chat and an optional future content provider
+- Sales Chat on the Cloudflare `AI` binding (Workers AI) by default, or the OpenAI Responses API when `OPENAI_API_KEY` is set; OpenAI is also an optional content provider
 - Cloudflare D1 lead/conversation/message persistence
 - Signed and deduplicated Meta/Instagram webhook processing
 - Cloudflare Workers/OpenAI Sites bundle generation
@@ -190,7 +190,7 @@ Instagram webhook
 ### Worker endpoints
 
 - `GET /api/health`: checks D1 connectivity, required tables/columns, and required provider settings; returns `200` ready or `503` not ready without exposing values.
-- `GET /api/sales/status`: public `{ "available": boolean }` — `true` only when `OPENAI_API_KEY` is set. The website `SalesAssistant` widget polls this on mount and renders nothing until it is `true`, so the launch is chat-free until OpenAI billing is arranged; setting the secret later makes the widget appear with no redeploy.
+- `GET /api/sales/status`: public `{ "available": boolean }` — `true` when a Sales Chat provider is configured (`OPENAI_API_KEY`, or the `AI` binding; see `resolveSalesProvider` in `worker/index.js`). The website `SalesAssistant` widget polls this on mount and renders nothing until it is `true`, so the launch is chat-free until OpenAI billing is arranged; setting the secret later makes the widget appear with no redeploy.
 - `POST /api/sales/chat`: website chat endpoint.
 - `POST /api/contact`: public "leave a message" form (`name`, `contact` = phone or email, `message`, `locale`, honeypot `company`). Requires an allowed Origin and a JSON body, rejects unknown fields, is rate limited per hashed IP (`CONTACT_IP_HOURLY_LIMIT`, default 5/hour) plus a global daily cap (`CONTACT_DAILY_LIMIT`, default 200), and fails closed with `503` when D1 is down. A filled honeypot returns `201` without storing anything. The message is PII: never log it.
 - `POST /api/content/campaigns`: creates an admin-owned Persian content campaign.
@@ -244,7 +244,8 @@ The ordered SQL migrations create and evolve:
 - Image generation requires a generated and approved campaign, validates Base64 and binary type/size, stores only through the ArvanCloud object storage adapter (`worker/arvan-storage.js`, S3-compatible, signed requests via `aws4fetch`), and never returns a public or presigned URL.
 - One `main_image` row and deterministic object key are allowed per campaign. Repeated successful requests return existing metadata without another model call. Regenerating campaign text marks a stored image `superseded_at`; the next `generate-image` call rebuilds it in place.
 - Missing `AI` or ArvanCloud credentials (`ARVAN_S3_ACCESS_KEY`/`ARVAN_S3_SECRET_KEY`/`ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET`) return `configuration_missing`; they must not crash the Worker or affect text generation, Telegram, Sales Chat, or Instagram. Staging may run without them (`/api/health` still reports `mediaStorage: false` but stays ready); production is expected to have them.
-- If `OPENAI_API_KEY` is missing, provider quota is exhausted, the model call fails/times out, or the returned payload fails schema/policy validation, fixed bilingual discovery questions are used.
+- Sales Chat provider: `SALES_AI_PROVIDER` (`auto` default, `openai`, `workers_ai`). `auto` uses OpenAI when `OPENAI_API_KEY` is set, otherwise the `AI` binding (`worker/workers-ai-sales-provider.js`: Qwen3 with thinking switched off, one Llama fallback, output repaired by `normalizeSalesOutput`, then the same schema and business-policy validation as OpenAI). Workers AI turns have their own global caps (`WORKERS_AI_SALES_HOURLY_LIMIT` 300, `WORKERS_AI_SALES_DAILY_LIMIT` 1500). Qwen3 on Workers AI puts the JSON in `message.reasoning` when thinking is off; `extractSalesOutput` reads it.
+- If no Sales Chat provider is configured, provider quota is exhausted, the model call fails/times out, or the returned payload fails schema/policy validation, fixed bilingual discovery questions are used.
 - The assistant may recommend an economic, professional, or exclusive tier, but must not invent exact prices, discounts, delivery promises, legal terms, or unsupported features.
 - Deterministic pricing is not implemented yet. Do not present model-generated amounts as authoritative.
 - The website client must send only `conversationId`, `locale`, and `message`. Never accept client-owned `source`, `externalUserId`, message counts, or Instagram fields.
@@ -342,7 +343,7 @@ Worker bindings and secrets:
 - `AI`: Cloudflare Workers AI binding used by the default content provider.
 - `ARVAN_S3_ACCESS_KEY`, `ARVAN_S3_SECRET_KEY`: ArvanCloud Object Storage (S3-compatible) credentials for private generated campaign media. Cloudflare R2 is not used because this account cannot enable it; no public bucket URL is exposed regardless of provider.
 - `ARVAN_S3_ENDPOINT`, `ARVAN_S3_BUCKET`: non-secret ArvanCloud Object Storage endpoint and bucket name.
-- `OPENAI_API_KEY`: enables Sales Chat model responses and the optional OpenAI content provider.
+- `OPENAI_API_KEY`: optional. Switches Sales Chat to OpenAI (otherwise it runs on Workers AI) and enables the optional OpenAI content provider.
 - `ADMIN_API_TOKEN`: protects every `/api/content/*` endpoint and is exchanged only through the admin login POST for a short-lived signed HttpOnly cookie; it must never be bundled, persisted in browser storage, placed in URLs, or logged.
 - `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ADMIN_CHAT_ID`, `TELEGRAM_ADMIN_USER_ID`, and `TELEGRAM_WEBHOOK_SECRET`: optional Telegram approval/notification configuration.
 - `OPENAI_MODEL`: optional; current fallback in code is `gpt-5.6-luna`.
