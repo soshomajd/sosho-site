@@ -1,3 +1,5 @@
+import { scriptedFlowReply } from "./sales-flow.js";
+
 export const WEBSITE_CHAT_REQUEST_SCHEMA = {
   type: "object",
   additionalProperties: false,
@@ -362,46 +364,19 @@ export function validateSalesResponse(value) {
 }
 
 export function fallbackReply(locale, messageCount) {
-  const fa = locale === "fa";
-  const questions = fa
-    ? [
-        ["هدف اصلی شما از ساخت سایت چیست؟", ["فروش بیشتر", "معرفی برند", "ارائه خدمات"]],
-        ["چه امکانات مهمی باید داخل سایت وجود داشته باشد؟", ["فرم تماس", "فروش آنلاین", "رزرو آنلاین"]],
-        ["تقریباً به چند صفحه نیاز دارید؟", ["۱ تا ۵ صفحه", "۶ تا ۱۲ صفحه", "هنوز نمی‌دانم"]],
-        ["چه سبک طراحی را می‌پسندید؟ اگر نمونه‌ای دارید لینک آن را بفرستید.", ["مینیمال", "لوکس", "خلاق و متفاوت"]],
-        ["متن، لوگو و تصاویر سایت آماده هستند؟", ["همه آماده است", "بخشی آماده است", "نیاز به تولید محتوا دارم"]],
-        ["حدود بودجه‌ای که برای پروژه در نظر گرفته‌اید چقدر است؟", ["اقتصادی", "حرفه‌ای", "اختصاصی"]],
-        ["چه زمانی می‌خواهید سایت آماده شود؟", ["کمتر از یک ماه", "۱ تا ۲ ماه", "زمان انعطاف‌پذیر است"]],
-        ["برای تکمیل درخواست، نام و شماره تماس خود را بفرستید.", []],
-      ]
-    : [
-        ["What is the main goal of your website?", ["More sales", "Brand presence", "Offer services"]],
-        ["Which important features should the website include?", ["Contact forms", "Online sales", "Online booking"]],
-        ["Roughly how many pages do you need?", ["1–5 pages", "6–12 pages", "Not sure yet"]],
-        ["Which design style do you prefer? Share a reference link if you have one.", ["Minimal", "Premium", "Bold and creative"]],
-        ["Are the copy, logo, and images ready?", ["Everything is ready", "Partly ready", "I need content support"]],
-        ["Which budget level fits the project?", ["Economic", "Professional", "Exclusive"]],
-        ["When would you like the website to be ready?", ["Under one month", "1–2 months", "Flexible"]],
-        ["Please send your name and phone number to complete the request.", []],
-      ];
-
-  const numericCount = Number.isFinite(Number(messageCount)) ? Number(messageCount) : 1;
-  const index = Math.max(0, Math.min(Math.floor(numericCount) - 1, questions.length));
-  const complete = index >= questions.length;
+  const step = scriptedFlowReply(locale, messageCount);
   return {
-    reply: complete
-      ? fa
-        ? "ممنون. اطلاعات اولیه ثبت شد. خلاصه نیازمندی و پیشنهاد مناسب برای شما آماده می‌شود."
-        : "Thank you. Your initial request is registered and we’ll prepare the right scope and recommendation."
-      : questions[index][0],
-    stage: complete ? "proposal_ready" : "discovery",
+    reply: step.reply,
+    stage: step.stage,
     projectType: "unknown",
     recommendedTier: "unknown",
     extracted: Object.fromEntries(EXTRACTED_FIELDS.map((field) => [field, null])),
     missingFields: [],
-    quickReplies: complete ? [] : questions[index][1],
-    isComplete: complete,
+    quickReplies: step.quickReplies,
+    isComplete: step.isComplete,
     confidence: 0,
+    // Marks a scripted turn: the flow logic needs a model's extraction and skips these.
+    scripted: true,
   };
 }
 

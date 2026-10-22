@@ -374,6 +374,6 @@ describe("admin content campaign API", () => {
       }),
     }), env, createExecutionContext());
     expect(response.status).toBe(200);
-    expect((await response.json()).stage).toBe("discovery");
+    expect((await response.json()).stage).toBe("qualification");
   });
 });

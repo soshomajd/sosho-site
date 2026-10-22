@@ -205,7 +205,8 @@ describe("website sales API", () => {
     );
     const response = await postChat(conversationId(4));
     expect(response.status).toBe(200);
-    expect((await response.json()).reply).toBe("Which features do you need?");
+    // The model's own question is dropped; the application asks the next flow step.
+    expect((await response.json()).reply).toBe("Which budget range do you have in mind for this project?");
     expect(calls).toBe(2);
   });
 

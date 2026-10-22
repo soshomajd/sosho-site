@@ -95,8 +95,9 @@ describe("sales chat on Workers AI", () => {
     const response = await postChat(workersAiEnv(run), id(1));
     const body = await response.json();
     expect(response.status).toBe(200);
-    expect(body.reply).toBe("سلام! هدف اصلی شما از ساخت سایت چیست؟");
-    expect(body.quickReplies).toEqual(["فروش بیشتر", "معرفی برند"]);
+    // The model's question is dropped; the app asks step one (site type) with fixed options.
+    expect(body.reply).toBe("سلام! چه نوع سایتی نیاز دارید؟");
+    expect(body.quickReplies).toHaveLength(10);
     expect(openai).not.toHaveBeenCalled();
     const [model, input] = run.mock.calls[0];
     expect(model).toBe("@cf/qwen/qwen3-30b-a3b-fp8");
@@ -112,7 +113,7 @@ describe("sales chat on Workers AI", () => {
       .mockRejectedValueOnce(Object.assign(new Error("boom"), { status: 503 }))
       .mockResolvedValueOnce({ response: JSON.stringify(salesTurn({ reply: "پاسخ مدل دوم" })) });
     const response = await postChat(workersAiEnv(run), id(2));
-    expect((await response.json()).reply).toBe("پاسخ مدل دوم");
+    expect((await response.json()).reply).toBe("پاسخ مدل دوم. چه نوع سایتی نیاز دارید؟");
     expect(run.mock.calls.map(([model]) => model)).toEqual([
       "@cf/qwen/qwen3-30b-a3b-fp8",
       "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
@@ -153,7 +154,7 @@ describe("sales output handling for open-weight models", () => {
       choices: [{ message: { content: null, reasoning: JSON.stringify(salesTurn({ reply: "از reasoning آمد" })) } }],
     }));
     const response = await postChat(workersAiEnv(run), id(7));
-    expect((await response.json()).reply).toBe("از reasoning آمد");
+    expect((await response.json()).reply).toBe("از reasoning آمد. چه نوع سایتی نیاز دارید؟");
     expect(run.mock.calls[0][1].chat_template_kwargs).toEqual({ enable_thinking: false });
 
     const llamaRun = vi.fn(async () => ({ response: JSON.stringify(salesTurn()) }));

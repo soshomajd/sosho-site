@@ -148,8 +148,10 @@ describe("provider response safeguards", () => {
   });
 
   it("returns deterministic bilingual fallback replies", () => {
-    expect(fallbackReply("fa", 1).reply).toContain("هدف اصلی");
-    expect(fallbackReply("en", 2).reply).toContain("features");
+    expect(fallbackReply("fa", 1).reply).toContain("بودجه");
+    expect(fallbackReply("fa", 1).quickReplies).toHaveLength(5);
+    expect(fallbackReply("en", 2).reply).toContain("phone number");
+    expect(fallbackReply("en", 3).isComplete).toBe(true);
   });
 
   it("retries retryable failures with exponential backoff", async () => {

@@ -31,8 +31,7 @@ const COPY = {
     launcher: "مشاوره هوشمند",
     title: "دستیار فروش سوشو",
     subtitle: "نیازتان را بررسی می‌کنم و مسیر مناسب را پیشنهاد می‌دهم.",
-    greeting:
-      "سلام 👋 من دستیار فروش سوشو هستم. برای شروع، خیلی کوتاه بگویید چه کسب‌وکاری دارید و چه سایتی می‌خواهید؟",
+    greeting: "سلام 👋 من دستیار فروش سوشو هستم. چه نوع سایتی نیاز دارید؟",
     placeholder: "پیامتان را بنویسید...",
     send: "ارسال پیام",
     reset: "شروع گفت‌وگوی جدید",
@@ -40,18 +39,25 @@ const COPY = {
     typing: "در حال بررسی...",
     error:
       "فعلاً نتوانستم پاسخ را دریافت کنم. دوباره تلاش کنید یا از طریق اینستاگرام پیام بدهید.",
+    // Same labels as SITE_TYPES in worker/sales-flow.js (the Worker matches them exactly).
     starterReplies: [
-      "سایت شرکتی می‌خواهم",
-      "فروشگاه اینترنتی می‌خواهم",
-      "وب‌اپلیکیشن اختصاصی دارم",
+      "فروشگاه اینترنتی",
+      "سایت شرکتی",
+      "صفحه فرود (لندینگ)",
+      "نمونه‌کار و پورتفولیو",
+      "رزرو و نوبت‌دهی آنلاین",
+      "مارکت‌پلیس",
+      "آموزش آنلاین",
+      "وب‌اپ یا سیستم اختصاصی",
+      "هوش مصنوعی یا وب۳",
+      "سایر",
     ],
   },
   en: {
     launcher: "AI consultation",
     title: "Sosho sales assistant",
     subtitle: "I’ll understand your needs and suggest the right path.",
-    greeting:
-      "Hi 👋 I’m Sosho’s sales assistant. To begin, briefly tell me about your business and the website you need.",
+    greeting: "Hi 👋 I’m Sosho’s sales assistant. What kind of website do you need?",
     placeholder: "Write your message...",
     send: "Send message",
     reset: "Start a new conversation",
@@ -60,9 +66,16 @@ const COPY = {
     error:
       "I couldn’t receive a response right now. Please try again or message us on Instagram.",
     starterReplies: [
-      "I need a company website",
-      "I need an online store",
-      "I have a custom web app",
+      "Online store",
+      "Company website",
+      "Landing page",
+      "Portfolio",
+      "Online booking",
+      "Marketplace",
+      "Online courses",
+      "Custom web app or system",
+      "AI or Web3",
+      "Other",
     ],
   },
 } as const;
