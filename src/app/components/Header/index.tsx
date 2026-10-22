@@ -81,16 +81,13 @@ export default function Header({
                     className="group inline-flex shrink-0 items-center gap-2 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                     <Image
-                        src="/sosho.svg"
+                        src="/brand/logo-horizontal-light.webp"
                         alt={locale === "fa" ? "لوگوی سوشو استودیو" : "Sosho Studio logo"}
-                        width={132}
-                        height={44}
-                        className="h-auto w-28 sm:w-32"
+                        width={694}
+                        height={200}
+                        className="h-8 w-auto sm:h-10"
                         preload
                     />
-                    <span className="hidden rounded-full border border-foreground/10 px-2 py-1 text-[9px] font-bold tracking-[0.22em] text-muted sm:inline-flex">
-                        STUDIO
-                    </span>
                 </Link>
 
                 <nav

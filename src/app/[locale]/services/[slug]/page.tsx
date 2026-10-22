@@ -73,9 +73,6 @@ export async function generateMetadata({
             description,
             images: [ogImageUrl],
         },
-        icons: {
-            icon: "/favicon.ico",
-        },
     };
 }
 

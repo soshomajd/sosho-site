@@ -86,11 +86,11 @@ export default function About({ locale }: { locale: Locale }) {
             <div className="absolute inset-0 grid place-items-center">
               <div className="relative grid h-40 w-40 place-items-center rounded-[2rem] border border-foreground/15 bg-background/65 shadow-2xl shadow-primary/20 backdrop-blur sm:h-48 sm:w-48">
                 <Image
-                  src="/sosho-mark.svg"
+                  src="/brand/logo-mark-light.webp"
                   alt={isFa ? "نشان سوشو استودیو" : "Sosho Studio mark"}
-                  width={132}
-                  height={132}
-                  className="h-28 w-28 sm:h-32 sm:w-32"
+                  width={420}
+                  height={512}
+                  className="h-28 w-auto sm:h-32"
                 />
               </div>
             </div>

@@ -54,6 +54,7 @@ const TEXT = {
     type: "چه نوع سایتی نیاز دارید؟",
     budget: "بودجه‌ای که برای این پروژه در نظر دارید در کدام بازه است؟",
     contact: "برای هماهنگی، لطفاً نام و نام خانوادگی و شماره تماس خود را بفرستید.",
+    contactOther: "برای بررسی درخواست شما، لطفاً نام و نام خانوادگی و شماره تماس خود را بفرستید تا همکاران ما با شما تماس بگیرند.",
     name: "لطفاً نام و نام خانوادگی خود را هم بفرستید.",
     phone: "لطفاً شماره تماس خود را هم بفرستید.",
     thanks: (name) => `ممنون${name ? ` ${name}` : ""}! درخواست شما ثبت شد و همکاران ما به‌زودی با شما تماس می‌گیرند.`,
@@ -64,6 +65,7 @@ const TEXT = {
     type: "What kind of website do you need?",
     budget: "Which budget range do you have in mind for this project?",
     contact: "To arrange a call, please send your full name and phone number.",
+    contactOther: "To review your request, please send your full name and phone number and our team will call you.",
     name: "Please send your full name as well.",
     phone: "Please send your phone number as well.",
     thanks: (name) => `Thank you${name ? `, ${name}` : ""}! Your request is registered and our team will contact you shortly.`,
@@ -150,7 +152,7 @@ export function applySalesFlow({ locale, result, profile, lastUserMessage, messa
 
   const budgetChip = BUDGETS[lang].find((label) => canon(label) === canon(message));
   if (budgetChip) next.budgetToman = budgetChip;
-  if (!next.budgetToman && messageCount >= 5) next.budgetToman = t.unknownBudget;
+  if (!next.budgetToman && messageCount >= 5 && next.projectType !== "other") next.budgetToman = t.unknownBudget;
 
   if (!isValidPhone(next.phone)) {
     const phone = findPhone(message);
@@ -174,11 +176,13 @@ export function applySalesFlow({ locale, result, profile, lastUserMessage, messa
   if (!next.projectType) {
     reply = compose(t.type);
     quickReplies = SITE_TYPES[lang].map(([label]) => label);
-  } else if (!next.budgetToman) {
+  } else if (!next.budgetToman && next.projectType !== "other") {
+    // "Other" has no standard scope to price, so go straight to a call with the team.
     reply = compose(t.budget);
     quickReplies = [...BUDGETS[lang]];
   } else if (!next.contactName || !next.phone) {
-    reply = compose(!next.contactName && !next.phone ? t.contact : !next.contactName ? t.name : t.phone);
+    const both = next.projectType === "other" ? t.contactOther : t.contact;
+    reply = compose(!next.contactName && !next.phone ? both : !next.contactName ? t.name : t.phone);
   } else {
     complete = true;
     reply = next.flowDone ? compose(t.closing) : t.thanks(String(next.contactName).trim());

@@ -72,9 +72,6 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [ogImageUrl],
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
   manifest: "/manifest.webmanifest",
   formatDetection: {
     email: false,

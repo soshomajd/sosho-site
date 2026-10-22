@@ -133,7 +133,7 @@ function ArticleStructuredData({ locale, post }: { locale: Locale; post: Post })
                     "@type": "Organization",
                     "@id": organizationId,
                     name: siteName,
-                    logo: { "@type": "ImageObject", url: `${baseUrl}/sosho.svg` },
+                    logo: { "@type": "ImageObject", url: `${baseUrl}/brand/logo-mark-512.png` },
                 },
             },
             {

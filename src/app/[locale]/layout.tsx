@@ -65,9 +65,6 @@ export async function generateMetadata({
             description,
             images: [ogImageUrl],
         },
-        icons: {
-            icon: "/favicon.ico",
-        },
     };
 }
 
@@ -85,7 +82,7 @@ function createStructuredData(locale: Locale) {
                 name: siteName,
                 alternateName: "سوشو استودیو",
                 url: baseUrl,
-                logo: `${baseUrl}/sosho.svg`,
+                logo: `${baseUrl}/brand/logo-mark-512.png`,
                 description: content.description,
                 email: CONTACT_INFO.email,
                 telephone: CONTACT_INFO.phoneE164,

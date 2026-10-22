@@ -70,10 +70,10 @@ export default function Footer({ locale }: { locale: Locale }) {
                             aria-label={isFa ? "صفحه اصلی سوشو استودیو" : "Sosho Studio home"}
                         >
                             <Image
-                                src="/sosho.svg"
+                                src="/brand/logo-full-light.webp"
                                 alt={isFa ? "لوگوی سوشو استودیو" : "Sosho Studio logo"}
-                                width={150}
-                                height={50}
+                                width={824}
+                                height={640}
                                 className="h-auto w-36"
                             />
                         </Link>

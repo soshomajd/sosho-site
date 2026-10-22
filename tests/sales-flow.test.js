@@ -82,12 +82,31 @@ describe("sales flow: site type, budget, then name and phone", () => {
     let s = { count: 2, profile: {} };
     s = turn(s, "نمی‌دونم");
     expect(s.result.projectType).toBe("other");
-    expect(s.result.reply).toContain("بودجه");
+    expect(s.result.reply).toContain("نام و نام خانوادگی و شماره تماس");
 
-    s = { count: 4, profile: { projectType: "other" } };
+    s = { count: 4, profile: { projectType: "corporate" } };
     s = turn(s, "هنوز مطمئن نیستم");
     expect(s.profile.budgetToman).toBe("نامشخص");
     expect(s.result.reply).toContain("شماره تماس");
+  });
+
+  it("asks \"Other\" customers straight for name and phone, without a budget step", () => {
+    let s = { count: 0, profile: {} };
+    s = turn(s, "سایر");
+    expect(s.result.projectType).toBe("other");
+    expect(s.result.reply).toContain("برای بررسی درخواست شما");
+    expect(s.result.reply).toContain("نام و نام خانوادگی و شماره تماس");
+    expect(s.result.quickReplies).toEqual([]);
+    expect(s.profile.budgetToman).toBeUndefined();
+
+    s = turn(s, "رضا کریمی ۰۹۱۲۱۱۱۲۲۲۲", {}, { contactName: "رضا کریمی" });
+    expect(s.result.isComplete).toBe(true);
+    expect(s.result.stage).toBe("proposal_ready");
+    expect(s.profile.phone).toBe("09121112222");
+
+    let en = { count: 0, profile: {}, locale: "en" };
+    en = turn(en, "Other", { reply: "" });
+    expect(en.result.reply).toBe("To review your request, please send your full name and phone number and our team will call you.");
   });
 
   it("works in English and keeps a closing line after the request is complete", () => {
