@@ -145,7 +145,8 @@ All dynamic page routes must remain statically enumerable through `generateStati
 | Projects | `src/app/components/Projects/index.tsx` | Hard-coded project records backed by `public/projects/*` |
 | About/process/stack | `src/app/components/About/index.tsx` | Homepage studio/process/tool content |
 | Header dictionary | `src/app/i18n.ts` | Shared navigation labels only |
-| Blog art | `scripts/generate-blog-art.mjs` | Text-free SVG illustration per post, rendered to `public/blog/<slug>.jpg` (`node scripts/generate-blog-art.mjs`); each post carries `coverImage` and bilingual `coverImageAlt` |
+| Blog art | `scripts/blog-art-manifest.json`, `public/blog/*-editorial-20261022.jpg` | 23 original ImageGen editorial covers, 1200x630 JPEG; manifest records prompts and bilingual alt text. `npm run blog:art` verifies current assets; `--sheet <path>` previews them. `--legacy` explicitly selects the historical SVG renderer, whose files are not used by current posts. Each post carries `coverImage` and bilingual `coverImageAlt`; update the manifest and post together when replacing art. |
+| Legacy cover URLs | `public/_redirects` | Asset-server 301 redirects preserve the 18 previous `/blog/<slug>.jpg` URLs after the ImageGen refresh. Keep these when replacing cover files again. |
 | SEO/GEO extras | `src/app/llms-content.ts`, `src/app/llms.txt/`, `src/app/llms-full.txt/`, `src/app/blogs/related.ts`, `src/app/components/Services/faq.ts`, `public/<key>.txt` | `/llms.txt` and `/llms-full.txt` for AI answer engines (built from services, service FAQs, and posts); tag-based related posts and article→service links; per-service FAQ rendered with FAQPage schema; IndexNow key file. Posts accept optional `seoTitle`/`seoDescription` when the headline or excerpt is too long or short for search results; bump `updatedAt` on real edits and `SITE_CONTENT_UPDATED_AT` in `src/app/seo.ts` when home or service copy changes (both feed sitemap `lastmod`) |
 | SEO helpers | `src/app/seo.ts`, `components/JsonLd.tsx`, `components/Breadcrumbs.tsx` | Base URL, `@id`s, BreadcrumbList builder, JSON-LD renderer, and visible breadcrumbs. Organization/Person/WebSite are site-wide (locale layout); every page emits its own WebPage node |
 | Contact details | `src/app/contact-info.ts` | Phone, email, WhatsApp, Telegram, Instagram, and LinkedIn used by Header, mobile menu, Footer, the contact section, and JSON-LD `sameAs` |
@@ -313,7 +314,7 @@ npx wrangler deploy --dry-run
 npm run deploy
 npm run deploy:staging
 npm run blog:cover -- --slug "post-slug" --tag "SEO"
-npm run blog:art                 # regenerate every public/blog/<slug>.jpg illustration (add a scene in scripts/generate-blog-art.mjs for a new post)
+npm run blog:art                 # verify current ImageGen covers; --sheet <path> previews them; prompts live in scripts/blog-art-manifest.json
 npm run seo:indexnow             # after a production deploy: submit the live sitemap URLs to IndexNow (Bing, Yandex...)
 ```
 
@@ -390,7 +391,7 @@ The production Cloudflare account is `soheilshokoohi.23@gmail.com` (account id `
 
 Live:
 
-- Worker `sosho-site` deployed (first live version `c6b906a4-8cb1-474c-940b-591e94c0750f`; current `36ed2a97-1206-465d-8556-c3b21703dcc5`). `https://sosho-studio.net` and `https://www.sosho-studio.net` serve the site; `/` → 308 `/fa`; cron triggers active.
+- Worker `sosho-site` deployed (first live version `c6b906a4-8cb1-474c-940b-591e94c0750f`; latest verified deployment on 2026-10-22: `9a181e5d-a837-4b9e-a127-c3219ae77f6b`). `https://sosho-studio.net` and `https://www.sosho-studio.net` serve the site; `/` → 308 `/fa`; cron triggers active. This deployment includes five new bilingual SEO/GEO/AEO guides and 23 ImageGen covers; the ten new localized pages, all 23 cover bytes, and 18 legacy image redirects were checked live. IndexNow accepted 64 sitemap URLs (HTTP 200).
 - `public/_headers` is live and verified: `/fa` returns Content-Security-Policy, Strict-Transport-Security, Cross-Origin-Opener-Policy, Permissions-Policy, Referrer-Policy, `x-content-type-options: nosniff` and `x-frame-options: DENY`; `/_next/static/*` returns `public, max-age=31536000, immutable`; `/admin` returns `x-robots-tag: noindex, nofollow, noarchive` and `cache-control: no-store`.
 - D1 `sosho-sales` (`76f1648b-b8b8-44a4-8ed3-1e01e68db5b3`); all 8 migrations (0000–0007) applied remotely — 13 app tables.
 - ArvanCloud bucket `soshosite` (region ir-thr-at1); `ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET` vars + `ARVAN_S3_ACCESS_KEY`/`ARVAN_S3_SECRET_KEY` secrets. `/api/health` reports `mediaStorage: true`. (One secret was first stored empty and silently failed the readiness check until re-set — re-`put` any secret whose check is unexpectedly false rather than trusting `wrangler secret list`, which only shows names.)

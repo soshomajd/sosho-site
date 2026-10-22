@@ -28,10 +28,934 @@ export type BlogPost = {
   /** A short, self-contained answer shown right under the title—written for featured snippets and AI answer engines (AEO/GEO). */
   directAnswer?: { fa: string; en: string };
   faq?: BlogFaqItem[];
+  /** Primary references checked when the article was published. */
+  sources?: { title: { fa: string; en: string }; url: string }[];
   sections: BlogSection[];
 };
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    "slug": "seo-content-cluster-strategy",
+    "title": {
+      "fa": "خوشه محتوایی برای SEO و GEO؛ از سؤال مشتری تا نقشه محتوا",
+      "en": "SEO and GEO Content Clusters: From Customer Questions to a Content Plan"
+    },
+    "seoTitle": {
+      "fa": "خوشه محتوایی؛ نقشه عملی SEO و GEO",
+      "en": "SEO Content Clusters: A Practical GEO Plan"
+    },
+    "excerpt": {
+      "fa": "چطور سؤال‌های واقعی مشتری را به خوشه محتوایی، صفحه مرجع و لینک داخلی تبدیل کنیم؟ راهنمای عملی با مثال، اولویت‌بندی و سنجش نتیجه در جستجو و پاسخ‌های AI.",
+      "en": "Turn real customer questions into a content cluster with a useful pillar page, focused articles and internal links, then measure search and AI referral outcomes."
+    },
+    "tags": [
+      "SEO",
+      "GEO",
+      "AEO",
+      "Strategy"
+    ],
+    "publishedAt": "2026-10-22",
+    "directAnswer": {
+      "fa": "خوشه محتوایی مجموعه‌ای از صفحه‌های مرتبط است که هرکدام یک نیاز مشخص را پاسخ می‌دهند و به یک صفحه مرجع وصل می‌شوند. برای شروع، سؤال‌های مشتری را بر اساس قصد جستجو دسته‌بندی کنید، برای هر نیاز یک نشانی اصلی تعیین کنید و لینک‌هایی بسازید که قدم بعدی خواننده را روشن کنند. تعداد مقاله یا تکرار کلمه کلیدی معیار موفقیت نیست؛ پاسخ کامل، شواهد معتبر و جذب مخاطب مناسب مهم‌اند.",
+      "en": "A content cluster groups related pages around a useful pillar page. Start with customer questions, separate their search intent, give each distinct need one primary URL and connect pages with links that explain the reader’s next step. Judge the cluster by useful answers, supporting evidence and qualified visits, rather than article count or repeated keywords."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "۱. مسئله مشتری را قبل از کلمه کلیدی مشخص کنید",
+          "en": "1. Define the customer problem before the keyword"
+        },
+        "paragraphs": {
+          "fa": [
+            "فهرست محتوا را از سؤال‌های تماس فروش، فرم‌های مشاوره و پرسش‌های پشتیبانی بسازید؛ اطلاعات شخصی را وارد فایل برنامه‌ریزی نکنید. برای هر سؤال بنویسید مخاطب کیست، چه تصمیمی پیش رو دارد و برای تصمیم گرفتن به چه مدرکی نیاز دارد. «طراحی سایت» موضوع است، اما «برای فروشگاه با موجودی مشترک، وردپرس کافی است؟» یک مسئله قابل پاسخ است.",
+            "سپس سؤال‌ها را به شناخت مسئله، مقایسه راه‌حل و انتخاب ارائه‌دهنده تقسیم کنید. این تقسیم‌بندی پیشنهاد تحریریه سوشو برای نظم‌دادن به برنامه است و فرمول رتبه‌بندی موتور جستجو نیست. خروجی این مرحله باید چند نیاز روشن باشد، نه صدها عبارت بسیار شبیه به هم."
+          ],
+          "en": [
+            "Collect questions from sales calls, consultation forms and support conversations without copying personal information into the plan. Record the audience, the decision they face and the evidence needed. “Website design” is a topic; “Can WordPress handle a shop with shared inventory?” is an answerable problem.",
+            "Group questions into understanding a problem, comparing solutions and selecting a provider. This is SoSho’s editorial planning method, rather than a search ranking formula. The output should be distinct customer needs, not hundreds of almost identical keyword variations."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۲. برای هر قصد جستجو یک صفحه اصلی انتخاب کنید",
+          "en": "2. Give each search intent one primary page"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای یک استودیوی طراحی سایت، صفحه مرجع می‌تواند راهنمای انتخاب نوع سایت باشد. مقاله‌های پشتیبان درباره هزینه نگهداری، مدیریت محتوا، اتصال انبار و مهاجرت پاسخ دقیق‌تری می‌دهند. صفحه خدمات هم محدوده همکاری، فرایند و راه تماس را توضیح می‌دهد؛ وظیفه آن با راهنمای آموزشی یکسان نیست.",
+            "اگر دو عنوان به یک سؤال و یک مرحله تصمیم پاسخ می‌دهند، پیش از انتشار جداگانه ادغام آن‌ها را بررسی کنید. اگر نیاز متفاوت است، تفاوت را در عنوان، مقدمه و مثال‌ها آشکار کنید. شباهت چند واژه به‌تنهایی دلیل حذف یا ادغام صفحه نیست."
+          ],
+          "en": [
+            "For a web studio, a pillar might explain how to choose a website platform. Supporting articles can cover maintenance, editing, inventory integration and migration. The service page describes scope, process and contact options; it serves a different purpose from an educational guide.",
+            "If two proposed titles answer the same question at the same decision stage, consider combining them before publishing. When needs differ, make the distinction clear in the title, opening and examples. Shared words alone are not a reason to remove a page."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۳. پاسخ قابل استفاده بنویسید، نه متن طولانی بی‌هدف",
+          "en": "3. Write answers readers can actually use"
+        },
+        "paragraphs": {
+          "fa": [
+            "هر مقاله را با پاسخ کوتاه و مستقل شروع کنید و بعد شرط‌ها، محدودیت‌ها و روش تصمیم‌گیری را توضیح دهید. مثال باید مشخص باشد: برای اتصال موجودی، مشخص کنید منبع اصلی اطلاعات کجاست، تعارض چگونه حل می‌شود و مسئول پیگیری خطا کیست. اگر مثال فرضی است، همان‌جا فرضی‌بودن آن را بگویید.",
+            "تعداد کلمات ثابت یا درصد جادویی برای کلمه کلیدی تعیین نکنید. یک ادعا درباره عملکرد یا هزینه باید شاهد، دامنه اعتبار و تاریخ داشته باشد. عنوان‌های پرسشی وقتی مفیدند که دقیقاً به سؤال کاربر پاسخ دهند؛ صرف افزودن FAQ یا خلاصه، استناد موتورهای AI را تضمین نمی‌کند."
+          ],
+          "en": [
+            "Open with a short, self-contained answer, then explain conditions, limitations and the decision process. Make examples concrete: for stock integration, identify the source of truth, conflict handling and error ownership. Label hypothetical examples as hypothetical.",
+            "Avoid arbitrary word targets and keyword density rules. Performance or cost claims need evidence, scope and a date. Question headings help when they match an actual reader need; adding summaries or FAQs alone cannot guarantee AI citations."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۴. لینک داخلی را به مسیر تصمیم وصل کنید",
+          "en": "4. Link pages along the decision journey"
+        },
+        "paragraphs": {
+          "fa": [
+            "از صفحه مرجع به راهنمای تخصصی لینک بدهید و در راهنمای تخصصی، بازگشت به موضوع اصلی و رفتن به خدمت مرتبط را ممکن کنید. متن لینک باید مقصد را توصیف کند؛ «راهنمای انتخاب وردپرس یا توسعه اختصاصی» از «اینجا کلیک کنید» روشن‌تر است. هر لینک باید دلیل حضور داشته باشد.",
+            "برای صفحه‌های قدیمی هم مسیر ورود به مطالب جدید بسازید. صفحه بدون لینک داخلی ممکن است در نقشه سایت وجود داشته باشد اما برای خواننده کشف‌پذیر نباشد. فهرست مقاله‌های مرتبط را بررسی کنید تا صرفاً به دلیل یک برچسب مشترک، مطلب نامرتبط پیشنهاد ندهد."
+          ],
+          "en": [
+            "Link from the pillar to focused guides, and let each guide return to the broader topic or continue to a relevant service. Describe the destination in the anchor text. “Choosing WordPress or custom development” is clearer than “click here.” Every link should have a purpose.",
+            "Add useful routes from existing pages to new content. A page may appear in a sitemap and still be hard for readers to discover. Review related-article suggestions so a shared tag does not become the only reason for recommending a page."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۵. یک برنامه چهار هفته‌ای واقع‌بینانه بسازید",
+          "en": "5. Build a realistic four-week work plan"
+        },
+        "paragraphs": {
+          "fa": [
+            "نمونه زیر یک برنامه اجرایی پیشنهادی است، نه زمان تضمینی رشد. در هفته اول سؤال‌ها و صفحه‌های فعلی را ممیزی کنید. در هفته دوم صفحه مرجع را اصلاح و یک مقاله پشتیبان منتشر کنید. در هفته سوم مقاله دوم را همراه با شواهد و لینک‌ها تکمیل کنید. هفته چهارم را به کنترل فنی و بررسی بازخورد اختصاص دهید."
+          ],
+          "en": [
+            "The following is a suggested work schedule, not a promise of ranking gains. Audit questions and current pages in week one. Improve the pillar and publish a supporting guide in week two. Finish a second evidence-backed guide and its links in week three. Use week four for technical checks and reader feedback."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "برای هر صفحه یک مسئول، قصد جستجو، منبع و اقدام بعدی تعیین کنید.",
+            "تاریخ بازبینی را برای ادعاهای تغییرپذیر ثبت کنید.",
+            "عنوان و توضیح متا را مطابق محتوای واقعی صفحه بنویسید."
+          ],
+          "en": [
+            "Assign an owner, intent, evidence source and next action to every page.",
+            "Schedule reviews for claims that may change.",
+            "Make the title and meta description match the actual page."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۶. رشد خوشه را با نتیجه کسب‌وکار بسنجید",
+          "en": "6. Measure the cluster against business outcomes"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای هر خوشه، صفحه‌های ورودی، عبارت‌های جستجو، کلیک و درخواست‌های مرتبط را کنار هم ثبت کنید. افزایش نمایش بدون مراجعه مناسب یا تماس مرتبط، به‌تنهایی نشانه موفقیت تجاری نیست. بازه‌های قابل مقایسه انتخاب کنید و تغییرات فنی، تبلیغات و فصل کاری را در تفسیر نتیجه در نظر بگیرید.",
+            "برای بررسی پاسخ‌های AI، یک مجموعه ثابت از سؤال‌ها، زبان، تاریخ و نام ابزار نگه دارید و وجود لینک و صحت پاسخ را ثبت کنید. این مشاهده نمونه‌ای محدود است؛ آن را سهم بازار یا پوشش کامل همه موتورهای پاسخ معرفی نکنید. بر اساس شکاف پاسخ‌ها، محتوای موجود را بهبود دهید."
+          ],
+          "en": [
+            "Track landing pages, queries, clicks and relevant enquiries together for each cluster. More impressions without suitable visits or enquiries are not a complete business result. Compare equivalent periods and account for technical releases, campaigns and seasonality.",
+            "For AI answers, keep a fixed set of questions and record language, date, tool, linked sources and answer accuracy. This is a limited observation sample, not total market coverage. Use unanswered needs to improve existing content rather than automatically creating more pages."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "چند مقاله برای ساخت خوشه محتوایی لازم است؟",
+          "en": "How many articles does a cluster need?"
+        },
+        "answer": {
+          "fa": "تعداد ثابتی ندارد. از یک صفحه مرجع و چند پاسخ متمایز شروع کنید و فقط زمانی صفحه اضافه کنید که نیاز حل‌نشده‌ای وجود دارد.",
+          "en": "There is no fixed count. Start with a pillar and a few distinct answers, then add pages only when a real need remains unanswered."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا خوشه محتوایی حضور در پاسخ‌های AI را تضمین می‌کند؟",
+          "en": "Does a content cluster guarantee AI visibility?"
+        },
+        "answer": {
+          "fa": "خیر. ساختار منظم به خواندن و کشف محتوا کمک می‌کند، اما انتخاب منبع و نمایش آن در اختیار هر موتور است.",
+          "en": "No. A coherent structure helps discovery and reading, but each engine decides which sources to use and display."
+        }
+      },
+      {
+        "question": {
+          "fa": "مقاله‌های شبیه را حذف کنیم؟",
+          "en": "Should similar articles be deleted?"
+        },
+        "answer": {
+          "fa": "ابتدا قصد جستجو و اطلاعات هر صفحه را مقایسه کنید. ادغام فقط وقتی مفید است که پاسخ‌ها تکراری باشند؛ در تغییر نشانی هم ریدایرکت و لینک‌ها را مدیریت کنید.",
+          "en": "Compare intent and substance first. Consolidate genuinely duplicate answers and manage redirects and internal links when URLs change."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+        "title": {
+          "fa": "راهنمای گوگل برای محتوای مفید و قابل اعتماد",
+          "en": "Google: creating helpful, reliable content"
+        }
+      },
+      {
+        "url": "https://developers.google.com/search/docs/appearance/ai-features",
+        "title": {
+          "fa": "راهنمای گوگل درباره قابلیت‌های AI در جستجو",
+          "en": "Google: AI features and your website"
+        }
+      }
+    ],
+    "coverImage": "/blog/seo-content-cluster-strategy-editorial-20261022.jpg",
+    "coverImageAlt": {
+      "fa": "کره مرکزی دانش متصل به پنج سند پیرامونی در یک خوشه محتوایی",
+      "en": "Central knowledge orb linked to five documents in a content cluster"
+    }
+  },
+  {
+    "slug": "ai-crawlers-indexing-guide",
+    "title": {
+      "fa": "چرا سایت در پاسخ‌های AI دیده نمی‌شود؟ راهنمای خزش و ایندکس",
+      "en": "Why Is Your Site Missing from AI Answers? A Crawl and Indexing Guide"
+    },
+    "seoTitle": {
+      "fa": "دسترسی خزنده‌های AI؛ راهنمای خزش و ایندکس",
+      "en": "AI Crawlers: A Crawl and Indexing Checklist"
+    },
+    "excerpt": {
+      "fa": "راهنمای عیب‌یابی دسترسی خزنده‌ها: تفاوت robots.txt و noindex، کنترل خطاهای CDN، HTML قابل خواندن، نقشه سایت و سنجش دیده‌شدن بدون وعده استناد قطعی.",
+      "en": "Diagnose crawler access with robots.txt, noindex, CDN checks, readable HTML and sitemaps, while separating technical eligibility from actual AI citations."
+    },
+    "tags": [
+      "SEO",
+      "GEO",
+      "AEO",
+      "Security"
+    ],
+    "publishedAt": "2026-10-22",
+    "directAnswer": {
+      "fa": "برای عیب‌یابی دیده‌نشدن سایت، ابتدا پاسخ HTTP صفحه، محتوای HTML، robots.txt، متای robots و هدر X-Robots-Tag را بررسی کنید. سپس قوانین CDN، canonical، لینک‌های داخلی و نقشه سایت را کنترل کنید. دسترسی فنی شرط لازم برای بسیاری از مسیرهای کشف است، اما ایندکس‌شدن یا بازبودن یک خزنده به معنی انتخاب صفحه به‌عنوان منبع پاسخ AI نیست.",
+      "en": "Check the page’s HTTP response, readable HTML, robots.txt, robots meta tag and X-Robots-Tag first. Then inspect CDN rules, canonical URLs, internal links and the sitemap. Technical access supports discovery, but allowing a crawler or obtaining index coverage does not mean an AI engine will cite the page."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "۱. کشف، خزش، ایندکس و استناد را جدا کنید",
+          "en": "1. Separate discovery, crawling, indexing and citation"
+        },
+        "paragraphs": {
+          "fa": [
+            "کشف یعنی موتور از وجود نشانی باخبر شود؛ خزش یعنی بتواند آن را دریافت کند؛ ایندکس یعنی محتوا در سامانه جستجو پردازش و نگهداری شود. استناد مرحله دیگری است که در آن سامانه پاسخ، صفحه را برای یک سؤال مشخص انتخاب می‌کند. هر مرحله می‌تواند موفق باشد و مرحله بعد رخ ندهد.",
+            "بنابراین ابتدا مسئله را دقیق ثبت کنید: صفحه دریافت نمی‌شود، در ابزار بررسی URL ایندکس نشده، یا فقط در چند پاسخ AI دیده نشده است؟ برای هرکدام روش بررسی متفاوتی لازم است. جستجوی دستی یک عبارت یا یک درخواست با نام خزنده، به‌تنهایی وضعیت کل سایت را ثابت نمی‌کند."
+          ],
+          "en": [
+            "Discovery means an engine learns a URL exists; crawling means it can fetch it; indexing means the content is processed into a search system. Citation is a separate decision to use a page for a particular answer. Success at one stage does not guarantee the next.",
+            "Write down the actual symptom: a fetch failure, an indexing issue reported by a URL inspection tool, or absence from a few AI answers. Each needs a different investigation. One manual query or a request carrying a bot name cannot establish the state of an entire website."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۲. robots.txt و noindex کار یکسانی ندارند",
+          "en": "2. robots.txt and noindex serve different purposes"
+        },
+        "paragraphs": {
+          "fa": [
+            "robots.txt درباره اجازه خزش به ربات‌های همکار است و ابزار حفاظت از اطلاعات خصوصی نیست. طبق مستندات گوگل، مسدودکردن خزش لزوماً جلوی ظاهرشدن خود نشانی در نتایج را نمی‌گیرد. برای اطلاعات حساس، احراز هویت و کنترل دسترسی واقعی لازم است.",
+            "برای جلوگیری از ایندکس یک صفحه عمومی می‌توان از noindex استفاده کرد، اما خزنده باید بتواند آن دستور را ببیند. اگر همان صفحه را در robots.txt ببندید، ممکن است دستور خوانده نشود. متای داخل HTML و هدر X-Robots-Tag را با هم بررسی کنید؛ یک هدر فراموش‌شده در CDN می‌تواند با تنظیم برنامه تفاوت داشته باشد."
+          ],
+          "en": [
+            "robots.txt gives crawl instructions to cooperative bots; it does not protect private information. Google documents that a blocked URL can still appear in results. Sensitive information needs authentication and actual access controls.",
+            "An index exclusion instruction such as noindex must be accessible to the crawler. Blocking the same page in robots.txt can prevent that instruction from being seen. Inspect both HTML meta tags and X-Robots-Tag headers, including any headers added by the CDN."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۳. صفحه زنده را بررسی کنید، نه فقط کد مخزن",
+          "en": "3. Inspect the live response, not just the repository"
+        },
+        "paragraphs": {
+          "fa": [
+            "صفحه مقاله، تصویر اصلی و robots.txt را روی دامنه اصلی با درخواست GET بررسی کنید. پاسخ ۲۰۰ همراه با صفحه چالش یا ورود، محتوای واقعی مقاله نیست. زنجیره ریدایرکت، نوع محتوا و وجود عنوان و متن اصلی در HTML را نیز کنترل کنید.",
+            "تنظیمات امنیتی، محدودیت کشور، rate limit و قواعد ربات در لایه CDN ممکن است مستقل از کد سایت باشند. از گزارش امنیتی و لاگ‌های بدون اطلاعات شخصی برای تشخیص استفاده کنید. تغییر User-Agent آزمون تشخیصی اولیه است؛ هرکسی می‌تواند آن را جعل کند و برای احراز هویت ربات کافی نیست."
+          ],
+          "en": [
+            "Fetch an article, its main image and robots.txt on the production domain. A 200 response containing a challenge or login screen is not the article. Check redirects, content type and whether the initial HTML contains the heading and main text.",
+            "CDN bot rules, geographic restrictions and rate limits can behave independently of application code. Use security reports and privacy-safe logs to investigate. Changing a User-Agent is only a diagnostic probe: it can be spoofed and does not authenticate a crawler."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۴. محتوای اصلی را قابل کشف و خواندن نگه دارید",
+          "en": "4. Make the main content discoverable and readable"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای مقاله و صفحه خدمات، متن اصلی و لینک‌های واقعی را در HTML قابل دریافت قرار دهید. اگر همه پاسخ‌ها فقط بعد از کلیک، ورود یا اجرای درخواست شخصی ظاهر شوند، بعضی مصرف‌کنندگان محتوا به آن‌ها دسترسی ندارند. تصویر نباید تنها محل نگهداری پاسخ مهم باشد.",
+            "نقشه سایت باید نشانی‌های اصلی و قابل ایندکس را معرفی کند. canonical، زبان صفحه و لینک داخلی باید با مقصد واقعی هماهنگ باشند. ارسال نقشه سایت درخواست کشف است، نه دستور ایندکس فوری. فایل llms.txt نیز می‌تواند راهنمای کمکی باشد، اما نباید آن را الزام همگانی موتورهای پاسخ یا جایگزین HTML و sitemap دانست."
+          ],
+          "en": [
+            "Serve the main article and real links in accessible HTML. Answers hidden behind login, personal requests or required interactions may be unavailable to some content consumers. Do not make an image the only place where an important answer exists.",
+            "Sitemaps should list canonical, indexable URLs. Align canonical tags, language signals and internal links with the real destination. Sitemap submission supports discovery rather than commanding immediate indexing. Treat llms.txt as an optional guide, not a universal requirement or replacement for HTML and sitemaps."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۵. دسترسی جستجو و استفاده آموزشی را یکی فرض نکنید",
+          "en": "5. Do not assume search access and training access are identical"
+        },
+        "paragraphs": {
+          "fa": [
+            "نام و مأموریت خزنده‌ها را از مستندات رسمی همان ارائه‌دهنده بررسی کنید. یک سرویس ممکن است برای جستجو، مراجعه به درخواست کاربر و گردآوری داده آموزشی عامل‌های متفاوتی داشته باشد. تصمیم درباره هرکدام باید مطابق سیاست انتشار شما باشد، نه با بازکردن بی‌هدف تمام ربات‌ها.",
+            "برای صفحه‌های عمومی موردنظر، دسترسی را بررسی کنید و ناحیه مدیریت، API خصوصی و داده مشتری را پشت کنترل مناسب نگه دارید. فهرست نام ربات‌ها تغییر می‌کند؛ تاریخ بررسی و منبع تصمیم را ثبت کنید. این مقاله عمداً یک فهرست ثابت و ظاهراً دائمی از همه خزنده‌ها ارائه نمی‌کند."
+          ],
+          "en": [
+            "Check each provider’s current documentation for crawler names and purposes. Search, user-triggered visits and training collection may use different agents. Make access decisions according to your publication policy rather than assuming every bot has the same role.",
+            "Review access for the public pages you want discovered while protecting administration, private APIs and customer data. Crawler names can change, so record the date and source of each decision. A supposedly permanent list of every AI bot would quickly become unreliable."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۶. گزارش خطا را به اقدام مشخص تبدیل کنید",
+          "en": "6. Turn the diagnosis into a specific action"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای هر URL نتیجه دریافت، وضعیت ایندکس، canonical و آخرین اقدام را ثبت کنید. ابتدا مانع فنی اثبات‌شده را رفع کنید و بعد زمان کافی برای دریافت دوباره بدهید. تغییر هم‌زمان robots، محتوا و نشانی‌ها تشخیص علت را سخت می‌کند."
+          ],
+          "en": [
+            "Record fetch results, index coverage, canonical URLs and the latest action for each URL. Fix a demonstrated technical blocker first and allow time for recrawling. Changing robots rules, content and URLs together makes cause and effect harder to identify."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "صفحه عمومی: HTTP موفق، محتوای واقعی و بدون noindex ناخواسته.",
+            "تصویر: نشانی قابل دریافت، نوع فایل درست و alt توصیفی.",
+            "پس از رفع مانع: درخواست بررسی URL در ابزار موتور مربوط و پایش نتیجه."
+          ],
+          "en": [
+            "Public page: a successful HTTP response, real content and no accidental noindex.",
+            "Image: a fetchable URL, correct file type and descriptive alt text.",
+            "After fixing a blocker: request URL inspection where supported and monitor the result."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا بازکردن robots.txt باعث استناد ChatGPT یا موتورهای دیگر می‌شود؟",
+          "en": "Does allowing robots.txt access guarantee AI citations?"
+        },
+        "answer": {
+          "fa": "خیر. اجازه خزش فقط یک مانع دسترسی را برمی‌دارد. مرتبط‌بودن، انتخاب منبع و نحوه نمایش را هر سامانه تعیین می‌کند.",
+          "en": "No. It removes a possible access blocker. Relevance, source selection and display remain decisions made by each system."
+        }
+      },
+      {
+        "question": {
+          "fa": "چرا با پاسخ ۲۰۰ هنوز خزنده محتوای درست نمی‌بیند؟",
+          "en": "Why might a 200 response still hide the content?"
+        },
+        "answer": {
+          "fa": "بدنه پاسخ ممکن است صفحه چالش، ورود یا پوسته خالی برنامه باشد. متن پاسخ و HTML را همراه با کد وضعیت بررسی کنید.",
+          "en": "The response body may contain a challenge, login screen or empty application shell. Inspect the content as well as the status code."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا llms.txt برای GEO اجباری است؟",
+          "en": "Is llms.txt mandatory for GEO?"
+        },
+        "answer": {
+          "fa": "الزام همگانی و تضمین نتیجه نیست. ابتدا صفحه قابل خواندن، لینک داخلی، دستورهای ایندکس و نقشه سایت را درست کنید.",
+          "en": "It is not a universal requirement or a guarantee. Prioritise readable pages, internal links, indexing directives and sitemaps."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "url": "https://developers.google.com/search/docs/crawling-indexing/robots/intro",
+        "title": {
+          "fa": "گوگل: کاربرد و محدودیت robots.txt",
+          "en": "Google: robots.txt introduction and limitations"
+        }
+      },
+      {
+        "url": "https://developers.google.com/search/docs/crawling-indexing/block-indexing",
+        "title": {
+          "fa": "گوگل: جلوگیری از ایندکس با noindex",
+          "en": "Google: blocking indexing with noindex"
+        }
+      }
+    ],
+    "coverImage": "/blog/ai-crawlers-indexing-guide-editorial-20261022.jpg",
+    "coverImageAlt": {
+      "fa": "عدسی خزنده در مسیر درگاه باز و سندهای مرتب وب",
+      "en": "Crawler lens following an open gateway toward organised web documents"
+    }
+  },
+  {
+    "slug": "service-page-seo-conversion",
+    "title": {
+      "fa": "سئوی صفحه خدمات؛ چطور بازدید مرتبط را به درخواست مشاوره تبدیل کنیم؟",
+      "en": "Service Page SEO: Turning Relevant Visits into Useful Enquiries"
+    },
+    "seoTitle": {
+      "fa": "سئوی صفحه خدمات؛ از جستجو تا مشاوره",
+      "en": "Service Page SEO: From Search to Enquiry"
+    },
+    "excerpt": {
+      "fa": "ساختار صفحه خدمات برای پاسخ به سؤال مشتری، معرفی دامنه همکاری و جذب درخواست مرتبط؛ همراه با مثال، اصول AEO، شواهد اعتماد و چک‌لیست انتشار.",
+      "en": "Build a service page that explains fit, scope and next steps with clear answers, credible evidence and a practical SEO and conversion checklist."
+    },
+    "tags": [
+      "SEO",
+      "AEO",
+      "GEO",
+      "Website"
+    ],
+    "publishedAt": "2026-10-22",
+    "directAnswer": {
+      "fa": "صفحه خدمات باید روشن بگوید چه خدمتی، برای چه مخاطبی، با چه محدوده‌ای ارائه می‌شود و قدم بعدی چیست. عنوان دقیق، پاسخ کوتاه به مسئله مشتری، فرایند همکاری، شواهد قابل بررسی و فرم ساده، هسته آن هستند. برای SEO و AEO، توضیح واقعی خدمت و پاسخ مستقل به سؤال‌ها از تکرار کلمه کلیدی یا وعده رتبه و فروش قطعی مفیدتر است.",
+      "en": "A service page should explain what you provide, who it suits, what is included and how to take the next step. Use a precise heading, a short answer, a clear process, verifiable evidence and a simple enquiry path. Describe the actual service and answer real questions instead of repeating keywords or promising rankings and sales."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "۱. صفحه را برای یک تصمیم مشخص طراحی کنید",
+          "en": "1. Build the page around one clear decision"
+        },
+        "paragraphs": {
+          "fa": [
+            "کسی که «طراحی سایت فروشگاهی با اتصال انبار» جستجو می‌کند، احتمالاً به تناسب راهکار، محدوده اتصال و مسئولیت نگهداری اهمیت می‌دهد. صفحه‌ای که فقط از «کیفیت عالی» و «بهترین تیم» حرف می‌زند به این تصمیم کمک نمی‌کند. پیش از نوشتن، سؤال اصلی و شرط‌های پذیرش پروژه را مشخص کنید.",
+            "یک صفحه برای هر تغییر جزئی عبارت نسازید. اگر خدمت و خروجی یکسان است، توضیح‌های مرتبط را در همان صفحه کامل کنید. صفحه مستقل زمانی معنا دارد که مخاطب، مسئله، فرایند یا محدوده تحویل واقعاً متفاوت باشد؛ از صفحه‌های شهری با متن یکسان و ادعای حضور غیرواقعی هم پرهیز کنید."
+          ],
+          "en": [
+            "A person searching for an ecommerce site with inventory integration likely cares about fit, integration scope and maintenance responsibility. Generic claims about excellent quality do not resolve that decision. Define the main question and project acceptance conditions before writing.",
+            "Do not create a separate page for every keyword variation. Expand the existing page when the service and deliverable are the same. A new page makes sense when the audience, problem, process or scope genuinely differs. Avoid duplicated city pages and invented local offices."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۲. بالای صفحه به چهار سؤال جواب بدهید",
+          "en": "2. Answer four questions near the top"
+        },
+        "paragraphs": {
+          "fa": [
+            "در عنوان و مقدمه بگویید چه کاری انجام می‌دهید، برای چه کسب‌وکاری مناسب است، چه مسئله‌ای را حل می‌کند و خواننده از کجا شروع کند. نام خدمت باید واضح باشد؛ یک شعار خلاق به‌تنهایی جای توضیح خدمت را نمی‌گیرد. عنوان نتایج جستجو و عنوان داخل صفحه را هم‌معنا نگه دارید.",
+            "نمونه فرضی برای یک خدمت اتصال انبار: «طراحی فروشگاه با همگام‌سازی موجودی؛ برای تیم‌هایی که چند کانال فروش دارند. ابتدا منبع موجودی و قواعد رزرو سفارش بررسی می‌شود و سپس دامنه اتصال پیشنهاد می‌شود.» این نمونه درباره یک روند تصمیم‌گیری است و قول سازگاری با همه نرم‌افزارها نمی‌دهد."
+          ],
+          "en": [
+            "State what you do, which businesses it suits, which problem it addresses and where to start. A creative slogan alone does not explain a service. Keep the search title and on-page heading consistent in meaning.",
+            "A hypothetical inventory service introduction might say: “Ecommerce development with stock synchronisation for teams selling through multiple channels. We first review the stock source and reservation rules, then propose the integration scope.” It explains a process without promising compatibility with every system."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۳. دامنه همکاری و محدودیت‌ها را قابل مقایسه کنید",
+          "en": "3. Make scope and limitations comparable"
+        },
+        "paragraphs": {
+          "fa": [
+            "مشتری باید بتواند بفهمد چه چیزهایی داخل همکاری است و برای چه چیزهایی بررسی جداگانه لازم است. طراحی تجربه کاربری، ورود محتوا، مهاجرت، اتصال سرویس‌ها، آموزش و نگهداری را جدا توضیح دهید. اگر زمان یا هزینه به داده اولیه وابسته است، عوامل اثرگذار را نام ببرید و عدد ساختگی منتشر نکنید.",
+            "فرایند را با خروجی هر مرحله بنویسید: جلسه شناخت نیاز به فهرست مسئله‌ها می‌رسد، طراحی به نمونه قابل بررسی و توسعه به نسخه آزمودنی. مشخص‌بودن مسئول تأیید و معیار پذیرش از یک فهرست مبهم تکنولوژی‌ها برای تصمیم تجاری مفیدتر است."
+          ],
+          "en": [
+            "Explain what is included and what needs a separate assessment. Distinguish design, content entry, migration, integrations, training and maintenance. Where timing or cost depends on discovery, explain the inputs instead of publishing invented figures.",
+            "Describe the output of each stage: discovery produces a requirements list, design produces a reviewable prototype and development produces a testable release. Approval ownership and acceptance criteria help a business buyer more than an unexplained technology list."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۴. اعتماد را با مدرک و زمینه بسازید",
+          "en": "4. Support trust with evidence and context"
+        },
+        "paragraphs": {
+          "fa": [
+            "نمونه‌کار را همراه مسئله، نقش تیم و خروجی واقعی معرفی کنید. اگر آمار نتیجه ندارید، درباره تصمیم‌های طراحی و محدوده اجرا حرف بزنید. درصد رشد، لوگوی مشتری، نقل‌قول و گواهی را فقط با پشتوانه و اجازه انتشار نمایش دهید. تصویر مفهومی تولیدشده با AI نباید به‌جای عکس یک پروژه واقعی معرفی شود.",
+            "پرسش‌های متداول را از ابهام‌های خرید انتخاب کنید: مالکیت خروجی، روش دریافت محتوا، شرایط پشتیبانی و نحوه تغییر دامنه پروژه. پاسخ باید با فرایند واقعی کسب‌وکار هماهنگ باشد. این بخش برای کمک به تصمیم خواننده است و نمایش ویژه یا استناد AI را تضمین نمی‌کند."
+          ],
+          "en": [
+            "Present case studies with the problem, your role and the actual deliverable. Without outcome data, explain implementation decisions and scope. Publish growth percentages, customer logos, quotes and credentials only with evidence and permission. An AI concept illustration must not masquerade as a real client project.",
+            "Choose FAQs from buying uncertainties: ownership, content supply, support and scope changes. Answers must reflect the business’s real process. The purpose is to help a reader decide; a FAQ cannot guarantee a special search display or AI citation."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۵. مسیر تماس را کوتاه و قابل اعتماد نگه دارید",
+          "en": "5. Keep the enquiry path clear and trustworthy"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک اقدام اصلی مانند «شرح پروژه را بفرستید» انتخاب کنید و در نقاط مناسب تکرار کنید. فرم باید فقط اطلاعات لازم برای پاسخ اولیه را بخواهد و پیام موفقیت و خطا را واضح نمایش دهد. مخاطب باید بداند بعد از ارسال چه اتفاقی می‌افتد؛ زمان پاسخ فقط زمانی درج شود که واقعاً قابل تعهد است.",
+            "در موبایل، فرم و دکمه باید با صفحه‌کلید قابل استفاده باشند و خطا فقط با رنگ مشخص نشود. لینک تماس و آدرس ایمیل را نیز بررسی کنید. برای تحلیل تبدیل، خود رویداد ارسال موفق را اندازه بگیرید و متن پیام، شماره تلفن یا ایمیل مشتری را وارد ابزار تحلیل عمومی نکنید."
+          ],
+          "en": [
+            "Choose one main action such as “Send your project brief” and repeat it where useful. Ask only for what is necessary for an initial reply, with clear success and error messages. Explain what happens after submission; publish a response deadline only if the business can honour it.",
+            "Check keyboard access and mobile usability, and do not communicate errors through colour alone. Verify contact links too. Measure successful submission events without sending the visitor’s message, phone number or email address to general analytics tools."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۶. پیش از انتشار، محتوا و فنی را با هم کنترل کنید",
+          "en": "6. Review content and technical details together"
+        },
+        "paragraphs": {
+          "fa": [
+            "صفحه خدمات را مانند یک پیشنهاد قابل بررسی بخوانید: آیا مخاطب درست را جذب می‌کند و برای فرد نامناسب هم محدودیت را روشن می‌گوید؟ سپس عنوان، توضیح متا، canonical، نسخه زبانی، تصویر و لینک‌ها را کنترل کنید. نتیجه را با درخواست‌های مرتبط بسنجید و برای ارزیابی تغییرات، تاریخ انتشار هر ویرایش را ثبت کنید."
+          ],
+          "en": [
+            "Read the page as a reviewable offer: does it attract the right audience and explain the limits? Then check the title, description, canonical URL, language alternative, image and links. Evaluate relevant enquiries and record release dates so changes can be interpreted."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "خدمت و مخاطب در اولین بخش روشن هستند.",
+            "محدوده، شواهد و اقدام بعدی با هم سازگارند.",
+            "فرم واقعی آزموده شده و داده حساس وارد تحلیل نشده است."
+          ],
+          "en": [
+            "The opening explains the service and audience.",
+            "Scope, evidence and next steps agree.",
+            "The real form has been tested without exposing sensitive data."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "برای هر شهر یک صفحه خدمات بسازیم؟",
+          "en": "Should every city have a service page?"
+        },
+        "answer": {
+          "fa": "فقط اگر خدمت محلی و اطلاعات متمایز و واقعی دارید. جایگزین‌کردن نام شهر در متن تکراری برای کاربر ارزش تازه‌ای ایجاد نمی‌کند.",
+          "en": "Only when there is a real local service and distinct useful information. Swapping city names in repeated copy adds little value."
+        }
+      },
+      {
+        "question": {
+          "fa": "صفحه خدمات چقدر باید طولانی باشد؟",
+          "en": "How long should a service page be?"
+        },
+        "answer": {
+          "fa": "به‌اندازه‌ای که تناسب، محدوده، شواهد و قدم بعدی را روشن کند. تعداد کلمه ثابت جای پاسخ‌دادن به ابهام‌های مشتری را نمی‌گیرد.",
+          "en": "Long enough to explain fit, scope, evidence and next steps. A fixed word count cannot replace answering buying questions."
+        }
+      },
+      {
+        "question": {
+          "fa": "بدون قیمت ثابت می‌توان صفحه خدمات مفید داشت؟",
+          "en": "Can a useful service page work without fixed prices?"
+        },
+        "answer": {
+          "fa": "بله؛ عوامل تعیین هزینه و اطلاعات لازم برای برآورد را توضیح دهید. نبود قیمت ثابت را با ادعای ارزان‌ترین یا رقم ساختگی جبران نکنید.",
+          "en": "Yes. Explain pricing factors and the inputs needed for an estimate. Avoid unsupported cheapest-price claims or invented numbers."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "url": "https://developers.google.com/search/docs/appearance/title-link",
+        "title": {
+          "fa": "گوگل: عنوان‌های روشن و دقیق در نتایج جستجو",
+          "en": "Google: clear and accurate search title links"
+        }
+      },
+      {
+        "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+        "title": {
+          "fa": "گوگل: سیاست‌های مقابله با محتوای اسپم و صفحه‌های درگاهی",
+          "en": "Google: spam policies and doorway abuse"
+        }
+      }
+    ],
+    "coverImage": "/blog/service-page-seo-conversion-editorial-20261022.jpg",
+    "coverImageAlt": {
+      "fa": "صفحه خدمات با دکمه برجسته و مسیر تبدیل به کارت تماس",
+      "en": "Service page with a highlighted action button leading to a contact card"
+    }
+  },
+  {
+    "slug": "ecommerce-product-page-seo",
+    "title": {
+      "fa": "سئوی صفحه محصول؛ راهنمای توضیحات، تصویر و داده ساختاریافته",
+      "en": "Product Page SEO: Descriptions, Images and Structured Data"
+    },
+    "seoTitle": {
+      "fa": "سئوی صفحه محصول؛ چک‌لیست فروشگاه اینترنتی",
+      "en": "Product Page SEO: An Ecommerce Checklist"
+    },
+    "excerpt": {
+      "fa": "چطور صفحه محصولی بسازیم که هم برای مشتری روشن باشد و هم برای جستجو قابل فهم؟ راهنمای مشخصات، تصویر و alt، Product schema، موجودی و سنجش نتیجه.",
+      "en": "Make product pages useful to buyers and understandable to search engines with clear specifications, descriptive image alt text, product data and reliable availability."
+    },
+    "tags": [
+      "SEO",
+      "AEO",
+      "WordPress",
+      "Website"
+    ],
+    "publishedAt": "2026-10-22",
+    "directAnswer": {
+      "fa": "سئوی صفحه محصول از اطلاعات درست و قابل تصمیم‌گیری شروع می‌شود: نام و مدل دقیق، مشخصات قابل مقایسه، کاربرد و محدودیت، تصویر مرتبط، قیمت و موجودی هماهنگ با خرید و پاسخ به سؤال‌های رایج. داده ساختاریافته Product باید با صفحه قابل مشاهده مطابقت داشته باشد. تکرار نام محصول، نظر جعلی یا امتیاز ساختگی جای اطلاعات مفید را نمی‌گیرد.",
+      "en": "Product page SEO starts with accurate buying information: a precise name and model, comparable specifications, uses and limitations, relevant images, consistent price and availability, and answers to common questions. Product structured data must match the visible page. Repeated product names, fake reviews and invented ratings cannot replace useful information."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "۱. نیاز خرید را از عبارت عمومی جدا کنید",
+          "en": "1. Separate purchase needs from broad keywords"
+        },
+        "paragraphs": {
+          "fa": [
+            "صفحه دسته‌بندی برای مقایسه چند محصول مناسب است و صفحه محصول باید درباره یک مدل یا گزینه مشخص پاسخ بدهد. اگر کاربر هنوز نوع محصول را نمی‌شناسد، راهنمای خرید می‌تواند قدم پیش از انتخاب باشد. این سه نقش را با متن تقریباً یکسان پر نکنید؛ هرکدام باید به سؤال متفاوتی کمک کنند.",
+            "برای عنوان محصول، برند و مدل واقعی، مشخصه متمایز و نوع کالا را به‌شکل طبیعی بیاورید. رنگ، ظرفیت و سازگاری را طوری نمایش دهید که اشتباه سفارش کم شود. عبارت‌هایی مثل «بهترین خرید ارزان عالی» توضیح دقیق نمی‌دهند و ممکن است اعتماد خریدار را کاهش دهند."
+          ],
+          "en": [
+            "Category pages help compare several items; a product page should answer questions about a specific model or option. A buying guide can help readers who have not yet selected a product type. Avoid filling all three with near-identical copy.",
+            "Use the real brand, model, product type and meaningful distinguishing details in the title. Show colour, capacity and compatibility clearly to reduce ordering mistakes. A string of promotional adjectives is less informative than a precise product identity."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۲. توضیحات را به تصمیم واقعی وصل کنید",
+          "en": "2. Connect the description to a real buying decision"
+        },
+        "paragraphs": {
+          "fa": [
+            "به‌جای بازنویسی بی‌دلیل متن تأمین‌کننده، اطلاعات لازم برای مخاطب خود را اضافه کنید: این مدل برای چه استفاده‌ای مناسب است، چه پیش‌نیازی دارد، با چه چیزی سازگار نیست و داخل بسته چیست. ادعای مقاومت، سرعت یا دوام را بدون مدرک تست یا منبع معتبر ننویسید.",
+            "نمونه فرضی برای پایه لپ‌تاپ: به‌جای «کیفیت بی‌نظیر»، محدوده ابعاد قابل پشتیبانی را از مشخصات معتبر بیاورید، فضای لازم روی میز را توضیح دهید و روشن کنید آیا حمل روزانه کاربرد اصلی آن است یا استفاده ثابت. اگر محصول را شخصاً آزمایش نکرده‌اید، متن را به‌عنوان تجربه دست‌اول معرفی نکنید."
+          ],
+          "en": [
+            "Add information your buyers need rather than rewriting supplier text for its own sake: suitable uses, prerequisites, incompatibilities and package contents. Claims about resistance, speed or durability need trustworthy specifications or test evidence.",
+            "For a hypothetical laptop stand, replace “unmatched quality” with supported dimensions from reliable specifications, desk space requirements and whether the design suits travel or fixed use. Do not present a description as first-hand experience if you have not tested the product."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۳. تصویر و alt باید خود محصول را توضیح دهند",
+          "en": "3. Images and alt text should describe the actual product"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای فروش کالا از تصویر واقعی همان مدل و گزینه استفاده کنید. تصویر مفهومی یا تولیدشده با AI نباید رنگ، جنس، ابعاد یا جزئیاتی را القا کند که خریدار تحویل نمی‌گیرد. تصویر اصلی باید روشن و تصاویر تکمیلی باید زاویه، اتصال یا کاربردی را نشان دهند که برای تصمیم مهم است.",
+            "alt را کوتاه و توصیفی بنویسید: مثلاً «پایه لپ‌تاپ آلومینیومی تاشو از نمای جانبی». عبارت فرضی را با مشخصات واقعی کالای خود تطبیق دهید. تکرار قیمت، نام شهر و چندین کلمه کلیدی در alt اطلاعات تصویری اضافه نمی‌کند. ابعاد تصویر را مشخص و فایل را فشرده کنید تا فضای صفحه هنگام بارگذاری نپرد."
+          ],
+          "en": [
+            "Use images of the actual model and variant being sold. Concept or AI imagery must not imply colours, materials, dimensions or details the buyer will not receive. Show the product clearly, then add views of connections, angles or use cases that matter to the decision.",
+            "Write concise descriptive alt text, such as “Foldable aluminium laptop stand viewed from the side,” adapted to the real product. Repeating prices, city names and keyword lists does not describe an image. Set dimensions and compress assets to reduce layout movement and download size."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۴. Product schema را از اطلاعات واقعی بسازید",
+          "en": "4. Build Product markup from real data"
+        },
+        "paragraphs": {
+          "fa": [
+            "داده ساختاریافته، راهی برای توضیح قابل پردازش محصول است؛ باید همان نام، تصویر، پیشنهاد فروش و اطلاعات قابل مشاهده را بازتاب دهد. مسیرهای product snippet و merchant listing در گوگل الزامات و شرایط خود را دارند؛ نوع مناسب را از مستندات فعلی بررسی کنید و خروجی را اعتبارسنجی کنید.",
+            "قیمت و موجودی را از منبع واحد با صفحه خرید تولید کنید تا اطلاعات قدیمی در JSON-LD باقی نماند. نظر و امتیاز را فقط زمانی درج کنید که واقعی، قابل نمایش و مطابق سیاست‌ها باشند. درست‌بودن ساختار امکان استفاده از قابلیت مربوط را فراهم می‌کند و نمایش نتیجه غنی را تضمین نمی‌کند."
+          ],
+          "en": [
+            "Structured data gives a machine-readable product description and must reflect the visible name, image, offer and other supported information. Google’s product snippet and merchant listing experiences have their own eligibility rules; choose the appropriate route from current documentation and validate the output.",
+            "Generate price and availability from the same source used for checkout to avoid stale JSON-LD. Include reviews and ratings only when they are genuine, visible and policy-compliant. Correct markup supports eligibility; it does not guarantee a rich result."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۵. موجودی، تنوع و نشانی‌ها را هماهنگ مدیریت کنید",
+          "en": "5. Keep availability, variants and URLs consistent"
+        },
+        "paragraphs": {
+          "fa": [
+            "مشتری باید پیش از پرداخت، وضعیت گزینه انتخابی و شرایط واقعی ارسال و مرجوعی را بفهمد. اگر موجودی تمام شده، صفحه را خودکار به محصول نامرتبط نفرستید. درباره نگه‌داشتن صفحه، پیشنهاد جایگزین یا حذف دائمی بر اساس وضعیت واقعی محصول تصمیم بگیرید و پاسخ HTTP را درست تنظیم کنید.",
+            "برای گزینه‌ها و فیلترها، قواعد نشانی و canonical را آگاهانه انتخاب کنید. هر ترکیب رنگ و مرتب‌سازی الزاماً به صفحه ایندکس‌پذیر جدا نیاز ندارد. در مقابل، گزینه‌ای که ویژگی و تقاضای مستقل دارد ممکن است توضیح و ساختار مشخص خود را بخواهد. یک قاعده یکسان را بدون بررسی به تمام فروشگاه تعمیم ندهید."
+          ],
+          "en": [
+            "Show the selected option’s actual availability, shipping and return conditions before checkout. Do not automatically redirect an unavailable item to an unrelated product. Decide whether to retain, replace or retire the page based on the real product situation, using appropriate HTTP responses.",
+            "Choose URL and canonical rules deliberately for variants and filters. Every colour and sorting combination does not need a separate indexable page. A genuinely distinct option may need its own description and structure. Avoid applying one unexamined rule across the whole catalogue."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۶. پاسخ‌های کوتاه و سنجش پس از انتشار",
+          "en": "6. Add direct answers and measure after launch"
+        },
+        "paragraphs": {
+          "fa": [
+            "پرسش‌هایی مثل سازگاری، محتویات بسته و روش نگهداری را با جواب مشخص کنار مشخصات بیاورید. برای محصول فاقد اطلاعات قطعی، پاسخ نامطمئن را به واقعیت تبدیل نکنید؛ منبع تأمین‌کننده را بررسی کنید. این پاسخ‌ها برای مشتری و سامانه‌های بازیابی قابل استفاده‌اند، اما حضور در پاسخ AI قطعی نیست.",
+            "از یک گروه محدود و مهم محصول شروع کنید. خطاهای داده ساختاریافته، کلیک جستجو، افزودن به سبد و سفارش موفق را با بازه‌های قابل مقایسه بررسی کنید. تغییر قیمت، موجودی و کمپین را هم ثبت کنید تا اثر همه چیز به متن جدید نسبت داده نشود."
+          ],
+          "en": [
+            "Answer questions about compatibility, package contents and care alongside the specifications. If information is uncertain, verify it with the supplier instead of turning an assumption into a fact. Clear answers help buyers and retrieval systems but cannot promise an AI citation.",
+            "Start with a small important product group. Review markup errors, search clicks, cart additions and completed orders over comparable periods. Record pricing, stock and campaign changes so every outcome is not incorrectly attributed to new copy."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا توضیحات همه محصولات باید طولانی باشد؟",
+          "en": "Does every product need a long description?"
+        },
+        "answer": {
+          "fa": "خیر؛ حجم متن باید متناسب با پیچیدگی تصمیم باشد. مشخصات دقیق، سازگاری و محدودیت‌ها از متن طولانی تکراری ارزشمندترند.",
+          "en": "No. Match detail to the buying decision. Accurate specifications, compatibility and limitations are more useful than lengthy repetition."
+        }
+      },
+      {
+        "question": {
+          "fa": "می‌توان برای کالای واقعی فقط عکس AI گذاشت؟",
+          "en": "Can AI images replace real product photography?"
+        },
+        "answer": {
+          "fa": "تصویر نباید ویژگی غیرواقعی القا کند. برای نشان‌دادن خود کالای فروخته‌شده، تصاویر معتبر همان مدل لازم‌اند؛ تصویر مفهومی باید روشن از آن جدا شود.",
+          "en": "Images must not misrepresent the item. Use trustworthy images of the actual model; distinguish any conceptual illustration clearly."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا Product schema رتبه یا فروش را تضمین می‌کند؟",
+          "en": "Does Product schema guarantee rankings or sales?"
+        },
+        "answer": {
+          "fa": "خیر؛ داده معتبر به درک اطلاعات و واجدشرایط‌شدن برای قابلیت‌های مرتبط کمک می‌کند. انتخاب نمایش و نتیجه تجاری به عوامل دیگری هم وابسته است.",
+          "en": "No. Valid data helps interpretation and eligibility for relevant features. Display decisions and business results also depend on other factors."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "url": "https://developers.google.com/search/docs/appearance/structured-data/product",
+        "title": {
+          "fa": "گوگل: معرفی داده ساختاریافته محصول",
+          "en": "Google: product structured data"
+        }
+      },
+      {
+        "url": "https://developers.google.com/search/docs/appearance/google-images",
+        "title": {
+          "fa": "گوگل: راهنمای تصویر و متن جایگزین",
+          "en": "Google: image SEO and alt text"
+        }
+      },
+      {
+        "url": "https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews",
+        "title": {
+          "fa": "گوگل: راهنمای بررسی محصول با شواهد واقعی",
+          "en": "Google: writing evidence-based product reviews"
+        }
+      }
+    ],
+    "coverImage": "/blog/ecommerce-product-page-seo-editorial-20261022.jpg",
+    "coverImageAlt": {
+      "fa": "محصول روی سکو در کنار کارت فروشگاه، ستاره نظر و ذره‌بین",
+      "en": "Product on a pedestal beside a shop card, review star and magnifying lens"
+    }
+  },
+  {
+    "slug": "persian-english-multilingual-seo",
+    "title": {
+      "fa": "سئوی سایت فارسی و انگلیسی؛ راهنمای hreflang، canonical و ترجمه محتوا",
+      "en": "Persian and English SEO: Hreflang, Canonicals and Content Localisation"
+    },
+    "seoTitle": {
+      "fa": "سئوی فارسی و انگلیسی؛ راهنمای سایت دوزبانه",
+      "en": "Persian and English SEO: A Bilingual Site Guide"
+    },
+    "excerpt": {
+      "fa": "راهنمای عملی سئوی سایت فارسی و انگلیسی: نشانی مستقل، hreflang دوطرفه، canonical، ترجمه متناسب با نیاز مخاطب، RTL/LTR و کنترل متادیتای هر زبان.",
+      "en": "Plan Persian and English SEO with separate URLs, reciprocal hreflang, deliberate canonicals, useful localisation and RTL/LTR checks across content and metadata."
+    },
+    "tags": [
+      "SEO",
+      "GEO",
+      "AEO",
+      "Website"
+    ],
+    "publishedAt": "2026-10-22",
+    "directAnswer": {
+      "fa": "برای سئوی سایت فارسی و انگلیسی، هر زبان باید نشانی مستقل و محتوای قابل خواندن داشته باشد. hreflang صفحه‌های معادل را معرفی می‌کند و canonical نشانی اصلی هر محتوا را روشن می‌کند؛ این دو نقش متفاوتی دارند. متن، عنوان، توضیح متا، alt و مسیر تبدیل را متناسب با مخاطب همان زبان آماده کنید و نمایش اولیه HTML را در هر دو جهت RTL و LTR بررسی کنید.",
+      "en": "Give Persian and English content separate accessible URLs. Use hreflang to connect equivalent language pages and canonical tags to identify the preferred URL for a piece of content; their roles differ. Localise body copy, titles, descriptions, alt text and conversion paths, then inspect the initial HTML and both RTL and LTR layouts."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "۱. نسخه زبانی را به نشانی پایدار وصل کنید",
+          "en": "1. Give every language version a stable URL"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای نمونه، /fa/services و /en/services می‌توانند دو ورودی مستقل باشند. کاربر و خزنده باید بتوانند هرکدام را بدون تغییر تنظیمات مرورگر باز کنند. انتخاب زیرپوشه یا زیردامنه به ساختار پروژه وابسته است؛ مهم‌تر از شکل ظاهری، ثبات نشانی و دسترسی واقعی به محتوای هر زبان است.",
+            "سوییچ زبان باید کاربر را تا حد امکان به همان مقاله یا خدمت در زبان دیگر ببرد. اگر ترجمه آن صفحه موجود نیست، مقصد را صادقانه مشخص کنید و لینک معادل ساختگی نسازید. انتقال اجباری همه بازدیدکنندگان بر اساس IP می‌تواند دسترسی به نسخه دلخواه را دشوار کند؛ انتخاب دستی زبان را حفظ کنید."
+          ],
+          "en": [
+            "For example, /fa/services and /en/services can be independent entry points that work without changing browser settings. Choosing folders or subdomains depends on the project; stable URLs and real access to each language matter more than cosmetic URL preferences.",
+            "Where possible, the language switch should lead to the same article or service in the other language. If there is no translation, explain the destination instead of inventing an equivalent page. Keep manual language selection available rather than forcing every visitor to a version based on IP."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۲. hreflang و canonical را با هم اشتباه نگیرید",
+          "en": "2. Keep hreflang and canonical roles distinct"
+        },
+        "paragraphs": {
+          "fa": [
+            "hreflang رابطه نسخه‌های زبانی یا منطقه‌ای معادل را معرفی می‌کند. برای دو صفحه معادل فارسی و انگلیسی، هر صفحه باید مجموعه سازگار و دوطرفه‌ای از نسخه‌ها را معرفی کند و خودش را هم در آن بیاورد. نشانی‌ها باید کامل، قابل دریافت و مربوط به همان موضوع باشند؛ x-default نیز می‌تواند مقصد پیش‌فرض را مشخص کند.",
+            "canonical برای انتخاب نشانی ترجیحی محتواست. نسخه فارسی و انگلیسیِ واقعاً ترجمه‌شده را صرفاً به دلیل هم‌موضوع‌بودن، همگی به صفحه فارسی canonical نکنید. در ساختار معمول با محتوای متمایز زبانی، هر نسخه نشانی اصلی خودش را دارد. برای تکرارهای منطقه‌ای یا نسخه‌های هم‌زبان، تصمیم باید با محتوای واقعی بررسی شود."
+          ],
+          "en": [
+            "hreflang describes equivalent language or regional pages. For matching Persian and English pages, provide a consistent reciprocal set that includes each page itself. Use complete accessible URLs for the same topic; x-default can identify a default destination.",
+            "Canonical tags identify a preferred URL for content. Do not point every translated English page to Persian merely because they share a subject. In a normal structure with distinct translated content, each version has its own preferred URL. Same-language duplicates and regional variations need a deliberate separate assessment."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۳. نیاز جستجو را ترجمه کنید، نه فقط جمله‌ها را",
+          "en": "3. Localise the search need as well as the sentences"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک ترجمه روان ممکن است هنوز به سؤال بازار مقصد پاسخ ندهد. اصطلاح تخصصی، مثال، واحد اندازه‌گیری، روش تماس و دامنه ارائه خدمت را برای مخاطب همان زبان بررسی کنید. اگر فقط به یک بازار خدمت می‌دهید، نسخه انگلیسی نباید به‌طور ضمنی دفتر یا پوشش جهانی غیرواقعی القا کند.",
+            "برای هر نسخه، عنوان جستجو، توضیح متا، تیتر اصلی و پاسخ کوتاه مستقل بنویسید. پیام خطای فرم، متن دکمه و سؤال‌های متداول هم بخشی از محتوا هستند. در فارسی، یکدستی اصطلاح‌ها و نیم‌فاصله خواندن را آسان‌تر می‌کند؛ اضافه‌کردن شکل‌های املایی متعدد در یک جمله راه‌حل مناسبی برای جذب جستجو نیست."
+          ],
+          "en": [
+            "A fluent translation may still miss the target audience’s question. Review terminology, examples, units, contact methods and service coverage for that language. An English version must not imply nonexistent global offices or availability.",
+            "Write a suitable search title, description, heading and quick answer for each version. Include form errors, buttons and FAQs in localisation. Consistent Persian terminology and typography improve readability; packing multiple spelling variations into a sentence does not create a useful answer."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۴. جهت و زبان HTML را قبل از تعامل کنترل کنید",
+          "en": "4. Check HTML language and direction before interaction"
+        },
+        "paragraphs": {
+          "fa": [
+            "صفحه فارسی باید از ابتدا زبان و جهت مناسب داشته باشد و صفحه انگلیسی هم با زبان انگلیسی و جهت چپ‌به‌راست ارائه شود. تغییر این ویژگی‌ها فقط بعد از اجرای جاوااسکریپت ممکن است تجربه اولیه نامناسبی بسازد. این ویژگی‌ها برای دسترس‌پذیری و نمایش اهمیت دارند، اما جای محتوای واقعی به همان زبان را نمی‌گیرند.",
+            "شماره تلفن، ایمیل، کد و نام لاتین را در متن فارسی جداگانه بررسی کنید تا ترتیب کاراکترها به هم نریزد. در عرض ۳۲۰ پیکسل، جدول، عنوان طولانی و لینک منبع نباید اسکرول افقی ناخواسته بسازند. فوکوس صفحه‌کلید و نام قابل دسترس دکمه تغییر زبان را در هر دو نسخه آزمون کنید."
+          ],
+          "en": [
+            "Serve Persian with appropriate language and right-to-left direction from the initial response, and English with English language and left-to-right direction. Waiting for JavaScript to correct these values can harm the initial experience. These attributes support accessibility and presentation but do not replace content written in the intended language.",
+            "Check phone numbers, emails, code and Latin names inside Persian copy for bidirectional ordering issues. At 320 pixels, long headings, tables and source links should not create unwanted horizontal scrolling. Test keyboard focus and the language switch’s accessible name in both versions."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۵. تصویر، داده ساختاریافته و نقشه سایت را هماهنگ کنید",
+          "en": "5. Align images, structured data and sitemaps"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک تصویر بدون نوشته می‌تواند در دو زبان مشترک باشد، اما alt آن باید در زبان همان صفحه توصیفی و مرتبط باشد. محتوای داده ساختاریافته، مانند عنوان و پاسخ FAQ، باید با نسخه قابل مشاهده یکسان باشد. زبان، نشانی و تاریخ‌های مقاله را از داده همان صفحه بسازید.",
+            "فهرست URLهای هر زبان در نقشه سایت و لینک‌های جایگزین را کنترل کنید. مقاله‌ای که فقط عنوانش ترجمه شده اما بدنه آن در زبان دیگر باقی مانده، تجربه کامل دوزبانه نیست. اگر ترجمه هنوز آماده نیست، آن را مانند نسخه تکمیل‌شده به کاربر و موتور معرفی نکنید."
+          ],
+          "en": [
+            "A text-free image can be shared across languages while its alt text describes it in the page’s language. Structured data headlines and FAQ answers should match the visible version. Generate language, URLs and article dates from the corresponding page data.",
+            "Review each language’s sitemap URLs and alternate links. Translating only a headline while leaving the body in another language does not provide a complete localised experience. Do not present an unfinished translation as a completed equivalent."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۶. نتیجه را برای هر زبان جدا ارزیابی کنید",
+          "en": "6. Evaluate each language separately"
+        },
+        "paragraphs": {
+          "fa": [
+            "نمایش، کلیک، صفحه ورودی و درخواست مرتبط را برای فارسی و انگلیسی جدا ببینید. تفاوت تقاضا و نوع مخاطب می‌تواند مهم‌تر از مقایسه خام تعداد بازدید باشد. برای پایش پاسخ‌های AI هم سؤال‌های طبیعی هر زبان را ثبت کنید؛ ترجمه لفظی یک پرسش الزاماً رفتار یکسان ایجاد نمی‌کند.",
+            "نمونه بررسی ماهانه پیشنهادی: چند صفحه اصلی را در هر زبان باز کنید، مقصد سوییچ، canonical، hreflang، عنوان، تصویر و فرم را بررسی کنید و یک تغییر محتوایی لازم را ثبت کنید. این یک روش نگهداری است، نه تضمین رشد در گوگل، بینگ یا موتورهای پاسخ."
+          ],
+          "en": [
+            "Review impressions, clicks, entry pages and relevant enquiries separately for Persian and English. Audience and demand differences matter more than raw traffic totals. For AI observations, use natural questions in each language; literal translations do not necessarily produce comparable behaviour.",
+            "A suggested monthly review checks key pages in both languages: language switching, canonical tags, hreflang, titles, images and forms. Record one needed content improvement. This is a maintenance method, not a guarantee of growth in Google, Bing or answer engines."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "نسخه انگلیسی باید به فارسی canonical شود؟",
+          "en": "Should English pages canonicalise to Persian?"
+        },
+        "answer": {
+          "fa": "برای ترجمه کامل و متمایز، معمولاً هر نسخه canonical خودش را دارد و رابطه زبان‌ها با hreflang مشخص می‌شود. محتوای تکراری یا منطقه‌ای نیازمند بررسی جداست.",
+          "en": "Complete distinct translations normally use their own canonical URLs, with hreflang linking equivalents. Duplicate or regional content needs separate assessment."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا یک تصویر برای هر دو زبان اشکال دارد؟",
+          "en": "Can both languages share an image?"
+        },
+        "answer": {
+          "fa": "بله، اگر تصویر با هر دو نسخه مرتبط است. متن جایگزین و اطلاعات پیرامون تصویر باید با زبان صفحه هماهنگ باشند.",
+          "en": "Yes, if it is relevant to both versions. Localise alt text and surrounding information for each page."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا ترجمه خودکار بدون بازبینی کافی است؟",
+          "en": "Is unreviewed automatic translation enough?"
+        },
+        "answer": {
+          "fa": "اصطلاحات، واقعیت‌ها، محدوده خدمت و مسیر تماس باید بازبینی شوند. روان‌بودن ظاهری ترجمه، صحت و تناسب آن با نیاز مخاطب را ثابت نمی‌کند.",
+          "en": "Review terminology, facts, service scope and contact paths. Fluent wording alone does not establish accuracy or audience fit."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "url": "https://developers.google.com/search/docs/specialty/international/localized-versions",
+        "title": {
+          "fa": "گوگل: معرفی نسخه‌های محلی با hreflang",
+          "en": "Google: telling search about localised versions"
+        }
+      },
+      {
+        "url": "https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites",
+        "title": {
+          "fa": "گوگل: مدیریت سایت‌های چندزبانه و چندمنطقه‌ای",
+          "en": "Google: managing multilingual and multiregional sites"
+        }
+      }
+    ],
+    "coverImage": "/blog/persian-english-multilingual-seo-editorial-20261022.jpg",
+    "coverImageAlt": {
+      "fa": "دو ماکت مرورگر راست‌چین و چپ‌چین متصل به کره زمین",
+      "en": "Right-to-left and left-to-right browser models connected by a globe"
+    }
+  },
   {
     slug: "wordpress-or-custom-website",
     title: {
@@ -48,11 +972,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["WordPress", "Strategy"],
     publishedAt: "2026-02-03",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/wordpress-or-custom-website.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/wordpress-or-custom-website-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "مقایسه یک قالب آماده وردپرس با کد سفارشی؛ دو پنجره مرورگر کنار هم",
-      en: "A WordPress-style template layout beside a custom-code window, compared side by side",
+      "fa": "دو ماکت وب‌سایت؛ یکی با ماژول‌های آماده و دیگری با ساختار اختصاصی",
+      "en": "Two website models, one with modular blocks and one with a bespoke structure"
     },
     directAnswer: {
       fa: "اگر سایت شما شرکتی، محتوایی یا فروشگاهی با فرایندهای رایج است و تیمتان باید بدون برنامه‌نویس محتوا را مدیریت کند، وردپرس معمولاً سریع‌تر و اقتصادی‌تر است. اگر محصولتان منطق اختصاصی، پنل‌های پیچیده، نقش‌های کاربری متعدد، اتصال زیاد به سرویس‌های دیگر یا نیاز جدی به سرعت و مقیاس دارد، توسعه اختصاصی کنترل بیشتری می‌دهد. معیار درست، نیاز واقعی کسب‌وکار و هزینه نگهداری در چند سال آینده است، نه محبوبیت یک ابزار.",
@@ -216,11 +1140,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["SEO", "Google"],
     publishedAt: "2026-02-17",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/google-seo-launch-checklist.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/google-seo-launch-checklist-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "چک‌لیست سئو و ذره‌بین روی نمودار رشد، نمادی از آماده‌سازی سایت برای گوگل",
-      en: "An SEO launch checklist next to a magnifying glass over a rising growth chart",
+      "fa": "ذره‌بین روی ماکت صفحه وب و فهرست علامت‌های تأیید آماده‌سازی سایت",
+      "en": "Magnifying glass over a web page model and launch checklist"
     },
     directAnswer: {
       fa: "پیش از لانچ مطمئن شوید: سایت فقط روی یک نسخه HTTPS و یک دامنه اصلی در دسترس است؛ robots.txt صفحات مهم را مسدود نمی‌کند و تگ noindex محیط آزمایشی حذف شده؛ نقشه سایت (sitemap) و canonical هر صفحه درست است؛ عنوان، توضیح و H1 هر صفحه یکتاست؛ داده ساختاریافته معتبر است؛ سرعت روی موبایل قابل قبول است؛ آدرس‌های قدیمی با ریدایرکت ۳۰۱ منتقل شده‌اند؛ و Search Console و GA4 از روز اول نصب و تست شده‌اند.",
@@ -370,11 +1294,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["AI", "Automation"],
     publishedAt: "2026-03-03",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/practical-ai-automation.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/practical-ai-automation-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "شبکه‌ای از گره‌های متصل به یک تراشه هوش مصنوعی در مرکز",
-      en: "Connected nodes around a central AI chip, representing workflow automation",
+      "fa": "پردازنده هوش مصنوعی متصل به صندوق پیام، سندها و چرخ‌دنده‌های گردش کار",
+      "en": "AI processor connected to an inbox, documents and workflow gears"
     },
     directAnswer: {
       fa: "اتوماسیون هوش مصنوعی وقتی مفید است که یک کار تکراری، زمان‌بر و قابل اندازه‌گیری را بهتر یا ارزان‌تر انجام دهد. با یک مسئله کوچک و روشن شروع کنید، مدل را فقط به داده‌های لازم وصل کنید، با مجموعه تست واقعی کیفیت را بسنجید، برای اطمینان پایین مسیر ارجاع به انسان بگذارید و هزینه هر درخواست را از ابتدا کنترل کنید. دموی خوب با سیستم آماده استفاده واقعی فرق دارد.",
@@ -524,11 +1448,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Next.js", "Frontend"],
     publishedAt: "2026-03-17",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/nextjs-performance-app-router.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/nextjs-performance-app-router-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "سرعت‌سنج با عقربه در ناحیه سریع و نماد رعد برای عملکرد Next.js",
-      en: "A speed gauge with the needle in the fast zone and a lightning bolt, for Next.js performance",
+      "fa": "ماکت مرورگر در مسیر سریع با نشانگر سرعت برای عملکرد وب",
+      "en": "Browser model on a fast track with a performance gauge"
     },
     directAnswer: {
       fa: "برای سریع‌تر کردن سایت Next.js بیشتر صفحه را Server Component نگه دارید و فقط بخش‌های تعاملی را Client کنید؛ تصاویر را با next/image و ابعاد درست بارگذاری کنید و priority را فقط به تصویر اصلی بالای صفحه بدهید؛ فونت‌ها را با next/font و بدون جابه‌جایی صفحه لود کنید؛ صفحات قابل پیش‌ساخت را استاتیک بسازید و داده را آگاهانه کش کنید؛ کتابخانه‌های سنگین را با dynamic import عقب بیندازید؛ و نتیجه را با Core Web Vitals روی موبایل واقعی بسنجید.",
@@ -664,11 +1588,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["UI/UX", "Tailwind"],
     publishedAt: "2026-03-31",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/tailwind-clean-ui-patterns.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/tailwind-clean-ui-patterns-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "کارت‌هایی از دکمه، کلید، فیلد ورودی و پروفایل که الگوهای رابط کاربری تمیز را نشان می‌دهند",
-      en: "UI component cards (button, toggles, input field, profile) showing clean interface patterns",
+      "fa": "مجموعه کارت‌ها، کلیدها و نمونه‌رنگ‌های طراحی رابط کاربری",
+      "en": "Interface cards, toggles and colour swatches arranged as a design library"
     },
     directAnswer: {
       fa: "رابط تمیز با Tailwind از توکن‌های طراحی شروع می‌شود: رنگ، فاصله، شعاع گوشه و تایپوگرافی را یک‌بار تعریف کنید (در Tailwind نسخه ۴ با @theme داخل CSS) و همه کامپوننت‌ها را روی همان‌ها بسازید. الگوهای تکراری را به کامپوننت تبدیل کنید، نه به کلاس‌های سفارشی طولانی؛ برای هر عنصر تعاملی حالت‌های hover، focus-visible و disabled طراحی کنید؛ در سایت فارسی از کلاس‌های منطقی مثل ms، me، ps و pe استفاده کنید؛ و انیمیشن‌ها را با motion-reduce برای کاربرانی که حرکت کمتر می‌خواهند غیرفعال کنید.",
@@ -804,11 +1728,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Node.js", "Backend"],
     publishedAt: "2026-04-14",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/nodejs-clean-api-architecture.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/nodejs-clean-api-architecture-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "لایه‌های مسیر، سرویس و پایگاه داده در معماری تمیز API با Node.js",
-      en: "Route, service and database layers in a clean Node.js API architecture",
+      "fa": "سه لایه شفاف معماری نرم‌افزار متصل با مسیر درخواست",
+      "en": "Three transparent software architecture layers joined by a request pathway"
     },
     directAnswer: {
       fa: "یک API تمیز در Node.js سه لایه جدا دارد: route یا controller فقط ورودی را می‌گیرد، اعتبارسنجی می‌کند و پاسخ را برمی‌گرداند؛ service منطق کسب‌وکار را اجرا می‌کند؛ و repository تنها جایی است که با پایگاه داده حرف می‌زند. کنار این لایه‌ها، یک قالب خطای ثابت، لاگ ساختاریافته با شناسه درخواست، تنظیمات اعتبارسنجی‌شده از متغیرهای محیطی و تست برای هر لایه، توسعه و نگهداری را ساده و قابل پیش‌بینی می‌کند.",
@@ -950,11 +1874,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["MongoDB", "Backend"],
     publishedAt: "2026-04-28",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/mongodb-data-modeling.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/mongodb-data-modeling-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "سندهای JSON متصل با ارجاع و یک سند تو در تو برای مدل‌سازی داده در MongoDB",
-      en: "JSON documents linked by references and an embedded sub-document, modelling data in MongoDB",
+      "fa": "بلوک‌های سندی منشعب متصل به استوانه‌های پایگاه داده",
+      "en": "Branching document blocks connected to database cylinders"
     },
     directAnswer: {
       fa: "در MongoDB مدل داده را بر اساس پرسش‌های واقعی برنامه طراحی کنید، نه جدول‌های رابطه‌ای. داده‌ای را که همیشه همراه والد خوانده می‌شود و رشد محدود دارد embed کنید؛ داده‌ای را که مستقل خوانده می‌شود، زیاد رشد می‌کند یا بین چند سند مشترک است reference کنید. برای هر کوئری پرتکرار ایندکس مناسب بسازید (معمولاً ایندکس ترکیبی به ترتیب برابری، مرتب‌سازی و بازه)، آرایه‌های بی‌سقف نسازید و با اعتبارسنجی $jsonSchema جلوی ورود داده نامعتبر را بگیرید.",
@@ -1098,11 +2022,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Security", "Backend"],
     publishedAt: "2026-05-12",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/api-validation-security.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/api-validation-security-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "سپر امنیتی با علامت تأیید که درخواست معتبر را عبور می‌دهد و درخواست نامعتبر را رد می‌کند",
-      en: "A security shield with a checkmark letting valid requests through and blocking an invalid one",
+      "fa": "سپر شیشه‌ای در برابر ورودی‌های درخواست و درگاه سرور امن",
+      "en": "Glass shield filtering request capsules before a secure server gateway"
     },
     directAnswer: {
       fa: "امنیت API با یک اصل شروع می‌شود: هیچ ورودی قابل اعتماد نیست. هر درخواست را با طرح مشخص اعتبارسنجی و فیلدهای ناشناخته را رد کنید؛ در هر درخواست بررسی کنید کاربر واقعاً به همان شیء دسترسی دارد، چون این رایج‌ترین آسیب‌پذیری API است؛ برای ورود و مسیرهای حساس محدودیت نرخ بگذارید؛ CORS را فقط برای دامنه‌های مجاز باز کنید؛ رمزها را در متغیرهای محیطی یا مدیر رمز نگه دارید؛ پیام خطا را بدون جزئیات داخلی برگردانید؛ و رویدادهای امنیتی را بدون ثبت اطلاعات حساس لاگ کنید.",
@@ -1248,11 +2172,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Solidity", "Blockchain"],
     publishedAt: "2026-05-26",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/solidity-contract-design.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/solidity-contract-design-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "سند کد قرارداد هوشمند با قفل دسترسی و نماد اتریوم",
-      en: "A smart contract code document with an access lock and an Ethereum-style diamond",
+      "fa": "لوح قرارداد دیجیتال متصل به مکعب‌های زنجیره بلاکچین",
+      "en": "Digital contract tablet connected to interlocking blockchain cubes"
     },
     directAnswer: {
       fa: "قرارداد هوشمند خوب در Solidity کوچک، ساده و قابل تست است: کنترل دسترسی حداقلی و صریح دارد، مثلاً با Ownable یا AccessControl از OpenZeppelin؛ برای هر تغییر مهم رویداد منتشر می‌کند؛ با خطاهای سفارشی دلیل شکست را ارزان و روشن اعلام می‌کند؛ الگوی بررسی-اثر-تعامل را رعایت می‌کند تا در برابر reentrancy امن بماند؛ از کتابخانه‌های بازبینی‌شده به‌جای کد دست‌ساز استفاده می‌کند؛ و پیش از mainnet تست کامل و ممیزی مستقل را می‌گذراند.",
@@ -1405,11 +2329,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Hardhat", "Solidity"],
     publishedAt: "2026-06-09",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/hardhat-testing-deploy.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/hardhat-testing-deploy-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "فهرست تست‌های موفق و زنجیره‌ای از بلوک‌ها که استقرار مرحله‌ای قرارداد را نشان می‌دهد",
-      en: "A list of passing tests followed by a chain of blocks, showing staged contract deployment",
+      "fa": "کلاه مهندسی کنار قرارداد دیجیتال روی سکوی آزمون با علامت‌های تأیید",
+      "en": "Engineering hardhat and digital contract on a verified testing platform"
     },
     directAnswer: {
       fa: "با Hardhat ابتدا قرارداد را روی شبکه محلی و با تست‌های سناریومحور بسنجید: مسیر موفق، شکست‌ها، دسترسی غیرمجاز و حالت‌های مرزی. برای سرعت و تکرارپذیری از fixture استفاده کنید، برای تعامل با پروتکل‌های واقعی شبکه اصلی را fork کنید، پوشش کد و تست fuzz را اضافه کنید، سپس با یک اسکریپت یا ماژول دیپلوی تکرارپذیر، مثل Hardhat Ignition، اول روی testnet و بعد روی mainnet مستقر کنید و سورس را روی اکسپلورر تأیید کنید. کلید خصوصی دیپلوی هرگز نباید در مخزن کد باشد.",
@@ -1534,11 +2458,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["ethers.js", "Blockchain"],
     publishedAt: "2026-06-23",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/ethersjs-wallets-transactions.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/ethersjs-wallets-transactions-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "کیف پول، تراکنش امضاشده و دو گره شبکه در حال انتقال آن",
-      en: "A wallet, a signed transaction and two network nodes exchanging it",
+      "fa": "کیف پول دیجیتال در حال ارسال توکن در مسیر تراکنش",
+      "en": "Digital wallet sending a token along a transaction path"
     },
     directAnswer: {
       fa: "در ethers.js نسخه ۶ برای خواندن داده از یک provider، مثل JsonRpcProvider یا BrowserProvider، و برای نوشتن از signer کاربر استفاده کنید: کیف پول را با BrowserProvider و getSigner وصل کنید، پیش از هر تراکنش شبکه را بررسی و در صورت نیاز عوض کنید، تابع قرارداد را صدا بزنید و با tx.wait() منتظر تأیید بمانید. مقادیر توکن را با parseUnits و formatUnits و نوع BigInt مدیریت کنید و خطاهایی مثل رد تراکنش توسط کاربر، کمبود موجودی یا revert قرارداد را به پیام قابل فهم تبدیل کنید.",
@@ -1680,11 +2604,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Frontend", "Backend"],
     publishedAt: "2026-07-07",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/frontend-backend-api-contracts.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/frontend-backend-api-contracts-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "رابط کاربری و سرور که با نشان قرارداد API به هم وصل شده‌اند",
-      en: "A frontend window and a server stack connected by an API contract badge",
+      "fa": "ماژول مرورگر و سرور متصل با پل ارتباطی هماهنگ",
+      "en": "Browser and server modules joined by a matching connector bridge"
     },
     directAnswer: {
       fa: "قرارداد API توافق نوشته‌شده‌ای است درباره اینکه هر endpoint چه ورودی‌ای می‌گیرد و چه خروجی و خطایی برمی‌گرداند. وقتی این قرارداد پیش از کدنویسی، مثلاً با OpenAPI، نوشته شود، فرانت‌اند می‌تواند با داده نمونه هم‌زمان جلو برود، تایپ‌ها از روی آن تولید می‌شوند، قالب خطا و صفحه‌بندی همه‌جا یکسان می‌ماند و هر تغییر شکننده پیش از رسیدن به کاربر در تست‌ها دیده می‌شود.",
@@ -1824,11 +2748,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Website", "SEO"],
     publishedAt: "2026-07-21",
-    updatedAt: "2026-10-19",
-    coverImage: "/blog/fast-seo-websites.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/fast-seo-websites-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "سه حلقه امتیاز عملکرد، سئو و دسترس‌پذیری داخل یک صفحه مرورگر",
-      en: "Three score rings for performance, SEO and accessibility inside a browser window",
+      "fa": "ماکت صفحه وب کنار سرعت‌سنج و ذره‌بین جستجو",
+      "en": "Web page model beside a performance gauge and search lens"
     },
     directAnswer: {
       fa: "سایت سریع و سئو-محور از ساختار شروع می‌شود: هر صفحه یک هدف، یک H1 روشن و پاسخ مستقیم به پرسش کاربر دارد. سپس HTML از سمت سرور یا به‌صورت استاتیک تحویل داده می‌شود تا موتورها محتوا را بدون اجرای جاوااسکریپت سنگین ببینند؛ تصاویر فشرده با ابعاد درست، فونت‌های سبک و جاوااسکریپت کم، Core Web Vitals را در محدوده خوب نگه می‌دارند؛ و عنوان، توضیح، canonical، hreflang و داده ساختاریافته به گوگل و موتورهای هوش مصنوعی کمک می‌کنند صفحه را درست بفهمند و نقل کنند.",
@@ -1966,10 +2890,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["SEO", "GEO", "AEO"],
     publishedAt: "2026-08-20",
-    coverImage: "/blog/geo-aeo-answer-engine-optimization.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/geo-aeo-answer-engine-optimization-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "پوستر مقاله سئوی نسل جدید: GEO و AEO",
-      en: "Cover art for The Next SEO: GEO and AEO",
+      "fa": "کارت پاسخ نورانی متصل به سه سند منبع با خطوط نور",
+      "en": "Luminous answer card connected to three source documents"
     },
     directAnswer: {
       fa: "GEO (بهینه‌سازی برای موتورهای مولد) یعنی محتوای شما طوری نوشته و ساختاردهی شود که ابزارهایی مثل ChatGPT، Perplexity و Gemini بتوانند آن را به‌عنوان منبع پاسخ نقل‌قول کنند؛ AEO (بهینه‌سازی برای موتورهای پاسخ‌گو) همان هدف را برای جعبه‌های پاسخ گوگل، دستیار صوتی و «مردم همچنین می‌پرسند» دنبال می‌کند. هر دو روی یک اصل مشترک تکیه دارند: یک پاسخ مستقیم و خودکفا در بالای صفحه، ساختار عنوان‌بندی شفاف، و داده ساختاریافته (Schema) که پاسخ را برای ماشین هم قابل استخراج کند.",
@@ -2118,10 +3043,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Web3", "Blockchain", "Smart Contract", "DEX", "CEX"],
     publishedAt: "2026-10-19",
-    coverImage: "/blog/smart-contracts-web3-dex-cex-guide.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/smart-contracts-web3-dex-cex-guide-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "دفتر سفارش صرافی متمرکز کنار منحنی استخر نقدینگی صرافی غیرمتمرکز",
-      en: "A centralized exchange order book beside the liquidity-pool curve of a decentralized exchange",
+      "fa": "لوح قرارداد در کنار گره‌های تبادل غیرمتمرکز و مرکز مبادله",
+      "en": "Contract tablet beside decentralized exchange nodes and a central trading hub"
     },
     directAnswer: {
       fa: "قرارداد هوشمند برنامه‌ای است که روی بلاکچین اجرا می‌شود و بدون واسطه، شرط‌هایی را که از قبل نوشته شده اعمال می‌کند. صرافی متمرکز (CEX) مثل یک بانک عمل می‌کند: دارایی کاربر را نزد خود نگه می‌دارد و سفارش‌ها را روی سرورهای خودش تطبیق می‌دهد. صرافی غیرمتمرکز (DEX) همین کار را با قراردادهای هوشمند انجام می‌دهد و کاربر دارایی‌اش را خودش نگه می‌دارد. ساخت CEX بیشتر مسئله امنیت زیرساخت، نقدینگی و الزامات قانونی است؛ ساخت DEX بیشتر مسئله امنیت کد و جذب نقدینگی. هیچ‌کدام برای همه مناسب نیستند و انتخاب درست به مخاطب، بازار هدف و توان نگهداری تیم بستگی دارد.",
@@ -2434,10 +3360,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["ERP", "Business", "Automation"],
     publishedAt: "2026-10-19",
-    coverImage: "/blog/erp-system-guide-buy-or-build.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/erp-system-guide-buy-or-build-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "هاب مرکزی ERP متصل به ماژول‌های مالی، انبار، فروش، مشتری و تولید",
-      en: "A central ERP hub connected to finance, inventory, sales, customer and operations modules",
+      "fa": "ماکت ماژول‌های انبار، مالی و عملیات پیرامون پایگاه داده مرکزی",
+      "en": "Inventory, finance and operations modules surrounding a central database"
     },
     directAnswer: {
       fa: "ERP (برنامه‌ریزی منابع سازمان) نرم‌افزاری است که بخش‌های مختلف کسب‌وکار مثل حسابداری، انبار، خرید، فروش و منابع انسانی را روی یک پایگاه داده مشترک و یکپارچه اجرا می‌کند تا اطلاعات فقط یک‌بار ثبت شود و همه از همان یک منبع درست استفاده کنند. وقتی با اکسل و چند نرم‌افزار جدا، ناهماهنگی موجودی، گزارش دیر یا ثبت تکراری اطلاعات دارید، زمان بررسی ERP است. در اغلب موارد، پیاده‌سازی یک محصول آماده یا متن‌باز با سفارشی‌سازی محدود، منطقی‌تر از ساخت کامل از صفر است؛ ساخت اختصاصی فقط وقتی ارزش دارد که فرایندهای شما واقعاً با محصولات موجود جور نباشد.",
@@ -2716,10 +3643,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["Web3", "ERP", "CRM", "Smart Contract", "Integration"],
     publishedAt: "2026-10-19",
-    coverImage: "/blog/smart-contract-erp-crm-integration.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/smart-contract-erp-crm-integration-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "زنجیره‌ای از بلوک‌ها که از طریق یک دروازه به داشبورد ERP و CRM وصل می‌شود",
-      en: "A chain of blocks connected through a gateway to an ERP and CRM dashboard",
+      "fa": "قرارداد دیجیتال میان داشبورد ارتباط مشتری و ماژول‌های عملیاتی",
+      "en": "Digital contract bridging customer relationship and operations modules"
     },
     directAnswer: {
       fa: "برای اتصال قرارداد هوشمند به ERP یا CRM، قرارداد را منبع رویداد بدانید: یک سرویس میانی (listener یا indexer) رویدادهای معتبر را بعد از تعداد کافی تأیید از بلاکچین می‌خواند، تبدیل و اعتبارسنجی می‌کند و با API به ERP (سند حسابداری، موجودی، تسویه) یا CRM (وضعیت معامله و مشتری) می‌فرستد. ERP و CRM مستقیم به بلاکچین وصل نمی‌شوند و کلید خصوصی هرگز نباید داخل آن‌ها باشد؛ لایه میانی با کلید یکتای تراکنش، مدیریت خطا، تطبیق دوره‌ای و پایش جلوی ثبت تکراری و ناهماهنگی را می‌گیرد.",
@@ -2984,10 +3912,11 @@ export const BLOG_POSTS: BlogPost[] = [
     },
     tags: ["AI", "Blockchain", "Web3", "Strategy", "Iran"],
     publishedAt: "2026-10-20",
-    coverImage: "/blog/future-of-ai-and-blockchain-in-iran.jpg",
+    updatedAt: "2026-10-22",
+    coverImage: "/blog/future-of-ai-and-blockchain-in-iran-editorial-20261022.jpg",
     coverImageAlt: {
-      fa: "شبکه عصبی در سمت چپ و زنجیره‌ای از بلوک‌ها در سمت راست که در مرکز به نقش یک ستاره هشت‌پر ایرانی می‌رسند",
-      en: "A neural network on the left and a chain of blocks on the right meeting at a Persian eight-pointed star in the center",
+      "fa": "پردازنده عصبی و مکعب‌های بلاکچین بالای برجستگی نقشه ایران",
+      "en": "Neural processor and blockchain cubes above a relief map of Iran"
     },
     directAnswer: {
       fa: "آینده هوش مصنوعی و بلاکچین در ایران بیشتر به زیرساخت و قانون بستگی دارد تا به خود فناوری. در هوش مصنوعی، محدودیت دسترسی به سرویس‌ها و پردازنده‌های خارجی، بازار را به سمت مدل‌های متن‌باز روی سرور داخلی، مدل‌های فارسی و کاربردهای مشخص مثل پشتیبانی مشتری، پردازش اسناد و اتوماسیون فروش می‌برد. در بلاکچین، استخراج با مجوز، صرافی‌های زیر نظر بانک مرکزی و طرح ریال دیجیتال چارچوب اصلی را می‌سازند و ارزش پایدار در کاربردهای زیرساختی مثل ردیابی، تسویه و احراز اصالت اسناد است. محتمل‌ترین آینده، مسیری ترکیبی و تدریجی است؛ کسب‌وکاری جلو می‌افتد که از یک مسئله واقعی شروع کند، داده را نزد خود نگه دارد و برای قطعی و تغییر قوانین برنامه داشته باشد.",

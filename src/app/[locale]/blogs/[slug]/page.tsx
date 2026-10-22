@@ -126,6 +126,7 @@ function ArticleStructuredData({ locale, post }: { locale: Locale; post: Post })
                 wordCount: countWords(post, locale),
                 articleSection: post.tags[0],
                 keywords: post.tags.join(", "),
+                ...(post.sources ? { citation: post.sources.map((source) => source.url) } : {}),
                 mainEntityOfPage: { "@type": "WebPage", "@id": `${pageUrl}#webpage` },
                 isPartOf: { "@id": `${baseUrl}/${locale}/blogs#blog` },
                 author: { "@type": "Organization", "@id": organizationId, name: siteName, url: baseUrl },
@@ -335,6 +336,23 @@ export default async function BlogPostPage({
                                 </div>
                             ))}
                         </div>
+                    </section>
+                ) : null}
+
+                {post.sources && post.sources.length > 0 ? (
+                    <section aria-labelledby="article-sources" className="rounded-2xl border border-foreground/10 bg-background/10 p-6">
+                        <h2 id="article-sources" className="text-lg font-semibold text-foreground">
+                            {isFa ? "منابع و مطالعه بیشتر" : "Sources and further reading"}
+                        </h2>
+                        <ul className="mt-4 list-disc space-y-3 ps-5 text-sm leading-7">
+                            {post.sources.map((source) => (
+                                <li key={source.url}>
+                                    <a href={source.url} className="text-accent underline underline-offset-4 hover:text-foreground focus-visible:outline-2 focus-visible:outline-accent">
+                                        {source.title[locale]}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
                     </section>
                 ) : null}
             </div>

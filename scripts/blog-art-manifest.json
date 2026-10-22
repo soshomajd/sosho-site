@@ -1,0 +1,216 @@
+{
+  "generatedAt": "2026-10-22",
+  "provider": "Built-in ImageGen",
+  "width": 1200,
+  "height": 630,
+  "promptTemplate": "Use case: stylized-concept. Asset type: original editorial cover illustration for the SoSho Studio bilingual technology journal. Subject: {subject}. Premium tactile 3D editorial art, frosted glass and brushed silver with restrained electric cyan and violet accents on deep midnight navy; cinematic soft studio illumination, convincing materials, carefully art-directed, minimal and sophisticated. Wide landscape 1.905:1 composition, central subject all within middle 65% so it survives a 21:9 crop; generous dark breathing room. No text, no letters, no logos, no watermarks, no chart values. Generate a finished high-resolution raster image.",
+  "assets": [
+    {
+      "slug": "wordpress-or-custom-website",
+      "output": "public/blog/wordpress-or-custom-website-editorial-20261022.jpg",
+      "subject": "two architectural models of websites side by side: a modular prebuilt grid and a bespoke sculptural browser structure",
+      "alt": {
+        "fa": "دو ماکت وب‌سایت؛ یکی با ماژول‌های آماده و دیگری با ساختار اختصاصی",
+        "en": "Two website models, one with modular blocks and one with a bespoke structure"
+      }
+    },
+    {
+      "slug": "google-seo-launch-checklist",
+      "output": "public/blog/google-seo-launch-checklist-editorial-20261022.jpg",
+      "subject": "a magnifying glass hovering above a polished browser page with a checklist of luminous check marks",
+      "alt": {
+        "fa": "ذره‌بین روی ماکت صفحه وب و فهرست علامت‌های تأیید آماده‌سازی سایت",
+        "en": "Magnifying glass over a web page model and launch checklist"
+      }
+    },
+    {
+      "slug": "practical-ai-automation",
+      "output": "public/blog/practical-ai-automation-editorial-20261022.jpg",
+      "subject": "a central luminous AI processor connecting an inbox, document cards and workflow gears",
+      "alt": {
+        "fa": "پردازنده هوش مصنوعی متصل به صندوق پیام، سندها و چرخ‌دنده‌های گردش کار",
+        "en": "AI processor connected to an inbox, documents and workflow gears"
+      }
+    },
+    {
+      "slug": "nextjs-performance-app-router",
+      "output": "public/blog/nextjs-performance-app-router-editorial-20261022.jpg",
+      "subject": "a futuristic browser window on a streamlined racetrack with an analog speed gauge",
+      "alt": {
+        "fa": "ماکت مرورگر در مسیر سریع با نشانگر سرعت برای عملکرد وب",
+        "en": "Browser model on a fast track with a performance gauge"
+      }
+    },
+    {
+      "slug": "tailwind-clean-ui-patterns",
+      "output": "public/blog/tailwind-clean-ui-patterns-editorial-20261022.jpg",
+      "subject": "an elegant floating interface component library of cards, toggles, spacing grids and color swatches",
+      "alt": {
+        "fa": "مجموعه کارت‌ها، کلیدها و نمونه‌رنگ‌های طراحی رابط کاربری",
+        "en": "Interface cards, toggles and colour swatches arranged as a design library"
+      }
+    },
+    {
+      "slug": "nodejs-clean-api-architecture",
+      "output": "public/blog/nodejs-clean-api-architecture-editorial-20261022.jpg",
+      "subject": "three orderly translucent architectural layers linked by a central request pathway",
+      "alt": {
+        "fa": "سه لایه شفاف معماری نرم‌افزار متصل با مسیر درخواست",
+        "en": "Three transparent software architecture layers joined by a request pathway"
+      }
+    },
+    {
+      "slug": "mongodb-data-modeling",
+      "output": "public/blog/mongodb-data-modeling-editorial-20261022.jpg",
+      "subject": "a branching arrangement of document-shaped blocks connected to database cylinders",
+      "alt": {
+        "fa": "بلوک‌های سندی منشعب متصل به استوانه‌های پایگاه داده",
+        "en": "Branching document blocks connected to database cylinders"
+      }
+    },
+    {
+      "slug": "api-validation-security",
+      "output": "public/blog/api-validation-security-editorial-20261022.jpg",
+      "subject": "a strong glass shield filtering luminous request capsules before a secure server portal",
+      "alt": {
+        "fa": "سپر شیشه‌ای در برابر ورودی‌های درخواست و درگاه سرور امن",
+        "en": "Glass shield filtering request capsules before a secure server gateway"
+      }
+    },
+    {
+      "slug": "solidity-contract-design",
+      "output": "public/blog/solidity-contract-design-editorial-20261022.jpg",
+      "subject": "a sculptural digital contract tablet linked to interlocking blockchain cubes",
+      "alt": {
+        "fa": "لوح قرارداد دیجیتال متصل به مکعب‌های زنجیره بلاکچین",
+        "en": "Digital contract tablet connected to interlocking blockchain cubes"
+      }
+    },
+    {
+      "slug": "hardhat-testing-deploy",
+      "output": "public/blog/hardhat-testing-deploy-editorial-20261022.jpg",
+      "subject": "a small engineering hardhat beside a digital contract on a testing platform with verified checkmarks",
+      "alt": {
+        "fa": "کلاه مهندسی کنار قرارداد دیجیتال روی سکوی آزمون با علامت‌های تأیید",
+        "en": "Engineering hardhat and digital contract on a verified testing platform"
+      }
+    },
+    {
+      "slug": "ethersjs-wallets-transactions",
+      "output": "public/blog/ethersjs-wallets-transactions-editorial-20261022.jpg",
+      "subject": "a sophisticated digital wallet sending a glowing token along an arcing transaction path",
+      "alt": {
+        "fa": "کیف پول دیجیتال در حال ارسال توکن در مسیر تراکنش",
+        "en": "Digital wallet sending a token along a transaction path"
+      }
+    },
+    {
+      "slug": "frontend-backend-api-contracts",
+      "output": "public/blog/frontend-backend-api-contracts-editorial-20261022.jpg",
+      "subject": "two matching browser and server modules joined by a precisely fitted connector bridge",
+      "alt": {
+        "fa": "ماژول مرورگر و سرور متصل با پل ارتباطی هماهنگ",
+        "en": "Browser and server modules joined by a matching connector bridge"
+      }
+    },
+    {
+      "slug": "fast-seo-websites",
+      "output": "public/blog/fast-seo-websites-editorial-20261022.jpg",
+      "subject": "a sleek browser page with a speed gauge and magnifying lens in a single editorial still life",
+      "alt": {
+        "fa": "ماکت صفحه وب کنار سرعت‌سنج و ذره‌بین جستجو",
+        "en": "Web page model beside a performance gauge and search lens"
+      }
+    },
+    {
+      "slug": "geo-aeo-answer-engine-optimization",
+      "output": "public/blog/geo-aeo-answer-engine-optimization-editorial-20261022.jpg",
+      "subject": "a luminous answer card assembled from three cited source documents connected by fine light trails",
+      "alt": {
+        "fa": "کارت پاسخ نورانی متصل به سه سند منبع با خطوط نور",
+        "en": "Luminous answer card connected to three source documents"
+      }
+    },
+    {
+      "slug": "smart-contracts-web3-dex-cex-guide",
+      "output": "public/blog/smart-contracts-web3-dex-cex-guide-editorial-20261022.jpg",
+      "subject": "a balanced composition of a contract tablet, decentralized exchange nodes and a central trading hub",
+      "alt": {
+        "fa": "لوح قرارداد در کنار گره‌های تبادل غیرمتمرکز و مرکز مبادله",
+        "en": "Contract tablet beside decentralized exchange nodes and a central trading hub"
+      }
+    },
+    {
+      "slug": "erp-system-guide-buy-or-build",
+      "output": "public/blog/erp-system-guide-buy-or-build-editorial-20261022.jpg",
+      "subject": "an architectural miniature of connected inventory, finance and operations modules around a central database",
+      "alt": {
+        "fa": "ماکت ماژول‌های انبار، مالی و عملیات پیرامون پایگاه داده مرکزی",
+        "en": "Inventory, finance and operations modules surrounding a central database"
+      }
+    },
+    {
+      "slug": "smart-contract-erp-crm-integration",
+      "output": "public/blog/smart-contract-erp-crm-integration-editorial-20261022.jpg",
+      "subject": "a contract tablet bridging a customer relationship dashboard and enterprise operations modules",
+      "alt": {
+        "fa": "قرارداد دیجیتال میان داشبورد ارتباط مشتری و ماژول‌های عملیاتی",
+        "en": "Digital contract bridging customer relationship and operations modules"
+      }
+    },
+    {
+      "slug": "future-of-ai-and-blockchain-in-iran",
+      "output": "public/blog/future-of-ai-and-blockchain-in-iran-editorial-20261022.jpg",
+      "subject": "a luminous neural processor and blockchain cubes above a subtle Iran-shaped topographic relief",
+      "alt": {
+        "fa": "پردازنده عصبی و مکعب‌های بلاکچین بالای برجستگی نقشه ایران",
+        "en": "Neural processor and blockchain cubes above a relief map of Iran"
+      }
+    },
+    {
+      "slug": "seo-content-cluster-strategy",
+      "output": "public/blog/seo-content-cluster-strategy-editorial-20261022.jpg",
+      "subject": "one large central knowledge orb linked to five smaller editorial document sculptures forming a coherent constellation",
+      "alt": {
+        "fa": "کره مرکزی دانش متصل به پنج سند پیرامونی در یک خوشه محتوایی",
+        "en": "Central knowledge orb linked to five documents in a content cluster"
+      }
+    },
+    {
+      "slug": "ai-crawlers-indexing-guide",
+      "output": "public/blog/ai-crawlers-indexing-guide-editorial-20261022.jpg",
+      "subject": "a friendly abstract crawler lens following a path through an open gateway toward organized web documents",
+      "alt": {
+        "fa": "عدسی خزنده در مسیر درگاه باز و سندهای مرتب وب",
+        "en": "Crawler lens following an open gateway toward organised web documents"
+      }
+    },
+    {
+      "slug": "service-page-seo-conversion",
+      "output": "public/blog/service-page-seo-conversion-editorial-20261022.jpg",
+      "subject": "a sculptural service landing page with a clear highlighted action button and a funnel into a single contact card",
+      "alt": {
+        "fa": "صفحه خدمات با دکمه برجسته و مسیر تبدیل به کارت تماس",
+        "en": "Service page with a highlighted action button leading to a contact card"
+      }
+    },
+    {
+      "slug": "ecommerce-product-page-seo",
+      "output": "public/blog/ecommerce-product-page-seo-editorial-20261022.jpg",
+      "subject": "a premium abstract product pedestal beside a browser product card, a review star and a magnifying lens",
+      "alt": {
+        "fa": "محصول روی سکو در کنار کارت فروشگاه، ستاره نظر و ذره‌بین",
+        "en": "Product on a pedestal beside a shop card, review star and magnifying lens"
+      }
+    },
+    {
+      "slug": "persian-english-multilingual-seo",
+      "output": "public/blog/persian-english-multilingual-seo-editorial-20261022.jpg",
+      "subject": "two equal translucent browser windows connected by a globe, one arranged right-to-left and one left-to-right using abstract line blocks",
+      "alt": {
+        "fa": "دو ماکت مرورگر راست‌چین و چپ‌چین متصل به کره زمین",
+        "en": "Right-to-left and left-to-right browser models connected by a globe"
+      }
+    }
+  ]
+}

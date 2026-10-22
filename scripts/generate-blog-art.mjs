@@ -1,14 +1,18 @@
-// Renders one on-brand, text-free illustration (1200x630 JPEG) per blog post with
+// Checks the current ImageGen covers recorded in blog-art-manifest.json.
+// --sheet builds a contact sheet of the current covers. --legacy explicitly
+// selects the former procedural SVG renderer below (not used by current posts).
+// Legacy renderer: one text-free illustration (1200x630 JPEG) per blog post with
 // Playwright. Each scene is plain SVG, so no stock-photo licence or external
 // request is involved and the artwork can be edited in this file.
 //
 // Usage:
-//   node scripts/generate-blog-art.mjs               # all scenes -> public/blog/<slug>.jpg
-//   node scripts/generate-blog-art.mjs --only slug   # one scene
-//   node scripts/generate-blog-art.mjs --sheet out.png   # contact sheet of every scene
+//   node scripts/generate-blog-art.mjs               # verify the current covers
+//   node scripts/generate-blog-art.mjs --only slug   # verify one cover
+//   node scripts/generate-blog-art.mjs --sheet out.png   # current covers contact sheet
+//   node scripts/generate-blog-art.mjs --legacy      # historical SVG scenes (unused by current posts)
 
 import { chromium } from "playwright";
-import { mkdir } from "node:fs/promises";
+import { access, mkdir, readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
 const W = 1200;
@@ -409,6 +413,32 @@ function parseArgs(argv) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
+  if (!args.legacy) {
+    const manifest = JSON.parse(await readFile(new URL("./blog-art-manifest.json", import.meta.url), "utf8"));
+    const assets = args.only ? manifest.assets.filter((asset) => asset.slug === args.only) : manifest.assets;
+    if (!assets.length) throw new Error(`Unknown cover: ${args.only}`);
+    for (const asset of assets) await access(resolve(process.cwd(), asset.output));
+    if (!args.sheet) {
+      console.log(`Verified ${assets.length} ImageGen covers (${manifest.width}x${manifest.height}). Prompts: scripts/blog-art-manifest.json`);
+      return;
+    }
+    const browser = await chromium.launch();
+    try {
+      const page = await browser.newPage({ viewport: { width: 1280, height: 1000 } });
+      const cells = await Promise.all(assets.map(async (asset) => {
+        const data = (await readFile(resolve(process.cwd(), asset.output))).toString("base64");
+        return `<figure style="margin:0"><img width="300" height="158" src="data:image/jpeg;base64,${data}"/><figcaption style="overflow-wrap:anywhere;color:#bbb;font:12px sans-serif">${asset.slug}</figcaption></figure>`;
+      }));
+      await page.setContent(`<body style="margin:12px;background:#090d12"><div style="display:grid;grid-template-columns:repeat(4,300px);gap:12px">${cells.join("")}</div></body>`);
+      const out = resolve(process.cwd(), args.sheet);
+      await mkdir(dirname(out), { recursive: true });
+      await page.screenshot({ path: out, fullPage: true });
+      console.log("Sheet saved:", out);
+    } finally {
+      await browser.close();
+    }
+    return;
+  }
   const slugs = args.only ? [args.only] : Object.keys(SCENES);
   for (const slug of slugs) {
     if (!SCENES[slug]) throw new Error(`Unknown scene: ${slug}`);

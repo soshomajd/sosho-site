@@ -87,6 +87,11 @@ function articleMarkdown(post: BlogPost, locale: "fa" | "en") {
     lines.push(locale === "fa" ? "#### پرسش‌های متداول" : "#### FAQ", "");
     for (const item of post.faq) lines.push(`**${item.question[locale]}**`, item.answer[locale], "");
   }
+  if (post.sources?.length) {
+    lines.push(locale === "fa" ? "#### منابع" : "#### Sources", "");
+    for (const source of post.sources) lines.push(`- [${source.title[locale]}](${source.url})`);
+    lines.push("");
+  }
   return lines;
 }
 

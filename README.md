@@ -6,6 +6,8 @@
 
 ## قابلیت‌ها
 
+مقاله‌ها در `src/app/blogs/posts.ts` نگهداری می‌شوند. کاورهای فعلی با ImageGen تولید شده‌اند؛ پرامپت‌ها و altهای دوزبانه در `scripts/blog-art-manifest.json` و فایل‌های ۱۲۰۰×۶۳۰ در `public/blog/` هستند. `npm run blog:art` وجود تصاویر را بررسی می‌کند و `npm run blog:art -- --sheet tmp/blog-covers.png` پیش‌نمایش مجموعه را می‌سازد. تولیدکننده قدیمی SVG فقط با `--legacy` اجرا می‌شود. مقاله‌های جدید منابع رسمی دارند که در صفحه و `/llms-full.txt` نمایش داده می‌شوند.
+
 - سایت فارسی/انگلیسی با RTL/LTR، SEO، صفحات خدمات و مجله
 - دستیار فروش با conversation ID امن و پایدار در `localStorage`
 - اعتبارسنجی strict ورودی و خروجی، fallback دوزبانه و محدودیت سیاست تجاری
