@@ -211,6 +211,40 @@
         "fa": "دو ماکت مرورگر راست‌چین و چپ‌چین متصل به کره زمین",
         "en": "Right-to-left and left-to-right browser models connected by a globe"
       }
+    },
+    {
+      "slug": "web-design-trends-2026",
+      "subject": "a premium sculptural browser composition showing four distinct contemporary web design ideas: an asymmetric bento card layout, a bold oversized abstract typographic block with no legible letters, a tactile iridescent 3D sphere, and a small restrained motion trail; arranged as a coherent editorial still life, not a collage of screenshots",
+      "alt": {
+        "fa": "تصویر مفهومی مرورگر با چیدمان بنتو، حجم سه‌بعدی و عناصر گرافیکی طراحی وب",
+        "en": "Conceptual browser composition with bento cards, a 3D form and expressive web design elements"
+      },
+      "output": "public/blog/web-design-trends-2026-editorial-20261024.jpg",
+      "prompt": "Use case: stylized-concept. Asset type: an original cover for the SoSho Studio bilingual technology journal. Subject: a premium sculptural browser composition showing four distinct contemporary web design ideas: an asymmetric bento card layout, a bold oversized abstract typographic block with no legible letters, a tactile iridescent 3D sphere, and a small restrained motion trail; arranged as a coherent editorial still life, not a collage of screenshots. High-end editorial 3D art, carefully balanced architectural composition and convincing physical materials, frosted glass and brushed metal, midnight navy background, electric cyan and violet highlights, a tiny warm amber accent. Soft cinematic studio lighting, precise silhouettes, premium and calm. Wide landscape 1.905:1 composition; keep the complete important subject within the central 65% for a 21:9 crop. No text, no letters, no logos, no watermarks, no fake numerical data. Finished high-resolution raster illustration, not a website screenshot.",
+      "generatedAt": "2026-10-24"
+    },
+    {
+      "slug": "ai-website-design-guide",
+      "subject": "a clear three-stage physical miniature workflow: an abstract prompt input slab on the left, a refined wireframe browser in the center, and a polished finished browser on the right, connected by thin light paths; a small precision cursor and adjustment control symbolize human design review; absolutely no robot faces",
+      "alt": {
+        "fa": "تصویر مفهومی تبدیل پرامپت به وایرفریم و صفحه وب با کنترل و بازبینی طراح",
+        "en": "Conceptual workflow from a prompt to a wireframe and finished page with human design review"
+      },
+      "output": "public/blog/ai-website-design-guide-editorial-20261024.jpg",
+      "prompt": "Use case: stylized-concept. Asset type: an original cover for the SoSho Studio bilingual technology journal. Subject: a clear three-stage physical miniature workflow: an abstract prompt input slab on the left, a refined wireframe browser in the center, and a polished finished browser on the right, connected by thin light paths; a small precision cursor and adjustment control symbolize human design review; absolutely no robot faces. High-end editorial 3D art, carefully balanced architectural composition and convincing physical materials, frosted glass and brushed metal, midnight navy background, electric cyan and violet highlights, a tiny warm amber accent. Soft cinematic studio lighting, precise silhouettes, premium and calm. Wide landscape 1.905:1 composition; keep the complete important subject within the central 65% for a 21:9 crop. No text, no letters, no logos, no watermarks, no fake numerical data. Finished high-resolution raster illustration, not a website screenshot.",
+      "generatedAt": "2026-10-24"
+    },
+    {
+      "slug": "3d-website-design-guide",
+      "subject": "an elegant sculptural designer chair as a 3D product model inside a floating browser frame, partial fine wireframe mesh over one edge, a subtle orbit arc around the chair, and a small mobile browser with a flat still-image alternative; visually clear editorial explanation of interactive 3D with a lightweight fallback",
+      "alt": {
+        "fa": "مدل مفهومی سه‌بعدی صندلی در مرورگر با مسیر چرخش و تصویر جایگزین روی موبایل",
+        "en": "Conceptual interactive 3D chair in a browser with an orbit guide and a still-image mobile alternative"
+      },
+      "output": "public/blog/3d-website-design-guide-editorial-20261024.jpg",
+      "prompt": "Use case: stylized-concept. Asset type: an original cover for the SoSho Studio bilingual technology journal. Subject: an elegant sculptural designer chair as a 3D product model inside a floating browser frame, partial fine wireframe mesh over one edge, a subtle orbit arc around the chair, and a small mobile browser with a flat still-image alternative; visually clear editorial explanation of interactive 3D with a lightweight fallback. High-end editorial 3D art, carefully balanced architectural composition and convincing physical materials, frosted glass and brushed metal, midnight navy background, electric cyan and violet highlights, a tiny warm amber accent. Soft cinematic studio lighting, precise silhouettes, premium and calm. Wide landscape 1.905:1 composition; keep the complete important subject within the central 65% for a 21:9 crop. No text, no letters, no logos, no watermarks, no fake numerical data. Finished high-resolution raster illustration, not a website screenshot.",
+      "generatedAt": "2026-10-24"
     }
-  ]
+  ],
+  "updatedAt": "2026-10-24"
 }

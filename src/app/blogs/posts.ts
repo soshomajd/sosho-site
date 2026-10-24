@@ -35,6 +35,905 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    "slug": "web-design-trends-2026",
+    "title": {
+      "fa": "۱۰ ترند طراحی سایت در ۲۰۲۶؛ کدام برای کسب‌وکار شما مناسب است؟",
+      "en": "10 Web Design Trends for 2026: Which Fit Your Business?"
+    },
+    "seoTitle": {
+      "fa": "۱۰ ترند طراحی سایت ۲۰۲۶؛ راهنمای انتخاب",
+      "en": "10 Web Design Trends for 2026: A Practical Guide"
+    },
+    "excerpt": {
+      "fa": "ترندهای طراحی سایت ۲۰۲۶ را با کاربرد و محدودیت بشناسید؛ از طراحی با AI و بنتو تا سه‌بعدی، تایپوگرافی فارسی و حرکت هدفمند، همراه با چک‌لیست انتخاب.",
+      "en": "Explore 2026 web design trends through practical uses and trade-offs: AI, bento layouts, 3D, expressive typography and motion, with a business-focused checklist."
+    },
+    "tags": [
+      "UI/UX",
+      "Website",
+      "Strategy"
+    ],
+    "publishedAt": "2026-10-24",
+    "directAnswer": {
+      "fa": "برای انتخاب ترند طراحی سایت در ۲۰۲۶، اول مسئله کاربر را مشخص کنید: معرفی روشن خدمت، مقایسه محصول یا نمایش کیفیت برند. AI، تصویر اختصاصی، چیدمان بنتو، تایپوگرافی جسورانه و سه‌بعدی می‌توانند به این هدف کمک کنند؛ به شرطی که سرعت، خوانایی، دسترس‌پذیری و مسیر اقدام حفظ شود. این فهرست انتخاب تحریریه سوشو از روندهای مطرح و کاربردهای آن‌هاست، نه رتبه‌بندی بر اساس آمار بازدید.",
+      "en": "Choose a 2026 web design trend by the user problem it solves: explaining a service, comparing a product or communicating a brand. AI, original art, bento layouts, expressive typography and 3D can support those goals when speed, readability, accessibility and clear actions remain intact. This is SoSho’s editorial selection of relevant directions, not a ranking based on traffic figures."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "این فهرست چطور انتخاب شده است؟",
+          "en": "How this list was selected"
+        },
+        "paragraphs": {
+          "fa": [
+            "راهنماهای فعلی Figma، Webflow و Wix از زاویه‌های متفاوت به طراحی ۲۰۲۶ نگاه می‌کنند: عمق و تعامل، تمایز بصری و بیان گرافیکی. ما از این هم‌پوشانی برای انتخاب موضوع استفاده کرده‌ایم و پیشنهادهای اجرایی زیر تحلیل تحریریه سوشو هستند. بعضی روندها تازه اختراع نشده‌اند؛ اهمیت آن‌ها در ترکیب و اجرای امروز است.",
+            "آمار بازدید این مقاله‌ها در اختیار ما نیست. از تکرار یک موضوع در چند رسانه نمی‌توان حجم جست‌وجوی فارسی یا تعداد مشتری احتمالی را نتیجه گرفت. این راهنما کمک می‌کند از میان ایده‌های مطرح، گزینه‌ای قابل آزمون برای سایت خود انتخاب کنید."
+          ],
+          "en": [
+            "Figma, Webflow and Wix discuss 2026 design from different angles, including interaction, visual distinction and expressive aesthetics. Their overlap informed our topic selection; the implementation advice below is SoSho’s editorial analysis. Several ideas are established techniques whose current use and combinations matter.",
+            "We do not have these articles’ traffic analytics. Recurring coverage cannot establish Persian search demand or future customer numbers. Use this guide to choose a testable direction for your own site."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۱. طراحی با AI، همراه با تصمیم‌گیری انسانی",
+          "en": "1. AI-assisted design with human decisions"
+        },
+        "paragraphs": {
+          "fa": [
+            "به‌جای درخواست مبهم «یک سایت مدرن بساز»، ابتدا مخاطب، پیام و اقدام اصلی را مشخص کنید و از AI چند مسیر طراحی بخواهید. مثلاً یک آموزشگاه می‌تواند دو ساختار برای معرفی دوره‌ها مقایسه کند: مسیر مبتنی بر هدف یادگیری و مسیر مبتنی بر سطح مهارت. ارزش ابزار در سریع‌تر آزمودن گزینه‌هاست؛ انتخاب ساختار، درستی متن و کنترل فرم‌ها همچنان مسئول دارد. اگر خروجی فقط شبیه قالب‌های عمومی است، مسئله را با اطلاعات دقیق‌تر بازتعریف کنید."
+          ],
+          "en": [
+            "Define the audience, message and primary action before asking AI for design directions. A training business could compare organising courses by learning goal with organising them by skill level. The useful outcome is faster exploration of alternatives. Someone must still own information accuracy, form behaviour and the final structure. If the result resembles a generic template, improve the brief rather than adding more visual effects."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۲. تصویرسازی و زبان بصری مخصوص برند",
+          "en": "2. Original art and a recognisable visual language"
+        },
+        "paragraphs": {
+          "fa": [
+            "وقتی بسیاری از سایت‌ها از یک الگوی آماده استفاده می‌کنند، یک مجموعه تصویر، آیکون یا بافت هماهنگ می‌تواند تشخیص برند را آسان‌تر کند. برای یک شرکت نرم‌افزاری، نمایش مفهومی جریان داده شاید از عکس عمومی جلسه کاری مرتبط‌تر باشد. ابتدا قواعد مشترک رنگ، جنس تصویر و میزان جزئیات را تعیین کنید، سپس هر دارایی را برای پیام همان صفحه بسازید. تصویر مفهومی را جای نمونه‌کار واقعی جا نزنید و متن مهم را فقط داخل تصویر قرار ندهید."
+          ],
+          "en": [
+            "A consistent illustration, icon or texture system can make a brand easier to recognise than unrelated stock imagery. A software company might explain a data flow through original art rather than a generic meeting photograph. Define shared colour, material and detail rules, then create each asset for its page’s message. Keep conceptual art distinct from actual client work and retain important information as readable text."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۳. بنتو گرید با اولویت محتوایی روشن",
+          "en": "3. Bento grids with a clear content hierarchy"
+        },
+        "paragraphs": {
+          "fa": [
+            "بنتو گرید، اطلاعات را در کارت‌هایی با اندازه‌های متفاوت گروه‌بندی می‌کند. کاربرد مناسب آن نمایش چند قابلیت مستقل، دسته خدمت یا سناریوی استفاده است. اندازه بزرگ‌تر باید اهمیت بیشتر را نشان دهد؛ کارت بزرگ صرفاً برای پرکردن فضای خالی نباشد. در مثال فرضی یک محصول رزرو، «رزرو وقت» می‌تواند کارت اصلی باشد و یادآوری و گزارش کارت‌های پشتیبان. در موبایل، ترتیب خطی کارت‌ها باید بدون اتکا به جایگاه بصری دسکتاپ قابل فهم باشد."
+          ],
+          "en": [
+            "A bento grid groups information into differently sized cards. It works for distinct capabilities, service categories or use cases when size reflects importance. In a hypothetical booking product, appointment booking could be the main card while reminders and reporting support it. Do not enlarge a card just to fill a gap. On mobile, its linear reading order must make sense without the desktop arrangement."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۴. تایپوگرافی شاخص، به‌ویژه برای متن فارسی",
+          "en": "4. Expressive typography that respects Persian text"
+        },
+        "paragraphs": {
+          "fa": [
+            "تیتر بزرگ زمانی مفید است که پیام را سریع‌تر منتقل کند. برای یک کسب‌وکار خدماتی، نام خدمت و مزیت قابل توضیح از یک شعار نامفهوم مهم‌تر است. در فارسی، نقطه‌ها، اتصال حروف، نیم‌فاصله و ارتفاع خط را در اندازه واقعی بررسی کنید؛ فونتی که روی یک کلمه زیباست ممکن است در عنوان سه‌خطی خوانا نباشد. متن انگلیسی کنار فارسی، اعداد و شکست خط را هم کنترل کنید. فونت نمایشی را به همه متن مقاله و فرم‌ها تعمیم ندهید."
+          ],
+          "en": [
+            "Large type helps when it makes the message clearer. A service name and a concrete benefit are more useful than an ambiguous slogan. Test Persian dots, joined forms, spacing and line height at real sizes: an attractive wordmark font may fail in a three-line heading. Review mixed English and Persian text, numbers and wrapping too. Reserve expressive type for appropriate moments rather than applying it to every paragraph and form field."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۵. عمق و سه‌بعدی برای توضیح یک ویژگی واقعی",
+          "en": "5. Depth and 3D that explain a real feature"
+        },
+        "paragraphs": {
+          "fa": [
+            "مدل چرخان برای محصولی که شکل و اتصال‌هایش اهمیت دارد می‌تواند کاربردی باشد؛ برای توضیح یک خدمت ساده، شاید تصویر ثابت کافی باشد. پیش از ساخت صحنه، سؤال کاربر را بنویسید: آیا می‌خواهد پشت محصول را ببیند یا تفاوت دو حالت را بفهمد؟ هزینه مدل‌سازی، اندازه فایل و کنترل روی موبایل را از ابتدا در نظر بگیرید. یک تصویر پوستر و مسیر جایگزین لازم است تا بارگذاری‌نشدن سه‌بعدی، دسترسی به اطلاعات و تماس را متوقف نکند."
+          ],
+          "en": [
+            "A rotatable model can help when a product’s shape or connections matter; a still image may be enough for a straightforward service. Define the question first: does the visitor need to inspect the back or compare configurations? Plan model creation, download size and mobile controls early. Provide a poster image and an alternative path so a failed 3D experience does not block the information or contact action."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۶. ریزتعامل‌هایی که وضعیت را توضیح می‌دهند",
+          "en": "6. Micro-interactions that communicate state"
+        },
+        "paragraphs": {
+          "fa": [
+            "حرکت کوتاه دکمه، پیام ثبت موفق و نشانگر پیشرفت باید به یک رویداد واقعی وصل باشند. اگر فرم هنوز ذخیره نشده، نمایش تیک موفقیت گمراه‌کننده است؛ اگر درخواست طول می‌کشد، وضعیت قابل فهم و امکان بازیابی از خطا لازم است. حرکت را با متن و نشانه بصری همراه کنید تا تنها راه انتقال معنی نباشد. برای شروع، به‌جای متحرک‌کردن تمام صفحه، یک تعامل مهم مثل ارسال فرم را با حالت آماده، درحال ارسال، موفق و ناموفق طراحی کنید."
+          ],
+          "en": [
+            "Tie button movement, success feedback and progress indicators to real events. A success tick before a form is saved is misleading. Longer requests need clear status and error recovery. Pair motion with text and another visual cue so movement is not the only way to understand the result. Start by designing one important interaction, such as form submission, across ready, pending, success and error states."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۷. اسکرول‌تلینگ با کنترل در دست کاربر",
+          "en": "7. Scrollytelling that leaves the user in control"
+        },
+        "paragraphs": {
+          "fa": [
+            "روایت همراه اسکرول برای توضیح مراحل ساخت، تغییر یک محصول یا معرفی یک پروژه مناسب است. داستان را به چند بخش معنادار تقسیم کنید و هر حرکت را به اطلاعات تازه وصل کنید. اگر برای دیدن یک جمله باید چند بار صفحه را جابه‌جا کرد، روایت بیش از حد کش آمده است. اسکرول عادی را حفظ کنید، حرکت غیرضروری را برای ترجیح کاهش حرکت محدود کنید و متن و دکمه اصلی را در نسخه ساده نیز در دسترس نگه دارید."
+          ],
+          "en": [
+            "Scroll-based storytelling can explain a production process, product transformation or project. Divide it into meaningful stages, with each movement revealing useful information. Requiring repeated scrolling just to uncover one sentence stretches the story too far. Preserve normal scrolling, reduce nonessential movement for reduced-motion preferences and keep the text and main action available in a simpler version."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۸. رنگ و بافت جسورانه، بدون قربانی‌کردن خوانایی",
+          "en": "8. Expressive colour and texture without sacrificing readability"
+        },
+        "paragraphs": {
+          "fa": [
+            "رنگ شاخص یا بافت لمسی می‌تواند بخشی از هویت برند باشد، اما تعداد بیشتر رنگ‌ها الزاماً طراحی بهتری نمی‌سازد. یک رنگ برای اقدام اصلی، مجموعه‌ای محدود برای پس‌زمینه و الگوی ثابت برای وضعیت‌ها تعریف کنید. در دارک مود، متن کم‌رنگ و دکمه محو را با تصور «ظاهر لوکس» توجیه نکنید. حالت روشن و تیره باید جدا بررسی شوند؛ معکوس‌کردن خودکار همه رنگ‌ها ممکن است تصویر، نمودار و پیام خطا را نامفهوم کند."
+          ],
+          "en": [
+            "A distinctive colour or tactile texture can support identity without requiring a larger palette. Define a primary action colour, a restrained background system and consistent status styling. Do not justify low-contrast text or barely visible buttons as a luxury aesthetic. Review light and dark themes separately: mechanically inverting every colour can make images, charts and errors difficult to interpret."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۹. فرم مرحله‌ای و دستیار AI با نقش مشخص",
+          "en": "9. Progressive forms and AI assistance with a clear role"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای درخواست پیچیده، چند سؤال کوتاه و مرتبط می‌تواند از یک فرم طولانی قابل فهم‌تر باشد؛ به شرطی که کاربر بداند چرا سؤال پرسیده می‌شود و بتواند پاسخ را اصلاح کند. دستیار AI را برای یک کار روشن مانند تشخیص نوع درخواست یا یافتن راهنما طراحی کنید. مسیر تماس انسانی را پنهان نکنید و پاسخ احتمالی مدل را به تعهد قیمت یا زمان تحویل تبدیل نکنید. داده لازم برای پاسخ اولیه را بخواهید، نه هر اطلاعاتی که شاید روزی مفید باشد."
+          ],
+          "en": [
+            "A few relevant steps can make a complex enquiry easier than a long form, provided users understand the questions and can correct answers. Give an AI assistant a defined role, such as identifying an enquiry type or finding a guide. Keep human contact accessible and prevent model guesses from becoming price or delivery commitments. Collect what an initial response needs rather than everything that might someday be useful."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "۱۰. طراحی سبک و دسترس‌پذیر به‌عنوان شرط اجرای ترند",
+          "en": "10. Lightweight, accessible design as the condition for any trend"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیش از اضافه‌کردن ویدئو، فونت نمایشی یا کتابخانه انیمیشن، اثر آن بر دانلود و استفاده موبایل را بررسی کنید. برای تصویر اندازه مشخص بگذارید، فایل‌های پایین صفحه را در زمان مناسب بارگذاری کنید و منوی اصلی را با صفحه‌کلید بیازمایید. Core Web Vitals به بررسی بارگذاری، پاسخ‌گویی و پایداری چیدمان کمک می‌کند، اما یک امتیاز آزمایشگاهی تمام تجربه واقعی نیست. صفحه را روی گوشی و اتصال محدود هم باز کنید و مسیر اصلی کاربر را تا پایان بروید."
+          ],
+          "en": [
+            "Before adding video, a display font or an animation library, examine its download and mobile usability cost. Give images explicit dimensions, load lower-page assets appropriately and test keyboard navigation. Core Web Vitals help assess loading, responsiveness and layout stability, but one lab score does not describe the whole experience. Try a real phone and a constrained connection, completing the main user task rather than just watching the opening screen."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "چطور از میان این ده گزینه انتخاب کنیم؟",
+          "en": "How to choose among the ten directions"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای هر ایده سه پرسش بنویسید: کدام ابهام کاربر را کم می‌کند، هزینه نگهداری آن چیست و موفقیتش را چطور می‌سنجیم؟ سپس یک نمونه کوچک بسازید. در مثال فرضی یک برند مبلمان، نمایش اتصال پایه صندلی با سه‌بعدی ممکن است ارزشمند باشد؛ در سایت خدمات حسابداری، ساختار روشن خدمات و فرم قابل اعتماد احتمالاً اولویت بالاتری دارند.",
+            "پیشنهاد اجرایی سوشو این است که در هر دور بازطراحی یک مسئله اصلی را هدف بگیرید. پیش و پس از تغییر، انجام موفق کار، خطای فرم و درخواست مرتبط را در بازه‌های قابل مقایسه بررسی کنید. این روش تضمین افزایش فروش نیست؛ کمک می‌کند تصمیم بعدی به مشاهده متکی باشد."
+          ],
+          "en": [
+            "Ask three questions about each idea: which uncertainty does it resolve, what will maintenance involve and how will success be evaluated? Build a small example next. A hypothetical furniture brand might benefit from showing a chair joint in 3D; an accounting service may gain more from clear service information and a trustworthy enquiry form.",
+            "SoSho’s suggested approach is to target one main problem per redesign cycle. Compare task completion, form errors and relevant enquiries across comparable periods. This is a decision method rather than a sales guarantee."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "سایت خدماتی: پیام روشن، تایپوگرافی و مسیر تماس را در اولویت بگذارید.",
+            "فروشگاه: مقایسه محصول، تصویر دقیق و خرید ساده را تقویت کنید.",
+            "سایت نمونه‌کار: از تصویر اختصاصی و روایت برای توضیح تصمیم‌های پروژه استفاده کنید."
+          ],
+          "en": [
+            "Service site: prioritise messaging, typography and contact.",
+            "Shop: improve product comparison, accurate imagery and checkout.",
+            "Portfolio: use original art and storytelling to explain project decisions."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا همه این ترندها در سال ۲۰۲۶ به وجود آمده‌اند؟",
+          "en": "Were all these trends invented in 2026?"
+        },
+        "answer": {
+          "fa": "خیر. بعضی تکنیک‌ها قدیمی‌ترند و در گزارش‌های فعلی دوباره برجسته شده‌اند. کاربرد، کیفیت اجرا و تناسب با مخاطب مهم‌تر از برچسب سال هستند.",
+          "en": "No. Some are established techniques that feature in current discussions. Execution and audience fit matter more than attaching a year to a style."
+        }
+      },
+      {
+        "question": {
+          "fa": "کدام ترند برای سایت شرکتی مناسب‌تر است؟",
+          "en": "Which trends suit a business service site?"
+        },
+        "answer": {
+          "fa": "ابتدا پیام روشن، تایپوگرافی خوانا و مسیر تماس ساده را تقویت کنید. تصویر اختصاصی یا حرکت محدود را زمانی اضافه کنید که فهم خدمت را بهتر کند.",
+          "en": "Start with a clear message, readable typography and a simple contact route. Add original art or restrained motion when it helps explain the service."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا طراحی سه‌بعدی یا AI رتبه گوگل را بهتر می‌کند؟",
+          "en": "Do AI or 3D automatically improve Google rankings?"
+        },
+        "answer": {
+          "fa": "این فناوری‌ها به‌تنهایی تضمین رتبه نیستند. محتوای مفید، دسترسی فنی، تجربه کاربری و شواهد معتبر همچنان لازم‌اند.",
+          "en": "Neither technology guarantees rankings. Useful content, technical accessibility, usability and credible evidence still matter."
+        }
+      },
+      {
+        "question": {
+          "fa": "برای بازطراحی باید همه ترندها را اجرا کنیم؟",
+          "en": "Should a redesign include every trend?"
+        },
+        "answer": {
+          "fa": "خیر. یک فرضیه مشخص انتخاب کنید، نمونه محدود بسازید و نتیجه آن را بسنجید. ترکیب هم‌زمان چند جلوه تشخیص اثر هرکدام را سخت می‌کند.",
+          "en": "No. Choose a specific hypothesis, build a limited example and measure it. Combining many effects makes their individual impact harder to understand."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "Figma: روندهای طراحی وب در ۲۰۲۶",
+          "en": "Figma: web design trends for 2026"
+        },
+        "url": "https://www.figma.com/resource-library/web-design-trends/"
+      },
+      {
+        "title": {
+          "fa": "Webflow: هشت روند طراحی وب در ۲۰۲۶",
+          "en": "Webflow: eight web design trends for 2026"
+        },
+        "url": "https://webflow.com/blog/web-design-trends-2026"
+      },
+      {
+        "title": {
+          "fa": "Wix: روندهای بصری طراحی وب در ۲۰۲۶",
+          "en": "Wix: visual web design trends for 2026"
+        },
+        "url": "https://www.wix.com/blog/web-design-trends"
+      },
+      {
+        "title": {
+          "fa": "W3C: حرکت ناشی از تعامل و ترجیح کاهش حرکت",
+          "en": "W3C: animation from interactions and reduced motion"
+        },
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html"
+      },
+      {
+        "title": {
+          "fa": "web.dev: تعریف و سنجش Core Web Vitals",
+          "en": "web.dev: Core Web Vitals and measurement"
+        },
+        "url": "https://web.dev/articles/vitals"
+      }
+    ],
+    "coverImage": "/blog/web-design-trends-2026-editorial-20261024.jpg",
+    "coverImageAlt": {
+      "fa": "تصویر مفهومی مرورگر با چیدمان بنتو، حجم سه‌بعدی و عناصر گرافیکی طراحی وب",
+      "en": "Conceptual browser composition with bento cards, a 3D form and expressive web design elements"
+    }
+  },
+  {
+    "slug": "ai-website-design-guide",
+    "title": {
+      "fa": "طراحی سایت با هوش مصنوعی؛ ابزارها، مراحل و محدودیت‌های واقعی",
+      "en": "AI Website Design: Tools, Workflow and Real-World Limitations"
+    },
+    "seoTitle": {
+      "fa": "طراحی سایت با هوش مصنوعی؛ راهنمای عملی",
+      "en": "AI Website Design: A Practical Launch Guide"
+    },
+    "excerpt": {
+      "fa": "از نوشتن پرامپت تا انتشار سایت با هوش مصنوعی؛ معرفی نقش ابزارها، نمونه بریف فارسی، کنترل RTL، سئو، فرم‌ها و معیار تشخیص خروجی آماده تحویل.",
+      "en": "From prompt to a usable AI-built website: tool roles, a practical brief, Persian RTL checks, SEO, working forms and a checklist for judging launch readiness."
+    },
+    "tags": [
+      "Website",
+      "AI",
+      "UI/UX",
+      "Strategy"
+    ],
+    "publishedAt": "2026-10-24",
+    "directAnswer": {
+      "fa": "هوش مصنوعی می‌تواند در ساخت وایرفریم، نمونه تعاملی، چیدمان، متن پیشنهادی و کد کمک کند؛ اما خروجی اولیه الزاماً سایت آماده انتشار نیست. مسیر مطمئن از بریف دقیق شروع می‌شود، با انتخاب ابزار متناسب ادامه پیدا می‌کند و با کنترل محتوای واقعی، موبایل و RTL، فرم‌ها، دسترسی‌ها و سئو کامل می‌شود. مسئولیت تأیید نهایی باید مشخص باشد، حتی اگر بخش زیادی از صفحه با پرامپت ساخته شده باشد.",
+      "en": "AI can help create wireframes, interactive prototypes, layouts, draft copy and code. An initial generation is not automatically ready to publish. Start with a clear brief, choose a tool for the required output and review real content, mobile and RTL behaviour, forms, access controls and SEO. Assign final approval to an accountable person even when most of the page was generated from prompts."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "طراحی با AI دقیقاً کدام بخش کار را پوشش می‌دهد؟",
+          "en": "What does AI website design actually cover?"
+        },
+        "paragraphs": {
+          "fa": [
+            "سه خروجی را از هم جدا کنید: طرح بصری، نمونه تعاملی و سایت قابل بهره‌برداری. یک طرح می‌تواند ظاهر صفحه را نشان دهد اما فرم و داده واقعی نداشته باشد. نمونه تعاملی برای آزمودن مسیر کاربر مفید است؛ سایت عملیاتی علاوه بر ظاهر، به محتوای تأییدشده، مقصد فرم، مدیریت محتوا، دامنه و نگهداری نیاز دارد.",
+            "بنابراین پیش از انتخاب ابزار بنویسید چه چیزی تحویل می‌خواهید. برای آزمودن یک ایده، نمونه محدود کافی است. برای یک کسب‌وکار فعال، صرف دیدن صفحه در مرورگر اثبات نمی‌کند که پیام‌ها ثبت می‌شوند، محتوا قابل مدیریت است یا تیم بعدی می‌تواند آن را توسعه دهد."
+          ],
+          "en": [
+            "Separate three outputs: a visual design, an interactive prototype and an operational website. A design can show the layout without real forms or data. A prototype helps test a journey; an operational site also needs approved content, form destinations, content management, a domain and maintenance.",
+            "Define the deliverable before choosing a tool. A limited prototype may be enough to explore an idea. For an active business, seeing a page in a browser does not establish that enquiries are saved, content is editable or another team can maintain it."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "ابزارها را بر اساس نقش مقایسه کنید، نه یک برنده مطلق",
+          "en": "Compare tool roles instead of naming a universal winner"
+        },
+        "paragraphs": {
+          "fa": [
+            "در بررسی منابع رسمی در ۲۴ اکتبر ۲۰۲۶، Figma Make بر ساخت و اصلاح نمونه با زمینه طراحی و پرامپت تأکید دارد؛ Webflow AI ساخت سایت، اصلاح صفحه و کمک به محتوا را در محیط Webflow معرفی می‌کند؛ Wix AI Website Builder ساخت سایت و سفارشی‌سازی در اکوسیستم Wix را ارائه می‌دهد. این معرفی قابلیت‌های اعلام‌شده است، نه گزارش آزمون عملی یا رتبه‌بندی سرعت و کیفیت آن‌ها.",
+            "معیار انتخاب را با یک صفحه واقعی از پروژه خود بسنجید: آیا ساختار فارسی درست می‌ماند؟ چه کسی محتوا را ویرایش می‌کند؟ فرم و اتصال لازم در دسترس است؟ انتقال پروژه و نگهداری چطور انجام می‌شود؟ محدودیت پلن، خروجی کد، دسترسی منطقه‌ای و اتصال دامنه را در مستندات و حساب خودتان بررسی کنید؛ ویژگی‌ها و شرایط ابزارها ممکن است تغییر کنند."
+          ],
+          "en": [
+            "Official pages reviewed on October 24, 2026 describe Figma Make as a prompt-and-design-context environment for creating and refining prototypes; Webflow AI advertises site building, page editing and content assistance in Webflow; Wix AI Website Builder offers generation and customisation within Wix. These are descriptions of stated capabilities, not hands-on benchmark results.",
+            "Evaluate a real page from your project: does Persian layout survive, who edits the content, are required forms and integrations available, and how will handover work? Check plan limits, code export, regional availability and domain requirements in the current documentation and your own account. Product conditions can change."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "مرحله اول: یک بریف قابل بررسی بنویسید",
+          "en": "Step one: write a reviewable brief"
+        },
+        "paragraphs": {
+          "fa": [
+            "بریف را با نام ابزار شروع نکنید. هدف صفحه، مخاطب، خدمت، اقدام اصلی، محتوا و محدودیت را مشخص کنید. برای یک استودیوی معماری فرضی، هدف می‌تواند دریافت شرح پروژه باشد، نه صرفاً نمایش یک تصویر تمام‌صفحه. لازم است معلوم شود کدام نمونه‌کار واقعی است، کدام متن تأیید شده و چه اطلاعاتی هنوز موجود نیست.",
+            "یک فهرست پذیرش کوتاه اضافه کنید: منو با کیبورد کار کند، فرم خطا و موفقیت واقعی داشته باشد، هیچ قیمت یا گواهی ساختگی تولید نشود و نسخه موبایل مستقل بررسی شود. چنین بریفی امکان ارزیابی خروجی را می‌دهد؛ صفت‌هایی مانند «حرفه‌ای» و «مدرن» به‌تنهایی قابل آزمون نیستند."
+          ],
+          "en": [
+            "Begin with the goal, audience, service, primary action, available content and constraints. A hypothetical architecture studio might need project enquiries rather than simply a full-screen image. Identify which projects are real, which copy is approved and which information is missing.",
+            "Add acceptance conditions: keyboard-usable navigation, real form errors and success, no invented prices or credentials, and a separately reviewed mobile view. These make the output assessable. Adjectives such as professional and modern do not provide testable requirements."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "نمونه پرامپت برای یک صفحه خدمات فارسی",
+          "en": "An example prompt for a Persian service page"
+        },
+        "paragraphs": {
+          "fa": [
+            "نمونه زیر یک بریف فرضی برای تولید پیش‌نویس است و نباید اطلاعات آن به‌جای واقعیت یک کسب‌وکار منتشر شود:",
+            "«یک صفحه خدمات فارسی و راست‌به‌چپ برای استودیوی معماری طراحی کن. مخاطب صاحب‌خانه‌ای است که می‌خواهد درباره بازطراحی داخلی مشورت کند. ترتیب محتوا: معرفی روشن خدمت، محدوده همکاری، مراحل کار، جایگاه نمونه‌کارهای تأییدشده، پرسش‌های متداول و فرم شرح پروژه. یک اقدام اصلی داشته باش. برای اطلاعات ناموجود جای خالی مشخص بگذار؛ نام مشتری، قیمت، آمار نتیجه و زمان تحویل نساز. موبایل ۳۲۰ پیکسلی، فوکوس کیبورد و حالت خطای فرم را هم در طرح لحاظ کن.»",
+            "پس از دریافت نسخه اول، هر بار یک مسئله مشخص را اصلاح کنید؛ مثلاً «در موبایل، عنوان بدون بریدگی نمایش داده شود و دکمه ارسال زیر صفحه‌کلید پنهان نماند». درخواست هم‌زمان تغییر رنگ، محتوا و ساختار، تشخیص علت بهتر یا بدتر شدن نتیجه را دشوار می‌کند."
+          ],
+          "en": [
+            "This is a hypothetical drafting brief; replace its assumptions with verified business information before publication:",
+            "“Design a Persian right-to-left architecture service page for homeowners considering an interior redesign. Use this order: clear service introduction, scope, process, approved-project placeholders, FAQs and a project-brief form. Provide one primary action. Mark missing information; do not invent clients, prices, results or delivery dates. Include a 320-pixel mobile layout, keyboard focus and form error states.”",
+            "After the first version, fix one concrete issue at a time, such as a clipped mobile heading or a submit button hidden behind the keyboard. Simultaneously changing colour, structure and copy makes it harder to evaluate progress."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "مرحله دوم: محتوا و هویت برند را از حالت عمومی خارج کنید",
+          "en": "Step two: replace generic content with verified brand material"
+        },
+        "paragraphs": {
+          "fa": [
+            "همه ادعاهای تولیدشده را مرور کنید: سابقه کار، شهرهای تحت پوشش، خدمات، آمار و نقل‌قول مشتری باید واقعی باشند. جای خالی آگاهانه بهتر از داستان قانع‌کننده اما ساختگی است. تصویر مفهومی تولیدشده را هم به‌عنوان عکس مشتری یا پروژه اجراشده معرفی نکنید.",
+            "سپس یکدستی را بررسی کنید: لحن دکمه‌ها، نام خدمت، سبک تصاویر و اندازه عنوان‌ها باید به یک زبان بصری تعلق داشته باشند. برای نسخه انگلیسی، نیاز مخاطب را بازنویسی کنید و فقط ترجمه کلمه‌به‌کلمه انجام ندهید. یک ابزار می‌تواند صفحه‌ای مرتب بسازد که هنوز پیام خاص کسب‌وکار شما را منتقل نکند."
+          ],
+          "en": [
+            "Review generated claims about experience, locations, services, results and customer quotes. All require verification. An explicit gap is better than a persuasive invented story. Do not present an AI concept image as a client photograph or completed project.",
+            "Then check consistency in button language, service names, imagery and heading scale. For English, adapt the message to the audience instead of translating each word mechanically. A tidy generated page may still fail to explain what is distinctive about the business."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "مرحله سوم: فرم، داده و اتصال‌ها را واقعی آزمایش کنید",
+          "en": "Step three: test actual forms, data and integrations"
+        },
+        "paragraphs": {
+          "fa": [
+            "دکمه ارسال ممکن است فقط یک پیام نمایشی باز کند. مقصد فرم، ذخیره پیام، کنترل ورودی و نمایش خطا را با داده آزمایشی بررسی کنید. اگر محصول پرداخت یا حساب کاربری دارد، نمایش ظاهری صفحه تأیید به معنی تکمیل فرایند نیست؛ مسیر واقعی باید در محیط مناسب آزموده شود.",
+            "برای داده حساس و کلیدهای سرویس، محل نگهداری را روشن کنید. نباید کلید خصوصی را در کد مرورگر، نشانی صفحه یا متن پرامپت عمومی قرار داد. در اتصال‌های اختصاصی، مسئول نگهداری و روش تشخیص خطا را مشخص کنید؛ صفحه‌ای که امروز کار می‌کند ولی مالک فنی ندارد، تحویل کاملی نیست."
+          ],
+          "en": [
+            "A submit button may only trigger a simulated success message. Use test data to verify the destination, persistence, validation and errors. For payments or accounts, a confirmation screen alone does not establish that the underlying process works; test the real flow in an appropriate environment.",
+            "Define where sensitive information and service credentials belong. Private keys should not appear in browser code, URLs or public prompts. Give custom integrations a maintenance owner and a way to identify failures. A functioning page without clear technical ownership is an incomplete handover."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "مرحله چهارم: فارسی، موبایل و دسترس‌پذیری را جدا بررسی کنید",
+          "en": "Step four: review Persian, mobile and accessibility separately"
+        },
+        "paragraphs": {
+          "fa": [
+            "نسخه راست‌به‌چپ را فقط با جابه‌جایی ظاهری اجزا نسنجید. ترتیب متن و آیکون، شماره تماس، ایمیل، فهرست‌ها و نمایش عنوان‌های چندخطی را ببینید. در ۳۲۰ پیکسل، اسکرول افقی ناخواسته، پوشیده‌شدن دکمه‌ها و اندازه نامناسب بخش‌های تعاملی را بررسی کنید.",
+            "با کیبورد به منو، لینک و فرم بروید. برچسب فیلد باید مستقل از متن راهنما باشد و خطا فقط با قرمزشدن کادر منتقل نشود. تصاویر اطلاع‌رسان alt متناسب می‌خواهند و حرکت غیرضروری باید با ترجیح کاهش حرکت سازگار باشد. این‌ها از روی یک اسکرین‌شات زیبا قابل اثبات نیستند."
+          ],
+          "en": [
+            "Do not judge RTL solely by mirrored positions. Inspect text and icon order, phone numbers, emails, lists and multiline headings. At 320 pixels, check unintended horizontal scrolling, obscured controls and impractical interactive sizes.",
+            "Use the keyboard to reach navigation, links and forms. Field labels should not depend on placeholders, and errors need more than a red border. Informative images need suitable alt text; nonessential motion should respect reduced-motion preferences. A polished screenshot cannot prove any of these behaviours."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "مرحله پنجم: سئو را روی خروجی واقعی کنترل کنید",
+          "en": "Step five: check SEO on the actual output"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای هر صفحه عنوان و توضیح متناسب، یک تیتر اصلی روشن، نشانی پایدار و لینک داخلی قابل فهم داشته باشید. canonical و نسخه‌های زبانی باید به مقصد واقعی اشاره کنند و نقشه سایت شامل صفحه‌های موردنظر باشد. متن خدمات، شرایط مهم و پاسخ پرسش‌ها را فقط در تصویر یا پس از ورود پنهان نکنید.",
+            "گوگل جاوااسکریپت را پردازش می‌کند، اما مراحل خزش و رندر و محدودیت منابع را باید در نظر گرفت. محتوای اصلی قابل دریافت، کنترل noindex و بررسی نسخه منتشرشده مهم‌تر از فرض «ابزار AI خودش سئو را کامل می‌کند» هستند. FAQ و خلاصه می‌توانند خواندن پاسخ را آسان کنند، ولی تضمین حضور در پاسخ‌های هوش مصنوعی نیستند."
+          ],
+          "en": [
+            "Give each page a suitable title and description, a clear main heading, a stable URL and meaningful internal links. Canonical and language alternatives must point to real destinations, and the sitemap should list intended pages. Do not hide essential service details and answers solely in images or behind login.",
+            "Google processes JavaScript, but crawling, rendering stages and resource constraints still matter. Accessible main content, indexing directives and inspection of the deployed version are more reliable than assuming the AI tool handles everything. FAQs and summaries support reading but cannot guarantee AI-answer inclusion."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "مرحله ششم: مالکیت و نگهداری را در تحویل روشن کنید",
+          "en": "Step six: make handover and maintenance explicit"
+        },
+        "paragraphs": {
+          "fa": [
+            "تحویل باید مشخص کند دامنه و حساب‌ها در اختیار چه کسی‌اند، محتوا کجا تغییر می‌کند، کدام سرویس‌ها هزینه دوره‌ای دارند و چه کسی خطاها را پیگیری می‌کند. امکان انتقال، پشتیبان‌گیری و خروجی گرفتن را برای ابزار انتخابی واقعاً بررسی کنید؛ همه ابزارهای ظاهراً مشابه قرارداد فنی یکسانی ندارند.",
+            "برآورد پروژه را به ساخت صفحه اول محدود نکنید. آماده‌سازی متن و تصویر، اتصال فرم، مهاجرت نشانی‌های قبلی، بازبینی فارسی و آزمون نسخه منتشرشده هم زمان می‌خواهند. اگر AI مرحله پیش‌نویس را کوتاه می‌کند، آن صرفه‌جویی باید فرصت بررسی بهتر بسازد، نه حذف بی‌دلیل کنترل کیفیت."
+          ],
+          "en": [
+            "Clarify who owns the domain and accounts, where content is edited, which services recur and who resolves failures. Check transfer, backup and export arrangements for the selected tool instead of assuming visually similar tools have identical technical contracts.",
+            "Estimate more than the first generated page. Copy, imagery, form integration, URL migration, language review and release verification also require work. Faster drafting should create room for better evaluation rather than automatically removing it."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "چک‌لیست تشخیص سایت آماده انتشار",
+          "en": "A checklist for launch readiness"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیشنهاد سوشو این است که پیش از انتشار، یک نفر بیرون از فرایند ساخت، کار اصلی را با محتوای واقعی انجام دهد. برای سایت خدماتی، باید بتواند خدمت را بفهمد، شرایط مهم را پیدا کند و درخواست آزمایشی را تا ثبت صحیح پیش ببرد. ایرادهایی که در این مسیر دیده می‌شوند، از تغییر سلیقه‌ای چند سایه مهم‌ترند."
+          ],
+          "en": [
+            "Before release, ask someone outside the build process to complete the main task using real content. On a service site, they should understand the offer, find key conditions and complete a test enquiry that is actually recorded. Problems in this journey matter more than discretionary shadow adjustments."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "ادعاها، پروژه‌ها، تصاویر و راه‌های تماس تأیید شده‌اند.",
+            "موبایل، RTL/LTR و کیبورد بررسی شده‌اند.",
+            "فرم‌ها با داده آزمایشی ثبت واقعی و خطای قابل فهم دارند.",
+            "متادیتا، canonical، لینک‌های زبانی و sitemap درست هستند.",
+            "حساب‌ها، دامنه و مسئول نگهداری مشخص‌اند."
+          ],
+          "en": [
+            "Claims, projects, images and contact methods are verified.",
+            "Mobile, RTL/LTR and keyboard behaviour have been reviewed.",
+            "Forms persist test submissions and show understandable errors.",
+            "Metadata, canonicals, language alternatives and sitemap are correct.",
+            "Accounts, domain control and maintenance ownership are documented."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا طراحی سایت با AI بدون برنامه‌نویس ممکن است؟",
+          "en": "Can AI build a website without a developer?"
+        },
+        "answer": {
+          "fa": "برای بعضی سایت‌های ساده، ابزار مدیریت‌شده می‌تواند بخش بزرگی از کار را پوشش دهد. نیاز به منطق اختصاصی، اتصال سیستم‌ها و معیارهای نگهداری، سطح کمک فنی لازم را تعیین می‌کند.",
+          "en": "Managed tools can cover much of a simple site. Custom logic, integrations and maintenance requirements determine how much technical support is needed."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا سایت ساخته‌شده با AI سئو دارد؟",
+          "en": "Can an AI-built website have good SEO?"
+        },
+        "answer": {
+          "fa": "بله، اما منشأ ساخت صفحه کافی نیست. محتوای مفید، نشانی درست، HTML قابل خواندن، متادیتا و کنترل ایندکس باید جدا بررسی شوند.",
+          "en": "Yes, but the generation method is not sufficient. Review useful content, URLs, readable HTML, metadata and indexing controls separately."
+        }
+      },
+      {
+        "question": {
+          "fa": "کدام ابزار طراحی سایت با AI بهترین است؟",
+          "en": "Which AI website design tool is best?"
+        },
+        "answer": {
+          "fa": "ابزار مناسب به خروجی، تیم و مسیر نگهداری بستگی دارد. یک صفحه واقعی با نیاز فارسی، فرم و ویرایش محتوا را آزمایش کنید؛ صرفاً بر اساس دموی تبلیغاتی انتخاب نکنید.",
+          "en": "The right tool depends on the deliverable, team and maintenance path. Test a real page with language, form and editing requirements rather than relying only on a demo."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا می‌توان قیمت ثابت و زمان تحویل قطعی برای سایت AI گفت؟",
+          "en": "Does AI imply a fixed project price or delivery time?"
+        },
+        "answer": {
+          "fa": "خیر. آماده‌بودن محتوا، اتصال‌ها، طراحی، کنترل کیفیت و شرایط ابزار روی برآورد اثر دارند. سریع‌شدن تولید پیش‌نویس، تمام کار پروژه را حذف نمی‌کند.",
+          "en": "No. Content readiness, integrations, design, verification and tool conditions affect the estimate. Faster drafting does not eliminate the rest of a project."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "Figma Make: قابلیت‌های رسمی ساخت و ویرایش نمونه",
+          "en": "Figma Make: official creation and editing capabilities"
+        },
+        "url": "https://www.figma.com/make/"
+      },
+      {
+        "title": {
+          "fa": "Webflow AI: ساخت، ویرایش و کمک به محتوا",
+          "en": "Webflow AI: building, editing and content assistance"
+        },
+        "url": "https://webflow.com/ai"
+      },
+      {
+        "title": {
+          "fa": "Wix: سازنده سایت با هوش مصنوعی",
+          "en": "Wix: AI website builder"
+        },
+        "url": "https://www.wix.com/ai-website-builder"
+      },
+      {
+        "title": {
+          "fa": "گوگل: اصول سئوی وب‌سایت‌های جاوااسکریپتی",
+          "en": "Google: JavaScript SEO basics"
+        },
+        "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics"
+      }
+    ],
+    "coverImage": "/blog/ai-website-design-guide-editorial-20261024.jpg",
+    "coverImageAlt": {
+      "fa": "تصویر مفهومی تبدیل پرامپت به وایرفریم و صفحه وب با کنترل و بازبینی طراح",
+      "en": "Conceptual workflow from a prompt to a wireframe and finished page with human design review"
+    }
+  },
+  {
+    "slug": "3d-website-design-guide",
+    "title": {
+      "fa": "طراحی سایت سه‌بعدی چیست؟ کاربردها، هزینه، سرعت موبایل و سئو",
+      "en": "What Is 3D Website Design? Uses, Cost, Mobile Performance and SEO"
+    },
+    "seoTitle": {
+      "fa": "طراحی سایت سه‌بعدی؛ کاربرد، هزینه و سئو",
+      "en": "3D Website Design: Uses, Cost and SEO"
+    },
+    "excerpt": {
+      "fa": "راهنمای انتخاب طراحی سایت سه‌بعدی: چه زمانی مدل تعاملی ارزش دارد، هزینه به چه وابسته است و چگونه سرعت موبایل، دسترس‌پذیری و سئو را حفظ کنیم؟",
+      "en": "When does a 3D website help? Understand interactive models, cost factors, mobile performance, accessible alternatives and SEO before commissioning a scene."
+    },
+    "tags": [
+      "Website",
+      "UI/UX",
+      "Performance",
+      "3D"
+    ],
+    "publishedAt": "2026-10-24",
+    "directAnswer": {
+      "fa": "طراحی سایت سه‌بعدی یعنی استفاده از عمق یا مدل قابل تعامل برای توضیح محصول، فضا یا داستان برند در مرورگر. ارزش آن زمانی بیشتر است که کاربر با چرخش، تغییر حالت یا مشاهده جزئیات، پاسخ یک سؤال واقعی را پیدا کند. هزینه به آماده‌بودن مدل، جزئیات، تعامل‌ها و آزمون دستگاه‌ها وابسته است. تصویر جایگزین، متن قابل خواندن و کنترل عملکرد باید از ابتدای پروژه در نظر گرفته شوند.",
+      "en": "3D website design uses depth or interactive models to explain a product, space or brand in the browser. It is most useful when rotation, configuration or inspection resolves a real user question. Cost depends on asset readiness, detail, interactions and device testing. Plan a still-image alternative, readable text and performance controls from the beginning."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "سه‌بعدی واقعی، تصویر سه‌بعدی و AR چه فرقی دارند؟",
+          "en": "How do interactive 3D, rendered images and AR differ?"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک تصویر رندرشده می‌تواند حس عمق ایجاد کند اما کاربر نمی‌تواند زاویه آن را تغییر دهد. نمایشگر سه‌بعدی تعاملی، مدل را در مرورگر نشان می‌دهد و ممکن است امکان چرخش، بزرگ‌نمایی یا انتخاب حالت داشته باشد. صحنه کامل سه‌بعدی می‌تواند دوربین، نور و چند شیء مرتبط را شامل شود. این گزینه‌ها از نظر هدف و هزینه یکسان نیستند.",
+            "واقعیت افزوده یا AR مرحله متفاوتی است: تلاش می‌کند شیء دیجیتال را در ارتباط با محیط واقعی نمایش دهد. وجود یک مدل چرخان به معنی آماده‌بودن AR نیست؛ سازگاری دستگاه، مقیاس مدل و مسیر استفاده باید جدا بررسی شود. پیش از درخواست «سایت سه‌بعدی»، مشخص کنید کدام تجربه را واقعاً نیاز دارید."
+          ],
+          "en": [
+            "A rendered image can suggest depth without allowing the visitor to change its angle. An interactive 3D viewer displays a model in the browser and may offer rotation, zoom or configuration. A complete scene can include cameras, lighting and several related objects. These are different deliverables with different costs.",
+            "Augmented reality is another experience: it places digital content in relation to a real environment. A rotatable model does not automatically make AR ready. Device support, scale and the user journey need separate review. Define the required experience before commissioning a “3D website.”"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "چه زمانی سه‌بعدی به تصمیم مشتری کمک می‌کند؟",
+          "en": "When does 3D help a customer decide?"
+        },
+        "paragraphs": {
+          "fa": [
+            "سه سناریوی فرضی را در نظر بگیرید: خریدار مبلمان می‌خواهد فرم پشت صندلی را ببیند؛ مشتری یک قطعه صنعتی به محل اتصال‌ها اهمیت می‌دهد؛ مراجعه‌کننده یک پروژه معماری می‌خواهد ارتباط فضاها را درک کند. در هر سه، سه‌بعدی می‌تواند به سؤال مشخصی پاسخ دهد، اگر مدل دقیق و کنترل آن ساده باشد.",
+            "در مقابل، اگر متن و یک تصویر روشن همان سؤال را کامل جواب می‌دهند، افزودن صحنه سنگین الزاماً ارزش جدیدی نمی‌آورد. از تیم بپرسید کاربر پس از تعامل چه اطلاعاتی به دست می‌آورد که پیش از آن نداشت. خروجی مدل نیز جای نقشه فنی، ابعاد تأییدشده یا توضیح محدودیت محصول را نمی‌گیرد."
+          ],
+          "en": [
+            "Consider three hypothetical cases: a furniture buyer inspecting a chair’s back, an industrial buyer checking connection positions, and an architecture visitor understanding spatial relationships. A clear, accurate model can answer a specific question in each case.",
+            "If text and a clear still already answer that question, a heavy scene may add little. Ask what the visitor learns through interaction that was unavailable beforehand. The model should not replace technical drawings, verified dimensions or an explanation of product limitations."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "نمایشگر محصول یا صحنه سفارشی؟",
+          "en": "A product viewer or a custom scene?"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای چرخاندن یک محصول، یک نمایشگر محدود ممکن است کافی باشد. مستندات رسمی model-viewer نمونه‌هایی برای کنترل دوربین، نمایش پوستر و بارگذاری مدل ارائه می‌دهند. اگر تجربه به چند شیء، روایت اختصاصی یا منطق پیچیده وابسته است، دامنه توسعه متفاوت می‌شود و باید پیش از انتخاب ابزار روشن باشد.",
+            "نمونه اولیه را با مدل واقعی پروژه بسازید، نه فقط یک شیء آزمایشی بسیار ساده. کیفیت بافت، تعداد اجزا و تنظیمات نور روی نتیجه اثر دارند. انتخاب ابزار را با نیاز به مدیریت محتوا و توان تیم نگهداری نیز بسنجید؛ جذابیت یک دمو به‌تنهایی معیار تناسب برای پروژه نیست."
+          ],
+          "en": [
+            "A focused viewer may be sufficient for rotating one product. The official model-viewer documentation demonstrates camera controls, posters and model loading. An experience involving several objects, a custom narrative or complex behaviour has a different development scope that should be defined first.",
+            "Prototype using a representative project model rather than only a trivial demo object. Textures, component count and lighting affect the result. Include editing and maintenance needs when choosing an approach; an attractive demonstration alone does not establish project fit."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "هزینه طراحی سایت سه‌بعدی به چه عواملی وابسته است؟",
+          "en": "What determines the cost of a 3D website?"
+        },
+        "paragraphs": {
+          "fa": [
+            "آماده‌بودن مدل اولین پرسش است. فایل موجود ممکن است برای رندر آفلاین یا تولید صنعتی ساخته شده باشد و برای وب به آماده‌سازی نیاز داشته باشد. ساخت مدل از ابتدا، اصلاح جنس و نور، تولید تصویر پوستر و نسخه‌های جایگزین کارهای جدا هستند. داشتن یک فایل سه‌بعدی به معنی آماده‌بودن دارایی وب نیست.",
+            "عامل بعدی، رفتار صحنه است: چرخش ساده، انتخاب چند رنگ، نمایش جزئیات، پیکربندی اجزا و اتصال به موجودی پیچیدگی یکسانی ندارند. آزمون دستگاه‌ها و مرورگرها، محتوای دوزبانه و برنامه به‌روزرسانی مدل نیز وارد برآورد می‌شوند. بدون دیدن فایل و تعریف تعامل‌ها، عدد ثابت قابل اتکایی برای همه پروژه‌ها وجود ندارد."
+          ],
+          "en": [
+            "Asset readiness is the first question. An existing file may have been prepared for offline rendering or manufacturing and require web adaptation. Creating a model, refining materials and lighting, producing a poster and preparing alternatives are separate tasks. Possessing a 3D file does not mean the web asset is ready.",
+            "Next comes behaviour: rotation, colour selection, detail views, component configuration and inventory integration have different complexity. Device testing, bilingual content and future model updates also affect the estimate. A credible universal price cannot be given without inspecting the assets and defining the interactions."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "مدل و بافت را برای دانلود و نمایش آماده کنید",
+          "en": "Prepare models and textures for delivery"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای یک نمای دور، نگهداری جزئیاتی که هرگز دیده نمی‌شوند معمولاً سودی ندارد. کیفیت مدل، اندازه و تعداد بافت‌ها، اجزای پنهان و مواد مختلف را بر اساس زاویه‌های واقعی موردنیاز بررسی کنید. معیار را فقط حجم فایل قرار ندهید؛ زمان پردازش و مصرف حافظه پس از دریافت هم مهم است.",
+            "قالب‌هایی مانند glTF و GLB در مسیرهای نمایش وب استفاده می‌شوند، اما پسوند به‌تنهایی سبک‌بودن را تضمین نمی‌کند. فشرده‌سازی را همراه هزینه رمزگشایی و کیفیت ظاهری بسنجید. نسخه نهایی باید از نظر شکل، رنگ و نسبت‌ها با اطلاعات تأییدشده پروژه تطبیق داده شود، به‌خصوص اگر مدل در تصمیم خرید نقش دارد."
+          ],
+          "en": [
+            "Detail that is never visible from the intended views may add work without adding information. Review geometry, texture sizes and counts, hidden components and materials against the views users actually need. Download size is only part of the budget: processing time and memory after delivery matter too.",
+            "Formats such as glTF and GLB are used in web viewing workflows, but an extension does not guarantee a lightweight asset. Evaluate compression alongside decoding cost and visual quality. Verify the final shape, colours and proportions against approved information, especially when the model supports a purchase decision."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "موبایل: ابتدا تصویر، سپس تجربه تعاملی",
+          "en": "Mobile: a still image before the interactive experience"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیشنهاد اجرایی برای بسیاری از صفحه‌های معرفی محصول این است که ابتدا تصویر و اطلاعات اصلی حاضر باشند و تجربه سه‌بعدی در زمان مناسب یا با انتخاب کاربر فعال شود. مستندات model-viewer هم نمونه استفاده از پوستر و بارگذاری را نشان می‌دهند. این راهکار را با نیاز واقعی صفحه تطبیق دهید؛ یک قانون یکسان برای هر صحنه نیست.",
+            "چرخاندن مدل نباید اسکرول عادی صفحه را به دام بیندازد. بزرگ‌نمایی، ژست لمس و دکمه بازگشت به نمای اولیه را روی گوشی بررسی کنید. اگر حالت سه‌بعدی ناموفق بود، تصویر، مشخصات و اقدام خرید یا تماس باید باقی بمانند. عملکرد را روی یک گوشی متوسط بسنجید، نه فقط لپ‌تاپ تیم طراحی."
+          ],
+          "en": [
+            "For many product pages, a useful approach is to present a still image and core information first, then activate 3D at an appropriate time or at the visitor’s request. model-viewer documents poster and loading examples. Adapt the approach to the page rather than treating it as a universal rule.",
+            "Rotation should not trap normal page scrolling. Test zoom, touch gestures and resetting the view on a phone. If 3D fails, retain the image, specifications and purchase or contact action. Evaluate a representative midrange phone rather than only the design team’s laptop."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "عملکرد: چه چیزهایی را اندازه بگیریم؟",
+          "en": "Performance: what should be measured?"
+        },
+        "paragraphs": {
+          "fa": [
+            "زمان ظاهرشدن اطلاعات اولیه، فاصله شروع تعامل تا پاسخ، تغییر ناخواسته چیدمان و پایداری هنگام حرکت را بررسی کنید. یک صحنه ممکن است پس از بارگذاری روان باشد اما شروع بسیار کندی داشته باشد؛ یا سریع ظاهر شود و هنگام تعامل افت کند. بودجه دانلود و کیفیت تصویر را بر اساس دستگاه و نیاز واقعی تعریف کنید.",
+            "طبق راهنمای web.dev، آستانه‌های خوب Core Web Vitals شامل LCP حداکثر ۲٫۵ ثانیه، INP حداکثر ۲۰۰ میلی‌ثانیه و CLS حداکثر ۰٫۱ هستند؛ ارزیابی تجربه واقعی با صدک ۷۵ و تفکیک موبایل و دسکتاپ انجام می‌شود. این معیارها تمام کیفیت صحنه را اندازه نمی‌گیرند؛ آزمون تعامل، گرمای دستگاه و پایداری نیز در ارزیابی محصول مهم‌اند."
+          ],
+          "en": [
+            "Measure initial information display, interaction response, unexpected layout movement and stability during use. A scene may run smoothly after a slow start, or appear quickly but struggle when manipulated. Set download and visual-quality budgets around the audience’s devices and actual task.",
+            "web.dev defines good Core Web Vitals thresholds as LCP at most 2.5 seconds, INP at most 200 milliseconds and CLS at most 0.1, assessed at the 75th percentile with mobile and desktop separated. They do not measure every aspect of a scene: interaction, device heat and stability also matter to the product evaluation."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "دسترس‌پذیری: اطلاعات نباید فقط در صحنه باشند",
+          "en": "Accessibility: do not keep information only inside the scene"
+        },
+        "paragraphs": {
+          "fa": [
+            "عنوان، ویژگی محصول و توضیح حالت‌ها را به متن قابل خواندن متکی کنید. اگر رنگ یا گزینه‌ای انتخاب می‌شود، نام و وضعیت آن خارج از تصویر نیز مشخص باشد. برای کنترل‌های تعاملی، نام روشن و مسیر کیبورد قابل فهم طراحی کنید و امکان برگشت به وضعیت اولیه را در نظر بگیرید.",
+            "حرکت خودکار و چرخش غیرضروری را برای کاربرانی که کاهش حرکت را ترجیح می‌دهند محدود کنید. W3C در معیار مربوط به حرکت ناشی از تعامل، امکان غیرفعال‌کردن حرکت غیرضروری را مطرح می‌کند. یک تصویر پوستر بدون متن توضیحی همیشه جایگزین کاملی برای اطلاعات صحنه نیست؛ نسخه ساده باید همان نیاز اصلی را برآورده کند."
+          ],
+          "en": [
+            "Keep headings, product characteristics and configuration explanations available as readable text. Selected colours and options should have names and states outside the rendering. Provide understandable control labels, keyboard routes and a way to return to the initial state.",
+            "Reduce nonessential automatic rotation and movement for users who prefer reduced motion. W3C’s interaction-animation guidance addresses disabling nonessential motion. A poster alone is not always a complete information alternative; the simpler version should still satisfy the underlying task."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "سئو و AEO: مدل، مکمل محتواست",
+          "en": "SEO and AEO: the model complements the content"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای هر محصول یا پروژه، توضیح روشن، مشخصات تأییدشده، عنوان مرتبط و لینک‌های قابل استفاده داشته باشید. متن اصلی را فقط به برچسب داخل صحنه یا حرکت دوربین وابسته نکنید. مخاطبی که بدون اجرای مدل صفحه را می‌خواند باید بفهمد موضوع چیست، برای چه کسی مناسب است و قدم بعدی کجاست.",
+            "تصویر جایگزین و متن alt باید موضوع واقعی را توصیف کنند؛ نام فایل نامرتبط و تکرار کلمه کلیدی اطلاعات مفیدی اضافه نمی‌کند. اگر داده ساختاریافته محصول یا مقاله دارید، با محتوای قابل مشاهده هماهنگ بماند. سه‌بعدی به‌خودی‌خود رتبه یا استناد AI ایجاد نمی‌کند؛ پاسخ روشن به سؤال کاربر باید مستقل از جلوه بصری وجود داشته باشد."
+          ],
+          "en": [
+            "Give each product or project a clear explanation, verified specifications, a relevant heading and usable links. Do not make core information depend solely on in-scene labels or camera motion. A visitor reading without the model should understand the subject, suitability and next step.",
+            "Use a relevant fallback image with descriptive alt text; unrelated filenames and repeated keywords add little information. Keep any product or article structured data consistent with visible content. A 3D effect does not itself create rankings or AI citations. The answer to the user’s question should remain usable without it."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "پیش از سفارش، این بریف را آماده کنید",
+          "en": "Prepare this brief before commissioning 3D"
+        },
+        "paragraphs": {
+          "fa": [
+            "نمونه فرضی: یک تولیدکننده صندلی می‌خواهد خریدار پشت و اتصال پایه را ببیند. در این مرحله، یک مدل تأییدشده با چرخش محدود و دو نمای مشخص می‌تواند موضوع بریف باشد. افزودن AR، تغییر جنس یا اتصال قیمت، تصمیم‌های بعدی‌اند و نباید بدون بررسی داخل همان برآورد فرض شوند."
+          ],
+          "en": [
+            "Hypothetical example: a chair maker wants customers to inspect the back and leg joint. The brief could start with one approved model, limited rotation and two useful views. AR, material configuration or live pricing are separate decisions that should not be assumed to fit the same estimate."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "سؤال کاربر و زاویه‌های لازم را مشخص کنید.",
+            "فایل مدل، مرجع رنگ و اجازه استفاده از دارایی‌ها را آماده کنید.",
+            "تعامل‌های ضروری و موارد خارج از دامنه را بنویسید.",
+            "پوستر، متن جایگزین و رفتار هنگام خطا را تعیین کنید.",
+            "دستگاه‌های هدف، مسئول تأیید و روش به‌روزرسانی مدل را مشخص کنید."
+          ],
+          "en": [
+            "Define the user question and necessary views.",
+            "Provide the model, colour reference and asset-use permissions.",
+            "List required interactions and explicit exclusions.",
+            "Specify posters, text alternatives and failure behaviour.",
+            "Identify target devices, approval ownership and model updates."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "چک‌لیست پذیرش تجربه سه‌بعدی",
+          "en": "Acceptance checks for the 3D experience"
+        },
+        "paragraphs": {
+          "fa": [
+            "در بررسی نهایی، فقط به روان‌بودن چرخش نگاه نکنید. از صفحه ورودی تا اقدام اصلی پیش بروید، سپس بارگذاری مدل را ناموفق فرض کنید و همان مسیر را دوباره بررسی کنید. اگر بدون صحنه اطلاعات یا دکمه اصلی از دست می‌رود، طراحی به نسخه جایگزین کامل‌تری نیاز دارد."
+          ],
+          "en": [
+            "Do not assess the release only by watching a smooth rotation. Complete the main journey from entry to action, then repeat it with model loading unavailable. If the information or main control disappears without the scene, the alternative experience is incomplete."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "شکل و گزینه‌های مدل با اطلاعات تأییدشده مطابقت دارند.",
+            "اسکرول، لمس و کیبورد به بن‌بست نمی‌رسند.",
+            "ترجیح کاهش حرکت و بازگشت به نمای اولیه بررسی شده‌اند.",
+            "حالت خطا، پوستر و متن اصلی مستقل کار می‌کنند.",
+            "اندازه فایل و عملکرد روی دستگاه هدف ثبت شده‌اند."
+          ],
+          "en": [
+            "Model shape and options match approved information.",
+            "Scrolling, touch and keyboard use do not trap the visitor.",
+            "Reduced motion and view reset have been tested.",
+            "Failure states, posters and main text work independently.",
+            "Asset size and target-device behaviour have been recorded."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا سایت سه‌بعدی همیشه کند است؟",
+          "en": "Are 3D websites always slow?"
+        },
+        "answer": {
+          "fa": "خیر، ولی مدل، بافت و پردازش هزینه دارند. دامنه محدود، بارگذاری مناسب و نسخه جایگزین می‌توانند هزینه را کنترل کنند؛ نتیجه باید روی دستگاه واقعی سنجیده شود.",
+          "en": "No, but assets and rendering have costs. Focused scope, deliberate loading and alternatives help control them. Evaluate the result on real devices."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا سه‌بعدی برای سئو ضرر دارد؟",
+          "en": "Does 3D necessarily harm SEO?"
+        },
+        "answer": {
+          "fa": "به‌خودی‌خود خیر. مشکل زمانی ایجاد می‌شود که متن مهم، لینک‌ها یا عملکرد صفحه قربانی صحنه شوند. محتوای HTML و مسیر اصلی باید مستقل قابل استفاده باشند.",
+          "en": "Not inherently. Problems arise when the scene replaces essential text and links or harms usability. Keep HTML content and the main journey independently usable."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا مدل محصول برای AR هم کافی است؟",
+          "en": "Is a product model automatically ready for AR?"
+        },
+        "answer": {
+          "fa": "الزاماً نه. سازگاری مسیر نمایش، قالب، مقیاس و آزمون دستگاه باید جدا بررسی شوند.",
+          "en": "Not necessarily. The display route, format, scale and device behaviour need separate checks."
+        }
+      },
+      {
+        "question": {
+          "fa": "اگر مدل روی گوشی بارگذاری نشد چه باید کرد؟",
+          "en": "What if the model fails to load on a phone?"
+        },
+        "answer": {
+          "fa": "تصویر جایگزین، متن مشخصات و راه تماس یا خرید باید باقی بمانند. پیام خطای کوتاه و امکان ادامه بدون سه‌بعدی را در طراحی لحاظ کنید.",
+          "en": "Retain a still image, specifications and the enquiry or purchase route. Provide a clear error and a way to continue without 3D."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "model-viewer: نمایش مدل تعاملی در وب",
+          "en": "model-viewer: interactive models on the web"
+        },
+        "url": "https://modelviewer.dev/"
+      },
+      {
+        "title": {
+          "fa": "model-viewer: پوستر، بارگذاری و قالب مدل",
+          "en": "model-viewer: posters, loading and model formats"
+        },
+        "url": "https://modelviewer.dev/examples/loading/"
+      },
+      {
+        "title": {
+          "fa": "model-viewer: کنترل دوربین و تعامل",
+          "en": "model-viewer: camera control and interaction"
+        },
+        "url": "https://modelviewer.dev/examples/stagingandcameras/"
+      },
+      {
+        "title": {
+          "fa": "web.dev: معیارها و آستانه‌های Core Web Vitals",
+          "en": "web.dev: Core Web Vitals metrics and thresholds"
+        },
+        "url": "https://web.dev/articles/vitals"
+      },
+      {
+        "title": {
+          "fa": "W3C: کنترل حرکت ناشی از تعامل",
+          "en": "W3C: controlling interaction-triggered animation"
+        },
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html"
+      },
+      {
+        "title": {
+          "fa": "گوگل: بهینه‌سازی تصویر و متن جایگزین",
+          "en": "Google: image SEO and alternative text"
+        },
+        "url": "https://developers.google.com/search/docs/appearance/google-images"
+      }
+    ],
+    "coverImage": "/blog/3d-website-design-guide-editorial-20261024.jpg",
+    "coverImageAlt": {
+      "fa": "مدل مفهومی سه‌بعدی صندلی در مرورگر با مسیر چرخش و تصویر جایگزین روی موبایل",
+      "en": "Conceptual interactive 3D chair in a browser with an orbit guide and a still-image mobile alternative"
+    }
+  },
+  {
     "slug": "seo-content-cluster-strategy",
     "title": {
       "fa": "خوشه محتوایی برای SEO و GEO؛ از سؤال مشتری تا نقشه محتوا",
