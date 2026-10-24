@@ -1,46 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
+import { FiArrowUpRight } from "react-icons/fi";
+
 import type { Locale } from "@/app/i18n";
 
-type Project = {
-    title: { fa: string; en: string };
-    description: { fa: string; en: string };
-    service: { fa: string; en: string };
-    imageSrc: string;
-    imageAlt: { fa: string; en: string };
-};
-
-const PROJECTS: Project[] = [
-    {
-        title: { fa: "داشبورد مدیریتی", en: "Operations Dashboard" },
-        description: {
-            fa: "معماری اطلاعات و رابطی متمرکز برای تصمیم‌گیری سریع‌تر و مدیریت روان‌تر.",
-            en: "Focused information architecture and interface design for faster decisions and smoother operations.",
-        },
-        service: { fa: "طراحی محصول · توسعه اختصاصی", en: "Product design · Custom development" },
-        imageSrc: "/projects/1.webp",
-        imageAlt: { fa: "پیش‌نمایش پروژه مدیریت داشبورد", en: "Admin dashboard preview" },
-    },
-    {
-        title: { fa: "پلتفرم سفر و رزرو", en: "Travel & Booking Platform" },
-        description: {
-            fa: "تجربه‌ای تصویری و ساده برای کشف مقصد، مقایسه و تکمیل رزرو.",
-            en: "A visual, low-friction experience for discovery, comparison, and booking.",
-        },
-        service: { fa: "UI/UX · فرانت‌اند", en: "UI/UX · Front-end" },
-        imageSrc: "/projects/2.webp",
-        imageAlt: { fa: "پیش‌نمایش پروژه Travel و Booking", en: "Travel & booking preview" },
-    },
-    {
-        title: { fa: "مزون بانوان", en: "Women’s Salon" },
-        description: {
-            fa: "لندینگ برندمحور برای معرفی خدمات، نمایش نمونه‌ها و شروع ارتباط با مشتری.",
-            en: "A brand-led landing experience for services, featured work, and customer enquiries.",
-        },
-        service: { fa: "هویت بصری · طراحی سایت", en: "Visual identity · Web design" },
-        imageSrc: "/projects/3.webp",
-        imageAlt: { fa: "پیش‌نمایش پروژه مزون بانوان", en: "Women’s salon preview" },
-    },
-];
+import { PROJECTS, getProjectHref, type Project } from "./data";
 
 function ProjectTile({
     locale,
@@ -53,65 +17,66 @@ function ProjectTile({
     className: string;
     priority?: boolean;
 }) {
+    const cover = project.images[0];
     return (
         <article
             className={
-                "group relative overflow-hidden rounded-2xl border border-foreground/10 bg-surface/20 " +
+                "group relative flex flex-col overflow-hidden rounded-2xl border border-foreground/10 bg-surface/20 " +
                 "transition-transform duration-300 motion-reduce:transition-none hover:-translate-y-1 " +
                 "focus-within:ring-2 focus-within:ring-accent/60 focus-within:ring-offset-2 focus-within:ring-offset-background " +
                 className
             }
         >
-            <div className="absolute inset-0">
+            {/* The screenshot already contains its own headline, so the text sits in a solid panel below it
+                instead of on top of the picture. */}
+            <div className="relative min-h-44 flex-1 overflow-hidden">
                 <Image
-                    src={project.imageSrc}
-                    alt={locale === "fa" ? project.imageAlt.fa : project.imageAlt.en}
+                    src={cover.src}
+                    alt={cover.alt[locale]}
                     fill
-                    priority={priority}
+                    preload={priority}
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-500 motion-reduce:transition-none group-hover:scale-[1.03]"
+                    className="object-cover object-top transition-transform duration-500 motion-reduce:transition-none group-hover:scale-[1.03]"
                 />
             </div>
 
-            <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/90 via-background/35 to-transparent" />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgba(34,211,238,0.10),transparent_70%)] opacity-0 transition-opacity duration-300 motion-reduce:transition-none group-hover:opacity-100" />
-
-            <div className="relative flex h-full flex-col justify-end p-5">
+            {/* Not positioned on purpose: the stretched title link must size itself to the whole card. */}
+            <div className="border-t border-foreground/10 bg-background/90 p-5">
                 <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-accent">
-                    {locale === "fa" ? project.service.fa : project.service.en}
+                    {project.service[locale]}
                 </p>
                 <h3 className="text-base font-semibold text-foreground">
-                    {locale === "fa" ? project.title.fa : project.title.en}
+                    {/* The title link stretches over the whole card so the card is one click target. */}
+                    <Link
+                        href={getProjectHref(locale, project.slug)}
+                        prefetch={false}
+                        className="focus-visible:outline-none after:absolute after:inset-0 after:content-['']"
+                    >
+                        {project.title[locale]}
+                    </Link>
                 </h3>
-                <p className="mt-1 text-sm text-muted">
-                    {locale === "fa" ? project.description.fa : project.description.en}
-                </p>
+                <p className="mt-1 text-sm text-muted">{project.summary[locale]}</p>
+                <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-foreground">
+                    {locale === "fa" ? "مشاهدهٔ نمونه‌کار" : "View case study"}
+                    <FiArrowUpRight className="h-3.5 w-3.5 rtl:-scale-x-100" aria-hidden="true" />
+                </span>
             </div>
         </article>
     );
 }
 
 export default function Projects({ locale }: { locale: Locale }) {
+    const [first, second, third] = PROJECTS;
     return (
         <div className="mt-5">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
                 <ProjectTile
                     locale={locale}
-                    project={PROJECTS[0]}
+                    project={first}
                     className="md:col-span-7 md:row-span-2 min-h-80 md:min-h-105"
                 />
-
-                <ProjectTile
-                    locale={locale}
-                    project={PROJECTS[1]}
-                    className="md:col-span-5 min-h-60"
-                />
-
-                <ProjectTile
-                    locale={locale}
-                    project={PROJECTS[2]}
-                    className="md:col-span-5 min-h-60"
-                />
+                <ProjectTile locale={locale} project={second} className="md:col-span-5 min-h-60" />
+                <ProjectTile locale={locale} project={third} className="md:col-span-5 min-h-60" />
             </div>
         </div>
     );

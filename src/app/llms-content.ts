@@ -1,5 +1,6 @@
 import { getBlogPostHref, getBlogPosts, type BlogPost } from "@/app/blogs/posts";
 import { CONTACT_INFO } from "@/app/contact-info";
+import { PROJECTS } from "@/app/components/Projects/data";
 import { SERVICES } from "@/app/components/Services/data";
 import { SERVICE_FAQ } from "@/app/components/Services/faq";
 import { TOOLS } from "@/app/components/Tools/data";
@@ -56,6 +57,18 @@ function toolsSection() {
   return lines;
 }
 
+function projectsSection() {
+  const lines = ["## Selected work / نمونه‌کارها", ""];
+  for (const project of PROJECTS) {
+    lines.push(
+      `- [${project.seo.title.en}](${baseUrl}/en/projects/${project.slug}): ${project.seo.description.en}`,
+      `- [${project.seo.title.fa}](${baseUrl}/fa/projects/${project.slug}): ${project.seo.description.fa}`
+    );
+  }
+  lines.push("");
+  return lines;
+}
+
 function articlesIndex(posts: BlogPost[]) {
   const lines = ["## Articles / مقاله‌ها", ""];
   for (const post of posts) {
@@ -74,6 +87,7 @@ export function buildLlmsTxt() {
     ...header,
     ...servicesSection(),
     ...toolsSection(),
+    ...projectsSection(),
     ...articlesIndex(posts),
     ...contactSection(),
     "## Optional",

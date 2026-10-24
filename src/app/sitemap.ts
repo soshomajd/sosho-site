@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/app/blogs/posts";
+import { PROJECTS } from "@/app/components/Projects/data";
 import { SERVICES } from "@/app/components/Services/data";
 import { TOOLS } from "@/app/components/Tools/data";
 import { SITE_CONTENT_UPDATED_AT } from "@/app/seo";
@@ -40,6 +41,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
       alternates: { languages },
+    }));
+  });
+
+  const projectEntries: MetadataRoute.Sitemap = PROJECTS.flatMap((project) => {
+    const languages = {
+      fa: `${base}/fa/projects/${project.slug}`,
+      en: `${base}/en/projects/${project.slug}`,
+      "x-default": `${base}/fa/projects/${project.slug}`,
+    };
+    return (["fa", "en"] as const).map((locale) => ({
+      url: `${base}/${locale}/projects/${project.slug}`,
+      lastModified: siteUpdated,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      alternates: { languages },
+      images: project.images.map((image) => `${base}${image.src}`),
     }));
   });
 
@@ -121,6 +138,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...serviceEntries,
     ...toolEntries,
+    ...projectEntries,
     ...postEntries,
   ];
 }
