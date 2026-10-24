@@ -212,7 +212,7 @@ export function robotsBlocksEverything(text) {
 const level = (condition, ifFalse = "warn") => (condition ? "pass" : ifFalse);
 
 /** Turns the fetched facts into the ordered list of checks and an overall score. */
-export function buildAudit({ finalUrl, chain, status, timeMs, bytes, truncated, headers, page, robots, sitemap }) {
+export function buildAudit({ finalUrl, chain, status, timeMs, bytes, truncated, headers, page, robots, sitemap, internal = false }) {
   const checks = [];
   const add = (id, state, value) => checks.push(value === undefined ? { id, status: state } : { id, status: state, value });
 
@@ -220,10 +220,12 @@ export function buildAudit({ finalUrl, chain, status, timeMs, bytes, truncated, 
   add("https", level(isHttps, "fail"));
   add("status", level(status >= 200 && status < 300, "fail"), status);
   if (chain.length > 0) add("redirects", chain.length > 2 ? "warn" : "info", chain.length);
-  add("speed", timeMs < 800 ? "pass" : timeMs < 1800 ? "warn" : "fail", Math.round(timeMs));
+  // Our own site is read inside the Worker (Cloudflare does not let a Worker fetch its own zone),
+  // so there is no network hop to time and compression is applied later at the edge.
+  if (!internal) add("speed", timeMs < 800 ? "pass" : timeMs < 1800 ? "warn" : "fail", Math.round(timeMs));
   const kb = Math.round(bytes / 1024);
   add("size", kb <= 200 ? "pass" : kb <= 500 ? "warn" : "fail", truncated ? `${kb}+` : kb);
-  add("compression", level(Boolean(headers.get("content-encoding"))));
+  if (!internal) add("compression", level(Boolean(headers.get("content-encoding"))));
 
   const titleLength = [...page.title].length;
   add("title", !page.title ? "fail" : titleLength >= 20 && titleLength <= 60 ? "pass" : "warn", page.title ? `${page.title} (${titleLength})` : undefined);
@@ -255,8 +257,13 @@ export function buildAudit({ finalUrl, chain, status, timeMs, bytes, truncated, 
 }
 
 /** Runs the whole audit for an already validated URL. */
-export async function auditSite(startUrl, fetchImpl = fetch) {
+export async function auditSite(startUrl, fetchImpl = fetch, { internal = false } = {}) {
   const main = await safeGet(startUrl, fetchImpl, { maxBytes: MAX_HTML_BYTES, accept: "text/html,application/xhtml+xml" });
+  // Cloudflare answers 520-530 with an error page when the origin is down or the domain does not
+  // resolve; that is "cannot reach the site", not an audit result.
+  if (main.response.status >= 520 && main.response.status <= 530) {
+    throw new ServiceError("audit_unreachable", { status: 502 });
+  }
   const contentType = main.response.headers.get("content-type") ?? "";
   if (main.response.status < 400 && contentType && !/html|xml/iu.test(contentType)) {
     throw new ServiceError("not_html", { status: 422 });
@@ -288,5 +295,6 @@ export async function auditSite(startUrl, fetchImpl = fetch) {
     page,
     robots,
     sitemap: { found: sitemapResult.found || sitemapDeclared },
+    internal,
   });
 }

@@ -162,6 +162,28 @@ describe("POST /api/tools/audit", () => {
     expect((await pdf.json()).error).toBe("not_html");
   });
 
+  it("treats Cloudflare 520-530 error pages as an unreachable site, not as audit results", async () => {
+    network.use(http.get("https://audit-fixture.com/", () => htmlResponse("<html><title>Error 1016</title></html>", { status: 530 })));
+    const response = await postAudit({ url: "audit-fixture.com" });
+    expect(response.status).toBe(502);
+    expect((await response.json()).error).toBe("audit_unreachable");
+  });
+
+  it("reads the site's own pages inside the Worker instead of over the network", async () => {
+    let networkCalls = 0;
+    network.use(http.all("https://sosho-studio.net/*", () => {
+      networkCalls += 1;
+      return new HttpResponse("should not be fetched", { status: 500 });
+    }));
+    const response = await postAudit({ url: "https://sosho-studio.net/fa" });
+    const body = await response.json();
+    expect(networkCalls).toBe(0);
+    expect(response.status).toBe(200);
+    // No network hop to time and no edge compression to measure for our own pages.
+    expect(body.checks.map((check) => check.id)).not.toContain("speed");
+    expect(body.checks.map((check) => check.id)).not.toContain("compression");
+  });
+
   it("checks origin, body shape and per-IP rate limit", async () => {
     expect((await postAudit({ url: "audit-fixture.com" }, { origin: "https://evil.example" })).status).toBe(403);
     // Without an Origin header, only same-origin browser requests pass in production (same rule as /api/contact).

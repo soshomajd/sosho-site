@@ -2739,7 +2739,14 @@ export async function handleApi(request, env, ctx, url, requestId) {
         logEvent("warn", "audit_rate_limited", { requestId, code: rateLimit.scope });
         throw new ServiceError("rate_limited", { status: 429 });
       }
-      const result = await auditSite(target.url);
+      // A Worker cannot fetch its own zone over the network (Cloudflare answers 522), so the
+      // site's own pages are read by calling this Worker's handler directly.
+      const isOwnHost = (host) => host === CANONICAL_HOST || host === `www.${CANONICAL_HOST}`;
+      const auditFetch = (input, init) => {
+        const { hostname } = new URL(typeof input === "string" ? input : input.url);
+        return isOwnHost(hostname) ? worker.fetch(new Request(input, init), env, ctx) : fetch(input, init);
+      };
+      const result = await auditSite(target.url, auditFetch, { internal: isOwnHost(target.url.hostname) });
       return json(result, 200, requestId);
     }
     if (url.pathname === "/api/sales/status" && request.method === "GET") {
