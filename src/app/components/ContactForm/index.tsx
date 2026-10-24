@@ -85,10 +85,21 @@ function validate(values: Record<FieldName, string>, text: (typeof copy)[Locale]
 const fieldClass =
   "w-full rounded-2xl border border-foreground/15 bg-background/40 px-4 py-3 text-sm text-foreground placeholder:text-muted/60 outline-none transition-colors focus:border-accent focus-visible:ring-2 focus-visible:ring-accent/40";
 
-export default function ContactForm({ locale }: { locale: Locale }) {
+export default function ContactForm({
+  locale,
+  initialMessage = "",
+  heading,
+  intro,
+}: {
+  locale: Locale;
+  /** Pre-filled message (for example a free-audit result). Remount with a new key to change it. */
+  initialMessage?: string;
+  heading?: string;
+  intro?: string;
+}) {
   const text = copy[locale];
   const baseId = useId();
-  const [values, setValues] = useState<Record<FieldName, string>>({ name: "", contact: "", message: "" });
+  const [values, setValues] = useState<Record<FieldName, string>>({ name: "", contact: "", message: initialMessage });
   const [honeypot, setHoneypot] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
@@ -175,9 +186,9 @@ export default function ContactForm({ locale }: { locale: Locale }) {
       aria-labelledby={`${baseId}-title`}
     >
       <h3 id={`${baseId}-title`} className="text-xl font-extrabold text-foreground sm:text-2xl">
-        {text.title}
+        {heading ?? text.title}
       </h3>
-      <p className="mt-2 text-sm leading-7 text-muted">{text.intro}</p>
+      <p className="mt-2 text-sm leading-7 text-muted">{intro ?? text.intro}</p>
 
       <div className="mt-6 grid gap-4">
         <div>

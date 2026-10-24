@@ -21,6 +21,7 @@ type HeaderLabels = {
         services: string;
         about: string;
         blog: string;
+        tools: string;
     };
 };
 
@@ -68,6 +69,7 @@ export default function Header({
         { label: labels.nav.services, href: `/${locale}#services`, variant: "default" },
         { label: labels.nav.projects, href: `/${locale}#projects`, variant: "primary" },
         { label: labels.nav.about, href: `/${locale}#about`, variant: "default" },
+        { label: labels.nav.tools, href: `/${locale}/tools`, variant: "default" },
         { label: labels.nav.blog, href: `/${locale}#blog`, variant: "default" },
     ] as const;
 

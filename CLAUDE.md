@@ -77,6 +77,9 @@ Two deployables in one package:
 | `worker/workers-ai-content-provider.js` | Default `AI`-binding content provider: Qwen primary, one Llama fallback |
 | `worker/image-generation.js` + `worker/workers-ai-image-provider.js` | FLUX main-image generation, Base64/binary validation |
 | `worker/arvan-storage.js` | Private ArvanCloud (S3-compatible) object storage adapter, signed via `aws4fetch`; Cloudflare R2 is not used — this account cannot enable R2 billing — and no public/signed URL is ever returned |
+| `worker/sales-flow.js` | Three-step Sales Chat flow (site type, budget band, name and phone) applied after any model turn; owns every question and option |
+| `worker/workers-ai-sales-provider.js` | Sales Chat turns on the `AI` binding (Qwen3 with thinking off, Llama fallback, output repair) |
+| `worker/site-audit.js` | Free website audit for `POST /api/tools/audit` with an SSRF-guarded fetch of one public page, robots.txt and sitemap |
 | `worker/telegram-service.js` | Telegram Bot API transport, admin chat/user gating, `answerCallbackQuery`, multipart photo upload |
 
 ### Data / schema

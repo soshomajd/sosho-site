@@ -2,6 +2,7 @@ import { getBlogPostHref, getBlogPosts, type BlogPost } from "@/app/blogs/posts"
 import { CONTACT_INFO } from "@/app/contact-info";
 import { SERVICES } from "@/app/components/Services/data";
 import { SERVICE_FAQ } from "@/app/components/Services/faq";
+import { TOOLS } from "@/app/components/Tools/data";
 import { baseUrl } from "@/app/seo";
 
 // Plain-markdown site guides for AI answer engines (https://llmstxt.org).
@@ -43,6 +44,18 @@ function servicesSection() {
   return lines;
 }
 
+function toolsSection() {
+  const lines = ["## Free tools / ابزارهای رایگان", ""];
+  for (const tool of TOOLS) {
+    lines.push(
+      `- [${tool.seo.title.en}](${baseUrl}/en/tools/${tool.slug}): ${tool.seo.description.en}`,
+      `- [${tool.seo.title.fa}](${baseUrl}/fa/tools/${tool.slug}): ${tool.seo.description.fa}`
+    );
+  }
+  lines.push("");
+  return lines;
+}
+
 function articlesIndex(posts: BlogPost[]) {
   const lines = ["## Articles / مقاله‌ها", ""];
   for (const post of posts) {
@@ -60,6 +73,7 @@ export function buildLlmsTxt() {
   return [
     ...header,
     ...servicesSection(),
+    ...toolsSection(),
     ...articlesIndex(posts),
     ...contactSection(),
     "## Optional",

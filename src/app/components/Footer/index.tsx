@@ -48,6 +48,7 @@ export default function Footer({ locale }: { locale: Locale }) {
             { href: `/${locale}#projects`, label: "نمونه‌کارها" },
             { href: `/${locale}#about`, label: "درباره ما" },
             { href: `/${locale}#blog`, label: "مجله" },
+            { href: `/${locale}/tools`, label: "ابزارهای رایگان" },
             { href: `/${locale}#contact`, label: "شروع پروژه" },
         ]
         : [
@@ -55,6 +56,7 @@ export default function Footer({ locale }: { locale: Locale }) {
             { href: `/${locale}#projects`, label: "Selected work" },
             { href: `/${locale}#about`, label: "About" },
             { href: `/${locale}#blog`, label: "Insights" },
+            { href: `/${locale}/tools`, label: "Free tools" },
             { href: `/${locale}#contact`, label: "Start a project" },
         ];
 

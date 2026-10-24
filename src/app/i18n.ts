@@ -13,6 +13,7 @@ type Dictionary = {
     services: string;
     about: string;
     blog: string;
+    tools: string;
   };
 };
 
@@ -25,6 +26,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       projects: "نمونه‌کارها",
       about: "درباره استودیو",
       blog: "مجله",
+      tools: "ابزارها",
     },
   },
   en: {
@@ -35,6 +37,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       projects: "Work",
       about: "About",
       blog: "Insights",
+      tools: "Free tools",
     },
   },
 };

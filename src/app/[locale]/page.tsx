@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FiArrowUpRight, FiPhone } from "react-icons/fi";
 import { SiGmail, SiInstagram, SiLinkedin, SiTelegram, SiWhatsapp } from "react-icons/si";
 
@@ -12,6 +13,8 @@ import { seoContent } from "../seo-content";
 import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import Services from "../components/Services";
+import { TOOLS } from "../components/Tools/data";
+import ToolsGrid from "../components/Tools/ToolsGrid";
 
 const contactChannels = [
   {
@@ -119,6 +122,25 @@ export default async function Home({
             description={isFa ? "به‌جای هماهنگی چند تیم جدا، طراحی، توسعه، رشد و پشتیبانی را با یک مسیر یکپارچه جلو ببرید." : "Skip the handoffs between disconnected vendors. Design, engineering, growth, and support move forward as one system."}
           />
           <Services locale={locale} />
+        </section>
+
+        <section id="tools" className="w-full scroll-mt-28">
+          <SectionHeading
+            eyebrow={isFa ? "ابزارهای رایگان" : "Free tools"}
+            title={isFa ? "سایت خودتان را همین الان بررسی کنید" : "Check your own website right now"}
+            description={isFa ? "بررسی سئو، ساخت متاتگ و اسکیما و بررسی کنتراست رنگ؛ رایگان و بدون ثبت‌نام." : "SEO check, meta tag and schema builders, and a color contrast checker, free with no sign-up."}
+          />
+          <ToolsGrid locale={locale} tools={TOOLS.slice(0, 3)} />
+          <div className="mt-6 flex justify-center">
+            <Link
+              href={`/${locale}/tools`}
+              prefetch={false}
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-foreground/15 px-5 text-sm font-bold text-foreground transition-colors hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+            >
+              {isFa ? "دیدن همهٔ ابزارها" : "See all tools"}
+              <FiArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
+            </Link>
+          </div>
         </section>
 
         <section id="projects" className="w-full scroll-mt-28">

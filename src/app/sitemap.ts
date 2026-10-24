@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/app/blogs/posts";
 import { SERVICES } from "@/app/components/Services/data";
+import { TOOLS } from "@/app/components/Tools/data";
 import { SITE_CONTENT_UPDATED_AT } from "@/app/seo";
 
 export const dynamic = "force-static";
@@ -41,6 +42,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages },
     }));
   });
+
+  const toolLanguages = {
+    fa: `${base}/fa/tools`,
+    en: `${base}/en/tools`,
+    "x-default": `${base}/fa/tools`,
+  };
+  const toolEntries: MetadataRoute.Sitemap = [
+    ...(["fa", "en"] as const).map((locale) => ({
+      url: `${base}/${locale}/tools`,
+      lastModified: siteUpdated,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+      alternates: { languages: toolLanguages },
+    })),
+    ...TOOLS.flatMap((tool) => {
+      const languages = {
+        fa: `${base}/fa/tools/${tool.slug}`,
+        en: `${base}/en/tools/${tool.slug}`,
+        "x-default": `${base}/fa/tools/${tool.slug}`,
+      };
+      return (["fa", "en"] as const).map((locale) => ({
+        url: `${base}/${locale}/tools/${tool.slug}`,
+        lastModified: siteUpdated,
+        changeFrequency: "monthly" as const,
+        priority: 0.75,
+        alternates: { languages },
+      }));
+    }),
+  ];
 
   const postEntries: MetadataRoute.Sitemap = BLOG_POSTS.flatMap((post) => {
     const languages = {
@@ -90,6 +120,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages: blogLanguages },
     },
     ...serviceEntries,
+    ...toolEntries,
     ...postEntries,
   ];
 }

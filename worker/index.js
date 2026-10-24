@@ -55,6 +55,7 @@ import {
   createMainImageR2Key,
 } from "./image-generation.js";
 import { applySalesFlow } from "./sales-flow.js";
+import { auditSite, normalizeAuditUrl } from "./site-audit.js";
 import { callWorkersAiSalesModel } from "./workers-ai-sales-provider.js";
 import {
   TelegramService,
@@ -1065,6 +1066,23 @@ function clientIpAddress(request, env) {
       : null) ||
     "unknown"
   );
+}
+
+// Free website audit: each run makes up to three outbound requests, so it has its own caps.
+async function enforceAuditRateLimit(env, ipAddress) {
+  const db = requireDatabase(env);
+  const ipResult = await consumeRateLimit(db, {
+    key: await hashedRateKey(env, "audit_ip", ipAddress),
+    limit: getIntegerEnv(env, "AUDIT_IP_HOURLY_LIMIT", 10, { min: 1, max: 1000 }),
+    windowSeconds: 3600,
+  });
+  if (!ipResult.allowed) return { allowed: false, scope: "ip" };
+  const globalResult = await consumeRateLimit(db, {
+    key: "audit:global:daily",
+    limit: getIntegerEnv(env, "AUDIT_DAILY_LIMIT", 500, { min: 1, max: 100_000 }),
+    windowSeconds: 86_400,
+  });
+  return { allowed: globalResult.allowed, scope: "daily" };
 }
 
 async function enforceContactRateLimit(env, ipAddress) {
@@ -2703,6 +2721,26 @@ export async function handleApi(request, env, ctx, url, requestId) {
       // Honeypot hit: answer like a success so bots learn nothing, store nothing.
       if (!validation.spam) await createContactMessage(env, validation.value);
       return json({ received: true }, 201, requestId);
+    }
+    if (url.pathname === "/api/tools/audit" && request.method === "POST") {
+      requireDatabase(env);
+      if (!isAllowedWebsiteRequest(request, env)) {
+        throw new ServiceError("origin_not_allowed", { status: 403 });
+      }
+      const body = await readJsonBody(request, 2048);
+      const keys = isPlainRecord(body) ? Object.keys(body) : [];
+      if (!isPlainRecord(body) || keys.some((key) => key !== "url")) {
+        return json({ error: "invalid_request" }, 400, requestId);
+      }
+      const target = normalizeAuditUrl(body.url);
+      if (!target.ok) return json({ error: target.code }, 400, requestId);
+      const rateLimit = await enforceAuditRateLimit(env, clientIpAddress(request, env));
+      if (!rateLimit.allowed) {
+        logEvent("warn", "audit_rate_limited", { requestId, code: rateLimit.scope });
+        throw new ServiceError("rate_limited", { status: 429 });
+      }
+      const result = await auditSite(target.url);
+      return json(result, 200, requestId);
     }
     if (url.pathname === "/api/sales/status" && request.method === "GET") {
       // Public boolean the website widget polls on mount so it can stay hidden
