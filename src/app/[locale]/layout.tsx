@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HtmlLangDir from "../components/HtmlLangDir";
+import FloatingContact from "../components/FloatingContact";
 import SalesAssistantGate from "../components/SalesAssistant/Gate";
 import { CONTACT_INFO } from "../contact-info";
 import { getDictionary, isLocale, locales, type Locale } from "../i18n";
@@ -155,6 +156,7 @@ export default async function LocaleLayout({
             {children}
             <Footer locale={locale} />
             <SalesAssistantGate locale={locale} />
+            <FloatingContact locale={locale} />
         </>
     );
 }
