@@ -5130,6 +5130,327 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "internet-shutdown-instagram-own-website",
+    title: {
+      fa: "جنگ، قطعی اینترنت و اینستاگرام: چرا فروش آنلاین به سایت و کانال‌های خودتان نیاز دارد",
+      en: "War, Internet Shutdowns and Instagram: Why Online Sales Need a Website and Channels You Own",
+    },
+    seoTitle: {
+      fa: "قطعی اینترنت، اینستاگرام و سایت داخلی",
+      en: "Internet Shutdowns, Instagram and Your Own Website",
+    },
+    excerpt: {
+      fa: "جنگ و قطعی‌های اینترنت در ۲۰۲۶ فروش کسب‌وکارهای اینستاگرامی را زمین زد. ببینید چه شد و چطور با سایت قابل‌دسترس در داخل کشور و کانال‌های مستقل، فروش را نگه دارید.",
+      en: "War and internet shutdowns in 2026 hit Instagram-based sellers in Iran hard. Here is what happened and how a site reachable inside the country plus channels you own can protect sales.",
+    },
+    tags: ["Website", "Strategy", "Iran", "Instagram"],
+    publishedAt: "2026-10-25",
+    coverImage: "/blog/internet-shutdown-instagram-own-website-editorial-20261025.jpg",
+    coverImageAlt: {
+      fa: "ویترین فروشگاه کوچک با نشان قطع اتصال روی گوشی و یک سایت مستقل روشن کنارش",
+      en: "A small shop window with a disconnected phone beside a lit, independent website",
+    },
+    directAnswer: {
+      fa: "قطعی‌های اینترنت در ۲۰۲۶ نشان داد کسب‌وکاری که تمام فروشش روی اینستاگرام است، یک «ویترین اجاره‌ای» دارد: هم خود پلتفرم فیلتر است، هم با قطع اتصال بین‌المللی نه صاحب پیج می‌تواند محتوا بگذارد و نه مشتری می‌تواند ببیند. پاسخ عملی این است که اینستاگرام را فقط یکی از کانال‌های جذب مشتری بدانید و فروش را به دارایی‌های خودتان ببرید: یک سایت سبک با دامنه خودتان که روی میزبانی قابل‌دسترس در داخل کشور اجرا شود و به منابع خارجی وابسته نباشد، درگاه پرداخت ریالی، فهرست مشتریان خودتان (شماره تلفن و پیامک) و راه‌های تماس جایگزین. هیچ‌کدام تضمین ۱۰۰ درصدی نیست، اما خطر یک نقطه شکست را کم می‌کند.",
+      en: "The 2026 shutdowns showed that a business whose entire sales run through Instagram operates a rented storefront: the platform itself is filtered, and when international connectivity is cut neither the page owner can post nor the customer can look. The practical answer is to treat Instagram as one way to attract customers and move sales onto assets you own: a light website on your own domain, hosted where it stays reachable inside the country and free of foreign runtime dependencies, a rial payment gateway, your own customer list (phone numbers and SMS), and backup ways to be reached. None of this is a 100% guarantee, but it removes a single point of failure.",
+    },
+    sections: [
+      {
+        heading: {
+          fa: "چه اتفاقی افتاد؟ خلاصه‌ای بی‌طرف",
+          en: "What happened: a neutral summary",
+        },
+        paragraphs: {
+          fa: [
+            "ایران در ۲۰۲۶ دو بار قطع تقریباً سراسری اینترنت بین‌المللی را تجربه کرد. بار اول در ۱۸ دی ۱۴۰۴ (۸ ژانویه ۲۰۲۶) هم‌زمان با اعتراضات بود؛ ناظرانی مثل NetBlocks اتصال کشور را در حد چند درصد حالت عادی گزارش کردند و از اواخر ژانویه بیشتر کاربران فقط به فهرستی از سایت‌های از پیش تأییدشده دسترسی داشتند.",
+            "بار دوم با آغاز جنگ در ۹ اسفند ۱۴۰۴ (۲۸ فوریه ۲۰۲۶) رخ داد، یعنی هم‌زمان با حملات آمریکا و اسرائیل. اتصال دوباره به حدود ۱ تا ۴ درصد حالت عادی رسید. آتش‌بس در ۱۹ فروردین ۱۴۰۵ (۸ آوریل) اعلام شد، اما قطعی ادامه یافت. گزارش‌ها حاکی از آن است که پس از دستور رئیس‌جمهور در اواخر ماه مه، دسترسی بین‌المللی پس از حدود ۸۸ روز تا حدی بازگشت؛ با این حال اینستاگرام، تلگرام، واتساپ و یوتیوب همچنان مسدود ماندند و سرعت‌ها پایین و ناپایدار گزارش شد.",
+            "این مقاله درباره سیاست یا ارزیابی جنگ نیست. هدفش این است که از دید یک صاحب کسب‌وکار ببیند چه چیزی خراب شد و چه کاری می‌شود کرد. آخرین گزارش‌های معتبری که برای نوشتن این متن بررسی شد به اواخر ماه مه و ژوئن ۲۰۲۶ برمی‌گردد؛ وضعیت لحظه‌ای را از منابعی مثل NetBlocks دنبال کنید.",
+          ],
+          en: [
+            "Iran went through two near-nationwide international internet shutdowns in 2026. The first began on 8 January 2026 during the protests; monitors such as NetBlocks measured connectivity at a few percent of normal, and from late January most users could reach only a list of pre-approved sites.",
+            "The second began on 28 February 2026, when the war started with US and Israeli strikes. Connectivity fell again to roughly 1 to 4 percent of normal. A ceasefire was announced on 8 April, but the shutdown continued. Reports say international access was partly restored after about 88 days, following the president's order in late May; even so, Instagram, Telegram, WhatsApp and YouTube stayed blocked and speeds were reported as slow and unstable.",
+            "This article is not about politics or judging the war. Its aim is to look from a business owner's side at what broke and what can be done. The latest reliable reports we reviewed date from late May and June 2026; follow live status from sources such as NetBlocks.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "اثر بر کسب‌وکارهای اینستاگرامی: سه وابستگی که هم‌زمان قطع شد",
+          en: "The effect on Instagram-based businesses: three dependencies that broke at once",
+        },
+        paragraphs: {
+          fa: [
+            "اینستاگرام از سال ۱۴۰۱ در ایران فیلتر بوده و بسیاری از فروشندگان و مشتریان با فیلترشکن به آن وصل می‌شدند. وقتی اتصال بین‌المللی هم قطع شد، همان راه ضعیف هم بسته شد. مسئله فقط «پیج باز نمی‌شود» نبود؛ چند وابستگی هم‌زمان از کار افتاد:",
+          ],
+          en: [
+            "Instagram has been filtered in Iran since 2022, and many sellers and customers reached it through VPNs. When international connectivity was cut as well, that fragile route closed. It was not only that the page would not load; several dependencies failed at the same time:",
+          ],
+        },
+        bullets: {
+          fa: [
+            "خود پلتفرم: صاحب پیج نمی‌تواند عکس، استوری یا قیمت جدید بگذارد و به پیام‌های مشتری جواب بدهد",
+            "مشتری: حتی اگر پیج شما سالم باشد، مشتری هم به آن دسترسی ندارد و سفارش نمی‌دهد",
+            "تبلیغ و حمایت مالی: برندها برای محتوایی که منتشر نمی‌شود پول نمی‌دهند؛ در گزارش‌های رسانه‌ای یک تولیدکننده محتوا با ده‌ها هزار دنبال‌کننده درآمدش را نزدیک صفر توصیف کرده است",
+            "زنجیره پشتیبان: خیاط و تولیدکننده‌ای که برای چند فروشگاه آنلاین کار می‌کرد با خشک شدن سفارش‌ها کارگاه را بست و نیروهایش را تعدیل کرد",
+          ],
+          en: [
+            "The platform itself: the owner cannot post photos, stories or new prices, or answer customer messages",
+            "The customer: even if your page is fine, customers cannot reach it, so they do not order",
+            "Ads and sponsorship: brands do not pay for content that cannot be published; in media reports one creator with tens of thousands of followers described income close to zero",
+            "The supply chain: a tailor who supplied several online shops closed the workshop and let staff go when orders dried up",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "عددها چه می‌گویند؟ (برآورد، نه حسابرسی)",
+          en: "What do the numbers say? (estimates, not audits)",
+        },
+        paragraphs: {
+          fa: [
+            "رقم‌ها از منابع مختلف و در زمان‌های مختلف می‌آیند و بیشتر برآورد هستند، نه آمار حسابرسی‌شده؛ برای همین هر عدد را با نام گوینده می‌آوریم. وزیر ارتباطات در ژانویه زیان روزانه قطعی را حدود ۳۵٫۷ میلیون دلار اعلام کرد. NetBlocks تا اواسط آوریل زیان کل را حدود ۱٫۸ میلیارد دلار برآورد کرد. یکی از اعضای اتاق بازرگانی هم زیان روزانه را ۳۰ تا ۴۰ میلیون دلار و با احتساب آثار غیرمستقیم تقریباً دو برابر آن گفته است. وزیر ارتباطات همچنین گفته حدود ۱۰ میلیون نفر شغلشان به اتصال اینترنت وابسته است.",
+            "حتی بازیگران بزرگ هم آسیب دیدند: به گزارش خبرگزاری آسوشیتدپرس، دیجی‌کالا حدود ۲۰۰ نفر، یعنی نزدیک ۳ درصد نیرویش را تعدیل کرد. اگر یک فروشگاه بزرگ این‌طور فشار می‌بیند، پیج کوچکی که همه چیزش یک حساب اینستاگرام است آسیب‌پذیرتر است.",
+          ],
+          en: [
+            "The figures come from different sources at different times and are mostly estimates rather than audited statistics, so we name who said each one. In January the communications minister put the daily cost of the shutdown at about 35.7 million dollars. NetBlocks estimated the total at about 1.8 billion dollars by mid-April. A Chamber of Commerce member put the daily cost at 30 to 40 million dollars, roughly double with indirect effects. The minister has also said about 10 million people have jobs that depend on connectivity.",
+            "Even large players were hit: according to the Associated Press, Digikala cut about 200 staff, close to 3 percent of its workforce. If a major retailer is under that pressure, a small page whose whole business is one Instagram account is more exposed still.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "اصل ماجرا: ویترین اجاره‌ای در برابر دارایی خودتان",
+          en: "The core idea: a rented storefront versus an asset you own",
+        },
+        paragraphs: {
+          fa: [
+            "در اینستاگرام شما مالک دنبال‌کننده‌هایتان نیستید؛ پلتفرم مالک رابطه با آن‌هاست و می‌تواند قوانین، الگوریتم یا دسترسی را عوض کند. وقتی دسترسی کامل قطع شود، آن «ویترین» از دست می‌رود. دارایی واقعی یک کسب‌وکار این‌هاست: دامنه‌ای که به نام خودتان ثبت شده، سایتی که اطلاعات محصول و سفارش را نگه می‌دارد، و فهرست مشتریانی که با اجازه خودشان شماره‌شان نزد شماست.",
+            "این به معنای کنار گذاشتن اینستاگرام نیست. اینستاگرام هنوز برای دیده شدن و اعتمادسازی مفید است. تفاوت در این است که آن را «در ورودی» بدانید و فروش و رابطه با مشتری را به جایی ببرید که خودتان کنترلش می‌کنید.",
+          ],
+          en: [
+            "On Instagram you do not own your followers; the platform owns the relationship and can change rules, algorithm or access. When access is cut entirely, that storefront is gone. A business's real assets are a domain registered in your name, a website that holds product and order information, and a list of customers who gave you their number with their consent.",
+            "This does not mean abandoning Instagram. It is still useful for being seen and building trust. The difference is to treat it as the front door and move sales and the customer relationship to a place you control.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "سایتی که در قطعی هم برای مشتری داخلی باز شود",
+          en: "A site that still opens for customers inside the country during a shutdown",
+        },
+        paragraphs: {
+          fa: [
+            "در قطعی‌های بین‌المللی، سرویس‌هایی که روی زیرساخت داخلی اجرا می‌شوند معمولاً برای کاربران داخل کشور در دسترس می‌مانند؛ و برای همین سرویس‌های داخلی چیزی بود که بسیاری هنوز می‌توانستند به آن برسند. اما این وضعیت تضمینی نیست: پس از بازگشت نسبی اتصال، گزارش شده که بسیاری از سرویس‌ها و اپ‌های داخلی هم کند یا ناپایدار بودند و بعضی مراکز داده هنوز کامل بالا نیامده بودند. پس هدف «ضدقطعی بودن» مطلق نیست؛ هدف کم کردن شکست است.",
+            "نکته فنی که بیشتر سایت‌ها نادیده می‌گیرند: وابستگی‌های خارجی. اگر سایت شما فونت را از سرور خارجی می‌گیرد، اسکریپت آمار یا چت خارجی دارد، یا از CDN و کپچای خارجی استفاده می‌کند، با قطع اتصال بین‌المللی صفحه کند می‌شود یا نیمه‌کاره بالا می‌آید. سایتی که برای مشتری داخلی ساخته می‌شود باید همه چیزش، از فونت و تصویر تا فرم سفارش، از همان سرور داخلی بیاید.",
+          ],
+          en: [
+            "In international shutdowns, services that run on domestic infrastructure generally stay reachable for users inside the country, which is why domestic services were what many people could still reach. This is not guaranteed: after partial restoration it was reported that many domestic services and apps were also slow or unstable, and some data centres were not fully back. So the goal is not absolute shutdown-proofing; it is reducing failure.",
+            "One technical point most sites overlook: foreign dependencies. If your site loads fonts from a foreign server, includes a foreign analytics or chat script, or uses a foreign CDN or captcha, then when international connectivity is cut the page becomes slow or half-loaded. A site built for customers inside the country should serve everything, from fonts and images to the order form, from the same domestic server.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "دامنه به نام خودتان، با دسترسی مدیریتی در اختیار خودتان",
+            "میزبانی قابل‌دسترس در داخل کشور برای مشتری داخلی؛ اگر مشتری خارج از ایران هم دارید، یک نسخه روی میزبان خارجی نگه دارید",
+            "فونت، تصویر و اسکریپت‌ها همه از همان سرور؛ بدون CDN، کپچا یا ابزار آماری خارجی در مسیر سفارش",
+            "صفحات سبک و کم‌حجم، چون در دوره‌های محدودیت سرعت پایین است",
+            "درگاه پرداخت ریالی داخلی و امکان سفارش با تماس یا پیامک",
+            "پشتیبان‌گیری منظم از سفارش‌ها و فهرست مشتریان",
+          ],
+          en: [
+            "A domain in your own name, with admin access held by you",
+            "Hosting reachable inside the country for domestic customers; if you also have customers abroad, keep a copy on a foreign host",
+            "Fonts, images and scripts all served from the same server; no foreign CDN, captcha or analytics in the order path",
+            "Light, low-weight pages, because speeds drop during restriction periods",
+            "A domestic rial payment gateway and the option to order by phone or SMS",
+            "Regular backups of orders and the customer list",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "کانال‌های مستقل از اینستاگرام",
+          en: "Channels that do not depend on Instagram",
+        },
+        paragraphs: {
+          fa: [
+            "سایت فقط یک بخش کار است. برای اینکه قطع یک کانال، رابطه با مشتری را قطع نکند، چند راه ارتباطی را کنار هم نگه دارید: پیامک و تماس تلفنی که معمولاً از اینترنت بین‌المللی مستقل‌اند (هرچند در قطعی دی‌ماه تماس موبایل هم مختل شد)، پیام‌رسان‌های داخلی مثل بله، ایتا و روبیکا برای کسانی که از آن‌ها استفاده می‌کنند، و فهرست مشتریان خودتان. با اینکه ممکن است همه مشتری‌ها از پیام‌رسان‌های داخلی استفاده نکنند، داشتن آن‌ها در کنار هم، یک مسیر اضطراری می‌سازد.",
+            "فروشگاه‌های اینترنتی و بازارچه‌های داخلی هم می‌توانند مکمل باشند، اما کمیسیون می‌گیرند و مشتری را به نام خودشان نگه می‌دارند. اگر از آن‌ها استفاده می‌کنید، سعی کنید مشتری را به سایت و فهرست خودتان هم بیاورید.",
+          ],
+          en: [
+            "A website is only one part. So that losing one channel does not cut your link to customers, keep several routes side by side: SMS and phone calls, which normally do not depend on international internet (although mobile calls were disrupted too in January), domestic messengers such as Bale, Eitaa and Rubika for people who use them, and your own customer list. Not every customer uses the domestic messengers, but having them together creates an emergency path.",
+            "Domestic marketplaces can also complement your own site, but they charge commission and keep the customer under their name. If you use them, try to bring customers to your site and list as well.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "فرم ثبت شماره موبایل در سایت و بسته‌بندی، با اجازه صریح مشتری برای پیام‌ها",
+            "شماره تلفن و پیامک ثابت برای سفارش و پیگیری",
+            "حساب در یکی دو پیام‌رسان داخلی برای کسانی که از آن‌ها استفاده می‌کنند",
+            "استفاده از اینستاگرام برای دیده شدن، با لینک و نام سایت در معرفی پیج",
+            "روش آفلاین برای مشتریان ثابت: کاتالوگ چاپی یا PDF سبک قابل ارسال",
+          ],
+          en: [
+            "A phone-number sign-up on the site and on packaging, with the customer's explicit consent to messages",
+            "A fixed phone and SMS number for orders and follow-up",
+            "An account on one or two domestic messengers for people who use them",
+            "Instagram used for visibility, with the site name and link in the bio",
+            "An offline option for regular customers: a printed catalog or a light PDF that can be sent",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "برنامه ۳۰ روزه برای یک فروشنده اینستاگرامی",
+          en: "A 30-day plan for an Instagram seller",
+        },
+        paragraphs: {
+          fa: [
+            "لازم نیست همه چیز را یک‌شبه بسازید. ترتیب زیر بیشترین اثر را با کمترین هزینه می‌دهد:",
+          ],
+          en: [
+            "You do not need to build everything overnight. This order gives the most effect for the least cost:",
+          ],
+        },
+        bullets: {
+          fa: [
+            "هفته اول: دامنه را به نام خودتان ثبت کنید، فهرست مشتریان قبلی را از پیام‌ها بیرون بکشید و در یک فایل امن نگه دارید",
+            "هفته دوم: صفحه محصولات با عکس، قیمت و راه سفارش را بسازید؛ بدون وابستگی خارجی",
+            "هفته سوم: درگاه پرداخت یا روش سفارش با تماس و پیامک را وصل کنید و یک سفارش آزمایشی بدهید",
+            "هفته چهارم: لینک سایت را در پیج، بسته‌بندی و کارت ویزیت بگذارید و از مشتریان قدیمی بخواهید شماره‌شان را ثبت کنند",
+          ],
+          en: [
+            "Week one: register a domain in your name, pull your past customers out of your messages and keep them in a secure file",
+            "Week two: build a product page with photos, prices and a way to order, with no foreign dependencies",
+            "Week three: connect a payment gateway or a phone and SMS ordering route, and place a test order",
+            "Week four: put the site link on the page, packaging and business cards, and ask existing customers to register their number",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "ریسک‌ها و محدودیت‌ها را صادقانه ببینید",
+          en: "Look honestly at the risks and limits",
+        },
+        paragraphs: {
+          fa: [
+            "سایت داخلی جادو نیست. میزبانی داخلی هم می‌تواند کند شود یا از کار بیفتد، قوانین داخلی درباره محتوا و داده برای آن اعمال می‌شود، و مشتری خارج از کشور ممکن است برای دسترسی به آن مشکل داشته باشد. همچنین دسترسی «طبقاتی» و گران‌تر برای بعضی کاربران گزارش شده است که ممکن است مشتریان شما را به دو دسته تقسیم کند. برای همین هدف چند لایه بودن است، نه تکیه بر یک راه.",
+            "درباره داده مشتری هم دقت کنید: فقط داده لازم را نگه دارید، دسترسی را محدود کنید و شماره‌ها را بدون اجازه مشتری برای پیام تبلیغاتی استفاده نکنید. این بخش مشاوره حقوقی نیست و قوانین ممکن است تغییر کند.",
+          ],
+          en: [
+            "A domestic site is not magic. Domestic hosting can also slow down or fail, domestic rules on content and data apply to it, and customers abroad may have trouble reaching it. There have also been reports of tiered, more expensive access for some users, which could split your customers into groups. That is why the goal is layers, not reliance on a single route.",
+            "Be careful with customer data too: keep only what you need, limit access, and do not use numbers for promotional messages without the customer's permission. This is not legal advice, and rules can change.",
+          ],
+        },
+      },
+      {
+        heading: {
+          fa: "جمع‌بندی",
+          en: "The takeaway",
+        },
+        paragraphs: {
+          fa: [
+            "درس ۲۰۲۶ برای کسب‌وکارهای اینستاگرامی ساده است: وقتی همه چیز به یک پلتفرم وابسته باشد، یک قطعی کافی است که فروش به صفر برسد. اینستاگرام را نگه دارید، اما فروش، فهرست مشتری و رابطه با مشتری را به دارایی‌های خودتان ببرید.",
+            "این مقاله یک تحلیل عمومی است و مشاوره حقوقی، مالی یا امنیتی محسوب نمی‌شود. اگر می‌خواهید سایت فروش سبک و بدون وابستگی خارجی بسازید یا ساختار فعلی‌تان را بررسی کنید، تیم سوشو استودیو می‌تواند در طراحی، ساخت و انتخاب محل میزبانی همراه شما باشد. هدف خود را از بخش تماس برای ما بنویسید.",
+          ],
+          en: [
+            "The 2026 lesson for Instagram-based businesses is simple: when everything depends on one platform, a single shutdown is enough to take sales to zero. Keep Instagram, but move sales, the customer list and the customer relationship onto assets you own.",
+            "This article is a general analysis and is not legal, financial or security advice. If you want a light sales website without foreign dependencies, or a review of your current setup, the Sosho Studio team can help with design, build and choosing where to host. Tell us your goal through the contact section.",
+          ],
+        },
+      },
+    ],
+    faq: [
+      {
+        question: {
+          fa: "اگر اینترنت بین‌المللی قطع شود، سایت داخلی باز می‌ماند؟",
+          en: "If international internet is cut, does a domestic site stay up?",
+        },
+        answer: {
+          fa: "معمولاً سرویس‌هایی که روی زیرساخت داخلی هستند برای کاربران داخل کشور در دسترس می‌مانند، اما تضمین نیست و پس از قطعی ۲۰۲۶ برای بعضی سرویس‌های داخلی هم کندی و اختلال گزارش شده است. سایتی که منابع خارجی را بارگذاری نمی‌کند بهتر عمل می‌کند.",
+          en: "Services on domestic infrastructure generally stay reachable for users inside the country, but it is not guaranteed, and slowness and disruption were reported for some domestic services after the 2026 shutdown. A site that loads no foreign resources performs better.",
+        },
+      },
+      {
+        question: {
+          fa: "آیا باید اینستاگرام را کنار بگذارم؟",
+          en: "Should I stop using Instagram?",
+        },
+        answer: {
+          fa: "نه. اینستاگرام هنوز برای دیده شدن و اعتمادسازی مفید است. فقط فروش، فهرست مشتری و رابطه با او را فقط به آن وابسته نکنید و لینک سایت را در پیج بگذارید.",
+          en: "No. Instagram is still useful for visibility and trust. Just do not make sales, the customer list and the relationship depend on it alone, and put your site link in the bio.",
+        },
+      },
+      {
+        question: {
+          fa: "یک سایت فروش ساده چقدر زمان می‌برد؟",
+          en: "How long does a simple sales site take?",
+        },
+        answer: {
+          fa: "برای کاتالوگ محصولات با راه سفارش ساده، معمولاً در حد چند هفته است. زمان دقیق به تعداد محصول، درگاه پرداخت و محتوای آماده بستگی دارد؛ برای برآورد درست باید نیاز شما را دید.",
+          en: "A product catalog with a simple way to order usually takes a few weeks. The exact time depends on product count, the payment gateway and how much content is ready; an accurate estimate needs a look at your needs.",
+        },
+      },
+      {
+        question: {
+          fa: "فهرست مشتری را چطور بسازم؟",
+          en: "How do I build a customer list?",
+        },
+        answer: {
+          fa: "از مشتریان فعلی بخواهید شماره موبایلشان را با رضایت ثبت کنند: فرم در سایت، کارت داخل بسته‌بندی یا ثبت هنگام سفارش. فقط داده لازم را نگه دارید و بدون اجازه پیام تبلیغاتی نفرستید.",
+          en: "Ask current customers to register their mobile number with consent: a form on the site, a card in the package or capture at order time. Keep only the data you need and send no promotional messages without permission.",
+        },
+      },
+      {
+        question: {
+          fa: "اعداد زیان قطعی اینترنت چقدر دقیق است؟",
+          en: "How accurate are the shutdown loss figures?",
+        },
+        answer: {
+          fa: "بیشتر آن‌ها برآورد مسئولان، اتاق بازرگانی یا ناظرانی مثل NetBlocks هستند و با هم تفاوت دارند. آن‌ها را به‌عنوان مرتبه بزرگی در نظر بگیرید، نه آمار حسابرسی‌شده.",
+          en: "Most are estimates from officials, the Chamber of Commerce or monitors such as NetBlocks, and they differ. Treat them as orders of magnitude, not audited statistics.",
+        },
+      },
+    ],
+    sources: [
+      {
+        title: {
+          fa: "الجزیره: ایران بخشی از دسترسی اینترنت را بازگرداند اما محدودیت برای بیشتر کاربران ادامه دارد",
+          en: "Al Jazeera: Iran reinstates some internet access but restrictions remain for most",
+        },
+        url: "https://www.aljazeera.com/news/2026/5/31/iran-reinstates-some-internet-access-but-restrictions-remain-for-most",
+      },
+      {
+        title: {
+          fa: "Iran International: بازگشت اینترنت پس از ۸۸ روز قطعی، شبکه‌های اجتماعی همچنان مسدود",
+          en: "Iran International: Iran restores internet after 88-day blackout, keeps social media blocked",
+        },
+        url: "https://www.iranintl.com/en/202605251140",
+      },
+      {
+        title: {
+          fa: "آسوشیتدپرس: قطعی چندماهه اینترنت کسب‌وکارها را در اقتصادی آسیب‌دیده زمین زده است",
+          en: "Associated Press: Iran's monthslong internet shutdown is crushing businesses in an already battered economy",
+        },
+        url: "https://english.aawsat.com/business/5268448-iran%E2%80%99s-monthslong-internet-shutdown-crushing-businesses-already-battered-economy",
+      },
+      {
+        title: {
+          fa: "CNBC: قطعی اینترنت ایران وارد هفته دوم شد (به نقل از NetBlocks)",
+          en: "CNBC: Iran's internet blackout extends into second week (NetBlocks)",
+        },
+        url: "https://www.cnbc.com/2026/03/07/irans-internet-blackout-extends-into-second-week-netblocks.html",
+      },
+      {
+        title: {
+          fa: "ویکی‌پدیا: قطعی اینترنت ایران در ۲۰۲۶ (گاه‌شمار و برآوردها)",
+          en: "Wikipedia: 2026 Internet blackout in Iran (timeline and estimates)",
+        },
+        url: "https://en.wikipedia.org/wiki/2026_Internet_blackout_in_Iran",
+      },
+    ],
+  },
 ];
 
 export function getBlogPosts() {
