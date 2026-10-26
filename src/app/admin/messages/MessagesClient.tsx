@@ -156,7 +156,7 @@ export default function MessagesClient() {
         ) : null}
       </div>
       {actionError ? (
-        <p role="alert" className="mb-4 rounded-2xl border border-red-400/30 bg-red-950/20 p-4 text-sm text-red-200">
+        <p role="alert" className="mb-4 rounded-2xl border border-danger/30 bg-danger/20 p-4 text-sm text-danger">
           {actionError}
         </p>
       ) : null}

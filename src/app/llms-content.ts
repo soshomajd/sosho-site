@@ -58,7 +58,11 @@ function toolsSection() {
 }
 
 function projectsSection() {
-  const lines = ["## Selected work / نمونه‌کارها", ""];
+  const lines = [
+    "## Selected work / نمونه‌کارها", "",
+    `- [More original design concepts](${baseUrl}/en/projectcs): Eight additional concepts with desktop, tablet and mobile hero views; these are not delivered client projects.`,
+    `- [طرح‌های مفهومی بیشتر](${baseUrl}/fa/projectcs): هشت طرح با نمای هیرو در دسکتاپ، تبلت و موبایل؛ این‌ها پروژهٔ تحویل‌شده به مشتری نیستند.`,
+  ];
   for (const project of PROJECTS) {
     lines.push(
       `- [${project.seo.title.en}](${baseUrl}/en/projects/${project.slug}): ${project.seo.description.en}`,

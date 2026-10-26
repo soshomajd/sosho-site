@@ -1,6 +1,8 @@
+import { PROJECT_HERO_VIEWS } from "./hero-views";
+
 // Portfolio case studies. Every statement about a site describes what its live pages show;
 // no results, traffic or sales figures are claimed. Screenshots are real captures of the live
-// sites (public/projects/<slug>-{cover,2,mobile}.webp) taken on 2026-10-24.
+// sites (public/projects/hero/<slug>-{desktop,tablet,mobile}.webp) taken on 2026-10-26.
 
 type Bilingual = { fa: string; en: string };
 type BilingualList = { fa: string[]; en: string[] };
@@ -78,29 +80,7 @@ export const PROJECTS: Project[] = [
         ],
       },
     },
-    images: [
-      {
-        src: "/projects/tino-electronic-cover.webp",
-        width: 1440,
-        height: 900,
-        alt: { fa: "صفحهٔ اصلی فروشگاه تینو الکترونیک با دسته‌بندی‌ها و قطعات الکترونیکی", en: "Tino Electronic store home page with categories and electronic components" },
-        caption: { fa: "صفحهٔ اصلی: جست‌وجو، دسته‌بندی‌ها و اسلایدر", en: "Home page: search, categories and slider" },
-      },
-      {
-        src: "/projects/tino-electronic-2.webp",
-        width: 1440,
-        height: 900,
-        alt: { fa: "بخش محصولات تخفیف‌دار در فروشگاه تینو الکترونیک با قیمت و وضعیت موجودی", en: "Discounted products section of the Tino Electronic store with prices and stock status" },
-        caption: { fa: "محصولات تخفیف‌دار با قیمت و موجودی", en: "Discounted products with price and stock" },
-      },
-      {
-        src: "/projects/tino-electronic-mobile.webp",
-        width: 560,
-        height: 1212,
-        alt: { fa: "نمای موبایل فروشگاه تینو الکترونیک", en: "Mobile view of the Tino Electronic store" },
-        caption: { fa: "نمای موبایل", en: "Mobile view" },
-      },
-    ],
+    images: PROJECT_HERO_VIEWS["tino-electronic"],
   },
   {
     slug: "wallpaper-consortium",
@@ -155,29 +135,7 @@ export const PROJECTS: Project[] = [
         ],
       },
     },
-    images: [
-      {
-        src: "/projects/wallpaper-consortium-cover.webp",
-        width: 1440,
-        height: 900,
-        alt: { fa: "صفحهٔ اصلی فروشگاه آنلاین کنسرسیوم کاغذ دیواری با اسلایدر و دسته‌ها", en: "Home page of the Wallpaper Consortium online store with slider and categories" },
-        caption: { fa: "صفحهٔ اصلی: اسلایدر، آلبوم‌ها، سبک‌ها و رنگ‌ها", en: "Home page: slider, albums, styles and colors" },
-      },
-      {
-        src: "/projects/wallpaper-consortium-2.webp",
-        width: 1440,
-        height: 900,
-        alt: { fa: "برندهای عضو و آلبوم‌های منتخب در سایت کنسرسیوم کاغذ دیواری", en: "Member brands and featured albums on the Wallpaper Consortium site" },
-        caption: { fa: "برندهای عضو و آلبوم‌های منتخب", en: "Member brands and featured albums" },
-      },
-      {
-        src: "/projects/wallpaper-consortium-mobile.webp",
-        width: 560,
-        height: 1212,
-        alt: { fa: "نمای موبایل سایت کنسرسیوم کاغذ دیواری با نوار پیمایش پایین", en: "Mobile view of the Wallpaper Consortium site with the bottom navigation bar" },
-        caption: { fa: "نمای موبایل با نوار پیمایش پایین", en: "Mobile view with bottom navigation" },
-      },
-    ],
+    images: PROJECT_HERO_VIEWS["wallpaper-consortium"],
   },
   {
     slug: "niroo-tejarat-atieh",
@@ -188,7 +146,7 @@ export const PROJECTS: Project[] = [
     },
     service: { fa: "سایت شرکتی · طراحی و توسعه", en: "Corporate website · Design and development" },
     industry: { fa: "تأمین تجهیزات نیروگاهی و پتروشیمی", en: "Power-plant and petrochemical equipment supply" },
-    url: "https://nirootejaratatieh.com/",
+    url: "https://www.nirootejaratatieh.com/",
     host: "nirootejaratatieh.com",
     seo: {
       title: { fa: "نیرو تجارت آتیه؛ نمونه‌کار سایت شرکتی تأمین تجهیزات صنعتی", en: "Niroo Tejarat Atieh: Industrial Supply Corporate Website Case Study" },
@@ -234,29 +192,7 @@ export const PROJECTS: Project[] = [
         ],
       },
     },
-    images: [
-      {
-        src: "/projects/niroo-tejarat-atieh-cover.webp",
-        width: 1440,
-        height: 900,
-        alt: { fa: "صفحهٔ اصلی سایت نیرو تجارت آتیه با تصویر تجهیزات الکتریکی و عنوان «قدرت در مدار، دقت در انتخاب»", en: "Niroo Tejarat Atieh home page with electrical equipment imagery and the headline “Power in the circuit, precision in the choice”" },
-        caption: { fa: "صفحهٔ اصلی با اسلایدر تصویری", en: "Home page with image slider" },
-      },
-      {
-        src: "/projects/niroo-tejarat-atieh-2.webp",
-        width: 1440,
-        height: 900,
-        alt: { fa: "بخش اول صفحهٔ اصلی نیرو تجارت آتیه با عنوان «تجهیزات مکانیکی، دقیق و قابل اتکا»", en: "First slide of the Niroo Tejarat Atieh home page with the headline “Mechanical equipment, precise and dependable”" },
-        caption: { fa: "اسلاید تجهیزات مکانیکی با شمارنده‌های کلیدی", en: "Mechanical equipment slide with key counters" },
-      },
-      {
-        src: "/projects/niroo-tejarat-atieh-mobile.webp",
-        width: 560,
-        height: 1212,
-        alt: { fa: "نمای موبایل سایت نیرو تجارت آتیه", en: "Mobile view of the Niroo Tejarat Atieh site" },
-        caption: { fa: "نمای موبایل", en: "Mobile view" },
-      },
-    ],
+    images: PROJECT_HERO_VIEWS["niroo-tejarat-atieh"],
   },
 ];
 

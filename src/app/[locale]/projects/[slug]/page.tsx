@@ -75,7 +75,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
     { name: title, path: `/${locale}/projects/${project.slug}` },
   ];
   const others = PROJECTS.filter((entry) => entry.slug !== project.slug);
-  const [hero, second, mobile] = project.images;
+  const [hero, tablet, mobile] = project.images;
 
   return (
     <main id="main-content" tabIndex={-1} className="container items-stretch gap-8 py-14 outline-none md:py-20">
@@ -123,7 +123,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-foreground px-6 text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
+            className="mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
           >
             {isFa ? "مشاهدهٔ سایت زنده" : "Visit the live site"}
             <span dir="ltr" className="text-xs font-semibold opacity-70">{project.host}</span>
@@ -201,8 +201,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
       <section aria-labelledby="project-views" className="grid gap-4 md:grid-cols-12">
         <h2 id="project-views" className="sr-only">{isFa ? "تصویرهای بیشتر" : "More views"}</h2>
         <figure className="overflow-hidden rounded-3xl border border-foreground/10 bg-surface/20 md:col-span-8">
-          <Image src={second.src} alt={second.alt[locale]} width={second.width} height={second.height} sizes="(max-width: 768px) 100vw, 66vw" className="h-auto w-full" />
-          <figcaption className="px-5 py-3 text-xs text-muted">{second.caption[locale]}</figcaption>
+          <Image src={tablet.src} alt={tablet.alt[locale]} width={tablet.width} height={tablet.height} sizes="(max-width: 480px) 90vw, 448px" className="mx-auto h-auto w-full max-w-md" />
+          <figcaption className="px-5 py-3 text-xs text-muted">{tablet.caption[locale]}</figcaption>
         </figure>
         <figure className="overflow-hidden rounded-3xl border border-foreground/10 bg-surface/20 md:col-span-4">
           <Image src={mobile.src} alt={mobile.alt[locale]} width={mobile.width} height={mobile.height} sizes="(max-width: 768px) 80vw, 33vw" className="mx-auto h-auto w-full max-w-xs" />
@@ -248,7 +248,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
         <Link
           href={`/${locale}#contact`}
           prefetch={false}
-          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-foreground px-6 text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
+          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
         >
           {isFa ? "شروع گفتگو" : "Start a conversation"}
           <FiArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />

@@ -111,12 +111,12 @@ export function EmptyState({ message }: Readonly<{ message: string }>) {
 
 export function ErrorState({ message, retry }: Readonly<{ message: string; retry: () => void }>) {
   return (
-    <div className="rounded-2xl border border-red-400/30 bg-red-950/20 p-6" role="alert">
-      <p className="text-sm text-red-200">{message}</p>
+    <div className="rounded-2xl border border-danger/30 bg-danger/20 p-6" role="alert">
+      <p className="text-sm text-danger">{message}</p>
       <button
         type="button"
         onClick={retry}
-        className="mt-4 rounded-xl border border-red-300/40 px-4 py-2 text-sm text-red-100 hover:bg-red-400/10 focus:outline-none focus:ring-2 focus:ring-accent"
+        className="mt-4 rounded-xl border border-danger/40 px-4 py-2 text-sm text-danger hover:bg-danger/10 focus:outline-none focus:ring-2 focus:ring-accent"
       >
         تلاش دوباره
       </button>
@@ -190,9 +190,9 @@ export function StatusBadge({ label, tone = "neutral" }: Readonly<{
 }>) {
   const tones = {
     neutral: "border-white/10 bg-white/5 text-foreground",
-    success: "border-emerald-400/25 bg-emerald-400/10 text-emerald-200",
-    warning: "border-amber-400/25 bg-amber-400/10 text-amber-200",
-    danger: "border-red-400/25 bg-red-400/10 text-red-200",
+    success: "border-success/25 bg-success/10 text-success",
+    warning: "border-warning/25 bg-warning/10 text-warning",
+    danger: "border-danger/25 bg-danger/10 text-danger",
   };
   return <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs ${tones[tone]}`}>{label}</span>;
 }

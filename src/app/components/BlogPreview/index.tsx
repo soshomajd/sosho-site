@@ -15,6 +15,7 @@ export default function BlogPreview({ locale }: { locale: Locale }) {
                     <article key={p.slug} className="contents">
                     <Link
                         href={getBlogPostHref(locale, p.slug)}
+                        data-reveal
                         className="group overflow-hidden rounded-2xl border border-foreground/10 bg-background/10 transition-transform duration-200 hover:-translate-y-1 motion-reduce:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     >
                         <div className="relative aspect-video w-full overflow-hidden bg-surface/30">
@@ -29,7 +30,7 @@ export default function BlogPreview({ locale }: { locale: Locale }) {
                             ) : (
                                 <div
                                     aria-hidden="true"
-                                    className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(99,102,241,0.35),transparent_55%),radial-gradient(circle_at_80%_75%,rgba(34,211,238,0.28),transparent_55%),linear-gradient(180deg,#0b0f14_0%,#090d12_100%)]"
+                                    className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(141,175,197,0.24),transparent_55%),radial-gradient(circle_at_80%_75%,rgba(158,173,152,0.18),transparent_55%),linear-gradient(180deg,#111820_0%,#1d2935_100%)]"
                                 />
                             )}
                         </div>

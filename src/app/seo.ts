@@ -29,4 +29,4 @@ export function breadcrumbJsonLd(crumbs: Crumb[]) {
 }
 
 /** Last meaningful edit to the homepage or service pages; bump it when they change (feeds sitemap lastmod). */
-export const SITE_CONTENT_UPDATED_AT = "2026-10-24";
+export const SITE_CONTENT_UPDATED_AT = "2026-10-26";

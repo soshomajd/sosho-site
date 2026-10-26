@@ -126,7 +126,7 @@ export default function Header({
                     </div>
                     <a
                         href={`/${locale}#contact`}
-                        className="ms-1 hidden h-10 items-center justify-center rounded-full bg-foreground px-4 text-xs font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none sm:inline-flex sm:text-sm"
+                        className="ms-1 hidden h-10 items-center justify-center rounded-full bg-primary px-4 text-xs font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none sm:inline-flex sm:text-sm"
                     >
                         {locale === "fa" ? "شروع پروژه" : "Start a project"}
                     </a>

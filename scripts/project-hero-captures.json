@@ -1,0 +1,28 @@
+{
+  "capturedAt": "2026-10-26",
+  "method": "Playwright Chromium, real public websites; header and first hero only",
+  "readiness": "Visible hero images must be complete with naturalWidth > 0 and decoded; document.fonts.ready awaited before capture. Finite entrance animations disabled for screenshots.",
+  "projects": [
+    {
+      "slug": "tino-electronic",
+      "title": { "fa": "تینو الکترونیک", "en": "Tino Electronic" },
+      "url": "https://tinoelec.com/",
+      "hero": ".hero-carousel",
+      "viewports": { "desktop": [1440, 900], "tablet": [820, 1180], "mobile": [390, 844] }
+    },
+    {
+      "slug": "wallpaper-consortium",
+      "title": { "fa": "کنسرسیوم کاغذ دیواری", "en": "Wallpaper Consortium" },
+      "url": "https://wallpaper-consortium.ir/fa",
+      "hero": "First visible responsive Swiper banner; wait for responsive layout and loaded image",
+      "viewports": { "desktop": [1440, 900], "tablet": [820, 1180], "mobile": [390, 844] }
+    },
+    {
+      "slug": "niroo-tejarat-atieh",
+      "title": { "fa": "نیرو تجارت آتیه", "en": "Niroo Tejarat Atieh" },
+      "url": "https://www.nirootejaratatieh.com/",
+      "hero": "First viewport of #home.heroStage, active hero-mechanical.webp loaded at naturalWidth 1672. Never capture the entire 5000px scroll stage.",
+      "viewports": { "desktop": [1440, 900], "tablet": [820, 1180], "mobile": [390, 844] }
+    }
+  ]
+}

@@ -141,15 +141,15 @@ export default function ConversationDetailClient() {
               type="button"
               disabled={pending || !resource.data.allowedActions.takeOver || !csrfToken}
               onClick={() => void takeOver()}
-              className="mt-4 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40"
+              className="mt-4 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-background focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40"
             >
               {pending ? "در حال تحویل…" : "تحویل گرفتن"}
             </button>
-            {actionMessage ? <p className="mt-4 text-sm leading-6 text-amber-200" role="status">{actionMessage}</p> : null}
+            {actionMessage ? <p className="mt-4 text-sm leading-6 text-warning" role="status">{actionMessage}</p> : null}
           </section>
           <section aria-labelledby="conversation-messages">
             <h2 id="conversation-messages" className="mb-4 text-lg font-semibold text-white">آخرین پیام‌ها</h2>
-            {resource.data.messagesTruncated ? <p className="mb-4 text-sm text-amber-200">فقط ۵۰ پیام آخر نمایش داده می‌شود.</p> : null}
+            {resource.data.messagesTruncated ? <p className="mb-4 text-sm text-warning">فقط ۵۰ پیام آخر نمایش داده می‌شود.</p> : null}
             {resource.data.messages.length === 0 ? <EmptyState message="پیامی برای این گفتگو ثبت نشده است." /> : (
               <ol className="space-y-3">
                 {resource.data.messages.map((message, index) => (

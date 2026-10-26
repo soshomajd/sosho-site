@@ -1,83 +1,53 @@
-import Image from "next/image";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
-
 import type { Locale } from "@/app/i18n";
+import { getProjectHref } from "./data";
+import { HOME_PROJECTS, MORE_PROJECTS } from "./showcase";
+import DeviceViews from "./DeviceViews";
 
-import { PROJECTS, getProjectHref, type Project } from "./data";
-
-function ProjectTile({
-    locale,
-    project,
-    className,
-    priority,
-}: {
-    locale: Locale;
-    project: Project;
-    className: string;
-    priority?: boolean;
-}) {
-    const cover = project.images[0];
-    return (
+export default function Projects({ locale, archive = false }: { locale: Locale; archive?: boolean }) {
+  const projects = archive ? MORE_PROJECTS : HOME_PROJECTS;
+  const Heading = archive ? "h2" : "h3";
+  return (
+    <>
+    <div className={`project-stack ${archive ? "project-stack--archive" : ""}`}>
+      {projects.map((project, index) => (
         <article
-            className={
-                "group relative flex flex-col overflow-hidden rounded-2xl border border-foreground/10 bg-surface/20 " +
-                "transition-transform duration-300 motion-reduce:transition-none hover:-translate-y-1 " +
-                "focus-within:ring-2 focus-within:ring-accent/60 focus-within:ring-offset-2 focus-within:ring-offset-background " +
-                className
-            }
+          key={project.slug}
+          className="project-card project-card--devices"
+          data-project-kind={project.kind}
+          style={{ "--card-index": index, "--card-scale": archive ? 1 : 1 - (projects.length - index - 1) * 0.02 } as CSSProperties}
         >
-            {/* The screenshot already contains its own headline, so the text sits in a solid panel below it
-                instead of on top of the picture. */}
-            <div className="relative min-h-44 flex-1 overflow-hidden">
-                <Image
-                    src={cover.src}
-                    alt={cover.alt[locale]}
-                    fill
-                    preload={priority}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover object-top transition-transform duration-500 motion-reduce:transition-none group-hover:scale-[1.03]"
-                />
+          <div className="project-card-head">
+            <div className="flex min-w-0 gap-5">
+              <span className="project-card-number" aria-hidden="true">{String(index + (archive ? 6 : 1)).padStart(2, "0")}</span>
+              <div className="min-w-0">
+                <p className="text-xs font-semibold leading-6 text-sage">{project.service[locale]}</p>
+                <Heading className="mt-1 text-xl font-bold leading-8 text-foreground md:text-2xl">{project.title[locale]}</Heading>
+                <p className="mt-2 max-w-2xl text-sm leading-7 text-muted">{project.summary[locale]}</p>
+                {project.kind === "concept" ? (
+                  <ul className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
+                    {project.features[locale].map((feature) => <li key={feature} className="rounded-full border border-foreground/10 px-3 py-1.5">{feature}</li>)}
+                  </ul>
+                ) : null}
+              </div>
             </div>
-
-            {/* Not positioned on purpose: the stretched title link must size itself to the whole card. */}
-            <div className="border-t border-foreground/10 bg-background/90 p-5">
-                <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-accent">
-                    {project.service[locale]}
-                </p>
-                <h3 className="text-base font-semibold text-foreground">
-                    {/* The title link stretches over the whole card so the card is one click target. */}
-                    <Link
-                        href={getProjectHref(locale, project.slug)}
-                        prefetch={false}
-                        className="focus-visible:outline-none after:absolute after:inset-0 after:content-['']"
-                    >
-                        {project.title[locale]}
-                    </Link>
-                </h3>
-                <p className="mt-1 text-sm text-muted">{project.summary[locale]}</p>
-                <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-foreground">
-                    {locale === "fa" ? "مشاهدهٔ نمونه‌کار" : "View case study"}
-                    <FiArrowUpRight className="h-3.5 w-3.5 rtl:-scale-x-100" aria-hidden="true" />
-                </span>
-            </div>
+            {project.kind === "live" ? <Link href={getProjectHref(locale, project.slug)} prefetch={false} className="project-card-link">
+              {locale === "fa" ? "مشاهدهٔ نمونه‌کار" : "View case study"}
+              <FiArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
+            </Link> : <span className="project-concept-badge">{locale === "fa" ? "طرح مفهومی" : "Design concept"} · {project.language === "fa" ? (locale === "fa" ? "فارسی" : "Persian") : (locale === "fa" ? "انگلیسی" : "English")}</span>}
+          </div>
+          <DeviceViews images={project.images} locale={locale} />
         </article>
-    );
-}
-
-export default function Projects({ locale }: { locale: Locale }) {
-    const [first, second, third] = PROJECTS;
-    return (
-        <div className="mt-5">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-                <ProjectTile
-                    locale={locale}
-                    project={first}
-                    className="md:col-span-7 md:row-span-2 min-h-80 md:min-h-105"
-                />
-                <ProjectTile locale={locale} project={second} className="md:col-span-5 min-h-60" />
-                <ProjectTile locale={locale} project={third} className="md:col-span-5 min-h-60" />
-            </div>
-        </div>
-    );
+      ))}
+    </div>
+    {!archive ? <div className="mt-8 flex justify-center">
+      <Link href={`/${locale}/projectcs`} prefetch={false} className="project-card-link">
+        {locale === "fa" ? "۸ نمونه‌کار بیشتر" : "Explore 8 more projects"}
+        <FiArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
+      </Link>
+    </div> : null}
+    </>
+  );
 }

@@ -108,7 +108,7 @@ export default function MobileMenu({
                                 <a
                                     href={ctaHref}
                                     onClick={() => setOpen(false)}
-                                    className="mt-4 inline-flex h-12 w-full items-center justify-center rounded-full bg-foreground text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
+                                    className="mt-4 inline-flex h-12 w-full items-center justify-center rounded-full bg-primary text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
                                 >
                                     {ctaLabel}
                                 </a>

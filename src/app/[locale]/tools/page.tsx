@@ -139,7 +139,7 @@ export default async function ToolsPage({ params }: { params: Promise<{ locale: 
         <Link
           href={`/${locale}#contact`}
           prefetch={false}
-          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-foreground px-6 text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
+          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
         >
           {meta.ctaButton}
           <FiArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />

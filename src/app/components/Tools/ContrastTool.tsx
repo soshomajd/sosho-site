@@ -106,7 +106,7 @@ function ColorField({
         />
       </div>
       {rgb ? null : (
-        <p id={`${id}-error`} className="mt-1.5 text-xs text-red-400">{invalid}</p>
+        <p id={`${id}-error`} className="mt-1.5 text-xs text-danger">{invalid}</p>
       )}
     </div>
   );
@@ -170,7 +170,7 @@ export default function ContrastTool({ locale }: { locale: Locale }) {
               return (
                 <li key={row.label} className="flex items-center justify-between gap-3 rounded-2xl border border-foreground/10 bg-background/20 px-4 py-3 text-sm">
                   <span className="text-foreground">{row.label}</span>
-                  <span className={`inline-flex shrink-0 items-center gap-1.5 font-bold ${shown === null ? "text-muted" : pass ? "text-emerald-400" : "text-red-400"}`}>
+                  <span className={`inline-flex shrink-0 items-center gap-1.5 font-bold ${shown === null ? "text-muted" : pass ? "text-success" : "text-danger"}`}>
                     {shown === null ? null : pass ? <FiCheckCircle className="h-4 w-4" aria-hidden="true" /> : <FiXCircle className="h-4 w-4" aria-hidden="true" />}
                     {shown === null ? "—" : pass ? t.pass : t.fail}
                   </span>

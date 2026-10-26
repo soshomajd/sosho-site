@@ -43,7 +43,7 @@ export default function NotFound() {
             href="/en"
             prefetch={false}
             lang="en"
-            className="inline-flex h-11 items-center justify-center rounded-full bg-foreground px-5 text-sm font-bold text-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+            className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-bold text-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
           >
             English site
           </Link>

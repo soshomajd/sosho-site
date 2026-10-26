@@ -146,7 +146,7 @@ export default async function LocaleLayout({
         <>
             <a
                 href="#main-content"
-                className="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-foreground focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-background"
+                className="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-background"
             >
                 {locale === "fa" ? "پرش به محتوای اصلی" : "Skip to main content"}
             </a>

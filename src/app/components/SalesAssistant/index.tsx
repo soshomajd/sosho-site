@@ -282,22 +282,22 @@ export default function SalesAssistant({
       {isOpen ? (
         <section
           aria-label={copy.title}
-          className="flex h-[min(680px,calc(100dvh-2rem))] w-[min(410px,calc(100vw-2rem))] flex-col overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0a1018]/95 shadow-[0_30px_100px_rgba(0,0,0,0.55)] backdrop-blur-2xl"
+          className="flex h-[min(680px,calc(100dvh-2rem))] w-[min(410px,calc(100vw-2rem))] flex-col overflow-hidden rounded-[1.75rem] border border-white/10 bg-background/95 shadow-[0_30px_100px_rgba(0,0,0,0.55)] backdrop-blur-2xl"
         >
           <header className="relative overflow-hidden border-b border-white/10 px-4 py-4 sm:px-5">
             <div className="pointer-events-none absolute -end-8 -top-12 h-36 w-36 rounded-full bg-primary/30 blur-3xl" />
             <div className="relative flex items-center gap-3">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-linear-to-br from-primary to-accent text-white shadow-lg shadow-primary/20">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-linear-to-br from-primary to-accent text-background shadow-lg shadow-primary/20">
                 <FiZap className="h-5 w-5" aria-hidden="true" />
               </span>
               <div className="min-w-0 flex-1">
                 <h2 className="text-sm font-extrabold text-white">{copy.title}</h2>
-                <p className="mt-1 truncate text-xs text-slate-400">{copy.subtitle}</p>
+                <p className="mt-1 truncate text-xs text-muted">{copy.subtitle}</p>
               </div>
               <button
                 type="button"
                 onClick={resetChat}
-                className="grid h-9 w-9 place-items-center rounded-full text-slate-400 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="grid h-9 w-9 place-items-center rounded-full text-muted transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 aria-label={copy.reset}
                 title={copy.reset}
               >
@@ -306,7 +306,7 @@ export default function SalesAssistant({
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="grid h-9 w-9 place-items-center rounded-full text-slate-400 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="grid h-9 w-9 place-items-center rounded-full text-muted transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 aria-label={copy.close}
               >
                 <FiX className="h-5 w-5" aria-hidden="true" />
@@ -326,8 +326,8 @@ export default function SalesAssistant({
                 <p
                   className={`max-w-[88%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-6 ${
                     message.role === "user"
-                      ? "rounded-ee-md bg-primary text-white"
-                      : "rounded-es-md border border-white/10 bg-white/6 text-slate-200"
+                      ? "rounded-ee-md bg-primary text-background"
+                      : "rounded-es-md border border-white/10 bg-white/6 text-foreground"
                   }`}
                 >
                   {message.content}
@@ -352,7 +352,7 @@ export default function SalesAssistant({
 
             {isSending ? (
               <div className="flex justify-start">
-                <p className="rounded-2xl rounded-es-md border border-white/10 bg-white/6 px-4 py-3 text-xs text-slate-400">
+                <p className="rounded-2xl rounded-es-md border border-white/10 bg-white/6 px-4 py-3 text-xs text-muted">
                   {copy.typing}
                 </p>
               </div>
@@ -367,13 +367,13 @@ export default function SalesAssistant({
                 onChange={(event) => setDraft(event.target.value)}
                 maxLength={2000}
                 placeholder={copy.placeholder}
-                className="h-10 min-w-0 flex-1 bg-transparent px-2 text-sm text-white outline-none placeholder:text-slate-500"
+                className="h-10 min-w-0 flex-1 bg-transparent px-2 text-sm text-white outline-none placeholder:text-muted"
                 disabled={isSending}
               />
               <button
                 type="submit"
                 disabled={!draft.trim() || isSending}
-                className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent text-slate-950 transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transform-none"
+                className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent text-background transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transform-none"
                 aria-label={copy.send}
               >
                 <FiSend className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
@@ -385,7 +385,7 @@ export default function SalesAssistant({
         <button
           type="button"
           onClick={openChat}
-          className="group flex h-14 items-center gap-3 rounded-full border border-white/10 bg-[#101827]/95 px-4 text-sm font-extrabold text-white shadow-[0_18px_55px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent motion-reduce:transform-none sm:h-16 sm:px-5"
+          className="group flex h-14 items-center gap-3 rounded-full border border-white/10 bg-surface/95 px-4 text-sm font-extrabold text-white shadow-[0_18px_55px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent motion-reduce:transform-none sm:h-16 sm:px-5"
           aria-label={copy.launcher}
         >
           <span className="grid h-10 w-10 place-items-center rounded-full bg-linear-to-br from-primary to-accent shadow-lg shadow-primary/20 sm:h-11 sm:w-11">

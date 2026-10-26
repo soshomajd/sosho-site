@@ -57,7 +57,7 @@ function Counter({ value, min, max, locale, id }: { value: string; min: number; 
   const t = copy[locale];
   const size = length(value);
   const state = size === 0 ? "idle" : size < min ? "short" : size > max ? "long" : "good";
-  const color = state === "good" ? "text-emerald-400" : state === "idle" ? "text-muted" : "text-amber-400";
+  const color = state === "good" ? "text-success" : state === "idle" ? "text-muted" : "text-warning";
   const message = state === "good" ? t.good : state === "short" ? t.short : state === "long" ? t.long : "";
   return (
     <p id={id} className={`mt-1.5 flex flex-wrap items-center justify-between gap-2 text-xs ${color}`}>

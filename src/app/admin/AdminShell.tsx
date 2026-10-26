@@ -162,13 +162,13 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
               <button
                 type="submit"
                 disabled={!token || loginPending}
-                className="w-full rounded-xl bg-primary px-4 py-3 font-semibold text-white transition hover:bg-primary/85 focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-primary px-4 py-3 font-semibold text-background transition hover:bg-primary/85 focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loginPending ? "در حال ورود…" : "ورود امن"}
               </button>
             </form>
           )}
-          {message ? <p className="mt-4 text-sm leading-6 text-amber-300" role="alert">{message}</p> : null}
+          {message ? <p className="mt-4 text-sm leading-6 text-warning" role="alert">{message}</p> : null}
           {authState === "unavailable" ? (
             <button
               type="button"
@@ -199,7 +199,7 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
             <button
               type="button"
               onClick={() => void handleLogout()}
-              className="rounded-xl border border-white/15 px-4 py-2 text-sm text-foreground hover:border-red-400 hover:text-red-300 focus:outline-none focus:ring-2 focus:ring-accent"
+              className="rounded-xl border border-white/15 px-4 py-2 text-sm text-foreground hover:border-danger hover:text-danger focus:outline-none focus:ring-2 focus:ring-accent"
             >
               خروج
             </button>
@@ -214,7 +214,7 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
                       href={item.href}
                       aria-current={current ? "page" : undefined}
                       className={`block rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent ${
-                        current ? "bg-primary text-white" : "bg-black/20 text-muted hover:text-white"
+                        current ? "bg-primary text-background" : "bg-black/20 text-muted hover:text-white"
                       }`}
                     >
                       {item.label}

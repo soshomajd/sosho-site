@@ -1,0 +1,350 @@
+{
+  "createdAt": "2026-10-26",
+  "provider": "built-in image_gen",
+  "format": "1200x750 WebP",
+  "purpose": "Original design concepts, not represented as delivered client projects.",
+  "artDirection": "cinematic 3D, motion-graphics art direction and distinct experimental compositions",
+  "commonPrompt": "Use case: ui-mockup. Create ONE spectacular, highly art-directed desktop website or product-interface design screenshot, landscape 16:10, flat straight-on edge-to-edge UI, no laptop, no perspective frame, no outer scenery. It must feel like an experimental premium interactive website with cinematic motion graphics frozen at a compelling frame, NOT a generic SaaS template or simple split hero. Bold distinctive composition, sophisticated typography, rich material detail, deliberate layering and genuinely impressive craft. Keep the interface usable with clear navigation and concise real labels; large readable main text, minimal tiny copy. Include the start of another section or functional workspace modules so it reads as a website rather than a poster. Original fictional portfolio concept. No actual company logos, no awards or fabricated client testimonials, no watermarks, no lorem ipsum. Every element must feel designed, not randomly scattered.",
+  "assets": [
+    {
+      "slug": "sepid-medical",
+      "language": "fa",
+      "title": {
+        "fa": "سپید؛ هویت دیجیتال کلینیک",
+        "en": "Sepid · Medical brand"
+      },
+      "service": {
+        "fa": "برندینگ پزشکی · طراحی سایت",
+        "en": "Medical branding · Website design"
+      },
+      "summary": {
+        "fa": "کانسپت یک تجربه پزشکی تعاملی با قلب شیشه‌ای سه‌بعدی، رد نور و شاخص‌های ظریف خدمات؛ ترکیب هویت دیجیتال پزشکی با تایپوگرافی درشت و مسیر نوبت‌گیری.",
+        "en": "An immersive medical-brand concept with a glass 3D heart, flowing light traces, precise service indicators and a clear appointment entry."
+      },
+      "features": {
+        "fa": [
+          "معرفی پزشک",
+          "خدمات کلینیک",
+          "رزرو نوبت"
+        ],
+        "en": [
+          "Doctor profile",
+          "Clinic services",
+          "Appointment flow"
+        ]
+      },
+      "alt": {
+        "fa": "طرح مفهومی فارسی پزشکی سپید با قلب شیشه‌ای سه‌بعدی و تایپوگرافی درشت",
+        "en": "Sepid Persian medical website concept with a glass 3D heart and bold typography"
+      },
+      "file": "/projects/concepts/sepid-medical.webp",
+      "prompt": "Use case: ui-mockup. Create ONE spectacular, highly art-directed desktop website or product-interface design screenshot, landscape 16:10, flat straight-on edge-to-edge UI, no laptop, no perspective frame, no outer scenery. It must feel like an experimental premium interactive website with cinematic motion graphics frozen at a compelling frame, NOT a generic SaaS template or simple split hero. Bold distinctive composition, sophisticated typography, rich material detail, deliberate layering and genuinely impressive craft. Keep the interface usable with clear navigation and concise real labels; large readable main text, minimal tiny copy. Include the start of another section or functional workspace modules so it reads as a website rather than a poster. Original fictional portfolio concept. No actual company logos, no awards or fabricated client testimonials, no watermarks, no lorem ipsum. Every element must feel designed, not randomly scattered.\n\nPersian RTL futuristic medical brand website «سپید», with art direction inspired by scientific cinema and high-end interactive digital experiences. A huge luminous anatomically inspired GLASS HEART sculpture occupies the central stage, translucent ice-blue arteries with tiny flowing light particles and flowing ribbon-like scan lines that suggest motion, beautiful realistic caustics on a deep midnight-blue background. Not gory, not a real organ photograph. Oversized Persian headline «نبضِ زندگی» layered partly behind the sculpture, with large elegant white typography anchored upper-right and a small appointment module lower-right. Very thin HUD lines connect three tiny medical service indicators to the glass sculpture. High-contrast porcelain-white navigation at top, brand at right, links «خدمات»، «پزشکان»، «تماس» and refined CTA «رزرو نوبت». Bottom transitions into an asymmetric white editorial section with one doctor's small fictional portrait and a service index, not three identical cards. Distinctive, cinematic, expensive 3D motion-design website, not a stock doctor-photo template. No health outcome claims."
+    },
+    {
+      "slug": "nova-beauty",
+      "language": "fa",
+      "title": {
+        "fa": "نُوا؛ فروشگاه زیبایی و مراقبت",
+        "en": "Nova · Beauty and skincare"
+      },
+      "service": {
+        "fa": "فروشگاه آرایشی · طراحی تجربه خرید",
+        "en": "Beauty commerce · Shopping experience"
+      },
+      "summary": {
+        "fa": "طرح فروشگاه زیبایی با محصولات معلق، روبان کروم مایع و تایپوگرافی جسورانه؛ ویترینی نمایشی برای کشف محصولات در یک ترکیب مجله‌ای و نامتقارن.",
+        "en": "An expressive beauty-commerce concept with floating products, a liquid-chrome ribbon and oversized typography in an asymmetric editorial storefront."
+      },
+      "features": {
+        "fa": [
+          "ویترین محصول",
+          "دسته‌بندی مراقبت",
+          "کارت خرید"
+        ],
+        "en": [
+          "Product showcase",
+          "Skincare categories",
+          "Shopping cards"
+        ]
+      },
+      "alt": {
+        "fa": "موکاپ فارسی فروشگاه زیبایی نوا با محصولات معلق و روبان کروم مایع",
+        "en": "Nova Persian beauty store concept with floating cosmetics and a liquid chrome ribbon"
+      },
+      "file": "/projects/concepts/nova-beauty.webp",
+      "prompt": "Use case: ui-mockup. Create ONE spectacular, highly art-directed desktop website or product-interface design screenshot, landscape 16:10, flat straight-on edge-to-edge UI, no laptop, no perspective frame, no outer scenery. It must feel like an experimental premium interactive website with cinematic motion graphics frozen at a compelling frame, NOT a generic SaaS template or simple split hero. Bold distinctive composition, sophisticated typography, rich material detail, deliberate layering and genuinely impressive craft. Keep the interface usable with clear navigation and concise real labels; large readable main text, minimal tiny copy. Include the start of another section or functional workspace modules so it reads as a website rather than a poster. Original fictional portfolio concept. No actual company logos, no awards or fabricated client testimonials, no watermarks, no lorem ipsum. Every element must feel designed, not randomly scattered.\n\nPersian RTL avant-garde luxury beauty ecommerce website «نُوا». High-fashion digital art direction: almost-black emerald background, giant bold off-white Persian headline «فراتر از زیبایی» running across the center, a breathtaking giant pearlescent liquid-chrome ribbon curls THROUGH the typography and suspends three beautifully branded cosmetic containers in mid-air. High-end macro material rendering: frosted deep-green serum bottle, brushed-silver cap, cream jar, droplets and silky flowing reflections with subtle motion trails. Composition is a full-canvas art installation, NOT photo left/text right. Minimal thin top navigation in Persian «پوست»، «مو»، «آرایش», cart icon and compact CTA «کشف محصولات». On one edge a vertical numbered product index, bottom an asymmetric editorial product mosaic with one large and two small images. Dramatic editorial commerce, strong visual hierarchy, real usable shopping interface, no fake medical efficacy claims."
+    },
+    {
+      "slug": "didar-admin",
+      "language": "fa",
+      "title": {
+        "fa": "دیدار؛ پنل مدیریت فروشگاه",
+        "en": "Didar · Commerce admin"
+      },
+      "service": {
+        "fa": "پنل مدیریت · طراحی رابط کاربری",
+        "en": "Admin panel · Interface design"
+      },
+      "summary": {
+        "fa": "کانسپت مرکز کنترل فروش با مسیریابی بصری سفارش‌ها، نقشه موجودی و جدول عملیات؛ محیطی تیره و چندلایه برای نمایش یک محصول مدیریتی پیشرفته.",
+        "en": "A commerce command-center concept combining visual order routing, inventory heatmaps and operations tables in a detailed dark workspace."
+      },
+      "features": {
+        "fa": [
+          "مدیریت سفارش",
+          "نمای موجودی",
+          "نمودار فروش"
+        ],
+        "en": [
+          "Order management",
+          "Inventory overview",
+          "Sales chart"
+        ]
+      },
+      "alt": {
+        "fa": "طرح مفهومی فارسی مرکز کنترل فروش دیدار با مسیریابی سفارش و جدول عملیات",
+        "en": "Didar Persian commerce command-center concept with order routing and operations tables"
+      },
+      "file": "/projects/concepts/didar-admin.webp",
+      "prompt": "Use case: ui-mockup. Create ONE spectacular, highly art-directed desktop website or product-interface design screenshot, landscape 16:10, flat straight-on edge-to-edge UI, no laptop, no perspective frame, no outer scenery. It must feel like an experimental premium interactive website with cinematic motion graphics frozen at a compelling frame, NOT a generic SaaS template or simple split hero. Bold distinctive composition, sophisticated typography, rich material detail, deliberate layering and genuinely impressive craft. Keep the interface usable with clear navigation and concise real labels; large readable main text, minimal tiny copy. Include the start of another section or functional workspace modules so it reads as a website rather than a poster. Original fictional portfolio concept. No actual company logos, no awards or fabricated client testimonials, no watermarks, no lorem ipsum. Every element must feel designed, not randomly scattered.\n\nPersian RTL next-generation commerce operations command center «دیدار», an impressive sophisticated product dashboard rather than a plain admin template. Dense but immaculate layered layout: slim RIGHT navigation rail, a wide central orders workspace, narrow left activity/fulfilment panel, horizontal overview strip. Near-black graphite, neon-cyan traces, subtle amber alerts and rich frosted-glass chart surfaces. A large central 3D luminous order-routing globe/warehouse flow visualization with curved live-looking paths, beside compact stock heatmap, sparklines and queue modules; a finely designed recent-orders table along bottom. Main heading «مرکز کنترل فروش». Right nav labels «نمای کلی»، «سفارش‌ها»، «محصولات»، «مشتریان». Complex credible production-quality SaaS with highly refined micro-visualizations, clean grid and no giant empty whitespace. Fictional demo data only, no private customer identities. No unrelated sci-fi scenery."
+    },
+    {
+      "slug": "taraz-finance",
+      "language": "fa",
+      "title": {
+        "fa": "تراز؛ داشبورد مالی کسب‌وکار",
+        "en": "Taraz · Business finance"
+      },
+      "service": {
+        "fa": "داشبورد مالی · طراحی محصول",
+        "en": "Finance dashboard · Product design"
+      },
+      "summary": {
+        "fa": "طرح داشبورد مالی با جریان نقدی سه‌بعدی، نمودار آبشاری و دفتر تراکنش‌ها؛ یک شبکه نامتقارن روشن با ناوبری افقی و تاکیدهای گرافیکی جسورانه.",
+        "en": "A finance workspace concept featuring dimensional cash-flow ribbons, waterfall charts and a transaction ledger in an asymmetric light grid."
+      },
+      "features": {
+        "fa": [
+          "جریان نقدی",
+          "دسته‌بندی هزینه",
+          "فهرست تراکنش"
+        ],
+        "en": [
+          "Cash flow",
+          "Expense categories",
+          "Transaction list"
+        ]
+      },
+      "alt": {
+        "fa": "موکاپ داشبورد مالی فارسی تراز با جریان نقدی سه‌بعدی و نمودار آبشاری",
+        "en": "Taraz Persian finance dashboard concept with 3D cash flow and waterfall charts"
+      },
+      "file": "/projects/concepts/taraz-finance.webp",
+      "prompt": "Use case: ui-mockup. Create ONE spectacular, highly art-directed desktop website or product-interface design screenshot, landscape 16:10, flat straight-on edge-to-edge UI, no laptop, no perspective frame, no outer scenery. It must feel like an experimental premium interactive website with cinematic motion graphics frozen at a compelling frame, NOT a generic SaaS template or simple split hero. Bold distinctive composition, sophisticated typography, rich material detail, deliberate layering and genuinely impressive craft. Keep the interface usable with clear navigation and concise real labels; large readable main text, minimal tiny copy. Include the start of another section or functional workspace modules so it reads as a website rather than a poster. Original fictional portfolio concept. No actual company logos, no awards or fabricated client testimonials, no watermarks, no lorem ipsum. Every element must feel designed, not randomly scattered.\n\nPersian RTL premium financial analytics workspace «تراز», clearly different from a dark sidebar admin app: warm ivory canvas, BLACK top navigation strip, cobalt and acid-lime accents, large confident typography and an asymmetric dashboard grid with NO full-height sidebar. Main headline «تصویر بزرگِ سرمایه». Hero module is an elegant dimensional 3D cash-flow ribbon/river connecting three account nodes, with embossed white surfaces and rich navy shadows, integrated into the actual financial chart area. Oversized cash-flow figures, a tall waterfall chart, crisp expenses donut and compact transactions ledger with Persian labels. Use horizontal tabs «داشبورد»، «حساب‌ها»، «تراکنش‌ها»، «گزارش‌ها». Crafted like an exceptional modern fintech product, dynamic data visualization, beautiful spatial depth without losing readability. Fictional demo financial data, not investment promises."
+    },
+    {
+      "slug": "ark-architecture",
+      "language": "fa",
+      "title": {
+        "fa": "آرک؛ استودیو معماری",
+        "en": "Ark · Architecture studio"
+      },
+      "service": {
+        "fa": "هویت برند · سایت معماری",
+        "en": "Brand identity · Architecture website"
+      },
+      "summary": {
+        "fa": "کانسپت سایت معماری با تصویر سینمایی بنا، تایپوگرافی لایه‌ای و قاب‌های برش‌خورده پروژه؛ هویتی جسورانه با الهام از گرافیک بروتالیست.",
+        "en": "An architectural website concept using cinematic building imagery, layered typography and masked project strips with a bold brutalist identity."
+      },
+      "features": {
+        "fa": [
+          "هویت بصری",
+          "گالری آثار",
+          "معرفی استودیو"
+        ],
+        "en": [
+          "Visual identity",
+          "Project gallery",
+          "Studio story"
+        ]
+      },
+      "alt": {
+        "fa": "طرح مفهومی فارسی معماری آرک با نمای سینمایی ساختمان و تایپوگرافی لایه‌ای",
+        "en": "Ark Persian architecture concept with cinematic building imagery and layered typography"
+      },
+      "file": "/projects/concepts/ark-architecture.webp",
+      "prompt": "Use case: ui-mockup. Create ONE spectacular, highly art-directed desktop website or product-interface design screenshot, landscape 16:10, flat straight-on edge-to-edge UI, no laptop, no perspective frame, no outer scenery. It must feel like an experimental premium interactive website with cinematic motion graphics frozen at a compelling frame, NOT a generic SaaS template or simple split hero. Bold distinctive composition, sophisticated typography, rich material detail, deliberate layering and genuinely impressive craft. Keep the interface usable with clear navigation and concise real labels; large readable main text, minimal tiny copy. Include the start of another section or functional workspace modules so it reads as a website rather than a poster. Original fictional portfolio concept. No actual company logos, no awards or fabricated client testimonials, no watermarks, no lorem ipsum. Every element must feel designed, not randomly scattered.\n\nPersian RTL experimental architecture studio «آرک», radically typographic and cinematic. Brutalist editorial composition with GIANT Persian outline typography «فضا، فراتر از فرم» crossing a full-bleed close-up render of a monumental sculptural concrete building with dramatic curved cantilevers, warm sun and deep shadow. Black/ivory base with a tiny acid-orange index accent, no generic blue, no rounded SaaS cards. One oversized architectural image is clipped by an angular moving-mask-like edge; three narrow vertical project strips emerge along lower-left, a thin project counter, minimal top navigation «پروژه‌ها»، «استودیو»، «تماس» and small outlined «کشف پروژه‌ها» CTA. Strong scroll-led design cues, generous negative space used intentionally, overlapping typographic layers, impressive real architectural rendering, no awards/real client logos."
+    },
+    {
+      "slug": "narvan-dining",
+      "language": "fa",
+      "title": {
+        "fa": "نارون؛ تجربه رستوران ایرانی",
+        "en": "Narvan · Persian dining"
+      },
+      "service": {
+        "fa": "رستوران · طراحی سایت و منو",
+        "en": "Restaurant · Website and menu"
+      },
+      "summary": {
+        "fa": "طرح تجربه دیجیتال رستوران ایرانی با عکاسی نمایشی غذا، ترکیب مداری مواد اولیه و پنل عمودی منو؛ فضایی گرم و سینمایی برای کشف منو و رزرو میز.",
+        "en": "A Persian dining concept with dramatic food imagery, orbital ingredient composition and a vertical menu panel in a warm cinematic layout."
+      },
+      "features": {
+        "fa": [
+          "منوی غذا",
+          "معرفی فضا",
+          "رزرو میز"
+        ],
+        "en": [
+          "Food menu",
+          "Restaurant story",
+          "Table booking"
+        ]
+      },
+      "alt": {
+        "fa": "موکاپ فارسی رستوران نارون با عکاسی نمایشی غذا و منوی عمودی",
+        "en": "Narvan Persian restaurant concept with dramatic food imagery and a vertical menu"
+      },
+      "file": "/projects/concepts/narvan-dining.webp",
+      "prompt": "Use case: ui-mockup. Create ONE spectacular, highly art-directed desktop website or product-interface design screenshot, landscape 16:10, flat straight-on edge-to-edge UI, no laptop, no perspective frame, no outer scenery. It must feel like an experimental premium interactive website with cinematic motion graphics frozen at a compelling frame, NOT a generic SaaS template or simple split hero. Bold distinctive composition, sophisticated typography, rich material detail, deliberate layering and genuinely impressive craft. Keep the interface usable with clear navigation and concise real labels; large readable main text, minimal tiny copy. Include the start of another section or functional workspace modules so it reads as a website rather than a poster. Original fictional portfolio concept. No actual company logos, no awards or fabricated client testimonials, no watermarks, no lorem ipsum. Every element must feel designed, not randomly scattered.\n\nPersian RTL contemporary Iranian fine-dining brand «نارون», expressive immersive motion-led restaurant website. Luxurious burnt-saffron and burgundy with warm cream type, dramatic near-black food photography. An enormous overhead dish of saffron rice and grilled Persian ingredients appears to float across the center as sculptural herbs and tiny saffron threads make a restrained orbital motion composition; ultra-real delicious food lighting, no people. Giant Persian headline «یک سفرِ خوش‌طعم» uses confident editorial typography at upper-left/center, a tall CREAM vertical menu panel on the right lists three dishes in Persian with delicate rules, opposite edge a circular outlined «رزرو میز» button. Top small brand and nav «منو»، «داستان ما»، «رزرو». Bottom reveals a narrow filmstrip of the restaurant interior and kitchen details. No three identical cards, no generic restaurant stock template."
+    },
+    {
+      "slug": "orbit-dex",
+      "language": "en",
+      "title": {
+        "fa": "OrbitDEX؛ رابط صرافی غیرمتمرکز",
+        "en": "OrbitDEX · Decentralized exchange"
+      },
+      "service": {
+        "fa": "DEX · طراحی محصول Web3",
+        "en": "DEX · Web3 product design"
+      },
+      "summary": {
+        "fa": "کانسپت یک ترمینال DEX با نمودار معاملاتی، عمق بازار و فرم تبادل توکن؛ جریان داده و المان نقدینگی هولوگرافیک، ساختار فشرده محصول را شکل می‌دهند.",
+        "en": "A DEX terminal concept with trading charts, market depth and token swapping, structured around a holographic liquidity visualization and data stream."
+      },
+      "features": {
+        "fa": [
+          "تبادل توکن",
+          "انتخاب شبکه",
+          "نمای بازار"
+        ],
+        "en": [
+          "Token swapping",
+          "Network selector",
+          "Market overview"
+        ]
+      },
+      "alt": {
+        "fa": "طرح مفهومی انگلیسی ترمینال OrbitDEX با نمودار معامله و نقدینگی هولوگرافیک",
+        "en": "OrbitDEX English trading-terminal concept with market charts and holographic liquidity art"
+      },
+      "file": "/projects/concepts/orbit-dex.webp",
+      "prompt": "Use case: ui-mockup. Create ONE spectacular, highly art-directed desktop website or product-interface design screenshot, landscape 16:10, flat straight-on edge-to-edge UI, no laptop, no perspective frame, no outer scenery. It must feel like an experimental premium interactive website with cinematic motion graphics frozen at a compelling frame, NOT a generic SaaS template or simple split hero. Bold distinctive composition, sophisticated typography, rich material detail, deliberate layering and genuinely impressive craft. Keep the interface usable with clear navigation and concise real labels; large readable main text, minimal tiny copy. Include the start of another section or functional workspace modules so it reads as a website rather than a poster. Original fictional portfolio concept. No actual company logos, no awards or fabricated client testimonials, no watermarks, no lorem ipsum. Every element must feel designed, not randomly scattered.\n\nEnglish LTR OrbitDEX decentralized exchange, designed as a striking high-end LIVE TRADING TERMINAL rather than a conventional marketing hero. Midnight black, vivid cyan, restrained chart green/red and white condensed typography. Giant outlined word 'ORBIT' behind an elegant holographic torus liquidity visualization at top-center, integrated with a very credible candlestick market chart below. Left market pairs rail, center market chart and depth visualization, RIGHT beautifully designed token swap panel with From, To, ETH, USDC and Swap. Slim top nav Trade, Pools, Portfolio and Connect Wallet. A luminous line threads through the modules like a motion-graphics data stream. Rich dense professional Web3 interface, careful grid, no fake yields, no real exchange logos, fictional demo balances only. High visual impact but usable."
+    },
+    {
+      "slug": "vaulta-web3",
+      "language": "en",
+      "title": {
+        "fa": "Vaulta؛ کیف پول و هویت Web3",
+        "en": "Vaulta · Web3 wallet"
+      },
+      "service": {
+        "fa": "Web3 · طراحی تجربه کیف پول",
+        "en": "Web3 · Wallet experience design"
+      },
+      "summary": {
+        "fa": "طرح کیف پول Web3 با حلقه کرومی، کارت شفاف و ترکیب بنتوی نامتقارن؛ اتصال گرافیک ادیتوریال به نمای دارایی‌ها و شبکه‌ها.",
+        "en": "A Web3 wallet concept pairing a chrome vault ring and translucent asset card with asymmetric bento composition and editorial typography."
+      },
+      "features": {
+        "fa": [
+          "مدیریت دارایی",
+          "نمای چندشبکه‌ای",
+          "پیش‌نمایش کیف پول"
+        ],
+        "en": [
+          "Asset management",
+          "Multi-network view",
+          "Wallet preview"
+        ]
+      },
+      "alt": {
+        "fa": "موکاپ انگلیسی کیف پول Vaulta با حلقه کرومی و کارت دارایی شفاف",
+        "en": "Vaulta English wallet concept with a chrome vault ring and translucent asset card"
+      },
+      "file": "/projects/concepts/vaulta-web3.webp",
+      "prompt": "Use case: ui-mockup. Create ONE spectacular, highly art-directed desktop website or product-interface design screenshot, landscape 16:10, flat straight-on edge-to-edge UI, no laptop, no perspective frame, no outer scenery. It must feel like an experimental premium interactive website with cinematic motion graphics frozen at a compelling frame, NOT a generic SaaS template or simple split hero. Bold distinctive composition, sophisticated typography, rich material detail, deliberate layering and genuinely impressive craft. Keep the interface usable with clear navigation and concise real labels; large readable main text, minimal tiny copy. Include the start of another section or functional workspace modules so it reads as a website rather than a poster. Original fictional portfolio concept. No actual company logos, no awards or fabricated client testimonials, no watermarks, no lorem ipsum. Every element must feel designed, not randomly scattered.\n\nEnglish LTR Vaulta premium Web3 wallet / digital identity experience, a highly experimental interactive product landing. WARM ivory background with massive BLACK editorial typography 'OWN YOUR NEXT.' stacked on the left, asymmetric bento composition on the right built around a beautiful rotating-looking brushed-chrome vault ring and an electric-lime translucent wallet card, softly blurred depth and photoreal reflections. Split circular typography, small orbiting network nodes, a dimensional wallet-assets preview with clean English labels, bottom narrow horizontal feature index. Header Product, Networks, Learn and CTA 'Enter Vaulta'. Sophisticated contrast of warm print-editorial layout and sculptural 3D motion art. No dark purple gradient, no generic split-screen SaaS cards, no fake security certifications or financial promises."
+    },
+    {
+      "slug": "metricflow-analytics",
+      "language": "en",
+      "title": {
+        "fa": "MetricFlow؛ محصول تحلیل داده",
+        "en": "MetricFlow · Analytics platform"
+      },
+      "service": {
+        "fa": "SaaS · داشبورد و تحلیل داده",
+        "en": "SaaS · Dashboard and analytics"
+      },
+      "summary": {
+        "fa": "کانسپت پلتفرم تحلیل داده با تایپوگرافی جنبشی و روبان سه‌بعدی داده که به داشبورد می‌رسد؛ ترکیب آبی جسورانه و ابزارهای تحلیلی روشن.",
+        "en": "An analytics platform concept with kinetic typography and a dimensional data ribbon flowing into a precise light dashboard on a bold cobalt canvas."
+      },
+      "features": {
+        "fa": [
+          "داشبورد تحلیلی",
+          "قیف تبدیل",
+          "گزارش مقایسه‌ای"
+        ],
+        "en": [
+          "Analytics dashboard",
+          "Conversion funnel",
+          "Comparison reports"
+        ]
+      },
+      "alt": {
+        "fa": "طرح مفهومی انگلیسی MetricFlow با روبان سه‌بعدی داده و داشبورد تحلیلی",
+        "en": "MetricFlow English analytics concept with a 3D data ribbon and dashboard"
+      },
+      "file": "/projects/concepts/metricflow-analytics.webp",
+      "prompt": "Use case: ui-mockup. Create ONE spectacular, highly art-directed desktop website or product-interface design screenshot, landscape 16:10, flat straight-on edge-to-edge UI, no laptop, no perspective frame, no outer scenery. It must feel like an experimental premium interactive website with cinematic motion graphics frozen at a compelling frame, NOT a generic SaaS template or simple split hero. Bold distinctive composition, sophisticated typography, rich material detail, deliberate layering and genuinely impressive craft. Keep the interface usable with clear navigation and concise real labels; large readable main text, minimal tiny copy. Include the start of another section or functional workspace modules so it reads as a website rather than a poster. Original fictional portfolio concept. No actual company logos, no awards or fabricated client testimonials, no watermarks, no lorem ipsum. Every element must feel designed, not randomly scattered.\n\nEnglish LTR MetricFlow expressive analytics SaaS website, visually bold and architected like an interactive editorial billboard. Bright cobalt BLUE canvas, enormous cream headline 'MAKE DATA MOVE.' spanning nearly the full width, a huge dimensional flowing white data-ribbon twists through the lettering and resolves into a precise analytics dashboard window across the lower half. The dashboard itself is light ivory/black with crisp chart modules, conversion funnel and compact segment rows; thin lime highlight. Top minimal nav Product, Solutions, Resources and 'Get started'. Add a narrow left vertical section index and one floating circular scroll cue. Distinctive kinetic typography, volumetric data sculpture and actual usable analytics UI, not a conventional white SaaS marketing template. Fictional demo metrics only."
+    },
+    {
+      "slug": "nomad-travel",
+      "language": "en",
+      "title": {
+        "fa": "Nomad House؛ سفر و اقامت",
+        "en": "Nomad House · Travel and stays"
+      },
+      "service": {
+        "fa": "گردشگری · طراحی سایت و رزرو",
+        "en": "Travel · Website and booking"
+      },
+      "summary": {
+        "fa": "طرح سایت سفر به سبک مجله تصویری با قاب‌های سینمایی مقصد، کلاژ نامتقارن و نوار رزرو؛ روایتی ماجراجویانه با عکس‌های متنوع و تایپوگرافی شاخص.",
+        "en": "An editorial travel concept using cinematic destination panels, asymmetric photo collage and a slim booking rail with adventurous typography."
+      },
+      "features": {
+        "fa": [
+          "جست‌وجوی اقامت",
+          "کارت مقصد",
+          "عکاسی مقصد"
+        ],
+        "en": [
+          "Stay search",
+          "Destination cards",
+          "Destination photography"
+        ]
+      },
+      "alt": {
+        "fa": "موکاپ انگلیسی سفر Nomad House با کلاژ مقصدها و نوار رزرو",
+        "en": "Nomad House English travel concept with destination collage and a booking rail"
+      },
+      "file": "/projects/concepts/nomad-travel.webp",
+      "prompt": "Use case: ui-mockup. Create ONE spectacular, highly art-directed desktop website or product-interface design screenshot, landscape 16:10, flat straight-on edge-to-edge UI, no laptop, no perspective frame, no outer scenery. It must feel like an experimental premium interactive website with cinematic motion graphics frozen at a compelling frame, NOT a generic SaaS template or simple split hero. Bold distinctive composition, sophisticated typography, rich material detail, deliberate layering and genuinely impressive craft. Keep the interface usable with clear navigation and concise real labels; large readable main text, minimal tiny copy. Include the start of another section or functional workspace modules so it reads as a website rather than a poster. Original fictional portfolio concept. No actual company logos, no awards or fabricated client testimonials, no watermarks, no lorem ipsum. Every element must feel designed, not randomly scattered.\n\nEnglish LTR Nomad House high-end travel website as an immersive EDITORIAL PHOTO JOURNAL, not a generic hotel booking hero. Sandstone cream, burnt-orange, deep ink and ocean turquoise. An oversized serif headline 'GO SOMEWHERE ELSE.' cuts across an asymmetric collage of three gorgeous travel photographs: one tall tropical waterfall frame, one panoramic desert-canyon frame, and a smaller cliffside sea-villa frame. Photographs appear as sliding cinematic film panels with slightly overlapping crop masks, sharp clean aligned edges, small coordinate-style captions, subtle motion streaks only at edges. Booking controls live in a slim BLACK horizontal rail at bottom with Destination, Dates, Guests and 'Explore'. Refined top nav Destinations, Stays, Journal, small monogram. Realistic destination photography, strong art direction and adventurous premium character, no fake star ratings or awards."
+    }
+  ]
+}

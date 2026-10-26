@@ -80,10 +80,10 @@ const copy = {
 } as const;
 
 const STATE_STYLE: Record<CheckState, { color: string; Icon: typeof FiCheckCircle }> = {
-  pass: { color: "text-emerald-400", Icon: FiCheckCircle },
-  warn: { color: "text-amber-400", Icon: FiAlertTriangle },
-  fail: { color: "text-red-400", Icon: FiXCircle },
-  info: { color: "text-sky-400", Icon: FiInfo },
+  pass: { color: "text-success", Icon: FiCheckCircle },
+  warn: { color: "text-warning", Icon: FiAlertTriangle },
+  fail: { color: "text-danger", Icon: FiXCircle },
+  info: { color: "text-primary", Icon: FiInfo },
 };
 
 function formatValue(check: AuditCheck, locale: Locale): string {
@@ -109,7 +109,7 @@ function formatValue(check: AuditCheck, locale: Locale): string {
 }
 
 function scoreColor(score: number) {
-  return score >= 80 ? "text-emerald-400" : score >= 55 ? "text-amber-400" : "text-red-400";
+  return score >= 80 ? "text-success" : score >= 55 ? "text-warning" : "text-danger";
 }
 
 function ScoreRing({ score, locale }: { score: number; locale: Locale }) {
@@ -246,7 +246,7 @@ export default function SeoAuditTool({ locale }: { locale: Locale }) {
           </button>
         </form>
         {status === "error" && error ? (
-          <p id={`${baseId}-error`} role="alert" className="mt-4 rounded-2xl border border-red-400/30 bg-red-950/20 px-4 py-3 text-sm text-red-300">
+          <p id={`${baseId}-error`} role="alert" className="mt-4 rounded-2xl border border-danger/30 bg-danger/20 px-4 py-3 text-sm text-danger">
             {error}
           </p>
         ) : null}
@@ -264,9 +264,9 @@ export default function SeoAuditTool({ locale }: { locale: Locale }) {
                   {t.checked}: <span dir="ltr" className="text-foreground/80">{result.url}</span>
                 </p>
                 <ul className="mt-4 flex flex-wrap justify-center gap-2 text-xs font-bold sm:justify-start">
-                  <li className="rounded-full border border-red-400/30 px-3 py-1.5 text-red-300">{t.fail}: <span dir="ltr">{result.counts.fail}</span></li>
-                  <li className="rounded-full border border-amber-400/30 px-3 py-1.5 text-amber-300">{t.warn}: <span dir="ltr">{result.counts.warn}</span></li>
-                  <li className="rounded-full border border-emerald-400/30 px-3 py-1.5 text-emerald-300">{t.pass}: <span dir="ltr">{result.counts.pass}</span></li>
+                  <li className="rounded-full border border-danger/30 px-3 py-1.5 text-danger">{t.fail}: <span dir="ltr">{result.counts.fail}</span></li>
+                  <li className="rounded-full border border-warning/30 px-3 py-1.5 text-warning">{t.warn}: <span dir="ltr">{result.counts.warn}</span></li>
+                  <li className="rounded-full border border-success/30 px-3 py-1.5 text-success">{t.pass}: <span dir="ltr">{result.counts.pass}</span></li>
                 </ul>
               </div>
               <button
@@ -284,7 +284,7 @@ export default function SeoAuditTool({ locale }: { locale: Locale }) {
           </ToolPanel>
 
           {failing.length === 0 && warning.length === 0 ? (
-            <p className="rounded-2xl border border-emerald-400/30 bg-emerald-950/10 px-5 py-4 text-sm font-bold text-emerald-300">{t.noIssues}</p>
+            <p className="rounded-2xl border border-success/30 bg-success/10 px-5 py-4 text-sm font-bold text-success">{t.noIssues}</p>
           ) : null}
 
           {failing.length > 0 ? (

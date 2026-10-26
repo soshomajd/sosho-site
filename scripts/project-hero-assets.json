@@ -1,0 +1,395 @@
+{
+  "updatedAt": "2026-10-26",
+  "assets": [
+    {
+      "slug": "tino-electronic",
+      "device": "desktop",
+      "file": "/projects/hero/tino-electronic-desktop.webp",
+      "width": 1200,
+      "height": 523,
+      "bytes": 53410,
+      "quality": 84,
+      "source": "live Playwright capture"
+    },
+    {
+      "slug": "tino-electronic",
+      "device": "tablet",
+      "file": "/projects/hero/tino-electronic-tablet.webp",
+      "width": 805,
+      "height": 657,
+      "bytes": 43718,
+      "quality": 84,
+      "source": "live Playwright capture"
+    },
+    {
+      "slug": "tino-electronic",
+      "device": "mobile",
+      "file": "/projects/hero/tino-electronic-mobile.webp",
+      "width": 375,
+      "height": 773,
+      "bytes": 34414,
+      "quality": 84,
+      "source": "live Playwright capture"
+    },
+    {
+      "slug": "wallpaper-consortium",
+      "device": "desktop",
+      "file": "/projects/hero/wallpaper-consortium-desktop.webp",
+      "width": 1200,
+      "height": 526,
+      "bytes": 65140,
+      "quality": 84,
+      "source": "live Playwright capture"
+    },
+    {
+      "slug": "wallpaper-consortium",
+      "device": "tablet",
+      "file": "/projects/hero/wallpaper-consortium-tablet.webp",
+      "width": 820,
+      "height": 470,
+      "bytes": 50018,
+      "quality": 84,
+      "source": "live Playwright capture"
+    },
+    {
+      "slug": "wallpaper-consortium",
+      "device": "mobile",
+      "file": "/projects/hero/wallpaper-consortium-mobile.webp",
+      "width": 390,
+      "height": 380,
+      "bytes": 22858,
+      "quality": 84,
+      "source": "live Playwright capture"
+    },
+    {
+      "slug": "niroo-tejarat-atieh",
+      "device": "desktop",
+      "file": "/projects/hero/niroo-tejarat-atieh-desktop.webp",
+      "width": 1200,
+      "height": 758,
+      "bytes": 97166,
+      "quality": 84,
+      "source": "live Playwright capture"
+    },
+    {
+      "slug": "niroo-tejarat-atieh",
+      "device": "tablet",
+      "file": "/projects/hero/niroo-tejarat-atieh-tablet.webp",
+      "width": 805,
+      "height": 1180,
+      "bytes": 82838,
+      "quality": 84,
+      "source": "live Playwright capture"
+    },
+    {
+      "slug": "niroo-tejarat-atieh",
+      "device": "mobile",
+      "file": "/projects/hero/niroo-tejarat-atieh-mobile.webp",
+      "width": 390,
+      "height": 844,
+      "bytes": 35442,
+      "quality": 84,
+      "source": "live Playwright capture"
+    },
+    {
+      "slug": "sepid-medical",
+      "device": "desktop",
+      "file": "/projects/hero/sepid-medical-desktop.webp",
+      "width": 1200,
+      "height": 750,
+      "bytes": 148256,
+      "quality": 81,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "sepid-medical",
+      "device": "tablet",
+      "file": "/projects/hero/sepid-medical-tablet.webp",
+      "width": 820,
+      "height": 1180,
+      "bytes": 151008,
+      "quality": 81,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "sepid-medical",
+      "device": "mobile",
+      "file": "/projects/hero/sepid-medical-mobile.webp",
+      "width": 780,
+      "height": 1688,
+      "bytes": 151100,
+      "quality": 78,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "nova-beauty",
+      "device": "desktop",
+      "file": "/projects/hero/nova-beauty-desktop.webp",
+      "width": 1200,
+      "height": 750,
+      "bytes": 151330,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "nova-beauty",
+      "device": "tablet",
+      "file": "/projects/hero/nova-beauty-tablet.webp",
+      "width": 820,
+      "height": 1180,
+      "bytes": 153196,
+      "quality": 81,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "nova-beauty",
+      "device": "mobile",
+      "file": "/projects/hero/nova-beauty-mobile.webp",
+      "width": 780,
+      "height": 1688,
+      "bytes": 148882,
+      "quality": 75,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "didar-admin",
+      "device": "desktop",
+      "file": "/projects/hero/didar-admin-desktop.webp",
+      "width": 1200,
+      "height": 750,
+      "bytes": 126928,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "didar-admin",
+      "device": "tablet",
+      "file": "/projects/hero/didar-admin-tablet.webp",
+      "width": 820,
+      "height": 1180,
+      "bytes": 146416,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "didar-admin",
+      "device": "mobile",
+      "file": "/projects/hero/didar-admin-mobile.webp",
+      "width": 780,
+      "height": 1688,
+      "bytes": 151998,
+      "quality": 81,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "taraz-finance",
+      "device": "desktop",
+      "file": "/projects/hero/taraz-finance-desktop.webp",
+      "width": 1200,
+      "height": 750,
+      "bytes": 90318,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "taraz-finance",
+      "device": "tablet",
+      "file": "/projects/hero/taraz-finance-tablet.webp",
+      "width": 820,
+      "height": 1180,
+      "bytes": 92560,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "taraz-finance",
+      "device": "mobile",
+      "file": "/projects/hero/taraz-finance-mobile.webp",
+      "width": 780,
+      "height": 1688,
+      "bytes": 100634,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "ark-architecture",
+      "device": "desktop",
+      "file": "/projects/hero/ark-architecture-desktop.webp",
+      "width": 1200,
+      "height": 750,
+      "bytes": 131302,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "ark-architecture",
+      "device": "tablet",
+      "file": "/projects/hero/ark-architecture-tablet.webp",
+      "width": 820,
+      "height": 1180,
+      "bytes": 152538,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "ark-architecture",
+      "device": "mobile",
+      "file": "/projects/hero/ark-architecture-mobile.webp",
+      "width": 780,
+      "height": 1688,
+      "bytes": 155046,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "narvan-dining",
+      "device": "desktop",
+      "file": "/projects/hero/narvan-dining-desktop.webp",
+      "width": 1200,
+      "height": 750,
+      "bytes": 146116,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "narvan-dining",
+      "device": "tablet",
+      "file": "/projects/hero/narvan-dining-tablet.webp",
+      "width": 820,
+      "height": 1180,
+      "bytes": 159408,
+      "quality": 81,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "narvan-dining",
+      "device": "mobile",
+      "file": "/projects/hero/narvan-dining-mobile.webp",
+      "width": 780,
+      "height": 1688,
+      "bytes": 159012,
+      "quality": 72,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "orbit-dex",
+      "device": "desktop",
+      "file": "/projects/hero/orbit-dex-desktop.webp",
+      "width": 1200,
+      "height": 750,
+      "bytes": 113030,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "orbit-dex",
+      "device": "tablet",
+      "file": "/projects/hero/orbit-dex-tablet.webp",
+      "width": 820,
+      "height": 1180,
+      "bytes": 117470,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "orbit-dex",
+      "device": "mobile",
+      "file": "/projects/hero/orbit-dex-mobile.webp",
+      "width": 780,
+      "height": 1688,
+      "bytes": 117588,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "vaulta-web3",
+      "device": "desktop",
+      "file": "/projects/hero/vaulta-web3-desktop.webp",
+      "width": 1200,
+      "height": 750,
+      "bytes": 109582,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "vaulta-web3",
+      "device": "tablet",
+      "file": "/projects/hero/vaulta-web3-tablet.webp",
+      "width": 820,
+      "height": 1180,
+      "bytes": 115486,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "vaulta-web3",
+      "device": "mobile",
+      "file": "/projects/hero/vaulta-web3-mobile.webp",
+      "width": 780,
+      "height": 1688,
+      "bytes": 122896,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "metricflow-analytics",
+      "device": "desktop",
+      "file": "/projects/hero/metricflow-analytics-desktop.webp",
+      "width": 1200,
+      "height": 750,
+      "bytes": 105628,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "metricflow-analytics",
+      "device": "tablet",
+      "file": "/projects/hero/metricflow-analytics-tablet.webp",
+      "width": 820,
+      "height": 1180,
+      "bytes": 114654,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "metricflow-analytics",
+      "device": "mobile",
+      "file": "/projects/hero/metricflow-analytics-mobile.webp",
+      "width": 780,
+      "height": 1688,
+      "bytes": 123802,
+      "quality": 84,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "nomad-travel",
+      "device": "desktop",
+      "file": "/projects/hero/nomad-travel-desktop.webp",
+      "width": 1200,
+      "height": 750,
+      "bytes": 143362,
+      "quality": 81,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "nomad-travel",
+      "device": "tablet",
+      "file": "/projects/hero/nomad-travel-tablet.webp",
+      "width": 820,
+      "height": 1180,
+      "bytes": 148246,
+      "quality": 75,
+      "source": "built-in image_gen"
+    },
+    {
+      "slug": "nomad-travel",
+      "device": "mobile",
+      "file": "/projects/hero/nomad-travel-mobile.webp",
+      "width": 780,
+      "height": 1688,
+      "bytes": 149690,
+      "quality": 75,
+      "source": "built-in image_gen"
+    }
+  ]
+}

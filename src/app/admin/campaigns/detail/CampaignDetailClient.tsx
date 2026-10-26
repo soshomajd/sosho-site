@@ -230,13 +230,13 @@ export default function CampaignDetailClient() {
                   type="button"
                   disabled={actionDisabled || !detail.allowedActions[action]}
                   onClick={() => requestConfirmation(action)}
-                  className={`rounded-xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40 ${action === "approve" ? "bg-emerald-600 text-white" : action === "reject" ? "bg-red-700 text-white" : "border border-white/15 text-foreground"}`}
+                  className={`rounded-xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40 ${action === "approve" ? "bg-success text-background" : action === "reject" ? "bg-red-700 text-white" : "border border-white/15 text-foreground"}`}
                 >
                   {actionLabels[action]}
                 </button>
               ))}
             </div>
-            {message ? <p className="mt-4 text-sm leading-6 text-amber-200" role="status">{message}</p> : null}
+            {message ? <p className="mt-4 text-sm leading-6 text-warning" role="status">{message}</p> : null}
           </section>
 
           <section className="rounded-2xl border border-white/10 bg-surface p-5" aria-labelledby="media-status">
@@ -247,7 +247,7 @@ export default function CampaignDetailClient() {
                 : detail.media ? (statusLabels[detail.media.status] || detail.media.status) : "رسانه‌ای ثبت نشده"}
             </p>
             {detail.media?.supersededAt ? (
-              <p className="mt-2 text-sm leading-7 text-amber-200">
+              <p className="mt-2 text-sm leading-7 text-warning">
                 متن کمپین بعد از ساخت این تصویر دوباره تولید شده است؛ تصویر باید با نسخه جدید بازتولید شود.
               </p>
             ) : null}
@@ -321,7 +321,7 @@ export default function CampaignDetailClient() {
             ) : null}
             <div className="mt-6 flex flex-wrap justify-end gap-3">
               <button type="button" disabled={pending} onClick={() => setConfirmation(null)} className="rounded-xl border border-white/15 px-4 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-40">انصراف</button>
-              <button type="button" disabled={pending || (confirmation.action === "reject" && rejectReason.trim().length < 3)} onClick={() => void submitAction()} className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40">{pending ? "در حال انجام…" : "تأیید نهایی"}</button>
+              <button type="button" disabled={pending || (confirmation.action === "reject" && rejectReason.trim().length < 3)} onClick={() => void submitAction()} className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-background focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40">{pending ? "در حال انجام…" : "تأیید نهایی"}</button>
             </div>
           </section>
         </div>

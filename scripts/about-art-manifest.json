@@ -1,0 +1,22 @@
+{
+  "createdAt": "2026-10-26",
+  "provider": "built-in image_gen",
+  "reference": "public/brand/logo-mark-light.webp",
+  "prompt": "Use case: stylized-concept. Asset type: ultra-wide full-width cinematic editorial banner for the About section of SoSho Studio, a premium design and technology studio. Input image1 is the EXACT owned SoSho logo mark reference; preserve its recognizable angular interlocking S silhouette and white upper/copper-orange lower structure, no lettering. Create a spectacular polished 3D art-directed digital craft panorama, extra wide 5:2 composition, intended final 1800x720. A large extruded SoSho mark floats slightly above a refined graphite platform near center, brushed metal edges and matte porcelain white/copper faces, beautiful realistic material quality. Around it a purposeful continuous steel-blue light path connects an abstract wireframe idea object at left, layered sculptural glass interface panels with clean non-text UI shapes, and a precise architectural data structure at right. Strong foreground/midground/background depth, large crafted objects rather than tiny clutter, asymmetric but balanced cinematic composition. Deep navy #111820 and graphite #1D2935 background, soft steel-blue #8DAFC5 rim light, restrained copper #C98B62 highlights, a small sage glow. Elegant luminous orbital lines echo the circular halo of the site's 3D portrait hero, atmospheric depth, restrained motion-graphic light trails, delicate floor reflections. Feel imaginative, expensive and human-crafted, not a generic AI neural-network wallpaper or ordinary computer desk. No people, no faces, no real company logos other than supplied mark, no screens with gibberish, no readable text, letters, numbers or watermark. Keep all important objects inside the middle 80% horizontal and middle 70% vertical area; logo prominent and entirely visible. Dark margins should blend naturally with the site's navy background; avoid a hard rectangular outer frame. Render a finished photographic-quality 3D scene, not a webpage screenshot or poster with typography.",
+  "assets": [
+    {
+      "file": "public/brand/about-studio-panorama-20261026.webp",
+      "width": 1800,
+      "height": 720
+    },
+    {
+      "file": "public/brand/about-studio-panorama-20261026-sm.webp",
+      "width": 900,
+      "height": 360
+    }
+  ],
+  "alt": {
+    "fa": "تصویر سه‌بعدی نشان سوشو در میان قاب‌های شیشه‌ای طراحی و مسیر نور آبی، نمادی از مسیر ایده تا ساخت",
+    "en": "3D Sosho mark surrounded by glass design interfaces and a blue light path, representing the journey from idea to build"
+  }
+}

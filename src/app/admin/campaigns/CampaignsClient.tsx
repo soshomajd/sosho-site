@@ -85,7 +85,7 @@ export default function CampaignsClient() {
       {resource.loading ? <LoadingState /> : null}
       {resource.error ? <ErrorState message={resource.error} retry={resource.retry} /> : null}
       {resource.data?.mediaCapability === "activation_required" ? (
-        <div className="mb-6 rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4 text-sm leading-7 text-amber-100" role="status">
+        <div className="mb-6 rounded-2xl border border-warning/30 bg-warning/10 p-4 text-sm leading-7 text-warning" role="status">
           فعال‌سازی ذخیره‌سازی رسانه لازم است؛ نمایش کمپین‌ها ادامه دارد اما تولید و ذخیره رسانه مسدود است.
         </div>
       ) : null}

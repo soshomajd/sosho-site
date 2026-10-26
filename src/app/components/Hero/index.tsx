@@ -1,6 +1,7 @@
 import type { Locale } from "@/app/i18n";
-import HeroVideo from "./HeroVideo";
-import { HERO_POSTER } from "./hero-assets";
+import Image from "next/image";
+import { FiArrowDown, FiArrowUpRight } from "react-icons/fi";
+import PortraitEyes from "./PortraitEyes";
 import "./hero.css";
 
 export const HERO_COPY = {
@@ -42,59 +43,41 @@ export default function Hero({ locale }: { locale: Locale }) {
 
     return (
         <section id="studio-hero" aria-labelledby="studio-hero-title" className="sh-hero">
-            {/* The poster is a plain high-priority image in the HTML: the preload scanner finds it at once,
-                it is the LCP element, and (unlike a hoisted preload) it is not re-fetched by other pages
-                that prefetch the homepage. The clip fades in over it once it actually plays. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-                className="sh-art"
-                src={HERO_POSTER}
-                alt=""
-                aria-hidden="true"
-                width={1920}
-                height={1080}
-                fetchPriority="high"
-                decoding="async"
-            />
-            <HeroVideo />
-            <div className="sh-veil" aria-hidden="true" />
-            <div className="sh-fade" aria-hidden="true" />
-
-            <div className="sh-inner">
-                <h1 id="studio-hero-title" className="sh-title">
-                    <span>{copy.titleLines[0]}</span>
-                    <span>{copy.titleLines[1]}</span>
-                </h1>
-
-                <p className="sh-sub">
-                    <span>{copy.descriptionLines[0]}</span>
-                    <span>{copy.descriptionLines[1]}</span>
-                </p>
-
-                <a className="sh-cta" href={`/${locale}#contact`}>
-                    <span>{copy.primaryAction}</span>
-                    <svg className="sh-arrow" viewBox="0 0 16 11" aria-hidden="true">
-                        <path d="M0 5.5 H14.6 M10.3 1.2 L14.9 5.5 L10.3 9.8" />
-                    </svg>
-                </a>
-
-                <ul className="sh-feats" aria-label={isFa ? "حوزه‌های تخصصی" : "Areas of expertise"}>
-                    {copy.services.map((service) => (
-                        <li key={service}>
-                            <svg className="sh-chev" viewBox="0 0 11 20" aria-hidden="true">
-                                <path d="M1.15 1.15 L9.6 10 L1.15 18.85" />
-                            </svg>
-                            <span dir={service === "Web3" ? "ltr" : undefined}>{service}</span>
-                        </li>
-                    ))}
-                </ul>
-
-                <span className="sh-rule" aria-hidden="true" />
+            <div className="sh-stage">
+                <p className="sh-eyebrow" data-reveal>{copy.eyebrow}</p>
+                <p className="sh-wordmark" aria-hidden="true" dir="ltr">SOSHO STUDIO</p>
+                <div className="sh-orbit" aria-hidden="true" />
+                <div className="sh-portrait">
+                    <Image
+                        src="/brand/soheil-character-3d.webp"
+                        alt={isFa ? "چهرهٔ کارتونی سه‌بعدی سهیل شکوهی مجد، بنیان‌گذار سوشو استودیو" : "3D cartoon portrait of Soheil Shokouhi Majd, founder of Sosho Studio"}
+                        width={1000}
+                        height={1000}
+                        sizes="(max-width: 640px) 85vw, (max-width: 1024px) 60vw, 540px"
+                        fetchPriority="high"
+                        loading="eager"
+                        className="sh-character"
+                    />
+                    <PortraitEyes />
+                </div>
+                <div className="sh-intro" data-reveal>
+                    <h1 id="studio-hero-title" className="sh-title">{copy.title}</h1>
+                    <p className="sh-sub">{copy.description}</p>
+                </div>
+                <div className="sh-actions" data-reveal data-motion-delay="120">
+                    <a className="sh-cta" href={`/${locale}#contact`}>
+                        <span>{copy.primaryAction}</span>
+                        <FiArrowUpRight aria-hidden="true" className="rtl:-scale-x-100" />
+                    </a>
+                    <a className="sh-secondary" href={`/${locale}#services`}>{copy.secondaryAction}</a>
+                </div>
             </div>
-
-            <p className="sh-foot">
-                <span>{copy.scroll}</span>
-            </p>
+            <div className="sh-bottom">
+                <ul className="sh-feats" aria-label={isFa ? "حوزه‌های تخصصی" : "Areas of expertise"}>
+                    {copy.services.map((service) => <li key={service}><span dir={service === "Web3" ? "ltr" : undefined}>{service}</span></li>)}
+                </ul>
+                <a className="sh-scroll" href="#about"><span>{copy.scroll}</span><FiArrowDown aria-hidden="true" /></a>
+            </div>
         </section>
     );
 }

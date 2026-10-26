@@ -44,6 +44,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
   });
 
+  const projectHubLanguages = {
+    fa: `${base}/fa/projectcs`,
+    en: `${base}/en/projectcs`,
+    "x-default": `${base}/fa/projectcs`,
+  };
+  const projectHubEntries: MetadataRoute.Sitemap = (["fa", "en"] as const).map((locale) => ({
+    url: `${base}/${locale}/projectcs`,
+    lastModified: siteUpdated,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+    alternates: { languages: projectHubLanguages },
+  }));
   const projectEntries: MetadataRoute.Sitemap = PROJECTS.flatMap((project) => {
     const languages = {
       fa: `${base}/fa/projects/${project.slug}`,
@@ -138,6 +150,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...serviceEntries,
     ...toolEntries,
+    ...projectHubEntries,
     ...projectEntries,
     ...postEntries,
   ];

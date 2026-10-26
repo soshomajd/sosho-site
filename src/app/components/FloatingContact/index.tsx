@@ -17,7 +17,7 @@ export default function FloatingContact({ locale }: { locale: Locale }) {
       rel="noopener noreferrer"
       aria-label={label}
       title={label}
-      className="fixed bottom-4 start-4 z-60 grid h-12 w-12 place-items-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/40 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none sm:hidden"
+      className="fixed bottom-4 start-4 z-60 grid h-12 w-12 place-items-center rounded-full bg-sage text-background shadow-lg shadow-black/40 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none sm:hidden"
     >
       <SiWhatsapp className="h-6 w-6" aria-hidden="true" />
     </a>

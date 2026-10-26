@@ -17,13 +17,14 @@ export default function ToolsGrid({ locale, tools = TOOLS }: { locale: Locale; t
             <Link
               href={getToolHref(locale, tool.slug)}
               prefetch={false}
-              className="group flex flex-col rounded-3xl border border-foreground/10 bg-surface/20 p-6 transition-colors hover:border-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+              data-reveal
+              className="group flex flex-col rounded-3xl border border-foreground/10 bg-surface/20 p-6 transition-colors hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
             >
               <div className="flex items-center justify-between gap-3">
                 <span className="grid h-12 w-12 place-items-center rounded-2xl border border-accent/20 bg-background/40 text-accent">
                   <Icon className="h-6 w-6" aria-hidden="true" />
                 </span>
-                <span className="rounded-full border border-emerald-400/30 px-3 py-1 text-[11px] font-bold text-emerald-300">
+                <span className="rounded-full border border-sage/30 px-3 py-1 text-[11px] font-bold text-sage">
                   {isFa ? "رایگان" : "Free"}
                 </span>
               </div>

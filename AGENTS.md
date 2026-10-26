@@ -25,7 +25,7 @@ Primary capabilities:
 
 - Persian RTL and English LTR marketing site
 - Services, projects, About, contact, and blog surfaces
-- Three.js/React Three Fiber animated Hero
+- Owned 3D character render with lightweight pupil tracking and homepage scroll motion
 - Static service and article routes
 - Metadata, canonical/alternate URLs, Open Graph, sitemap, robots, manifest, and JSON-LD
 - Floating website sales assistant
@@ -101,6 +101,7 @@ Primary capabilities:
 - `/{fa|en}/services/{slug}` is a service detail page.
 - `/{fa|en}/blogs` is the blog index.
 - `/{fa|en}/blogs/{slug}` is an article page.
+- `/{fa|en}/projectcs` continues the portfolio with eight design concepts; the first five showcase items remain on the homepage.
 - `/robots.txt`, `/sitemap.xml`, and `/manifest.webmanifest` are metadata routes.
 
 `src/proxy.ts` redirects extensionless, non-asset/non-API paths without a locale prefix to the same path under `/fa`. The built Worker repeats static asset resolution, `.html`/`index.html` fallback, and default-locale redirect behavior in production.
@@ -113,8 +114,8 @@ All dynamic page routes must remain statically enumerable through `generateStati
 - `src/app/[locale]/layout.tsx` owns locale metadata, JSON-LD, Header, Footer, `HtmlLangDir`, and `SalesAssistant`.
 - `src/app/[locale]/page.tsx` composes Hero, Services, Projects, About, BlogPreview, and Contact.
 - Server Components are the default. Add `"use client"` only for hooks, browser APIs, portals, or interactive/WebGL behavior.
-- Existing client boundaries include `MobileMenu`, `LanguageSwitch`, `HtmlLangDir`, `HeroVideo`, `ContactForm`, and `SalesAssistant`.
-- The homepage hero (`src/app/components/Hero`) is a looping video (`HeroVideo.tsx`, remote CloudFront URLs allowed in `public/_headers` CSP: `media-src` and `img-src`) with `hero.css` carrying the entrance animation; it replaced the old WebGL scene. Site font is IRANYekan from `public/fonts/iranyekan` (licensed commercial font — see the license note before redistributing).
+- Existing active client boundaries include `MobileMenu`, `LanguageSwitch`, `HtmlLangDir`, `HomeMotion`, `ContactForm`, and `SalesAssistant`.
+- The homepage hero (`src/app/components/Hero`) is a Server Component with the owned transparent `public/brand/soheil-character-3d.webp` portrait. It does not import the historical video or WebGL tour. `HomeMotion.tsx` is a small effect-only client island; `home-motion.css` handles CSS gallery loops and scroll-driven project stacking. The gallery has a native pause checkbox and pauses off-screen. All copy and links remain in prerendered HTML. Site font is IRANYekan from `public/fonts/iranyekan` (licensed commercial font — see the license note before redistributing).
 
 ### Localization and RTL/LTR
 
@@ -127,13 +128,14 @@ All dynamic page routes must remain statically enumerable through `generateStati
 
 ### Styling and accessibility conventions
 
-- Tailwind is CSS-first. Semantic colors in `src/app/globals.css` are `background`, `surface`, `primary`, `accent`, `foreground`, and `muted`.
+- Tailwind is CSS-first. Semantic colors in `src/app/globals.css` use navy `background`, graphite `surface`, steel-blue `primary`, copper `accent`, `sage`, bone `foreground`, `muted`, and `success`/`warning`/`danger` status colors.
 - The custom `.container` is a centered flex column by default. Add `items-stretch`, `flex-row`, or other overrides where needed.
 - Persian uses Tahoma/Arial/system fallbacks; English uses Trebuchet MS/Arial/system fallbacks. No hosted font fetch is required.
 - Use `next/image` for site images, `next/link` for internal routes, and React Icons for interface icons.
 - External links opened in a new tab must use `rel="noopener noreferrer"`.
 - Preserve semantic elements, visible focus, keyboard operation, appropriate `aria-*` labels, and reduced-motion behavior.
-- The Hero uses a `210svh` sticky scene, pointer parallax, intersection-based frame control, reduced DPR on compact screens, and a static reduced-motion fallback. Re-test all of these after Hero changes.
+- The Hero uses a fixed, head-only 3D render with `PortraitEyes.tsx` supplying server-rendered brown iris layers. Only pupils follow a fine pointer; the head never translates or rotates. Homepage motion progressively enhances visible HTML; reduced-motion disables reveals, pupil tracking, gallery motion and sticky stacking. Re-test no-JavaScript content, pointer behavior, mobile layout and reduced motion after Hero changes. Avoid adding heavy client dependencies to this page.
+- The five homepage project cards stack from 1024px width and 760px height. Complete device frames adapt to viewport height through a server-rendered `--view-ratio`; do not disable the effect below 1000px height. All five cards have distinct offsets/scales. Archive cards, mobile and reduced motion keep normal flow.
 - Follow the neighboring file's style. Avoid repository-wide formatting, import sorting, encoding changes, or line-ending normalization; Persian files have mixed historical CRLF/LF behavior.
 
 ## Content sources of truth
@@ -142,10 +144,11 @@ All dynamic page routes must remain statically enumerable through `generateStati
 | --- | --- | --- |
 | Services | `src/app/components/Services/data.ts` | Typed canonical slugs, bilingual card/SEO/detail copy, icons, and legacy aliases |
 | Blog | `src/app/blogs/posts.ts` | Bilingual article data, dates, tags, sections, cover, direct answer, and FAQ |
-| Projects | `src/app/components/Projects/index.tsx` | Hard-coded project records backed by `public/projects/*` |
-| About/process/stack | `src/app/components/About/index.tsx` | Homepage studio/process/tool content |
+| Projects | `src/app/components/Projects/index.tsx`, `showcase.ts`, `DeviceViews.tsx` | Five homepage items, eight more at `/{fa,en}/projectcs`, in shared order; three complete hero views per item |
+| About/process/stack | `src/app/components/About/index.tsx` | Homepage studio/process/tool content plus a full-width owned 3D panorama. Responsive WebP assets in `public/brand/about-studio-panorama-20261026*.webp`; prompt/alt/dimensions in `scripts/about-art-manifest.json`, optimization in `scripts/build-about-art.mjs`. `data-reveal="cinematic"` uses the existing HomeMotion island for finite clip/zoom/light reveals; all content remains server-rendered and fully visible with no JS or reduced motion. |
 | Header dictionary | `src/app/i18n.ts` | Shared navigation labels only |
-| Portfolio | `src/app/components/Projects/data.ts` (+ `public/projects/<slug>-{cover,2,mobile}.webp`) | Drives the home-page work tiles, `/{fa,en}/projects/[slug]` case-study pages, sitemap and llms.txt. Describe only what the live site shows (no invented results); screenshots are real captures. The home grid expects exactly three projects (bento layout). |
+| Portfolio | `src/app/components/Projects/data.ts`, `hero-views.ts`, `public/projects/hero/` | The three actual projects drive case-study routes, sitemap and llms.txt. Their desktop/tablet/mobile hero images are real captures from October 26. The shared showcase adds ten explicitly labeled design concepts without links or case-study routes. Home shows the first five (three real, two concepts); `/projectcs` shows the remaining eight in order. Never add fictional client results to either dataset. |
+| Project concepts and gallery | `src/app/components/Projects/concepts.ts`, `src/app/components/WorkRibbon.tsx`, `scripts/project-hero-art-manifest.json`, `scripts/project-hero-captures.json`, `scripts/project-hero-assets.json` | Ten ImageGen still-image concepts (six Persian RTL, four English LTR), each with separately composed desktop/tablet/mobile hero art. All 39 images live in `public/projects/hero/`; dimensions and bilingual alt text come from `hero-views.ts`. `DeviceViews` shows complete images without cropping. Ribbon uses 720px-wide desktop thumbnails for all 13 logical items. Native pause and reduced motion work without JS. `scripts/build-project-heroes.mjs <source-map.json>` optimizes assets and writes the image registry. Earlier concept assets/manifests remain as design references. |
 | Free tools | `src/app/components/Tools/data.ts` (+ one component per tool, `ToolsGrid.tsx`) | Drives `/{fa,en}/tools`, `/{fa,en}/tools/[slug]`, the home teaser, nav/footer links, sitemap and llms.txt. Four tools run fully in the browser; the audit uses `/api/tools/audit`. `scripts/build-brand-assets.mjs` is unrelated (brand logos). Add a tool by adding a `TOOLS` entry, a component and a `TOOL_COMPONENTS` mapping in the slug page. |
 | Blog art | `scripts/blog-art-manifest.json`, `public/blog/*-editorial-*.jpg` | 26 original ImageGen editorial covers, 1200x630 JPEG; manifest records prompts, bilingual alt text and dates (newer batches may store a per-asset prompt). `npm run blog:art` verifies current assets; `--sheet <path>` previews them. `--legacy` explicitly selects the historical SVG renderer, whose files are not used by current posts. Each post carries `coverImage` and bilingual `coverImageAlt`; update the manifest and post together when replacing art. |
 | Legacy cover URLs | `public/_redirects` | Asset-server 301 redirects preserve the 18 previous `/blog/<slug>.jpg` URLs after the ImageGen refresh. Keep these when replacing cover files again. |
@@ -429,7 +432,7 @@ Additional checks by change type:
 - Frontend/content: `/fa`, `/en`, both directions, mobile/desktop, keyboard focus, language switch, and 320px minimum width.
 - Routing: blog index/detail, service detail, aliases, missing slug, proxy redirects, static params, sitemap, and metadata.
 - SEO: canonical/alternate URLs, OG image path/dimensions, JSON-LD scope, robots host, and production `NEXT_PUBLIC_SITE_URL`.
-- Hero: WebGL client boundary, scroll performance, compact viewport DPR, pointer interaction, and reduced-motion fallback.
+- Hero: prerendered head/centered pupils/copy, client dependency size, scroll performance, pupil-only fine-pointer interaction, no-JavaScript output, mobile layout and reduced-motion fallback.
 - Sales UI: open/close/reset, localized greeting/error/quick replies, pending/disabled states, max length, and API error recovery.
 - Worker: health, invalid JSON, empty/oversize input, successful AI output, model fallback, persistence, history ordering, rate limit, and missing binding behavior.
 - Instagram: verification challenge, valid/invalid signatures, echo filtering, duplicate event IDs, background processing, and send failures.
@@ -465,8 +468,8 @@ These are documented facts, not permission to expand an unrelated task:
 14. Telegram sends generated-image previews by reading the private ArvanCloud object and uploading it directly with multipart; social publishing is not implemented.
 15. Cloudflare R2 is not usable on this account (R2 requires enabling billing in the Cloudflare dashboard, which rejects the owner's card); private campaign media storage uses ArvanCloud Object Storage instead (`worker/arvan-storage.js`, S3-compatible via `aws4fetch`, path-style URLs). The production bucket `soshosite` and its credentials are provisioned; a staging bucket is not — `sosho-site-staging` has its own separate secret store and still needs one before staging image generation works.
 16. RSC prefetch payloads: the static export writes dynamic-segment payloads as nested paths (`fa/__next.$d$locale/__PAGE__.txt`) while the Next client requests them dot-joined (`fa/__next.$d$locale.__PAGE__.txt`). `scripts/build-sites.mjs` mirrors every nested payload to the dot-joined name, which removes the console 404s and lets `<Link>` prefetch work. Re-check after each Next upgrade; drop the mirror step once Next writes the requested names itself.
-17. Links that point to the homepage (header and footer logo, footer nav, breadcrumbs, service CTA, 404 page) use `prefetch={false}`: the homepage RSC payload carries a high-priority preload hint for the remote hero poster, so prefetching it would download that 556 KB image on every page. Keep it that way for any new link to `/${locale}` or `/${locale}#...`.
-18. The homepage hero video (36 MB) and poster are hot-linked from the provider's CloudFront hosts, whose prompt forbids downloading or self-hosting them. The poster is the mobile LCP element; the clip loads only after `load`, never under data-saver/slow connections or reduced motion, and pauses off-screen. Self-hosting a compressed copy is the biggest remaining performance win but needs the provider's permission or an owned video.
+17. Links that point to the homepage use `prefetch={false}` to avoid unnecessary homepage requests. Keep this for new links to `/${locale}` or `/${locale}#...`.
+18. The old hero video/poster remain historical source only; the homepage no longer requests those remote assets. The owned character is a transparent 1000×1000 WebP. `scripts/build-character-asset.mjs <selected-PNG>` reproduces its optimization; provenance and motion decisions live in `docs/HOMEPAGE_MOTION_2026-10-25.md`. Do not reintroduce or download the historical provider video.
 19. Cloudflare zone settings that affect SEO live outside the repo: `Always Use HTTPS` is on (set via API on 2026-10-19), and on 2026-10-20 the owner turned off AI Crawl Control's "Bot Preference Sync" (the Cloudflare-managed robots.txt prefix with `Content-Signal` and training-crawler `Disallow` lines) and its crawler blocks, so the live robots.txt is exactly `src/app/robots.ts`, every AI crawler (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot, PerplexityBot, OAI-SearchBot...) gets 200, and Lighthouse SEO is 100. Re-enabling either setting in the dashboard brings back the 403s and caps Lighthouse SEO at 92. The zone lives on the `soheilshokoohi.23@gmail.com` account, not on the separate empty "sosho-studio" account. The current API token cannot read bot settings or edit redirect rules.
 
 ## Change discipline

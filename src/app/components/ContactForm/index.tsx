@@ -208,7 +208,7 @@ export default function ContactForm({
             className={fieldClass}
           />
           {fieldErrors.name ? (
-            <p id={`${nameId}-error`} className="mt-1.5 text-xs text-red-400">{fieldErrors.name}</p>
+            <p id={`${nameId}-error`} className="mt-1.5 text-xs text-danger">{fieldErrors.name}</p>
           ) : null}
         </div>
 
@@ -232,7 +232,7 @@ export default function ContactForm({
           />
           <p id={`${contactId}-hint`} className="mt-1.5 text-xs text-muted">{text.contactHint}</p>
           {fieldErrors.contact ? (
-            <p id={`${contactId}-error`} className="mt-1 text-xs text-red-400">{fieldErrors.contact}</p>
+            <p id={`${contactId}-error`} className="mt-1 text-xs text-danger">{fieldErrors.contact}</p>
           ) : null}
         </div>
 
@@ -253,7 +253,7 @@ export default function ContactForm({
           />
           <div className="mt-1.5 flex items-start justify-between gap-3">
             {fieldErrors.message ? (
-              <p id={`${messageId}-error`} className="text-xs text-red-400">{fieldErrors.message}</p>
+              <p id={`${messageId}-error`} className="text-xs text-danger">{fieldErrors.message}</p>
             ) : <span />}
             <span dir="ltr" className="text-xs text-muted">
               {values.message.length}/{MAX_MESSAGE_LENGTH}
@@ -278,7 +278,7 @@ export default function ContactForm({
       </div>
 
       {formError ? (
-        <p role="alert" className="mt-4 rounded-2xl border border-red-400/30 bg-red-950/20 px-4 py-3 text-sm text-red-300">
+        <p role="alert" className="mt-4 rounded-2xl border border-danger/30 bg-danger/20 px-4 py-3 text-sm text-danger">
           {formError}
         </p>
       ) : null}
@@ -286,7 +286,7 @@ export default function ContactForm({
       <button
         type="submit"
         disabled={status === "sending"}
-        className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-6 text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transform-none sm:w-auto"
+        className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transform-none sm:w-auto"
       >
         <FiSend className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
         {status === "sending" ? text.sending : text.send}

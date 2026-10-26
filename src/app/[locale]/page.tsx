@@ -15,6 +15,9 @@ import Projects from "../components/Projects";
 import Services from "../components/Services";
 import { TOOLS } from "../components/Tools/data";
 import ToolsGrid from "../components/Tools/ToolsGrid";
+import HomeMotion from "../components/HomeMotion";
+import WorkRibbon from "../components/WorkRibbon";
+import "../components/home-motion.css";
 
 const contactChannels = [
   {
@@ -71,7 +74,7 @@ function SectionHeading({
   description: string;
 }) {
   return (
-    <div className="grid gap-5 md:grid-cols-12 md:items-end">
+    <div className="home-heading grid gap-5 md:grid-cols-12 md:items-end" data-reveal>
       <div className="md:col-span-8">
         <p className="text-xs font-bold uppercase tracking-[0.24em] text-accent">{eyebrow}</p>
         <h2 className="mt-3 max-w-4xl text-3xl font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl md:text-5xl">
@@ -98,6 +101,7 @@ export default async function Home({
 
   return (
     <main id="main-content" tabIndex={-1} className="outline-none">
+      <div id="home-motion">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -113,8 +117,18 @@ export default async function Home({
         }}
       />
       <Hero locale={locale} />
+      <WorkRibbon locale={locale} />
 
-      <div className="container items-stretch gap-24 py-20 md:gap-32 md:py-28">
+      <div className="container home-content items-stretch">
+        <section id="about" className="w-full scroll-mt-28">
+          <SectionHeading
+            eyebrow={isFa ? "چرا سوشو" : "Why Sosho"}
+            title={isFa ? "یک شریک اجرایی، نه فقط یک تحویل‌دهنده" : "A delivery partner—not just another vendor"}
+            description={isFa ? "از تصمیم‌های اولیه تا جزئیات فنی و رشد بعد از لانچ، یک تیم مسئول نتیجه می‌ماند." : "From early decisions to technical detail and post-launch growth, one team remains accountable for the result."}
+          />
+          <About locale={locale} />
+        </section>
+
         <section id="services" className="w-full scroll-mt-28">
           <SectionHeading
             eyebrow={isFa ? "از ایده تا اثر" : "From idea to impact"}
@@ -122,6 +136,15 @@ export default async function Home({
             description={isFa ? "به‌جای هماهنگی چند تیم جدا، طراحی، توسعه، رشد و پشتیبانی را با یک مسیر یکپارچه جلو ببرید." : "Skip the handoffs between disconnected vendors. Design, engineering, growth, and support move forward as one system."}
           />
           <Services locale={locale} />
+        </section>
+
+        <section id="projects" className="w-full scroll-mt-28">
+          <SectionHeading
+            eyebrow={isFa ? "نمونه‌کارهای منتخب" : "Selected work"}
+            title={isFa ? "ساخته‌شده برای وضوح، عملکرد و نتیجه" : "Built for clarity, performance, and real outcomes"}
+            description={isFa ? "پروژه‌های واقعی و طرح‌های مفهومی در حوزه‌های مختلف؛ از فروشگاه و پزشکی تا داشبورد، Web3 و تجربه‌های تعاملی." : "Real projects and original design concepts across commerce, healthcare, dashboards, Web3, and immersive digital experiences."}
+          />
+          <Projects locale={locale} />
         </section>
 
         <section id="tools" className="w-full scroll-mt-28">
@@ -143,24 +166,6 @@ export default async function Home({
           </div>
         </section>
 
-        <section id="projects" className="w-full scroll-mt-28">
-          <SectionHeading
-            eyebrow={isFa ? "نمونه‌کارهای منتخب" : "Selected work"}
-            title={isFa ? "ساخته‌شده برای وضوح، عملکرد و نتیجه" : "Built for clarity, performance, and real outcomes"}
-            description={isFa ? "چند نمونه از تجربه‌هایی که با تمرکز بر نیاز کاربر، هویت برند و کیفیت اجرا طراحی شده‌اند." : "A selection of digital experiences shaped around user needs, brand character, and thoughtful execution."}
-          />
-          <Projects locale={locale} />
-        </section>
-
-        <section id="about" className="w-full scroll-mt-28">
-          <SectionHeading
-            eyebrow={isFa ? "چرا سوشو" : "Why Sosho"}
-            title={isFa ? "یک شریک اجرایی، نه فقط یک تحویل‌دهنده" : "A delivery partner—not just another vendor"}
-            description={isFa ? "از تصمیم‌های اولیه تا جزئیات فنی و رشد بعد از لانچ، یک تیم مسئول نتیجه می‌ماند." : "From early decisions to technical detail and post-launch growth, one team remains accountable for the result."}
-          />
-          <About locale={locale} />
-        </section>
-
         <section id="blog" className="w-full scroll-mt-28">
           <SectionHeading
             eyebrow={isFa ? "بینش و تجربه" : "Ideas & practice"}
@@ -170,7 +175,7 @@ export default async function Home({
           <BlogPreview locale={locale} />
         </section>
 
-        <section id="contact" className="relative w-full scroll-mt-28 overflow-hidden rounded-[2rem] border border-accent/20 bg-surface/35 p-7 sm:p-10 lg:p-14">
+        <section id="contact" data-reveal className="relative w-full scroll-mt-28 overflow-hidden rounded-[2rem] border border-accent/20 bg-surface/35 p-7 sm:p-10 lg:p-14">
           <div className="pointer-events-none absolute -end-20 -top-32 h-80 w-80 rounded-full bg-primary/25 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-40 start-1/4 h-80 w-80 rounded-full bg-accent/15 blur-3xl" />
           <div className="relative grid gap-8 lg:grid-cols-12 lg:items-end">
@@ -224,6 +229,8 @@ export default async function Home({
             </div>
           </div>
         </section>
+      </div>
+      <HomeMotion />
       </div>
     </main>
   );
