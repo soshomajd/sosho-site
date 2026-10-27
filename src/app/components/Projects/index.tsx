@@ -33,10 +33,13 @@ export default function Projects({ locale, archive = false }: { locale: Locale; 
                 ) : null}
               </div>
             </div>
-            {project.kind === "live" ? <Link href={getProjectHref(locale, project.slug)} prefetch={false} className="project-card-link">
-              {locale === "fa" ? "مشاهدهٔ نمونه‌کار" : "View case study"}
-              <FiArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
-            </Link> : <span className="project-concept-badge">{locale === "fa" ? "طرح مفهومی" : "Design concept"} · {project.language === "fa" ? (locale === "fa" ? "فارسی" : "Persian") : (locale === "fa" ? "انگلیسی" : "English")}</span>}
+            <div className="flex shrink-0 flex-col items-start gap-3">
+              {project.kind === "concept" ? <span className="project-concept-badge">{locale === "fa" ? "طرح مفهومی" : "Design concept"} · {project.language === "fa" ? (locale === "fa" ? "فارسی" : "Persian") : (locale === "fa" ? "انگلیسی" : "English")}</span> : null}
+              <Link href={getProjectHref(locale, project.slug)} prefetch={false} className="project-card-link">
+                {project.kind === "live" ? (locale === "fa" ? "مشاهدهٔ نمونه‌کار" : "View case study") : (locale === "fa" ? "مشاهدهٔ صفحهٔ طرح" : "View concept page")}
+                <FiArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
+              </Link>
+            </div>
           </div>
           <DeviceViews images={project.images} locale={locale} />
         </article>

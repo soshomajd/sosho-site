@@ -56,6 +56,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
     alternates: { languages: projectHubLanguages },
   }));
+  // Only the real case studies. The design-concept pages are thin and image-led, so they stay out of
+  // the sitemap and carry noindex; they remain reachable for visitors through every link on the site.
   const projectEntries: MetadataRoute.Sitemap = PROJECTS.flatMap((project) => {
     const languages = {
       fa: `${base}/fa/projects/${project.slug}`,

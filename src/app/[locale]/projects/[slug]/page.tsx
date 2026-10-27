@@ -6,14 +6,22 @@ import { FiArrowUpRight, FiCheck, FiExternalLink } from "react-icons/fi";
 
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import JsonLd from "@/app/components/JsonLd";
+import ConceptCase, { conceptSeo } from "@/app/components/Projects/ConceptCase";
+import { CONCEPT_PROJECTS } from "@/app/components/Projects/concepts";
 import { PROJECTS, getProject, getProjectHref } from "@/app/components/Projects/data";
+import { getService, getServiceHref, type ServiceSlug } from "@/app/components/Services/data";
 import { getDictionary, isLocale, type Locale } from "@/app/i18n";
 import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, websiteId } from "@/app/seo";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
+const getConcept = (slug: string) => CONCEPT_PROJECTS.find((concept) => concept.slug === slug);
+
+// Every portfolio item has its own page: the real projects (case studies) and the labelled design concepts.
 export function generateStaticParams() {
-  return (["fa", "en"] as const).flatMap((locale) => PROJECTS.map((project) => ({ locale, slug: project.slug })));
+  return (["fa", "en"] as const).flatMap((locale) =>
+    [...PROJECTS, ...CONCEPT_PROJECTS].map((project) => ({ locale, slug: project.slug }))
+  );
 }
 
 export async function generateMetadata({
@@ -23,17 +31,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale, slug } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : "fa";
-  const project = getProject(slug);
+  const concept = getConcept(slug);
+  const project = getProject(slug) ?? concept;
   if (!project) return {};
   const dict = getDictionary(locale);
-  const title = project.seo.title[locale];
-  const description = project.seo.description[locale];
+  const seo = concept ? conceptSeo(concept, locale) : null;
+  const title = seo ? seo.title : getProject(slug)!.seo.title[locale];
+  const description = seo ? seo.description : getProject(slug)!.seo.description[locale];
   const canonical = `/${locale}/projects/${project.slug}`;
   const image = new URL(project.images[0].src, siteUrl).toString();
   return {
     metadataBase: new URL(siteUrl),
     title,
     description,
+    ...(concept ? { robots: { index: false, follow: true } } : {}),
     alternates: {
       canonical,
       languages: {
@@ -63,6 +74,8 @@ export async function generateMetadata({
 export default async function ProjectPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale: rawLocale, slug } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : "fa";
+  const concept = getConcept(slug);
+  if (concept) return <ConceptCase concept={concept} locale={locale} />;
   const project = getProject(slug);
   if (!project) notFound();
 
@@ -76,6 +89,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
   ];
   const others = PROJECTS.filter((entry) => entry.slug !== project.slug);
   const [hero, tablet, mobile] = project.images;
+  const PROJECT_SERVICES: ServiceSlug[] = ["website-design-development", slug === "tino-electronic" ? "seo-google-growth" : "ui-ux-brand-design", "care-performance"];
 
   return (
     <main id="main-content" tabIndex={-1} className="container items-stretch gap-8 py-14 outline-none md:py-20">
@@ -208,6 +222,35 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
           <Image src={mobile.src} alt={mobile.alt[locale]} width={mobile.width} height={mobile.height} sizes="(max-width: 768px) 80vw, 33vw" className="mx-auto h-auto w-full max-w-xs" />
           <figcaption className="px-5 py-3 text-xs text-muted">{mobile.caption[locale]}</figcaption>
         </figure>
+      </section>
+
+      <section aria-labelledby="project-services">
+        <h2 id="project-services" className="text-xl font-bold text-foreground">
+          {isFa ? "خدمات مرتبط با این نوع پروژه" : "Services behind this kind of project"}
+        </h2>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-muted">
+          {isFa
+            ? "پروژه‌هایی مثل این معمولاً از چند خدمت کنار هم ساخته می‌شوند. هر کدام صفحهٔ خودش را دارد و می‌توانید جزئیات و مراحل کار را ببینید."
+            : "A project like this usually combines several services. Each has its own page where you can see the details and the way we work."}
+        </p>
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          {PROJECT_SERVICES.map((serviceSlug) => {
+            const related = getService(serviceSlug);
+            if (!related) return null;
+            return (
+              <Link
+                key={related.slug}
+                href={getServiceHref(locale, related.slug)}
+                prefetch={false}
+                className="group rounded-2xl border border-foreground/10 bg-surface/20 p-5 transition-colors hover:border-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">{isFa ? "خدمت" : "Service"}</p>
+                <h3 className="mt-2 text-base font-bold text-foreground transition-colors group-hover:text-accent">{related.title[locale]}</h3>
+                <p className="mt-1 text-sm leading-7 text-muted">{related.short[locale]}</p>
+              </Link>
+            );
+          })}
+        </div>
       </section>
 
       <section aria-labelledby="project-more">

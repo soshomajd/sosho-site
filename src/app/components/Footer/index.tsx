@@ -10,6 +10,7 @@ import {
 } from "react-icons/si";
 import { BsFillTelephoneOutboundFill } from "react-icons/bs";
 import { CONTACT_INFO } from "@/app/contact-info";
+import { SERVICES, getServiceHref } from "@/app/components/Services/data";
 
 const SOCIAL_LINKS = [
     {
@@ -111,6 +112,26 @@ export default function Footer({ locale }: { locale: Locale }) {
                                     className="rounded-md py-1.5 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
                                 >
                                     {l.label}
+                                </Link>
+                            ))}
+                        </nav>
+
+                        {/* Site-wide links to every service page: these pages were never crawled while only the home page linked to them. */}
+                        <p className="mt-6 text-sm font-semibold text-foreground">
+                            {isFa ? "خدمات" : "Services"}
+                        </p>
+                        <nav
+                            aria-label={isFa ? "خدمات سوشو استودیو" : "Sosho Studio services"}
+                            className="mt-3 flex flex-col gap-1 text-sm"
+                        >
+                            {SERVICES.map((service) => (
+                                <Link
+                                    key={service.slug}
+                                    href={getServiceHref(locale, service.slug)}
+                                    prefetch={false}
+                                    className="rounded-md py-1.5 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                                >
+                                    {service.title[locale]}
                                 </Link>
                             ))}
                         </nav>

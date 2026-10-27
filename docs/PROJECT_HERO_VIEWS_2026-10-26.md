@@ -1,6 +1,6 @@
 # Portfolio hero views — October 26, 2026
 
-The approved portfolio order is shared by `Projects/showcase.ts`: three real websites, then ten original concepts. The homepage renders only the first five (Tino, Wallpaper Consortium, Niroo Tejarat, Sepid, Nova). `/fa/projectcs` and `/en/projectcs` render the remaining eight in order. The route spelling is intentional. Concepts retain bilingual descriptions, interface-language labels and a Design concept badge, with no anchors or delivered-client claims.
+The approved portfolio order is shared by `Projects/showcase.ts`: three real websites, then ten original concepts. The homepage renders only the first five (Tino, Wallpaper Consortium, Niroo Tejarat, Sepid, Nova). `/fa/projectcs` and `/en/projectcs` render the remaining eight in order. The route spelling is intentional. Concepts retain bilingual descriptions, interface-language labels and a Design concept badge, with no external anchors or delivered-client claims; from October 27 each concept card and ribbon tile links to its own page.
 
 ## Images and provenance
 

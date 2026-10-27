@@ -8,11 +8,14 @@ import { getBlogPostHref } from "@/app/blogs/posts";
 import { postsForService } from "@/app/blogs/related";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import { SERVICE_FAQ } from "@/app/components/Services/faq";
+import { SERVICE_GUIDE } from "@/app/components/Services/guide";
+import { getTool, getToolHref } from "@/app/components/Tools/data";
 import JsonLd from "@/app/components/JsonLd";
 import { getDictionary, isLocale, type Locale } from "@/app/i18n";
 import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, websiteId } from "@/app/seo";
 import {
     getService,
+    getServiceHref,
     SERVICES,
     SERVICE_BULLET_ICON,
 } from "@/app/components/Services/data";
@@ -152,6 +155,9 @@ export default async function ServicePage({
     ];
     const faq = SERVICE_FAQ[service.slug];
     const articles = postsForService(service.slug, 3);
+    const guide = SERVICE_GUIDE[service.slug];
+    const relatedServices = guide.related.map((related) => getService(related)!);
+    const relatedTool = guide.tool ? getTool(guide.tool) : undefined;
 
     return (
         <main id="main-content" tabIndex={-1} className="container items-stretch gap-8 py-14 outline-none md:py-20">
@@ -239,6 +245,32 @@ export default async function ServicePage({
                 </Section>
             </div>
 
+            <div className="grid gap-4 lg:grid-cols-12">
+                <section aria-labelledby="service-when-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8 lg:col-span-7">
+                    <h2 id="service-when-title" className="text-xl font-bold text-foreground">
+                        {isFa ? "چه زمانی به این خدمت نیاز دارید؟" : "When you need this service"}
+                    </h2>
+                    <BulletList items={guide.when[locale]} />
+                </section>
+                <section aria-labelledby="service-approach-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8 lg:col-span-5">
+                    <h2 id="service-approach-title" className="text-xl font-bold text-foreground">
+                        {isFa ? "رویکرد ما" : "Our approach"}
+                    </h2>
+                    <div className="mt-3 grid gap-3 text-sm leading-7 text-muted">
+                        {guide.approach[locale].map((paragraph) => (
+                            <p key={paragraph}>{paragraph}</p>
+                        ))}
+                    </div>
+                </section>
+            </div>
+
+            <section aria-labelledby="service-mistakes-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
+                <h2 id="service-mistakes-title" className="text-xl font-bold text-foreground">
+                    {isFa ? "اشتباه‌های رایج که باید از آن‌ها دوری کرد" : "Common mistakes to avoid"}
+                </h2>
+                <BulletList items={guide.mistakes[locale]} />
+            </section>
+
             <section aria-labelledby="service-faq-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
                 <h2 id="service-faq-title" className="text-xl font-bold text-foreground">
                     {isFa ? "پرسش‌های متداول" : "Frequently asked questions"}
@@ -285,6 +317,37 @@ export default async function ServicePage({
                     </div>
                 </section>
             ) : null}
+
+            <section aria-labelledby="service-related-title">
+                <h2 id="service-related-title" className="text-xl font-bold text-foreground">
+                    {isFa ? "خدمات و ابزارهای مرتبط" : "Related services and tools"}
+                </h2>
+                <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+                    {relatedServices.map((related) => (
+                        <Link
+                            key={related.slug}
+                            href={getServiceHref(locale, related.slug)}
+                            prefetch={false}
+                            className="group rounded-2xl border border-foreground/10 bg-surface/20 p-5 transition-colors hover:border-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                        >
+                            <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">{isFa ? "خدمت" : "Service"}</p>
+                            <h3 className="mt-2 text-base font-bold text-foreground transition-colors group-hover:text-accent">{related.title[locale]}</h3>
+                            <p className="mt-1 text-sm leading-7 text-muted">{related.short[locale]}</p>
+                        </Link>
+                    ))}
+                    {relatedTool ? (
+                        <Link
+                            href={getToolHref(locale, relatedTool.slug)}
+                            prefetch={false}
+                            className="group rounded-2xl border border-foreground/10 bg-surface/20 p-5 transition-colors hover:border-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                        >
+                            <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">{isFa ? "ابزار رایگان" : "Free tool"}</p>
+                            <h3 className="mt-2 text-base font-bold text-foreground transition-colors group-hover:text-accent">{relatedTool.title[locale]}</h3>
+                            <p className="mt-1 text-sm leading-7 text-muted">{relatedTool.summary[locale]}</p>
+                        </Link>
+                    ) : null}
+                </div>
+            </section>
 
             <section className="mt-4 flex flex-col gap-6 rounded-3xl border border-accent/20 bg-surface/30 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9">
                 <div>

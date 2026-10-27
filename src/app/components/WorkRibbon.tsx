@@ -1,6 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Locale } from "../i18n";
-import { PROJECTS } from "./Projects/data";
+import { PROJECTS, getProjectHref } from "./Projects/data";
 import { CONCEPT_PROJECTS } from "./Projects/concepts";
 
 const real = PROJECTS.map((project) => ({
@@ -30,7 +31,8 @@ export default function WorkRibbon({ locale }: { locale: Locale }) {
         <p className="text-xs font-semibold text-muted">{isFa ? "از فروشگاه تا تجربه‌های تعاملی" : "From commerce to immersive experiences"}</p>
         <label className="work-ribbon-toggle">
           <input type="checkbox" className="h-4 w-4 accent-primary" />
-          <span>{isFa ? "توقف حرکت" : "Pause motion"}</span>
+          <span className="toggle-pause">{isFa ? "توقف حرکت" : "Pause motion"}</span>
+          <span className="toggle-resume">{isFa ? "ادامه حرکت" : "Resume motion"}</span>
         </label>
       </div>
       {ROWS.map((items, row) => (
@@ -39,13 +41,22 @@ export default function WorkRibbon({ locale }: { locale: Locale }) {
             {[false, true].map((duplicate) => (
               <div className={`work-ribbon-group ${duplicate ? "work-ribbon-group--duplicate" : ""}`} key={String(duplicate)} aria-hidden={duplicate || undefined}>
                 {items.map((item) => (
-                  <figure className="work-ribbon-tile" key={item.id} data-showcase-id={duplicate ? undefined : item.id}>
-                    <Image src={item.src} alt={duplicate ? "" : item.alt[locale]} fill sizes="(max-width: 767px) 220px, 360px" loading="lazy" fetchPriority="low" className="object-cover object-top" />
-                    <figcaption className="work-ribbon-caption" dir={isFa ? "rtl" : "ltr"}>
-                      <span>{item.title[locale]}</span>
-                      <span className="work-ribbon-kind">{item.concept ? (isFa ? "طرح مفهومی" : "Concept") : (isFa ? "پروژه" : "Project")}</span>
-                    </figcaption>
-                  </figure>
+                  // Every tile opens that project's own page. The aria-hidden loop copy is not focusable.
+                  <Link
+                    key={item.id}
+                    href={getProjectHref(locale, item.id)}
+                    prefetch={false}
+                    className="work-ribbon-link"
+                    tabIndex={duplicate ? -1 : undefined}
+                  >
+                    <figure className="work-ribbon-tile" data-showcase-id={duplicate ? undefined : item.id}>
+                      <Image src={item.src} alt={duplicate ? "" : item.alt[locale]} fill sizes="(max-width: 767px) 220px, 360px" loading="lazy" fetchPriority="low" className="object-cover object-top" />
+                      <figcaption className="work-ribbon-caption" dir={isFa ? "rtl" : "ltr"}>
+                        <span>{item.title[locale]}</span>
+                        <span className="work-ribbon-kind">{item.concept ? (isFa ? "طرح مفهومی" : "Concept") : (isFa ? "پروژه" : "Project")}</span>
+                      </figcaption>
+                    </figure>
+                  </Link>
                 ))}
               </div>
             ))}

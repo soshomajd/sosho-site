@@ -16,6 +16,8 @@ export function generateStaticParams() {
   return (["fa", "en"] as const).map((locale) => ({ locale }));
 }
 
+const GUIDE_ORDER_SLUGS = ["website-seo-audit", "meta-tag-generator", "robots-sitemap-generator", "faq-schema-generator", "contrast-checker"] as const;
+
 const META = {
   fa: {
     title: "ابزارهای رایگان سئو و طراحی وب",
@@ -24,6 +26,20 @@ const META = {
     heading: "ابزارهای رایگان برای سایت شما",
     intro:
       "این ابزارها را خودمان برای کارهای روزمرهٔ سئو و طراحی ساخته‌ایم و رایگان در اختیار شما می‌گذاریم. بیشتر آن‌ها داخل مرورگر شما کار می‌کنند و چیزی ذخیره نمی‌شود.",
+    guideTitle: "از کدام ابزار شروع کنیم؟",
+    guide: [
+      "اگر سایتتان تازه راه افتاده، ترتیب پیشنهادی ما این است: اول بررسی سئو و سلامت سایت را بزنید تا مشکل‌های فنی مشخص شوند؛ بعد با تولیدکنندهٔ متاتگ عنوان و توضیحات صفحه‌های مهم را مرتب کنید.",
+      "سپس robots.txt و sitemap را بسازید و در Search Console ثبت کنید. برای صفحه‌هایی که پرسش‌های تکراری دارند اسکیمای FAQ اضافه کنید و پیش از تحویل طراحی، کنتراست رنگ‌ها را بسنجید.",
+      "هیچ‌کدام از این ابزارها جای تحلیل انسانی را نمی‌گیرند و رتبه در گوگل را تضمین نمی‌کنند؛ فقط کمک می‌کنند اشتباه‌های رایج را زودتر پیدا کنید. بیشتر آن‌ها داخل مرورگر شما اجرا می‌شوند و متن یا آدرسی که وارد می‌کنید ذخیره نمی‌شود.",
+    ],
+    guideOrder: ["بررسی سئو و سلامت سایت", "ساخت متاتگ و Open Graph", "ساخت robots.txt و sitemap", "ساخت اسکیمای FAQ", "بررسی کنتراست رنگ"],
+    faqTitle: "پرسش‌های متداول دربارهٔ ابزارها",
+    faq: [
+      { q: "آیا استفاده از ابزارها واقعاً رایگان است؟", a: "بله. برای استفاده نیاز به ثبت‌نام، پرداخت یا نصب برنامه نیست. اگر بخواهید اصلاح مشکل‌ها را به ما بسپارید، از طریق فرم تماس می‌توانید درخواست بدهید." },
+      { q: "اطلاعاتی که وارد می‌کنم ذخیره می‌شود؟", a: "ابزارهای متاتگ، اسکیما، robots.txt و کنتراست داخل مرورگر شما اجرا می‌شوند و چیزی به سرور ما فرستاده نمی‌شود. بررسی سئو آدرسی را که وارد می‌کنید یک بار از طریق سرور ما باز می‌کند تا نتیجه را بسازد و آن را ذخیره نمی‌کند." },
+      { q: "آیا ابزارها برای سایت فارسی و انگلیسی کار می‌کنند؟", a: "بله. رابط همهٔ ابزارها فارسی و انگلیسی است و می‌توانید سایت‌های فارسی، انگلیسی یا دوزبانه را بررسی کنید." },
+      { q: "امتیاز بالا یعنی رتبهٔ بهتر در گوگل؟", a: "نه. امتیاز نشان می‌دهد پایهٔ فنی سایت چقدر سالم است. رتبه به کیفیت محتوا، اعتبار سایت و رقابت هم بستگی دارد و هیچ ابزاری آن را تضمین نمی‌کند." },
+    ],
     cta: "از سایتتان بیشتر می‌خواهید؟",
     ctaBody: "اگر نتیجهٔ ابزارها نشان داد سایت‌تان کار دارد، اصلاح آن را به ما بسپارید.",
     ctaButton: "شروع گفتگو",
@@ -35,6 +51,20 @@ const META = {
     heading: "Free tools for your website",
     intro:
       "We built these tools for our own day-to-day SEO and design work and share them for free. Most run in your browser and nothing is stored.",
+    guideTitle: "Which tool should you start with?",
+    guide: [
+      "If your site has just launched, this is the order we suggest: run the SEO and health check first so the technical problems are clear, then tidy the title and description of your key pages with the meta tag generator.",
+      "Next, build robots.txt and a sitemap and submit it in Search Console. Add FAQ schema to pages with recurring questions, and check colour contrast before handing a design over.",
+      "None of these tools replaces human analysis or guarantees a Google ranking; they help you find common mistakes sooner. Most run in your browser, and the text or address you enter is not stored.",
+    ],
+    guideOrder: ["Website SEO and health check", "Meta tag and Open Graph generator", "robots.txt and sitemap generator", "FAQ schema generator", "Colour contrast checker"],
+    faqTitle: "Questions about the tools",
+    faq: [
+      { q: "Are the tools really free?", a: "Yes. There is no sign-up, payment or software to install. If you want us to fix the issues they find, you can ask through the contact form." },
+      { q: "Is what I enter stored?", a: "The meta tag, schema, robots.txt and contrast tools run in your browser and nothing is sent to our server. The SEO check opens the address you enter once through our server to build the result and does not store it." },
+      { q: "Do the tools work for Persian and English sites?", a: "Yes. Every tool has a Persian and an English interface, and you can check Persian, English or bilingual sites." },
+      { q: "Does a high score mean a better Google ranking?", a: "No. The score shows how sound the technical base of a site is. Ranking also depends on content quality, site authority and competition, and no tool can guarantee it." },
+    ],
     cta: "Want more from your site?",
     ctaBody: "If the tools show your site needs work, leave the fixing to us.",
     ctaButton: "Start a conversation",
@@ -113,6 +143,16 @@ export default async function ToolsPage({ params }: { params: Promise<{ locale: 
               })),
             },
             breadcrumbJsonLd(crumbs),
+            {
+              "@type": "FAQPage",
+              "@id": `${pageUrl}#faq`,
+              inLanguage: languageTag(locale),
+              mainEntity: meta.faq.map((item) => ({
+                "@type": "Question",
+                name: item.q,
+                acceptedAnswer: { "@type": "Answer", text: item.a },
+              })),
+            },
           ],
         }}
       />
@@ -130,6 +170,39 @@ export default async function ToolsPage({ params }: { params: Promise<{ locale: 
       </header>
 
       <ToolsGrid locale={locale} />
+
+      <section aria-labelledby="tools-guide-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
+        <h2 id="tools-guide-title" className="text-xl font-bold text-foreground">{meta.guideTitle}</h2>
+        <div className="mt-4 grid gap-3 text-sm leading-8 text-muted md:text-base">
+          {meta.guide.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+        <ol className="mt-5 grid gap-2 text-sm text-foreground">
+          {GUIDE_ORDER_SLUGS.map((slug, index) => (
+            <li key={slug} className="flex items-center gap-3">
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-accent/30 text-xs font-bold text-accent" aria-hidden="true">
+                {isFa ? ["۱", "۲", "۳", "۴", "۵"][index] : index + 1}
+              </span>
+              <Link href={getToolHref(locale, slug)} prefetch={false} className="rounded-md underline-offset-4 hover:text-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60">
+                {meta.guideOrder[index]}
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section aria-labelledby="tools-faq-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
+        <h2 id="tools-faq-title" className="text-xl font-bold text-foreground">{meta.faqTitle}</h2>
+        <div className="mt-5 divide-y divide-foreground/10">
+          {meta.faq.map((item) => (
+            <div key={item.q} className="py-4 first:pt-0 last:pb-0">
+              <h3 className="text-sm font-bold text-foreground md:text-base">{item.q}</h3>
+              <p className="mt-1.5 text-sm leading-7 text-muted">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="mt-4 flex flex-col gap-6 rounded-3xl border border-accent/20 bg-surface/30 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9">
         <div>

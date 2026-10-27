@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight, FiCheck } from "react-icons/fi";
 
+import { getBlogPostBySlug, getBlogPostHref } from "@/app/blogs/posts";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import JsonLd from "@/app/components/JsonLd";
 import { getServiceHref, getService } from "@/app/components/Services/data";
 import { TOOLS, getTool, type ToolSlug } from "@/app/components/Tools/data";
+import { TOOL_GUIDE } from "@/app/components/Tools/guide";
 import ContrastTool from "@/app/components/Tools/ContrastTool";
 import FaqSchemaTool from "@/app/components/Tools/FaqSchemaTool";
 import MetaTagTool from "@/app/components/Tools/MetaTagTool";
@@ -92,6 +94,8 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
   ];
   const service = getService(tool.service);
   const others = TOOLS.filter((entry) => entry.slug !== tool.slug).slice(0, 3);
+  const guide = TOOL_GUIDE[tool.slug];
+  const articles = guide.articles.flatMap((articleSlug) => getBlogPostBySlug(articleSlug) ?? []);
 
   return (
     <main id="main-content" tabIndex={-1} className="container items-stretch gap-8 py-14 outline-none md:py-20">
@@ -189,6 +193,35 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
         </ol>
       </section>
 
+      <div className="grid gap-4 lg:grid-cols-2">
+        <section aria-labelledby="tool-when-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
+          <h2 id="tool-when-title" className="text-xl font-bold text-foreground">
+            {isFa ? "چه زمانی از این ابزار استفاده کنیم؟" : "When to use this tool"}
+          </h2>
+          <ul className="mt-4 grid gap-3">
+            {guide.when[locale].map((text) => (
+              <li key={text} className="flex items-start gap-3 text-sm leading-7 text-muted">
+                <FiCheck className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                <span>{text}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section aria-labelledby="tool-tips-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
+          <h2 id="tool-tips-title" className="text-xl font-bold text-foreground">
+            {isFa ? "نکته‌هایی برای نتیجه بهتر" : "Tips for a better result"}
+          </h2>
+          <ul className="mt-4 grid gap-3">
+            {guide.tips[locale].map((text) => (
+              <li key={text} className="flex items-start gap-3 text-sm leading-7 text-muted">
+                <FiCheck className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                <span>{text}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
       <section aria-labelledby="tool-faq-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
         <h2 id="tool-faq-title" className="text-xl font-bold text-foreground">
           {isFa ? "پرسش‌های متداول" : "Frequently asked questions"}
@@ -202,6 +235,28 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
           ))}
         </div>
       </section>
+
+      {articles.length > 0 ? (
+        <section aria-labelledby="tool-articles-title">
+          <h2 id="tool-articles-title" className="mb-4 text-xl font-bold text-foreground">
+            {isFa ? "برای مطالعه بیشتر" : "Keep reading"}
+          </h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            {articles.map((post) => (
+              <Link
+                key={post.slug}
+                href={getBlogPostHref(locale, post.slug)}
+                prefetch={false}
+                className="group rounded-2xl border border-foreground/10 bg-surface/20 p-5 transition-colors hover:border-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">{isFa ? "مقاله" : "Article"}</p>
+                <h3 className="mt-2 text-base font-bold leading-7 text-foreground transition-colors group-hover:text-accent">{post.title[locale]}</h3>
+                <p className="mt-1 text-sm leading-7 text-muted">{post.excerpt[locale]}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section aria-labelledby="tool-more-title">
         <h2 id="tool-more-title" className="mb-4 text-xl font-bold text-foreground">

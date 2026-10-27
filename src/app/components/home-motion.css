@@ -15,7 +15,17 @@
 .work-ribbon-track { display: flex; width: max-content; animation: ribbon-loop 58s linear infinite; }
 .work-ribbon-row:nth-of-type(3) .work-ribbon-track { animation-direction: reverse; animation-duration: 64s; }
 .work-ribbon-group { display: flex; gap: 14px; padding-inline-end: 14px; }
-.work-ribbon:hover .work-ribbon-track, .work-ribbon:focus-within .work-ribbon-track, .work-ribbon[data-offscreen] .work-ribbon-track, .work-ribbon:has(.work-ribbon-toggle input:checked) .work-ribbon-track { animation-play-state: paused; }
+/* Only the pause checkbox (and being off-screen) stops the loop. Hover and focus must not: the old
+   :hover / :focus-within rules froze the gallery under the mouse and kept it frozen after un-ticking. */
+.work-ribbon[data-offscreen] .work-ribbon-track, .work-ribbon:has(.work-ribbon-toggle input:checked) .work-ribbon-track { animation-play-state: paused; }
+.work-ribbon-toggle .toggle-resume { display: none; }
+.work-ribbon-toggle input:checked ~ .toggle-pause { display: none; }
+.work-ribbon-toggle input:checked ~ .toggle-resume { display: inline; }
+.work-ribbon-link { display: block; flex: 0 0 auto; border-radius: 20px; color: inherit; text-decoration: none; }
+.work-ribbon-link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+.work-ribbon-link:hover .work-ribbon-tile, .work-ribbon-link:focus-visible .work-ribbon-tile { border-color: rgb(141 175 197 / 60%); }
+.work-ribbon-link .work-ribbon-tile img { transition: transform .5s ease; }
+.work-ribbon-link:hover .work-ribbon-tile img { transform: scale(1.04); }
 .work-ribbon-toggle { display: inline-flex; align-items: center; gap: 8px; color: var(--color-muted); font-size: 11px; cursor: pointer; white-space: nowrap; }
 .work-ribbon-toggle:has(input:focus-visible) { outline: 2px solid var(--color-primary); outline-offset: 6px; border-radius: 4px; }
 @keyframes ribbon-loop { to { transform: translateX(-50%); } }
@@ -82,6 +92,7 @@
   .work-ribbon { padding-top: 24px; gap: 10px; }
   .work-ribbon-group { gap: 10px; padding-inline-end: 10px; }
   .work-ribbon-tile { flex-basis: 220px; width: 220px; height: 138px; border-radius: 14px; }
+  .work-ribbon-link { border-radius: 14px; }
   .service-row { grid-template-columns: 44px minmax(0, 1fr); gap: 16px; padding-block: 28px; }
   .service-icon { display: none; }
   .service-number { font-size: 34px; }
@@ -111,6 +122,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .work-ribbon-track { animation: none; }
+  .work-ribbon-link .work-ribbon-tile img { transition: none; }
+  .work-ribbon-link:hover .work-ribbon-tile img { transform: none; }
   .work-ribbon-group--duplicate, .work-ribbon-toggle { display: none; }
   .service-row { transition: none; }
 }
