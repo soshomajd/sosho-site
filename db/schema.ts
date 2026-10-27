@@ -196,6 +196,42 @@ export type ContactMessageRow = {
   expires_at: string;
 };
 
+export type PricingTariffRow = {
+  version: number;
+  /** Validated by worker/pricing-engine.js validateTariff; every amount comes from the admin. */
+  config_json: string;
+  note: string | null;
+  created_at: string;
+};
+
+export type ConsultantRequestRow = {
+  id: string;
+  public_ref: string;
+  client_request_id: string;
+  locale: "fa" | "en";
+  status: "estimated" | "tier_selected" | "contact_submitted" | "in_review" | "contacted" | "won" | "lost" | "archived";
+  answers_json: string;
+  scope_json: string;
+  estimate_json: string;
+  tariff_version: number | null;
+  ai_summary: string | null;
+  ai_source: "model" | "fallback";
+  selected_tier: "economic" | "professional" | null;
+  contact_name: string | null;
+  contact_value: string | null;
+  contact_notes: string | null;
+  contact_consent_at: string | null;
+  processing_consent_at: string;
+  update_token_hash: string;
+  update_seq: number;
+  telegram_state: "awaiting_config" | "queued" | "sent" | "failed";
+  telegram_reported_seq: number;
+  created_at: string;
+  updated_at: string;
+  pii_expires_at: string;
+  expires_at: string;
+};
+
 export type LeadRequirements = {
   businessName: string | null;
   businessActivity: string | null;

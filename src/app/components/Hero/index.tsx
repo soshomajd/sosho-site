@@ -1,6 +1,7 @@
 import type { Locale } from "@/app/i18n";
 import Image from "next/image";
 import { FiArrowDown, FiArrowUpRight } from "react-icons/fi";
+import ConsultantButton from "../Consultant/ConsultantButton";
 import PortraitEyes from "./PortraitEyes";
 import "./hero.css";
 
@@ -69,6 +70,7 @@ export default function Hero({ locale }: { locale: Locale }) {
                         <span>{copy.primaryAction}</span>
                         <FiArrowUpRight aria-hidden="true" className="rtl:-scale-x-100" />
                     </a>
+                    <ConsultantButton locale={locale} variant="bare" className="sh-secondary sh-estimate" />
                     <a className="sh-secondary" href={`/${locale}#services`}>{copy.secondaryAction}</a>
                 </div>
             </div>

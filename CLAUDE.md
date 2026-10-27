@@ -80,6 +80,7 @@ Two deployables in one package:
 | `worker/sales-flow.js` | Three-step Sales Chat flow (site type, budget band, name and phone) applied after any model turn; owns every question and option |
 | `worker/workers-ai-sales-provider.js` | Sales Chat turns on the `AI` binding (Qwen3 with thinking off, Llama fallback, output repair) |
 | `worker/site-audit.js` | Free website audit for `POST /api/tools/audit` with an SSRF-guarded fetch of one public page, robots.txt and sitemap |
+| `worker/consultant.js` (+ `consultant-flow.js`, `consultant-scope.js`, `consultant-ai.js`, `consultant-report.js`, `pricing-engine.js`) | Project consultant: question flow, deterministic scope and two tiers, tariff-based price/time engine, AI interpretation and summary with output checks, consented D1 storage, Telegram report via the outbox, admin list/detail/tariffs. See `docs/PROJECT_CONSULTANT.md` |
 | `worker/telegram-service.js` | Telegram Bot API transport, admin chat/user gating, `answerCallbackQuery`, multipart photo upload |
 
 ### Data / schema
@@ -99,13 +100,13 @@ Editing these drives cards / static params / sitemap / SEO — see the table in 
 - Preserve Meta HMAC signature verification and event-id deduplication; retries must never recreate a completed sales turn.
 - `CONTENT_AI_PROVIDER=workers_ai` (the default) must never call OpenAI. `OPENAI_API_KEY` is optional: Sales Chat runs on the Workers AI `AI` binding without it (`resolveSalesProvider`), and the key also enables the optional OpenAI content provider.
 - Missing `AI` binding or ArvanCloud credentials (`ARVAN_S3_*`) return `configuration_missing` and must not crash the Worker or affect text/Telegram/Sales/Instagram paths.
-- The assistant may recommend an economic/professional/exclusive tier but must not invent prices, discounts, delivery promises, or legal terms. There is no deterministic pricing engine.
+- The Sales Chat assistant must not invent prices, discounts, delivery promises, or legal terms. The only prices come from the project consultant's deterministic engine (`worker/pricing-engine.js`) using the admin-entered tariff in D1; with no tariff it answers «نیازمند بررسی کارشناسی». The AI there only reads free text and writes a summary that is rejected if it mentions money or dates.
 - Dashboard campaign writes require signed session + allowed Origin + JSON content-type + session-bound CSRF token + UUID idempotency key.
 - `/api/health` returns booleans only — never leak config values.
 - Every user-facing feature ships Persian and English copy/metadata/labels/errors together. Prefer logical CSS (`start`/`end`/`ms`/`me`/`ps`/`pe`).
 - Leads hold real PII — never log it, commit it, or use production records as fixtures.
 - Edit source, not generated output (`.next/`, `out/`, `dist/`, `.wrangler/`, coverage).
-- The production D1 database (`sosho-sales`, on the `soheilshokoohi.23@gmail.com` Cloudflare account) is provisioned, its `database_id` is set in `wrangler.jsonc`, and all 9 migrations (through `0008_contact_messages`) are applied remotely. The Worker is deployed and live; apply new migrations remotely before deploying code that needs them.
+- The production D1 database (`sosho-sales`, on the `soheilshokoohi.23@gmail.com` Cloudflare account) is provisioned, its `database_id` is set in `wrangler.jsonc`, and migrations through `0009_project_consultant` are applied remotely (0009 on 2026-10-27). The Worker is deployed and live; apply new migrations remotely before deploying code that needs them.
 
 ## Current working state
 

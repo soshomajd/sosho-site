@@ -5,7 +5,7 @@ import type { Locale } from "@/app/i18n";
 
 /**
  * One-tap WhatsApp button for phones. The header hides its contact icons on small screens, so
- * this keeps a direct line to the owner in reach. It sits on the opposite corner from the chat
+ * this keeps a direct line to the owner in reach. It sits on the opposite corner from the estimate
  * launcher (which uses `end`), and desktop already has the header icons.
  */
 export default function FloatingContact({ locale }: { locale: Locale }) {

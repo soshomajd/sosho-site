@@ -7,6 +7,7 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { getBlogPostHref } from "@/app/blogs/posts";
 import { postsForService } from "@/app/blogs/related";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
+import ConsultantButton from "@/app/components/Consultant/ConsultantButton";
 import { SERVICE_FAQ } from "@/app/components/Services/faq";
 import { SERVICE_GUIDE } from "@/app/components/Services/guide";
 import { getTool, getToolHref } from "@/app/components/Tools/data";
@@ -361,14 +362,17 @@ export default async function ServicePage({
                         {isFa ? "هدفتان را بفرستید تا مسیر مناسب و محدوده اولیه را با هم مشخص کنیم." : "Share the goal and we’ll help define the right approach and an initial scope."}
                     </p>
                 </div>
-                <Link
-                    href={`/${locale}#contact`}
-                    prefetch={false}
-                    className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
-                >
-                    {isFa ? "شروع گفتگو" : "Start a conversation"}
-                    <FiArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
-                </Link>
+                <div className="flex flex-wrap gap-3">
+                    <ConsultantButton locale={locale} variant="secondary" />
+                    <Link
+                        href={`/${locale}#contact`}
+                        prefetch={false}
+                        className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transform-none"
+                    >
+                        {isFa ? "شروع گفتگو" : "Start a conversation"}
+                        <FiArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
+                    </Link>
+                </div>
             </section>
         </main>
     );

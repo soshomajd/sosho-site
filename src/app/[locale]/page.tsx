@@ -6,6 +6,7 @@ import type { Locale } from "../i18n";
 import { CONTACT_INFO } from "../contact-info";
 import About from "../components/About";
 import BlogPreview from "../components/BlogPreview";
+import ConsultantButton from "../components/Consultant/ConsultantButton";
 import ContactForm from "../components/ContactForm";
 import JsonLd from "../components/JsonLd";
 import { baseUrl, languageTag, organizationId, websiteId } from "../seo";
@@ -190,7 +191,17 @@ export default async function Home({
                 {isFa ? "کافی است هدفتان را برای ما بفرستید. مسیر مناسب، محدوده اولیه و قدم بعدی را شفاف با شما در میان می‌گذاریم." : "Send us the goal. We’ll come back with a clear recommendation, an initial scope, and the most useful next step."}
               </p>
             </div>
-
+            <div className="rounded-3xl border border-primary/25 bg-background/40 p-5 lg:col-span-4">
+              <p className="text-sm font-bold text-foreground">
+                {isFa ? "نمی‌دانید چه چیزی لازم دارید؟" : "Not sure what you need?"}
+              </p>
+              <p className="mt-2 text-xs leading-6 text-muted">
+                {isFa
+                  ? "با چند سؤال کوتاه، پیشنهاد فنی، امکانات و برآورد اولیه دو نسخه اقتصادی و حرفه‌ای را ببینید."
+                  : "Answer a few short questions and see a technical suggestion, the features and an initial estimate for an economic and a professional version."}
+              </p>
+              <ConsultantButton locale={locale} variant="primary" className="mt-4 w-full" />
+            </div>
           </div>
 
           <div className="relative mt-10 grid gap-6 lg:grid-cols-12">

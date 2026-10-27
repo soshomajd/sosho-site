@@ -4,6 +4,7 @@ import { HttpResponse, http } from "msw";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import worker, { retryFailedTelegramNotifications } from "../worker/index.js";
+import { BUDGETS } from "../worker/sales-flow.js";
 import {
   TelegramService,
   createCampaignCallbackData,
@@ -489,5 +490,63 @@ describe("Telegram outbound integration", () => {
     expect(response.status).toBe(200);
     expect(sends).toBeGreaterThanOrEqual(1);
     expect(await env.DB.prepare("SELECT COUNT(*) AS total FROM telegram_notifications WHERE notification_type = 'lead_created'").first("total")).toBe(1);
+  });
+
+  it("collects name and phone without a model, and a returning customer's second request notifies the team again", async () => {
+    let sends = 0;
+    mockTelegram((method) => { if (method === "sendMessage") sends += 1; });
+    network.use(http.post("https://api.openai.com/v1/responses", () => new HttpResponse(null, { status: 503 })));
+    const conversationId = "conv_550e8400-e29b-41d4-a716-446655440091";
+    const currentEnv = runtimeEnv({ CHAT_CONVERSATION_HOURLY_LIMIT: "100", CHAT_IP_HOURLY_LIMIT: "100" });
+    let turns = 0;
+    async function say(message) {
+      const ctx = createExecutionContext();
+      turns += 1;
+      const response = await worker.fetch(new Request("https://example.com/api/sales/chat", {
+        method: "POST",
+        // the test environment allows only a few chats per IP; a different address per turn keeps this about the flow
+        headers: { "content-type": "application/json", origin: "https://example.com", "cf-connecting-ip": `203.0.113.${100 + turns}` },
+        body: JSON.stringify({ conversationId, locale: "fa", message }),
+      }), currentEnv, ctx);
+      await waitOnExecutionContext(ctx);
+      expect(response.status).toBe(200);
+      return response.json();
+    }
+    // exact keys (D1 rejects long LIKE patterns); a trailing % means "starts with"
+    const count = async (key) => {
+      const prefix = key.endsWith("%");
+      const value = prefix ? key.slice(0, -1) : key;
+      return env.DB.prepare(
+        prefix
+          ? "SELECT COUNT(*) AS total FROM telegram_notifications WHERE substr(event_key, 1, ?) = ?"
+          : "SELECT COUNT(*) AS total FROM telegram_notifications WHERE event_key = ?"
+      ).bind(...(prefix ? [value.length, value] : [value])).first("total");
+    };
+
+    // The model is down (503), so the scripted path must still follow the three steps.
+    let reply = await say("فروشگاه اینترنتی");
+    expect(reply.reply).toContain("بودجه");
+    expect(reply.isComplete).toBe(false);
+    reply = await say(BUDGETS.fa[1]);
+    expect(reply.reply).toContain("شماره تماس");
+    expect(reply.isComplete).toBe(false);
+    expect(await count("sales:proposal_ready:%")).toBe(0);
+    reply = await say("سارا احمدی ۰۹۱۲۰۰۰۰۰۰۱");
+    expect(reply.isComplete).toBe(true);
+    expect(reply.reply).toContain("سارا احمدی");
+    expect(await count(`sales:proposal_ready:${conversationId}`)).toBe(1);
+
+    // Same browser conversation, new request: ask the budget again, keep the contact, notify again.
+    reply = await say("سایت شرکتی");
+    expect(reply.isComplete).toBe(false);
+    expect(reply.reply).toContain("بودجه");
+    reply = await say(BUDGETS.fa[2]);
+    expect(reply.isComplete).toBe(true);
+    expect(reply.reply).toContain("سارا احمدی");
+    expect(await count(`sales:proposal_ready:${conversationId}:2`)).toBe(1);
+    expect(await count(`sales:proposal_ready:${conversationId}`)).toBe(1); // the first one is not repeated
+    reply = await say("ممنون");
+    expect(await count("sales:proposal_ready:%")).toBe(2);
+    expect(sends).toBeGreaterThanOrEqual(3);
   });
 });

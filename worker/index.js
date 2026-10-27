@@ -55,6 +55,20 @@ import {
   createMainImageR2Key,
 } from "./image-generation.js";
 import { applySalesFlow } from "./sales-flow.js";
+import {
+  CONSULTANT_ID_PATTERN,
+  cleanupConsultantRequests,
+  flushConsultantReports,
+  getAdminConsultantDetail,
+  getAdminConsultantRequests,
+  getAdminTariffs,
+  handleConsultantConfig,
+  handleConsultantEstimate,
+  handleConsultantInterpret,
+  handleConsultantUpdate,
+  saveTariff,
+  updateAdminConsultantStatus,
+} from "./consultant.js";
 import { auditSite, normalizeAuditUrl } from "./site-audit.js";
 import { callWorkersAiSalesModel } from "./workers-ai-sales-provider.js";
 import {
@@ -79,6 +93,8 @@ const REQUIRED_TABLES = [
   "telegram_updates",
   "telegram_notifications",
   "contact_messages",
+  "pricing_tariffs",
+  "consultant_requests",
 ];
 
 const CONTACT_MESSAGE_ID_PATTERN =
@@ -1101,6 +1117,31 @@ async function enforceContactRateLimit(env, ipAddress) {
   return { allowed: globalResult.allowed, scope: "daily" };
 }
 
+// Project consultant: one hashed per-IP bucket per action plus a global daily cap.
+async function enforceConsultantRateLimit(env, ipAddress, action) {
+  const limits = {
+    estimate: ["CONSULTANT_ESTIMATE_IP_HOURLY_LIMIT", 15],
+    interpret: ["CONSULTANT_INTERPRET_IP_HOURLY_LIMIT", 30],
+    update: ["CONSULTANT_UPDATE_IP_HOURLY_LIMIT", 30],
+  };
+  const [name, fallback] = limits[action];
+  const db = requireDatabase(env);
+  const ipResult = await consumeRateLimit(db, {
+    key: await hashedRateKey(env, `consultant_${action}_ip`, ipAddress),
+    limit: getIntegerEnv(env, name, fallback, { min: 1, max: 10_000 }),
+    windowSeconds: 3600,
+  });
+  if (!ipResult.allowed) return { allowed: false, scope: "ip" };
+  const globalResult = await consumeRateLimit(db, {
+    key: `consultant:${action}:global:daily`,
+    limit: getIntegerEnv(env, "CONSULTANT_DAILY_LIMIT", 1000, { min: 1, max: 1_000_000 }),
+    windowSeconds: 86_400,
+  });
+  return { allowed: globalResult.allowed, scope: "daily" };
+}
+
+const consultantDeps = { notify: sendTelegramNotificationOnce, isTelegramConfigured };
+
 async function createContactMessage(env, value) {
   const timestamp = now();
   const id = createId("contact");
@@ -1380,13 +1421,17 @@ function salesNotificationText(type, input, conversation, result, profile) {
     `سطح پیشنهادی: ${result.recommendedTier || "نامشخص"}`,
     `مرحله: ${result.stage}`,
     `Conversation ID: ${conversation.conversation_id}`,
+    ...(Number(profile.inquiry) > 1 ? [`درخواست شمارهٔ ${Math.floor(Number(profile.inquiry))} از همین مشتری`] : []),
     ...(contact ? [`تماس: ${contact}`] : []),
   ].join("\n");
 }
 
 async function notifySalesEvent(env, type, input, conversation, result, profile) {
   return sendTelegramNotificationOnce(env, {
-    eventKey: `sales:${type}:${conversation.conversation_id}`,
+    // A returning customer's second request (profile.inquiry 2, 3, ...) is a new event for the team.
+    eventKey: `sales:${type}:${conversation.conversation_id}${
+      type === "proposal_ready" && Number(profile.inquiry) > 1 ? `:${Math.floor(Number(profile.inquiry))}` : ""
+    }`,
     type,
     entityId: conversation.lead_id,
     text: salesNotificationText(type, input, conversation, result, profile),
@@ -1580,9 +1625,11 @@ export async function handleSalesTurn(env, input, waitUntil) {
     result = fallbackReply(input.locale, messageCount);
   }
   let updatedProfile = mergeProfile(profile, result.extracted);
-  if (result.stage !== "handoff" && !result.scripted) {
+  if (result.stage !== "handoff") {
     // Three-step flow (site type, budget, name and phone): the application owns the
-    // questions and options; the model's reply is only the short lead-in sentence.
+    // questions and options; the model's reply is only the short lead-in sentence. It also
+    // runs when no model answered (scripted result), so a failed model call can no longer
+    // end the conversation as "complete" without ever collecting a phone number.
     const flow = applySalesFlow({
       locale: input.locale,
       result,
@@ -2268,7 +2315,8 @@ async function getReadiness(env) {
              'leads', 'conversations', 'messages', 'webhook_events', 'rate_limit_counters',
              'content_campaigns', 'content_items', 'content_media',
              'campaign_action_audit', 'conversation_action_audit',
-             'telegram_updates', 'telegram_notifications', 'contact_messages'
+             'telegram_updates', 'telegram_notifications', 'contact_messages',
+             'pricing_tariffs', 'consultant_requests'
            )`
         ).first();
         migrationsReady = Number(tables?.total ?? 0) === REQUIRED_TABLES.length;
@@ -2562,6 +2610,74 @@ export async function handleApi(request, env, ctx, url, requestId) {
       );
       return json({ item }, 200, requestId);
     }
+    if (url.pathname === "/api/admin/consultant/requests") {
+      if (request.method !== "GET") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      await requireDashboardAdmin(request, env);
+      return json(await getAdminConsultantRequests(requireDatabase(env), url), 200, requestId);
+    }
+    const adminConsultantRoute = url.pathname.match(/^\/api\/admin\/consultant\/requests\/([^/]+)$/u);
+    if (adminConsultantRoute) {
+      const id = decodeURIComponent(adminConsultantRoute[1]);
+      if (!CONSULTANT_ID_PATTERN.test(id)) throw new ServiceError("invalid_request", { status: 400 });
+      if (request.method === "GET") {
+        await requireDashboardAdmin(request, env);
+        return json(await getAdminConsultantDetail(requireDatabase(env), id), 200, requestId);
+      }
+      if (request.method !== "POST") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      const origin = request.headers.get("origin");
+      if (!origin || !isAllowedWebsiteRequest(request, env)) {
+        throw new ServiceError("origin_not_allowed", { status: 403 });
+      }
+      await requireAdminSessionAction(request, env);
+      const body = await readJsonBody(request, 1024);
+      if (!isPlainRecord(body) || Object.keys(body).length !== 1 || typeof body.status !== "string") {
+        throw new ServiceError("invalid_request", { status: 400 });
+      }
+      return json(await updateAdminConsultantStatus(requireDatabase(env), id, body.status), 200, requestId);
+    }
+    if (url.pathname === "/api/admin/consultant/tariffs") {
+      if (request.method === "GET") {
+        await requireDashboardAdmin(request, env);
+        return json(await getAdminTariffs(requireDatabase(env)), 200, requestId);
+      }
+      if (request.method !== "PUT") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      const origin = request.headers.get("origin");
+      if (!origin || !isAllowedWebsiteRequest(request, env)) {
+        throw new ServiceError("origin_not_allowed", { status: 403 });
+      }
+      await requireAdminSessionAction(request, env);
+      const saved = await saveTariff(requireDatabase(env), await readJsonBody(request, 65_536));
+      return saved.ok
+        ? json({ version: saved.version }, 201, requestId)
+        : json({ error: "invalid_tariff", issues: saved.issues }, 400, requestId);
+    }
+    if (url.pathname === "/api/admin/consultant/telegram-test") {
+      if (request.method !== "POST") {
+        return json({ error: "method_not_allowed" }, 405, requestId);
+      }
+      const origin = request.headers.get("origin");
+      if (!origin || !isAllowedWebsiteRequest(request, env)) {
+        throw new ServiceError("origin_not_allowed", { status: 403 });
+      }
+      await requireAdminSessionAction(request, env);
+      if (!isTelegramConfigured(env)) return json({ configured: false, sent: false }, 200, requestId);
+      try {
+        await new TelegramService(env).sendText(
+          `✅ پیام آزمایشی برآورد هوشمند پروژه\n${new Date().toLocaleString("fa-IR", { timeZone: "Asia/Tehran" })}`,
+          { requestId }
+        );
+        return json({ configured: true, sent: true }, 200, requestId);
+      } catch (error) {
+        logEvent("warn", "consultant_telegram_test_failed", { requestId, code: error?.code || "telegram_error" });
+        return json({ configured: true, sent: false }, 200, requestId);
+      }
+    }
     if (url.pathname === "/api/admin/conversations") {
       if (request.method !== "GET") {
         return json({ error: "method_not_allowed" }, 405, requestId);
@@ -2749,6 +2865,63 @@ export async function handleApi(request, env, ctx, url, requestId) {
       const result = await auditSite(target.url, auditFetch, { internal: isOwnHost(target.url.hostname) });
       return json(result, 200, requestId);
     }
+    if (url.pathname === "/api/consultant/config" && request.method === "GET") {
+      for (const key of url.searchParams.keys()) {
+        if (key !== "locale") return json({ error: "invalid_request" }, 400, requestId);
+      }
+      return json(
+        await handleConsultantConfig(env, requireDatabase(env), url.searchParams.get("locale")),
+        200,
+        requestId
+      );
+    }
+    if (url.pathname.startsWith("/api/consultant/") && request.method === "POST") {
+      requireDatabase(env);
+      if (!isAllowedWebsiteRequest(request, env)) {
+        throw new ServiceError("origin_not_allowed", { status: 403 });
+      }
+      const db = requireDatabase(env);
+      const ipAddress = clientIpAddress(request, env);
+      const waitUntil = ctx ? (promise) => ctx.waitUntil(promise) : undefined;
+      const reserveQuota = () => reserveSalesAiQuota(env, "workers_ai");
+      const limited = async (action) => {
+        const rateLimit = await enforceConsultantRateLimit(env, ipAddress, action);
+        if (!rateLimit.allowed) {
+          logEvent("warn", "consultant_rate_limited", { requestId, code: `${action}_${rateLimit.scope}` });
+          throw new ServiceError("rate_limited", { status: 429 });
+        }
+      };
+      if (url.pathname === "/api/consultant/interpret") {
+        const body = await readJsonBody(request, 4096);
+        await limited("interpret");
+        return json(await handleConsultantInterpret(env, body, { requestId, reserveQuota }), 200, requestId);
+      }
+      if (url.pathname === "/api/consultant/estimate") {
+        const body = await readJsonBody(request, 16_384);
+        await limited("estimate");
+        const result = await handleConsultantEstimate(env, db, body, {
+          requestId,
+          reserveQuota,
+          waitUntil,
+          deps: consultantDeps,
+        });
+        return json(result.payload, result.status, requestId);
+      }
+      const updateRoute = url.pathname.match(/^\/api\/consultant\/requests\/([^/]+)$/u);
+      if (updateRoute) {
+        const id = decodeURIComponent(updateRoute[1]);
+        if (!CONSULTANT_ID_PATTERN.test(id)) throw new ServiceError("invalid_request", { status: 400 });
+        const body = await readJsonBody(request, 4096);
+        await limited("update");
+        const result = await handleConsultantUpdate(env, db, id, body, {
+          requestId,
+          waitUntil,
+          deps: consultantDeps,
+        });
+        return json(result.payload, result.status, requestId);
+      }
+      return json({ error: "not_found" }, 404, requestId);
+    }
     if (url.pathname === "/api/sales/status" && request.method === "GET") {
       // Public boolean the website widget polls on mount so it can stay hidden
       // until Sales Chat is actually configured. No config values are leaked.
@@ -2913,9 +3086,20 @@ const worker = {
           })
         )
       );
+      // Consultant reports parked while Telegram was not configured go out once it is.
+      ctx.waitUntil(
+        flushConsultantReports(env, env.DB, consultantDeps, requestId).catch((error) =>
+          logEvent("warn", "consultant_report_flush_failed", { requestId, code: error?.code || "flush_error" })
+        )
+      );
       return;
     }
     ctx.waitUntil(runRetentionCleanup(env, requestId));
+    ctx.waitUntil(
+      cleanupConsultantRequests(env.DB).catch((error) =>
+        logEvent("warn", "consultant_retention_failed", { requestId, code: error?.code || "retention_error" })
+      )
+    );
   },
 };
 

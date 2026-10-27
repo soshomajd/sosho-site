@@ -122,6 +122,53 @@ describe("sales flow: site type, budget, then name and phone", () => {
     expect(s.result.isComplete).toBe(true);
   });
 
+  it("reads the name from the message when no model extracted it", () => {
+    let s = { count: 2, profile: { projectType: "ecommerce", budgetToman: BUDGETS.fa[1] } };
+    s = turn(s, "سارا احمدی ۰۹۱۲۰۰۰۰۰۰۱");
+    expect(s.profile.contactName).toBe("سارا احمدی");
+    expect(s.profile.phone).toBe("09120000001");
+    expect(s.result.isComplete).toBe(true);
+
+    // name first, phone later; a one-word answer or a thank-you is not taken as a name
+    s = { count: 2, profile: { projectType: "ecommerce", budgetToman: BUDGETS.fa[1] } };
+    s = turn(s, "علی رضایی");
+    expect(s.profile.contactName).toBe("علی رضایی");
+    expect(s.result.reply).toContain("شماره تماس");
+    for (const text of ["سلام", "ممنون", "من نمی‌خوام شماره بدم", "قیمتش چقدر میشه"]) {
+      const t = turn({ count: 2, profile: { projectType: "ecommerce", budgetToman: BUDGETS.fa[1] } }, text);
+      expect(t.profile.contactName, text).toBeUndefined();
+    }
+    // a name must not be read from a step answer
+    expect(turn({ count: 1, profile: { projectType: "ecommerce" } }, BUDGETS.fa[0]).profile.contactName).toBeUndefined();
+  });
+
+  it("treats a site type chosen after a finished request as a new request from the same customer", () => {
+    let s = { count: 0, profile: {} };
+    s = turn(s, "فروشگاه اینترنتی");
+    s = turn(s, BUDGETS.fa[1]);
+    s = turn(s, "سارا احمدی ۰۹۱۲۰۰۰۰۰۰۱");
+    expect(s.result.isComplete).toBe(true);
+    expect(s.profile.inquiry).toBeUndefined();
+
+    s = turn(s, "سایت شرکتی");
+    expect(s.result.isComplete).toBe(false);
+    expect(s.result.reply).toContain("بودجه");
+    expect(s.profile.inquiry).toBe(2);
+    expect(s.profile.contactName).toBe("سارا احمدی"); // already known, not asked again
+    expect(s.profile.phone).toBe("09120000001");
+    expect(s.profile.projectType).toBe("corporate");
+
+    s = turn(s, BUDGETS.fa[2]);
+    expect(s.result.isComplete).toBe(true);
+    expect(s.result.reply).toContain("سارا احمدی");
+    expect(s.result.reply).toContain("تماس می‌گیرند");
+
+    // "Other" has no budget step, so a returning customer is complete straight away
+    s = turn(s, "سایر");
+    expect(s.profile.inquiry).toBe(3);
+    expect(s.result.isComplete).toBe(true);
+  });
+
   it("leaves human handoff untouched", () => {
     // handleSalesTurn skips the flow for stage "handoff"; the flow itself only rewrites qualification turns.
     expect(SITE_TYPES.fa.map(([, type]) => type)).toContain("webapp_saas");

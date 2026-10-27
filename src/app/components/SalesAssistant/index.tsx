@@ -123,6 +123,14 @@ function persistConversationId(value: string) {
   }
 }
 
+function forgetConversationId() {
+  try {
+    window.localStorage.removeItem(CONVERSATION_STORAGE_KEY);
+  } catch {
+    // Nothing to forget when storage is unavailable.
+  }
+}
+
 function isSalesReply(value: unknown): value is SalesReply {
   if (!value || typeof value !== "object") return false;
   const reply = value as Partial<SalesReply>;
@@ -245,7 +253,11 @@ export default function SalesAssistant({
 
       const result: unknown = await response.json();
       if (!isSalesReply(result)) throw new Error("Sales API returned an invalid response");
-      persistConversationId(result.conversationId);
+      // Once the request is complete (name and phone collected), forget the stored id: the next visit
+      // or reload starts a fresh conversation instead of resuming a finished one, which used to answer
+      // "we will contact you" to a new customer on the same browser without asking for a phone number.
+      if (result.isComplete) forgetConversationId();
+      else persistConversationId(result.conversationId);
       setConversationId(result.conversationId);
       setMessages((current) => [
         ...current,

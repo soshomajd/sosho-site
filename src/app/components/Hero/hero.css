@@ -16,6 +16,7 @@
 .sh-cta svg { width: 20px; height: 20px; }
 .sh-secondary { font-size: 13px; color: var(--color-muted); text-underline-offset: 6px; }
 .sh-secondary:hover { color: var(--color-foreground); text-decoration: underline; }
+.sh-estimate { display: inline-flex; align-items: center; gap: 8px; color: var(--color-primary); font-weight: 700; cursor: pointer; }
 .sh-cta:focus-visible, .sh-secondary:focus-visible, .sh-scroll:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 6px; }
 .sh-bottom { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 24px; border-top: 1px solid rgb(236 238 233 / 12%); padding-block: 24px; }
 .sh-feats { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; color: var(--color-muted); font-size: 12px; }
@@ -35,7 +36,7 @@
   .sh-intro { grid-column: 1; grid-row: 2; text-align: center; padding: 0; }
   .sh-title { max-width: 700px; margin-inline: auto; font-size: clamp(24px, 4vw, 36px); }
   .sh-sub { max-width: 620px; margin-inline: auto; }
-  .sh-actions { grid-column: 1; grid-row: 3; justify-self: center; flex-direction: row; padding: 0; gap: 24px; }
+  .sh-actions { grid-column: 1; grid-row: 3; justify-self: center; flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 0; gap: 14px 24px; }
   .sh-bottom { justify-content: center; }
   .sh-feats { justify-content: center; }
   .sh-scroll { display: none; }

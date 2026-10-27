@@ -111,6 +111,25 @@ function findPhone(message) {
   return match && isValidPhone(match[0]) ? match[0].trim() : null;
 }
 
+// Words that mean the customer is asking or answering something else, never a person's name.
+const NAME_BLOCKLIST = /میلیون|تومان|بودجه|سایت|فروشگاه|قیمت|هزینه|چقدر|چند|استعلام|نمی‌?خوا|نمیخوا|تماس|شماره|price|budget|website|store|how much|cost|call|phone|number|don'?t/iu;
+const PHONE_ANYWHERE =/\+?\d[\d\s().-]{8,16}\d/gu;
+const NOT_A_NAME = /^(?:سلام|درود|ممنون|مرسی|متشکرم|ok|okay|thanks?|thank you|hello|hi|hey|yes|no|بله|خیر|باشه)$/iu;
+
+/** The customer's name from a message like "Sara Ahmadi 0912…" or a plain "Sara Ahmadi"; null if it does not look like one. */
+export function extractName(message) {
+  const hadPhone = new RegExp(PHONE_ANYWHERE.source, "u").test(toAsciiDigits(message));
+  const stripped = toAsciiDigits(message)
+    .replace(PHONE_ANYWHERE, " ")
+    .replace(/[،,;:()\-–—_/\\|"'«»]/gu, " ")
+    .replace(/\s+/gu, " ")
+    .trim();
+  if (!isValidName(stripped) || /\d/u.test(stripped) || NOT_A_NAME.test(stripped) || NAME_BLOCKLIST.test(stripped) || stripped.length > 60) return null;
+  const words = stripped.split(" ").length;
+  // A bare message with no phone must look like a full name (two to five words); with a phone, one word is fine.
+  return hadPhone ? (words <= 5 ? stripped : null) : words >= 2 && words <= 5 ? stripped : null;
+}
+
 /** First one or two sentences of the model's reply that are not questions or "I understand" filler. */
 export function leadSentence(text) {
   const parts = String(text ?? "")
@@ -143,6 +162,13 @@ export function applySalesFlow({ locale, result, profile, lastUserMessage, messa
   const next = { ...profile };
 
   const chip = SITE_TYPES[lang].find(([label]) => canon(label) === canon(message));
+  // A finished conversation that gets a new site type is a new request from a known customer:
+  // keep the name and phone, ask for the new budget, and notify the team again (inquiry counter).
+  if (chip && next.flowDone) {
+    delete next.budgetToman;
+    delete next.flowDone;
+    next.inquiry = Math.max(1, Math.floor(Number(profile.inquiry) || 1)) + 1;
+  }
   if (chip) next.projectType = chip[1];
   else if (!next.projectType && result.projectType && result.projectType !== "unknown") {
     next.projectType = result.projectType;
@@ -161,6 +187,12 @@ export function applySalesFlow({ locale, result, profile, lastUserMessage, messa
   }
   if (next.phone) next.phone = toAsciiDigits(next.phone).trim();
   if (!isValidName(next.contactName)) delete next.contactName;
+  // No model answered, or it did not extract the name: read it from the message at the contact step.
+  const atContactStep = next.projectType && (next.budgetToman || next.projectType === "other");
+  if (!next.contactName && atContactStep && !chip && !budgetChip) {
+    const name = extractName(message);
+    if (name) next.contactName = name;
+  }
 
   // The model's sentence is only a lead-in for a real, free-text message (a question or a
   // few words about the project). After a tapped option, a greeting or a thank-you it adds

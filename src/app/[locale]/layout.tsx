@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HtmlLangDir from "../components/HtmlLangDir";
+import ConsultantHost from "../components/Consultant/ConsultantHost";
 import FloatingContact from "../components/FloatingContact";
-import SalesAssistantGate from "../components/SalesAssistant/Gate";
+import ConsultantLauncher from "../components/Consultant/ConsultantLauncher";
 import { CONTACT_INFO } from "../contact-info";
 import { getDictionary, isLocale, locales, type Locale } from "../i18n";
 import JsonLd from "../components/JsonLd";
@@ -155,8 +156,9 @@ export default async function LocaleLayout({
             <Header locale={locale} labels={dict} />
             {children}
             <Footer locale={locale} />
-            <SalesAssistantGate locale={locale} />
+            <ConsultantLauncher locale={locale} />
             <FloatingContact locale={locale} />
+            <ConsultantHost locale={locale} />
         </>
     );
 }

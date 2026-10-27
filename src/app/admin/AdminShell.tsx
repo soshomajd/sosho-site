@@ -15,6 +15,8 @@ const navigation = [
   { href: "/admin/messages", label: "پیام‌ها" },
   { href: "/admin/leads", label: "سرنخ‌ها" },
   { href: "/admin/conversations", label: "گفتگوها" },
+  { href: "/admin/consultant", label: "برآوردها" },
+  { href: "/admin/tariffs", label: "تعرفه‌ها" },
 ];
 
 function isCurrentPath(pathname: string, href: string) {
