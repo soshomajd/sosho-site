@@ -47,7 +47,6 @@ export default function Hero({ locale }: { locale: Locale }) {
             <div className="sh-stage">
                 <p className="sh-eyebrow" data-reveal>{copy.eyebrow}</p>
                 <p className="sh-wordmark" aria-hidden="true" dir="ltr">SOSHO STUDIO</p>
-                <div className="sh-orbit" aria-hidden="true" />
                 <div className="sh-portrait">
                     <Image
                         src="/brand/soheil-character-3d.webp"
