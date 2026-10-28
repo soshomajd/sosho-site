@@ -51,6 +51,21 @@ describe("project scope", () => {
     expect(run({ ...answersFor.corporate(), style: "interactive_3d" }).scope.architecture.id).toBe("custom");
   });
 
+  it("recommends React Native for a mobile app, with a web app as the lighter alternative, and prices screens like pages", () => {
+    const { scope, estimate } = run(answersFor.mobile());
+    expect(scope.architecture.id).toBe("mobile");
+    expect(scope.architecture.alternative.id).toBe("custom");
+    expect(scope.tiers.economic.features).toEqual(["user_accounts", "online_payment", "admin_panel"]);
+    expect(scope.tiers.economic.deferred).toEqual(["push_notifications"]);
+    expect(scope.tiers.economic.templates).toEqual(["app_screens", "account", "checkout", "admin_panel"]);
+    expect(scope.needsReview.some((item) => item.en.includes("stores"))).toBe(true);
+    // hours: (base 160 + (3 static + 12 screens) * 4 + 4 templates * 10 + 3 core features * 10) * design 1 * content * (1 + qa 0.2)
+    const content = testTariff().content[scope.content ?? "unknown"];
+    expect(estimate.status).toBe("estimated");
+    expect(estimate.tiers.economic.hours).toBe(Math.round((160 + 15 * 4 + 40 + 30) * content * 1.2));
+    expect(estimate.tiers.economic.monthly).toBe(3_000_000);
+  });
+
   it("splits essential and later-phase features and adds explained professional extras", () => {
     const { scope } = run(answersFor.ecommerce());
     expect(scope.twoTiers).toBe(true);

@@ -16,7 +16,7 @@ const HELP: Array<[string, string]> = [
   ["currency", "واحد پول؛ code سه تا هشت حرف بزرگ (مثل IRT) و برچسب فارسی/انگلیسی."],
   ["roundTo", "قیمت‌ها به مضرب این عدد گرد می‌شوند (مثلاً ۱۰۰۰۰۰۰)."],
   ["hourlyRate", "نرخ ترکیبی یک ساعت کار تیم."],
-  ["architectures", "برای wordpress، woocommerce و custom: ساعت پایه، ساعت هر صفحه ثابت، هر قالب پویا، هر ۱۰۰ آیتم (محصول/دوره)، هر بخش یا نقش پلتفرم، و ضریب ساعت امکانات."],
+  ["architectures", "برای wordpress، woocommerce، custom و mobile: ساعت پایه، ساعت هر صفحه ثابت (در mobile: هر صفحه اپ)، هر قالب پویا، هر ۱۰۰ آیتم (محصول/دوره)، هر بخش یا نقش پلتفرم، و ضریب ساعت امکانات. mobile برای اپ اندروید و iOS با React Native است."],
   ["features", "برای هر امکان: ساعت کار، هزینه یک‌باره (مثل لایسنس) و هزینه ماهانه (مثل پیامک یا سرویس AI). امکانی که اینجا نباشد در برآورد «بدون تعرفه» علامت می‌خورد."],
   ["design", "ضریب سطح طراحی: minimal، modern، modern_plus، luxury، creative_motion، interactive_3d."],
   ["multilingualFactor / content", "ضریب چندزبانه، و ضریب آماده بودن محتوا (ready، partial، none، unknown)."],

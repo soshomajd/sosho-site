@@ -59,6 +59,88 @@ export const SERVICE_GUIDE: Record<ServiceSlug, ServiceGuide> = {
     related: ["wordpress-woocommerce", "seo-google-growth"],
     tool: "website-seo-audit",
   },
+  "web-application-development": {
+    when: {
+      fa: [
+        "کارها را با اکسل، واتس‌اپ و کاغذ جلو می‌برید و اطلاعات بین چند نفر گم می‌شود",
+        "مشتری یا همکارتان باید وارد شود، درخواست ثبت کند و وضعیتش را ببیند",
+        "ایده یک سرویس آنلاین (SaaS) دارید و می‌خواهید نسخه اول را به بازار برسانید",
+        "سیستم فعلی‌تان کند، قدیمی یا غیرقابل توسعه است و هر تغییر کوچک گران تمام می‌شود",
+      ],
+      en: [
+        "Work runs on spreadsheets, WhatsApp and paper, and information gets lost between people",
+        "Customers or staff need to sign in, submit requests and see their status",
+        "You have an idea for an online service (SaaS) and want to bring a first version to market",
+        "Your current system is slow, dated or hard to extend, and every small change is costly",
+      ],
+    },
+    approach: {
+      fa: [
+        "اول جریان کار را روی کاغذ می‌آوریم: چه کسانی از سیستم استفاده می‌کنند، هر کدام چه کاری انجام می‌دهند و چه داده‌ای جابه‌جا می‌شود. از همین نقشه، نقش‌ها، سطح دسترسی و صفحه‌های کلیدی بیرون می‌آید و نسخه اول (MVP) طوری تعریف می‌شود که زود قابل استفاده باشد.",
+        "ساخت با Next.js و React و تایپ‌اسکریپت انجام می‌شود، با API و پایگاه داده‌ای که برای رشد طراحی شده است. در هر مرحله یک نسخه قابل‌تست تحویل می‌گیرید، تست خودکار بخش‌های حساس را می‌پوشاند و استقرار و پشتیبان‌گیری از روز اول برنامه‌ریزی می‌شود.",
+      ],
+      en: [
+        "We first map the workflow: who uses the system, what each of them does and what data moves between them. Roles, permissions and the key screens come out of that map, and the first version (MVP) is defined so it becomes useful quickly.",
+        "We build with Next.js, React and TypeScript, on an API and database designed to grow. You get a testable version at each milestone, automated tests cover the sensitive parts, and deployment and backups are planned from day one.",
+      ],
+    },
+    mistakes: {
+      fa: [
+        "ساختن همه امکانات در نسخه اول به‌جای شروع با هسته اصلی",
+        "تعریف نکردن نقش‌ها و سطح دسترسی پیش از شروع توسعه",
+        "نادیده گرفتن امنیت، پشتیبان‌گیری و ثبت خطا تا بعد از لانچ",
+        "انتخاب فناوری کم‌کاربرد که بعداً برنامه‌نویس برایش پیدا نمی‌شود",
+      ],
+      en: [
+        "Building every feature into the first version instead of starting with the core",
+        "Not defining roles and permissions before development starts",
+        "Leaving security, backups and error logging until after launch",
+        "Choosing a niche technology that later has no developers available",
+      ],
+    },
+    related: ["mobile-app-development", "ai-automation"],
+  },
+  "mobile-app-development": {
+    when: {
+      fa: [
+        "مشتری‌هایتان مرتب برمی‌گردند و یک اپ روی گوشی، خرید یا رزرو دوباره را برایشان ساده‌تر می‌کند",
+        "به امکاناتی مثل اعلان (Push)، دوربین، موقعیت مکانی یا کار بدون اینترنت نیاز دارید",
+        "سایت یا وب‌اپ دارید و می‌خواهید همان خدمات را در قالب اپ اندروید و iOS هم ارائه دهید",
+        "ایده یک اپ دارید و می‌خواهید نسخه اول را سریع روی گوشی کاربران واقعی امتحان کنید",
+      ],
+      en: [
+        "Your customers come back often and an app on their phone makes reordering or rebooking easier",
+        "You need features such as push notifications, the camera, location or working offline",
+        "You have a website or web app and want to offer the same service as an Android and iOS app",
+        "You have an app idea and want to test a first version quickly on real users' phones",
+      ],
+    },
+    approach: {
+      fa: [
+        "پیش از ساخت می‌پرسیم که آیا واقعاً اپ لازم است یا یک وب‌اپ واکنش‌گرا (PWA) کار را ارزان‌تر انجام می‌دهد. اگر اپ لازم باشد، صفحه‌ها و مسیرهای اصلی را طراحی می‌کنیم و یک پروتوتایپ قابل‌لمس می‌سازیم تا پیش از کدنویسی روی گوشی امتحانش کنید.",
+        "ساخت با React Native انجام می‌شود: یک کد برای اندروید و iOS، همراه بک‌اند و پنل مدیریتی که می‌تواند با سایت شما مشترک باشد. نسخه آزمایشی را در طول کار روی گوشی خودتان نصب می‌کنید و در پایان، اپ را برای گوگل‌پلی، اپ‌استور و استورهای ایرانی آماده و ارسال می‌کنیم.",
+      ],
+      en: [
+        "Before building we ask whether an app is really needed or a responsive web app (PWA) would do the job for less. If an app is right, we design the main screens and flows and make a tappable prototype you can try on a phone before any code is written.",
+        "We build with React Native: one codebase for Android and iOS, with a back-end and admin panel that can be shared with your website. You install test builds on your own phone during the work, and at the end we prepare and submit the app to Google Play, the App Store and Iranian stores.",
+      ],
+    },
+    mistakes: {
+      fa: [
+        "ساختن اپ وقتی یک وب‌اپ یا سایت موبایل‌پسند کافی بود",
+        "فکر نکردن به پنل مدیریت و بک‌اند تا وقتی که اپ آماده شده است",
+        "تست نکردن روی گوشی‌های ضعیف‌تر و اینترنت کند",
+        "ساختن حساب استور به نام شخص دیگری به‌جای مالک کسب‌وکار",
+      ],
+      en: [
+        "Building an app when a web app or mobile-friendly site would have been enough",
+        "Not thinking about the admin panel and back-end until the app is finished",
+        "Not testing on lower-end phones and slow connections",
+        "Opening the store account in someone else's name instead of the business owner's",
+      ],
+    },
+    related: ["web-application-development", "ui-ux-brand-design"],
+  },
   "wordpress-woocommerce": {
     when: {
       fa: [

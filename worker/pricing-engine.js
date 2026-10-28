@@ -3,7 +3,7 @@
 // produces one. Without a valid tariff the result is "needs_review" instead of a guess.
 import { FEATURES } from "./consultant-flow.js";
 
-export const ARCHITECTURES = ["wordpress", "woocommerce", "custom"];
+export const ARCHITECTURES = ["wordpress", "woocommerce", "custom", "mobile"];
 export const DESIGN_LEVELS = ["minimal", "modern", "modern_plus", "luxury", "creative_motion", "interactive_3d"];
 const CONTENT_STATES = ["ready", "partial", "none", "unknown"];
 const CONFIDENCE = ["high", "medium", "low"];
@@ -24,7 +24,7 @@ export const TARIFF_TEMPLATE = {
   qaShare: null,
   designShare: null,
   uncertainty: Object.fromEntries(CONFIDENCE.map((id) => [id, null])),
-  recurring: { hostingMonthly: { wordpress: null, woocommerce: null, custom: null }, domainYearly: null, supportMonthly: null },
+  recurring: { hostingMonthly: Object.fromEntries(ARCHITECTURES.map((id) => [id, null])), domainYearly: null, supportMonthly: null },
   team: { hoursPerDay: null, workDaysPerWeek: null, parallelDevelopers: null, discoveryDays: null, feedbackRounds: { economic: null, professional: null }, feedbackDaysPerRound: null, bufferShare: null },
   budgetBands: [],
 };
@@ -91,7 +91,8 @@ const roundTo = (value, step) => Math.max(step, Math.round(value / step) * step)
 
 function tierHours(scope, tier, tariff, architectureId) {
   const arch = tariff.architectures[architectureId];
-  const contentPages = tier.staticPages + (scope.projectType === "corporate" ? scope.itemCount : 0);
+  // Company sections and app screens are priced like pages.
+  const contentPages = tier.staticPages + (scope.projectType === "corporate" || scope.projectType === "mobile" ? scope.itemCount : 0);
   const itemHours = ITEM_TYPES.has(scope.projectType) ? (scope.itemCount / 100) * arch.itemHoursPer100 : 0;
   const moduleHours = scope.projectType === "platform" ? scope.itemCount * arch.moduleHours : 0;
   const missing = [];

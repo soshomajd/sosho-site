@@ -8,7 +8,7 @@ export function testTariff(overrides = {}) {
     currency: { code: "IRT", label: { fa: "تومان", en: "Toman" } },
     roundTo: 1_000_000,
     hourlyRate: 1_000_000,
-    architectures: { wordpress: architecture(40), woocommerce: architecture(60), custom: architecture(120) },
+    architectures: { wordpress: architecture(40), woocommerce: architecture(60), custom: architecture(120), mobile: architecture(160) },
     features: Object.fromEntries(Object.keys(FEATURES).map((id) => [id, { hours: 10, oneTimeCost: 0, monthlyCost: 0 }])),
     design: { minimal: 0.9, modern: 1, modern_plus: 1.2, luxury: 1.3, creative_motion: 1.5, interactive_3d: 2 },
     multilingualFactor: 1.3,
@@ -16,7 +16,7 @@ export function testTariff(overrides = {}) {
     qaShare: 0.2,
     designShare: 0.3,
     uncertainty: { high: 0.1, medium: 0.2, low: 0.35 },
-    recurring: { hostingMonthly: { wordpress: 1_000_000, woocommerce: 2_000_000, custom: 3_000_000 }, domainYearly: 1_000_000, supportMonthly: 5_000_000 },
+    recurring: { hostingMonthly: { wordpress: 1_000_000, woocommerce: 2_000_000, custom: 3_000_000, mobile: 3_000_000 }, domainYearly: 1_000_000, supportMonthly: 5_000_000 },
     team: { hoursPerDay: 6, workDaysPerWeek: 5, parallelDevelopers: 2, discoveryDays: 3, feedbackRounds: { economic: 1, professional: 2 }, feedbackDaysPerRound: 3, bufferShare: 0.15 },
     budgetBands: [
       { id: "b1", label: { fa: "تا ۵۰ میلیون", en: "Up to 50 million" }, min: 0, max: 50_000_000 },
@@ -32,4 +32,5 @@ export const answersFor = {
   ecommerce: () => ({ projectType: "ecommerce", goal: "sales", features: ["online_payment", "cart", "user_accounts", "inventory"], size: "m", style: "modern", budget: "b2", timeframe: "1_2_months", content: "ready" }),
   booking: () => ({ projectType: "booking", goal: "booking", features: ["booking_calendar", "online_payment", "notifications"], size: "s", style: "minimal", budget: "suggest", timeframe: "flexible" }),
   platform: () => ({ projectType: "platform", goal: "operations", features: ["user_panel", "roles", "dashboard", "api_integration"], size: "m", style: "modern", budget: "b3", timeframe: "3_plus_months" }),
+  mobile: () => ({ projectType: "mobile", goal: "sales", features: ["user_accounts", "online_payment", "push_notifications", "admin_panel"], size: "m", style: "modern", budget: "b3", timeframe: "3_plus_months" }),
 };

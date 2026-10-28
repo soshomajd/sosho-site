@@ -56,7 +56,7 @@ const ANSWER_LABELS: Record<string, string> = {
   featuresNote: "امکانات دیگر", size: "ابعاد", style: "سبک طراحی", referenceUrl: "سایت نمونه", styleNote: "توضیح سبک",
   content: "محتوا", budget: "بودجه مشتری", timeframe: "زمان دلخواه", timeframeNote: "توضیح زمان", notes: "یادداشت",
 };
-const TECH: Record<string, string> = { wordpress: "وردپرس", woocommerce: "ووکامرس", custom: "توسعه اختصاصی" };
+const TECH: Record<string, string> = { wordpress: "وردپرس", woocommerce: "ووکامرس", custom: "توسعه اختصاصی", mobile: "اپ موبایل (React Native)" };
 const LEVEL: Record<string, string> = { low: "پایین/ساده", medium: "متوسط", high: "بالا" };
 
 function Card({ title, children }: { title: string; children: ReactNode }) {

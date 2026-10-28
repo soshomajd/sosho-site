@@ -8,9 +8,10 @@ import {
     SiTelegram,
     SiWhatsapp,
 } from "react-icons/si";
-import { BsFillTelephoneOutboundFill } from "react-icons/bs";
+import { FiMail, FiPhone } from "react-icons/fi";
 import { CONTACT_INFO } from "@/app/contact-info";
 import { SERVICES, getServiceHref } from "@/app/components/Services/data";
+import ConsultantButton from "@/app/components/Consultant/ConsultantButton";
 
 const SOCIAL_LINKS = [
     {
@@ -40,6 +41,11 @@ const SOCIAL_LINKS = [
     },
 ] as const;
 
+const FOCUS_RING = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60";
+// 44px tall rows on touch screens, a tighter list from md up.
+const LIST_LINK = `flex min-h-11 items-center rounded-md text-sm text-muted transition-colors hover:text-foreground md:min-h-9 ${FOCUS_RING}`;
+const HEADING = "flex items-center gap-2 text-sm font-bold text-foreground before:h-px before:w-4 before:bg-accent";
+
 export default function Footer({ locale }: { locale: Locale }) {
     const isFa = locale === "fa";
 
@@ -61,15 +67,60 @@ export default function Footer({ locale }: { locale: Locale }) {
             { href: `/${locale}#contact`, label: "Start a project" },
         ];
 
+    const contacts = [
+        {
+            href: CONTACT_INFO.phoneHref,
+            label: isFa ? "تماس تلفنی" : "Call",
+            value: CONTACT_INFO.phoneDisplay,
+            Icon: FiPhone,
+        },
+        {
+            href: `mailto:${CONTACT_INFO.email}`,
+            label: isFa ? "ایمیل" : "Email",
+            value: CONTACT_INFO.email,
+            Icon: FiMail,
+        },
+    ];
+
     return (
-        <footer className="mt-16 border-t border-foreground/10 bg-surface/10">
-            <div className="container py-10">
-                <div className="grid gap-8 md:grid-cols-12 md:items-start">
-                    <div className="space-y-3 md:col-span-5">
+        <footer className="relative mt-16 overflow-hidden border-t border-foreground/10 bg-linear-to-b from-surface/25 to-background">
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-40 start-1/2 h-80 w-[36rem] max-w-full -translate-x-1/2 rounded-full bg-accent/10 blur-3xl rtl:translate-x-1/2"
+            />
+
+            <div className="container relative pt-12 pb-28 md:pb-24">
+                <div className="flex w-full flex-col gap-5 rounded-3xl border border-foreground/10 bg-surface/30 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
+                    <div className="max-w-xl">
+                        <p className="text-lg font-bold text-foreground sm:text-xl">
+                            {isFa ? "ایده‌ای برای پروژه بعدی دارید؟" : "Have a project in mind?"}
+                        </p>
+                        <p className="mt-2 text-sm leading-7 text-muted">
+                            {isFa
+                                ? "با چند سؤال کوتاه، دامنه کار و برآورد اولیه پروژه‌تان را ببینید یا مستقیم با ما صحبت کنید."
+                                : "Answer a few short questions to see your project's scope and a first estimate, or talk to us directly."}
+                        </p>
+                    </div>
+                    <div className="flex flex-col gap-3 sm:flex-row lg:shrink-0">
+                        <ConsultantButton locale={locale} variant="primary" />
+                        <a
+                            href={CONTACT_INFO.whatsappUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`inline-flex h-12 items-center justify-center gap-2 rounded-full border border-foreground/15 bg-background/30 px-6 text-sm font-bold text-foreground transition-colors hover:border-sage/60 hover:text-sage ${FOCUS_RING}`}
+                        >
+                            <SiWhatsapp className="h-4 w-4" aria-hidden="true" />
+                            {isFa ? "گفتگو در واتساپ" : "Chat on WhatsApp"}
+                        </a>
+                    </div>
+                </div>
+
+                <div className="mt-12 grid w-full gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+                    <div className="lg:col-span-4">
                         <Link
                             href={`/${locale}`}
                             prefetch={false}
-                            className="inline-flex items-center gap-3 rounded-lg text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                            className={`inline-flex rounded-lg ${FOCUS_RING} focus-visible:ring-offset-2 focus-visible:ring-offset-background`}
                             aria-label={isFa ? "صفحه اصلی سوشو استودیو" : "Sosho Studio home"}
                         >
                             <Image
@@ -77,108 +128,87 @@ export default function Footer({ locale }: { locale: Locale }) {
                                 alt={isFa ? "لوگوی سوشو استودیو" : "Sosho Studio logo"}
                                 width={824}
                                 height={640}
-                                className="h-auto w-36"
+                                className="h-auto w-28"
                             />
                         </Link>
+                        <p className="mt-4 max-w-sm text-sm leading-7 text-muted">
+                            {isFa
+                                ? "طراحی و اجرای صفر تا صد سایت، وب‌اپلیکیشن، اپ موبایل، سئو و راهکارهای هوش مصنوعی؛ یک تیم از استراتژی تا لانچ و رشد."
+                                : "End-to-end websites, web apps, mobile apps, SEO and AI solutions: one team from strategy to launch and growth."}
+                        </p>
 
-                        <p className="text-sm font-semibold text-foreground">
-                            {isFa ? "سوشو استودیو" : "Sosho Studio"}
-                        </p>
-                        <p className="text-sm text-muted">
-                            {isFa
-                                ? "طراحی و اجرای صفر تا صد وب، وردپرس، سئو، Web3 و راهکارهای هوش مصنوعی"
-                                : "End-to-end web design, WordPress, SEO, Web3 and AI solutions"}
-                        </p>
-                        <p className="max-w-md text-xs leading-6 text-muted/80">
-                            {isFa
-                                ? "یک تیم برای استراتژی، طراحی، توسعه، لانچ و رشد مداوم محصول دیجیتال شما."
-                                : "One team for strategy, design, engineering, launch, and continuous digital growth."}
-                        </p>
+                        <address className="mt-6 flex flex-col gap-2 not-italic">
+                            {contacts.map(({ href, label, value, Icon }) => (
+                                <a
+                                    key={href}
+                                    href={href}
+                                    className={`group -ms-2 flex min-h-12 items-center gap-3 rounded-xl px-2 py-1.5 transition-colors hover:bg-foreground/5 ${FOCUS_RING}`}
+                                >
+                                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-foreground/10 bg-surface/40 text-accent transition-colors group-hover:border-accent/40">
+                                        <Icon className="h-4 w-4" aria-hidden="true" />
+                                    </span>
+                                    <span className="min-w-0">
+                                        <span className="block text-xs text-muted">{label}</span>
+                                        <span dir="ltr" className="block text-sm text-foreground wrap-anywhere">{value}</span>
+                                    </span>
+                                </a>
+                            ))}
+                        </address>
+
+                        <div className="mt-5 flex flex-wrap items-center gap-2">
+                            {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                                <a
+                                    key={href}
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={label}
+                                    title={label}
+                                    className={`grid h-11 w-11 place-items-center rounded-full border border-foreground/10 bg-surface/30 text-muted transition-colors hover:border-accent/50 hover:text-accent ${FOCUS_RING}`}
+                                >
+                                    <Icon className="h-4.5 w-4.5" aria-hidden="true" />
+                                </a>
+                            ))}
+                        </div>
                     </div>
 
-                    <div className="md:col-span-3">
-                        <p className="text-sm font-semibold text-foreground">
-                            {isFa ? "لینک‌ها" : "Links"}
-                        </p>
+                    <div className="lg:col-span-2">
+                        <h2 className={HEADING}>{isFa ? "دسترسی سریع" : "Quick links"}</h2>
                         <nav
                             aria-label={isFa ? "پیوندهای پاورقی" : "Footer navigation"}
-                            className="mt-3 flex flex-col gap-1 text-sm"
+                            className="mt-4 grid grid-cols-2 gap-x-6 md:grid-cols-1"
                         >
                             {links.map((l) => (
-                                <Link
-                                    key={l.href}
-                                    href={l.href}
-                                    prefetch={false}
-                                    className="rounded-md py-1.5 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-                                >
+                                <Link key={l.href} href={l.href} prefetch={false} className={LIST_LINK}>
                                     {l.label}
                                 </Link>
                             ))}
                         </nav>
+                    </div>
 
-                        {/* Site-wide links to every service page: these pages were never crawled while only the home page linked to them. */}
-                        <p className="mt-6 text-sm font-semibold text-foreground">
-                            {isFa ? "خدمات" : "Services"}
-                        </p>
+                    {/* Site-wide links to every service page: these pages were never crawled while only the home page linked to them. */}
+                    <div className="md:col-span-2 lg:col-span-6">
+                        <h2 className={HEADING}>{isFa ? "خدمات" : "Services"}</h2>
                         <nav
                             aria-label={isFa ? "خدمات سوشو استودیو" : "Sosho Studio services"}
-                            className="mt-3 flex flex-col gap-1 text-sm"
+                            className="mt-4 grid gap-x-6 sm:grid-cols-2"
                         >
-                            {SERVICES.map((service) => (
+                            {SERVICES.map(({ slug, title, Icon }) => (
                                 <Link
-                                    key={service.slug}
-                                    href={getServiceHref(locale, service.slug)}
+                                    key={slug}
+                                    href={getServiceHref(locale, slug)}
                                     prefetch={false}
-                                    className="rounded-md py-1.5 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                                    className={`group gap-2.5 ${LIST_LINK}`}
                                 >
-                                    {service.title[locale]}
+                                    <Icon className="h-4 w-4 shrink-0 text-accent/70 transition-colors group-hover:text-accent" aria-hidden="true" />
+                                    <span>{title[locale]}</span>
                                 </Link>
                             ))}
                         </nav>
                     </div>
-
-                    <div className="md:col-span-4">
-                        <p className="text-sm font-semibold text-foreground">
-                            {isFa ? "شروع همکاری" : "Start a project"}
-                        </p>
-
-                        <address className="mt-3 flex flex-col gap-3 not-italic">
-                            <a
-                                href={CONTACT_INFO.phoneHref}
-                                className="-ms-2 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-                            >
-                                <BsFillTelephoneOutboundFill className="h-5 w-5 shrink-0" aria-hidden="true" />
-                                <span dir="ltr" className="text-sm">{CONTACT_INFO.phoneDisplay}</span>
-                            </a>
-
-                            <a
-                                href={`mailto:${CONTACT_INFO.email}`}
-                                className="-ms-2 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-                            >
-                                <SiGmail className="h-5 w-5 shrink-0" aria-hidden="true" />
-                                <span dir="ltr" className="text-sm wrap-anywhere">{CONTACT_INFO.email}</span>
-                            </a>
-
-                            <div className="-ms-2 flex flex-wrap items-center gap-1 pt-1">
-                                {SOCIAL_LINKS.map(({ href, label, Icon }) => (
-                                    <a
-                                        key={href}
-                                        href={href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={label}
-                                        title={label}
-                                        className="inline-flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors hover:bg-foreground/5 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-                                    >
-                                        <Icon className="h-5 w-5" aria-hidden="true" />
-                                    </a>
-                                ))}
-                            </div>
-                        </address>
-                    </div>
                 </div>
 
-                <div className="mt-8 flex flex-col gap-2 border-t border-foreground/10 pt-6 text-sm text-muted md:flex-row md:items-center md:justify-between">
+                <div className="mt-12 flex w-full flex-col gap-2 border-t border-foreground/10 pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
                     <p>
                         © {new Date().getFullYear()} Sosho Studio. {isFa ? "تمام حقوق محفوظ است." : "All rights reserved."}
                     </p>

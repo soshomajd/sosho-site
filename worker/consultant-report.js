@@ -6,7 +6,7 @@ import { TEMPLATES } from "./consultant-scope.js";
 const PART_LIMIT = 3800;
 const MAX_PARTS = 5;
 
-const TECH = { wordpress: "وردپرس", woocommerce: "ووکامرس", custom: "توسعه اختصاصی" };
+const TECH = { wordpress: "وردپرس", woocommerce: "ووکامرس", custom: "توسعه اختصاصی", mobile: "اپ موبایل (React Native)" };
 const STATUS = {
   estimated: "برآورد شد",
   tier_selected: "نسخه انتخاب شد",

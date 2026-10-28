@@ -22,6 +22,8 @@ export const TEMPLATES = {
   dashboard: L("داشبورد", "Dashboard"),
   records: L("فهرست و جزئیات داده‌ها", "Record list and detail"),
   roles_admin: L("مدیریت نقش‌ها", "Role management"),
+  app_screens: L("فهرست و جزئیات در اپ", "In-app list and detail screens"),
+  admin_panel: L("پنل مدیریت", "Admin panel"),
   page: L("صفحه محتوایی عمومی", "General content page"),
 };
 
@@ -31,6 +33,7 @@ const STATIC_PAGES = {
   booking: [L("خانه", "Home"), L("درباره ما", "About"), L("تماس", "Contact"), L("خدمات", "Services")],
   education: [L("خانه", "Home"), L("درباره ما", "About"), L("تماس", "Contact"), L("دوره‌ها", "Courses")],
   platform: [L("صفحه معرفی", "Landing page"), L("ورود و ثبت‌نام", "Sign in and sign up")],
+  mobile: [L("صفحه شروع و معرفی اپ", "Splash and onboarding"), L("خانه اپ", "App home"), L("پروفایل و تنظیمات", "Profile and settings")],
   portfolio: [L("خانه", "Home"), L("درباره من", "About"), L("تماس", "Contact")],
   unsure: [L("خانه", "Home"), L("درباره ما", "About"), L("تماس", "Contact")],
 };
@@ -42,6 +45,7 @@ const SIZE_COUNTS = {
   booking: { s: 3, m: 10, l: 30, xl: 50 },
   education: { s: 5, m: 20, l: 50, xl: 80 },
   platform: { s: 2, m: 5, l: 10, xl: 15 },
+  mobile: { s: 5, m: 12, l: 25, xl: 35 },
   portfolio: { s: 10, m: 30, l: 80, xl: 120 },
   unsure: { s: 5, m: 12, l: 30, xl: 40 },
 };
@@ -71,6 +75,9 @@ function templatesFor(projectType, features) {
     case "platform":
       add("records"); add("dashboard", has("dashboard")); add("user_panel", has("user_panel")); add("roles_admin", has("roles"));
       break;
+    case "mobile":
+      add("app_screens"); add("account", has("user_accounts")); add("checkout", has("online_payment")); add("admin_panel", has("admin_panel"));
+      break;
     case "portfolio":
       add("portfolio_item", has("portfolio") || has("gallery")); add("blog", has("blog"));
       break;
@@ -87,6 +94,16 @@ function recommendArchitecture(answers) {
     return {
       id: null,
       reason: L("نوع پروژه هنوز مشخص نیست؛ انتخاب فناوری بعد از یک جلسه کوتاه کارشناسی انجام می‌شود.", "The project type is not settled yet; the technology is chosen after a short consultation."),
+    };
+  }
+  if (projectType === "mobile") {
+    return {
+      id: "mobile",
+      reason: L(
+        "با React Native یک کد برای اندروید و iOS نوشته می‌شود؛ اپ واقعی با سرعت و حس اپ بومی که در استورها منتشر می‌شود.",
+        "React Native gives one codebase for Android and iOS: a real app with native speed and feel, published in the stores."
+      ),
+      alternative: { id: "custom", note: L("اگر نصب از استور فعلاً لازم نیست، یک وب‌اپ واکنش‌گرا (PWA) با Next.js شروع سبک‌تری است.", "If store installs are not needed yet, a responsive web app (PWA) with Next.js is a lighter start.") },
     };
   }
   if (projectType === "platform" || heavy.length > 0) {
@@ -151,7 +168,7 @@ function complexityOf(answers) {
     ({ s: 0, m: 0.5, l: 1.5, xl: 2.5, unknown: 0.5 }[answers.size] ?? 0) +
     (STYLE_WEIGHT[answers.style] ?? 0) +
     (answers.features.includes("multilingual") ? 1 : 0) +
-    (answers.projectType === "platform" ? 2 : 0);
+    (answers.projectType === "platform" ? 2 : answers.projectType === "mobile" ? 1.5 : 0);
   return score < 4 ? "low" : score < 8 ? "medium" : "high";
 }
 
@@ -167,6 +184,7 @@ function needsReviewOf(answers) {
   if (answers.features.includes("api_integration")) push("سرویس‌هایی که باید به آن‌ها وصل شد و مستندات آن‌ها بررسی شود.", "The services to connect to, and their documentation, need a review.");
   if (answers.features.includes("ai")) push("کاربرد دقیق هوش مصنوعی و هزینه مصرف ماهانه آن بررسی شود.", "The exact AI use and its monthly usage cost need a review.");
   if (answers.features.includes("web3_wallet")) push("شبکه، نوع دارایی و ملاحظات مقرراتی Web3 بررسی شود.", "The network, asset type and regulatory side of Web3 need a review.");
+  if (answers.projectType === "mobile") push("استورهای هدف (گوگل‌پلی، اپ‌استور، بازار، مایکت) و حساب توسعه‌دهنده به نام خودتان مشخص شود.", "The target stores (Google Play, App Store, local stores) and a developer account in your own name need settling.");
   if (answers.features.includes("online_payment")) push("درگاه پرداخت و مدارک لازم برای آن مشخص شود.", "The payment gateway and the documents it needs must be settled.");
   return items;
 }
@@ -178,6 +196,7 @@ function confidenceOf(answers, complexity) {
   if (answers.featuresNote || (answers.goal === "other" && !answers.goalNote)) points -= 0.5;
   if (answers.style === "reference" || answers.style === "suggest") points -= 0.25;
   if (answers.projectType === "platform") points -= 0.75;
+  if (answers.projectType === "mobile") points -= 0.5;
   if (complexity === "high") points -= 0.75;
   if (answers.projectType === "unsure") points = 0;
   return points >= 2.25 ? "high" : points >= 1.25 ? "medium" : "low";

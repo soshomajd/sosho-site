@@ -121,7 +121,7 @@ export function fallbackSummary(answers, scope, locale) {
   const features = answers.features.map((id) => labelFor("feature", id, locale));
   const size = sizeLabel(answers.projectType, answers.size, locale);
   const style = labelFor("style", answers.style, locale);
-  const tech = { wordpress: fa ? "وردپرس" : "WordPress", woocommerce: fa ? "ووکامرس" : "WooCommerce", custom: fa ? "توسعه اختصاصی" : "custom development" }[scope.architecture?.id] ?? (fa ? "پس از جلسه کارشناسی" : "after a consultation");
+  const tech = { wordpress: fa ? "وردپرس" : "WordPress", woocommerce: fa ? "ووکامرس" : "WooCommerce", custom: fa ? "توسعه اختصاصی" : "custom development", mobile: fa ? "اپ موبایل با React Native" : "a React Native mobile app" }[scope.architecture?.id] ?? (fa ? "پس از جلسه کارشناسی" : "after a consultation");
   const complexity = { low: fa ? "ساده" : "low", medium: fa ? "متوسط" : "medium", high: fa ? "بالا" : "high" }[scope.complexity];
   return fa
     ? `مشتری یک ${type} با هدف «${goal}» می‌خواهد${features.length ? `، با امکانات ${features.join("، ")}` : ""}. ابعاد پروژه: ${size}. سبک طراحی: ${style}. راهکار پیشنهادی: ${tech}. پیچیدگی پروژه ${complexity} است.`

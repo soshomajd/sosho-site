@@ -5,8 +5,10 @@ import {
   FiCheck,
   FiCode,
   FiCpu,
+  FiLayers,
   FiPenTool,
   FiSearch,
+  FiSmartphone,
 } from "react-icons/fi";
 import { SiEthereum, SiWordpress } from "react-icons/si";
 
@@ -14,6 +16,8 @@ type Localized<T> = { fa: T; en: T };
 
 export type ServiceSlug =
   | "website-design-development"
+  | "web-application-development"
+  | "mobile-app-development"
   | "wordpress-woocommerce"
   | "seo-google-growth"
   | "ai-automation"
@@ -63,7 +67,7 @@ function serviceDetail(
 export const SERVICES: Service[] = [
   {
     slug: "website-design-development",
-    title: { fa: "طراحی و توسعه سایت", en: "Websites & Web Apps" },
+    title: { fa: "طراحی و توسعه سایت", en: "Website Design & Development" },
     short: {
       fa: "طراحی اختصاصی، کدنویسی و لانچ کامل؛ از اولین ایده تا محصول نهایی.",
       en: "Strategy, custom design, engineering, and launch—from first idea to final product.",
@@ -92,6 +96,74 @@ export const SERVICES: Service[] = [
       {
         fa: ["محصول آماده لانچ و بهینه برای همه دستگاه‌ها", "سورس‌کد تمیز و قابل توسعه", "راهنمای مدیریت و پشتیبانی پس از انتشار"],
         en: ["A launch-ready product optimized for every screen", "Clean, scalable source code", "Management guide and post-launch support"],
+      },
+    ),
+  },
+  {
+    slug: "web-application-development",
+    title: { fa: "وب‌اپلیکیشن با Next.js و React", en: "Web Apps with Next.js & React" },
+    short: {
+      fa: "داشبورد، پنل کاربری، SaaS و سیستم اختصاصی؛ سریع، امن و آماده رشد.",
+      en: "Dashboards, user portals, SaaS and custom systems: fast, secure, and ready to grow.",
+    },
+    Icon: FiLayers,
+    seo: {
+      title: { fa: "طراحی و توسعه وب‌اپلیکیشن با Next.js و React", en: "Web Application Development with Next.js & React" },
+      description: {
+        fa: "طراحی و توسعه وب‌اپلیکیشن اختصاصی با Next.js و React: پنل کاربری، داشبورد مدیریتی، SaaS، نقش‌ها و سطح دسترسی، API و اتصال به سرویس‌ها، با تست، استقرار و پشتیبانی.",
+        en: "Custom web application development with Next.js and React: user portals, admin dashboards, SaaS, roles and permissions, APIs and integrations, with testing, deployment, and support.",
+      },
+    },
+    detail: serviceDetail(
+      {
+        fa: "وقتی کسب‌وکار شما بیشتر از یک سایت معرفی لازم دارد، یعنی کاربر باید وارد شود، داده ثبت کند، گزارش ببیند یا کاری را انجام دهد، یک وب‌اپلیکیشن اختصاصی با Next.js و React می‌سازیم که سریع باز می‌شود، امن است و با رشد شما بزرگ می‌شود.",
+        en: "When your business needs more than a brochure site, where people sign in, enter data, see reports or get work done, we build a custom web application with Next.js and React that loads fast, stays secure, and grows with you.",
+      },
+      {
+        fa: ["تحلیل نیاز، نقش‌های کاربری و طراحی جریان کار", "رابط کاربری واکنش‌گرا با React و Next.js برای موبایل و دسکتاپ", "بک‌اند، API، پایگاه داده، ورود و سطح دسترسی", "اتصال به درگاه پرداخت، پیامک، CRM و سرویس‌های دیگر"],
+        en: ["Requirements analysis, user roles, and workflow design", "Responsive React and Next.js interface for mobile and desktop", "Back-end, APIs, database, sign-in, and permissions", "Integrations with payment gateways, SMS, CRM, and other services"],
+      },
+      {
+        fa: ["جلسه شناخت و تعریف نسخه اول (MVP)", "طراحی جریان‌ها و صفحه‌های کلیدی", "توسعه مرحله‌ای با نسخه قابل‌تست در هر مرحله", "تست، استقرار، آموزش و تحویل مستندات"],
+        en: ["Discovery and a defined first version (MVP)", "Design of the key flows and screens", "Milestone builds with a testable version at each step", "Testing, deployment, training, and documented handoff"],
+      },
+      {
+        fa: ["وب‌اپلیکیشن آماده استفاده روی دامنه شما", "سورس‌کد تمیز، تست‌شده و قابل توسعه", "مستندات فنی، راهنمای استفاده و برنامه پشتیبانی"],
+        en: ["A production-ready web app on your domain", "Clean, tested, extensible source code", "Technical documentation, a user guide, and a support plan"],
+      },
+    ),
+  },
+  {
+    slug: "mobile-app-development",
+    title: { fa: "اپلیکیشن موبایل", en: "Mobile Apps" },
+    short: {
+      fa: "اپ اندروید و iOS با React Native؛ از طراحی تا انتشار در استورها.",
+      en: "Android and iOS apps with React Native, from design to store release.",
+    },
+    Icon: FiSmartphone,
+    seo: {
+      title: { fa: "طراحی و ساخت اپلیکیشن موبایل اندروید و iOS", en: "Mobile App Development for Android & iOS" },
+      description: {
+        fa: "طراحی و ساخت اپلیکیشن موبایل اندروید و iOS با React Native: طراحی رابط کاربری، ورود و پرداخت، اعلان، اتصال به سایت و API، پنل مدیریت و انتشار در گوگل‌پلی، اپ‌استور، بازار و مایکت.",
+        en: "Android and iOS app development with React Native: UI design, sign-in and payments, push notifications, website and API integration, an admin panel, and release on Google Play and the App Store.",
+      },
+    },
+    detail: serviceDetail(
+      {
+        fa: "اپلیکیشن موبایل را با React Native می‌سازیم: یک کد برای اندروید و iOS، با حس و سرعت اپ واقعی. اپ، سایت و پنل مدیریت را یکپارچه طراحی می‌کنیم تا داده‌ها یکجا بمانند و مدیریتش برای تیم شما ساده باشد.",
+        en: "We build mobile apps with React Native: one codebase for Android and iOS, with the feel and speed of a real app. The app, the website and the admin panel are designed as one system, so data stays in one place and your team can run it easily.",
+      },
+      {
+        fa: ["طراحی تجربه و رابط کاربری مخصوص موبایل", "اپ اندروید و iOS با یک کد مشترک (React Native)", "ورود، پرداخت، اعلان (Push) و اتصال به API و سایت", "پنل مدیریت محتوا و کاربران برای تیم شما"],
+        en: ["Mobile-first UX and interface design", "Android and iOS apps from one shared codebase (React Native)", "Sign-in, payments, push notifications, and API or website integration", "A content and user admin panel for your team"],
+      },
+      {
+        fa: ["تعریف هدف، کاربران و امکانات نسخه اول", "طراحی صفحه‌ها و پروتوتایپ قابل‌لمس", "توسعه مرحله‌ای و نسخه آزمایشی روی گوشی شما", "تست روی دستگاه‌های مختلف، انتشار در استورها و پشتیبانی"],
+        en: ["Define the goal, users, and first-version features", "Screen design and a tappable prototype", "Milestone builds with a test version on your phone", "Testing on different devices, store release, and support"],
+      },
+      {
+        fa: ["اپ آماده انتشار برای اندروید و iOS", "سورس‌کد اپ و بک‌اند، با مستندات", "راهنمای انتشار، به‌روزرسانی و برنامه پشتیبانی"],
+        en: ["A release-ready app for Android and iOS", "App and back-end source code, with documentation", "Release, update, and support guidance"],
       },
     ),
   },

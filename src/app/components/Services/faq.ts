@@ -29,6 +29,52 @@ export const SERVICE_FAQ: Record<ServiceSlug, ServiceFaqItem[]> = {
       },
     },
   ],
+  "web-application-development": [
+    {
+      question: { fa: "فرق وب‌اپلیکیشن با سایت معمولی چیست؟", en: "How is a web app different from a regular website?" },
+      answer: {
+        fa: "سایت معمولی بیشتر اطلاعات نشان می‌دهد؛ وب‌اپلیکیشن کاری انجام می‌دهد: کاربر وارد می‌شود، داده ثبت می‌کند، گزارش می‌بیند یا سفارش و درخواستش را پیگیری می‌کند. برای همین به بک‌اند، پایگاه داده و سطح دسترسی نیاز دارد.",
+        en: "A regular website mostly presents information; a web app gets work done: people sign in, enter data, see reports, or track orders and requests. That is why it needs a back-end, a database, and permissions.",
+      },
+    },
+    {
+      question: { fa: "چرا Next.js و React؟", en: "Why Next.js and React?" },
+      answer: {
+        fa: "React برای رابط‌های پیچیده و تعاملی ساخته شده و Next.js صفحه‌ها را سریع و قابل ایندکس در گوگل تحویل می‌دهد. هر دو پرکاربرد و پشتیبانی‌شده‌اند، پس بعداً هم برای توسعه کد، برنامه‌نویس پیدا می‌شود.",
+        en: "React is built for complex, interactive interfaces and Next.js serves pages fast and indexable by Google. Both are widely used and supported, so developers will be available to extend the code later.",
+      },
+    },
+    {
+      question: { fa: "می‌شود با یک نسخه ساده شروع کرد؟", en: "Can we start with a simple version?" },
+      answer: {
+        fa: "بله و معمولاً بهتر است. نسخه اول (MVP) فقط امکانات ضروری را دارد تا زودتر به دست کاربر برسد و بازخورد واقعی بگیرید؛ بقیه امکانات در فازهای بعد اضافه می‌شوند.",
+        en: "Yes, and it is usually better. The first version (MVP) has only the essential features so it reaches users sooner and you get real feedback; the rest arrive in later phases.",
+      },
+    },
+  ],
+  "mobile-app-development": [
+    {
+      question: { fa: "اپ برای اندروید و iOS جدا ساخته می‌شود؟", en: "Are the Android and iOS apps built separately?" },
+      answer: {
+        fa: "خیر. با React Native یک کد مشترک برای هر دو نوشته می‌شود و فقط بخش‌های کمی مخصوص هر سیستم‌عامل تنظیم می‌شوند. اگر فعلاً فقط اندروید لازم باشد، می‌شود با همان شروع کرد.",
+        en: "No. With React Native one shared codebase serves both, and only a few platform-specific parts are tuned. If you only need Android for now, you can start with that.",
+      },
+    },
+    {
+      question: { fa: "انتشار اپ در استورها با کیست؟", en: "Who handles publishing to the app stores?" },
+      answer: {
+        fa: "آماده‌سازی و ارسال اپ به گوگل‌پلی، اپ‌استور یا استورهای ایرانی مثل بازار و مایکت بخشی از کار است. حساب توسعه‌دهنده به نام خود شما ساخته می‌شود تا مالکیت اپ با شما بماند؛ تأیید نهایی هم با خود استورهاست.",
+        en: "Preparing and submitting the app to Google Play, the App Store, or Iranian stores is part of the work. The developer account is opened in your own name so you own the app; final approval rests with each store.",
+      },
+    },
+    {
+      question: { fa: "اپ به سایت و پنل فعلی ما وصل می‌شود؟", en: "Can the app connect to our existing website and panel?" },
+      answer: {
+        fa: "اگر سایت یا سیستم فعلی API داشته باشد یا بشود برایش API ساخت، بله. در غیر این صورت یک بک‌اند و پنل مدیریت مشترک برای اپ و سایت می‌سازیم تا داده‌ها یکجا بمانند.",
+        en: "Yes, if the current site or system has an API or one can be built for it. Otherwise we build a shared back-end and admin panel for the app and site so the data stays in one place.",
+      },
+    },
+  ],
   "wordpress-woocommerce": [
     {
       question: { fa: "از قالب آماده استفاده می‌کنید یا طراحی اختصاصی؟", en: "Do you use ready-made themes or custom design?" },

@@ -13,6 +13,7 @@ export const PROJECT_TYPE_OPTIONS = [
   { id: "booking", label: L("سایت رزرو و خدمات", "Booking and services site") },
   { id: "education", label: L("سایت آموزشی", "Education site") },
   { id: "platform", label: L("پلتفرم یا وب‌اپلیکیشن اختصاصی", "Custom platform or web app") },
+  { id: "mobile", label: L("اپلیکیشن موبایل (اندروید و iOS)", "Mobile app (Android and iOS)") },
   { id: "unsure", label: L("هنوز مطمئن نیستم", "Not sure yet") },
 ];
 
@@ -56,6 +57,9 @@ export const FEATURES = {
   gallery: { label: L("گالری تصاویر", "Image gallery"), core: true },
   contact_form: { label: L("فرم تماس", "Contact form"), core: true },
   seo_setup: { label: L("راه‌اندازی سئو و آنالیتیکس", "SEO and analytics setup"), core: false },
+  push_notifications: { label: L("اعلان درون‌برنامه (Push)", "Push notifications"), core: false },
+  offline_mode: { label: L("کار بدون اینترنت", "Works offline"), core: false },
+  admin_panel: { label: L("پنل مدیریت برای تیم شما", "Admin panel for your team"), core: true },
 };
 
 /** Options for question 3, by project type ("other" is always added by the client as free text). */
@@ -64,6 +68,7 @@ export const FEATURES_BY_TYPE = {
   corporate: ["services_pages", "portfolio", "blog", "consultation_form", "multilingual", "cms"],
   booking: ["booking_calendar", "online_payment", "user_panel", "notifications", "capacity", "multilingual"],
   platform: ["user_panel", "roles", "dashboard", "api_integration", "online_payment", "ai", "web3_wallet"],
+  mobile: ["user_accounts", "online_payment", "push_notifications", "admin_panel", "offline_mode", "api_integration", "ai"],
   education: ["course_catalog", "video_lessons", "online_payment", "user_accounts", "quizzes", "certificates"],
   portfolio: ["gallery", "portfolio", "blog", "contact_form", "multilingual", "cms"],
   unsure: ["consultation_form", "blog", "online_payment", "user_accounts", "multilingual", "cms"],
@@ -75,6 +80,7 @@ export const SUGGESTIONS_BY_TYPE = {
   corporate: ["blog", "seo_setup"],
   booking: ["notifications", "seo_setup"],
   platform: ["dashboard", "notifications"],
+  mobile: ["push_notifications", "admin_panel"],
   education: ["quizzes", "seo_setup"],
   portfolio: ["blog", "seo_setup"],
   unsure: [],
@@ -88,6 +94,8 @@ export const SUGGESTION_REASONS = {
   notifications: L("یادآوری خودکار، غیبت و تماس تلفنی را کم می‌کند", "Automatic reminders reduce no-shows and calls"),
   dashboard: L("وضعیت کار را در یک نگاه می‌بینید", "See the state of the business at a glance"),
   quizzes: L("یادگیری عملی‌تر و ماندگارتر", "More practical, lasting learning"),
+  push_notifications: L("کاربر را بدون پیامک به اپ برمی‌گرداند", "Brings users back to the app without SMS"),
+  admin_panel: L("محتوا و کاربران را بدون برنامه‌نویس مدیریت می‌کنید", "Manage content and users without a developer"),
 };
 
 /** Question 4 depends on the project type; sizes are always s, m, l, xl or unknown. */
@@ -97,6 +105,7 @@ export const SIZE_QUESTION = {
   booking: { label: L("چند نوع خدمت یا رزرو ارائه می‌دهید؟", "How many kinds of service or booking do you offer?"), bands: ["۱ تا ۳|1–3", "۴ تا ۱۰|4–10", "۱۱ تا ۳۰|11–30", "بیش از ۳۰|Over 30"] },
   education: { label: L("حدوداً چند دوره دارید؟", "Roughly how many courses do you have?"), bands: ["۱ تا ۵|1–5", "۶ تا ۲۰|6–20", "۲۱ تا ۵۰|21–50", "بیش از ۵۰|Over 50"] },
   platform: { label: L("تقریباً چند نقش کاربری یا بخش اصلی نیاز دارید؟", "Roughly how many user roles or main sections do you need?"), bands: ["۱ تا ۲|1–2", "۳ تا ۵|3–5", "۶ تا ۱۰|6–10", "بیش از ۱۰|Over 10"] },
+  mobile: { label: L("اپ تقریباً چند صفحه یا بخش اصلی دارد؟", "Roughly how many screens or main sections will the app have?"), bands: ["۱ تا ۵|1–5", "۶ تا ۱۲|6–12", "۱۳ تا ۲۵|13–25", "بیش از ۲۵|Over 25"] },
   portfolio: { label: L("حدوداً چند نمونه‌کار یا بخش نمایش می‌دهید؟", "Roughly how many projects or sections will you show?"), bands: ["۱ تا ۱۰|1–10", "۱۱ تا ۳۰|11–30", "۳۱ تا ۸۰|31–80", "بیش از ۸۰|Over 80"] },
   unsure: { label: L("سایت تقریباً چند بخش اصلی دارد؟", "Roughly how many main sections will the site have?"), bands: ["کم (تا ۵)|Few (up to 5)", "متوسط (۶ تا ۱۲)|Medium (6–12)", "زیاد (۱۳ تا ۳۰)|Many (13–30)", "خیلی زیاد|Very many"] },
 };
