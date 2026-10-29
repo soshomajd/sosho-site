@@ -5,9 +5,18 @@ import type { Locale } from "@/app/i18n";
 
 import { TOOLS, getToolHref, type Tool } from "./data";
 
-/** Cards for the free tools; shared by the hub page and the home teaser. */
-export default function ToolsGrid({ locale, tools = TOOLS }: { locale: Locale; tools?: Tool[] }) {
+/** Cards for the free tools; shared by the hub page and the home teaser. The hub sits right under its h1, so it passes "h2". */
+export default function ToolsGrid({
+  locale,
+  tools = TOOLS,
+  headingLevel = "h3",
+}: {
+  locale: Locale;
+  tools?: Tool[];
+  headingLevel?: "h2" | "h3";
+}) {
   const isFa = locale === "fa";
+  const Heading = headingLevel;
   return (
     <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {tools.map((tool) => {
@@ -28,9 +37,9 @@ export default function ToolsGrid({ locale, tools = TOOLS }: { locale: Locale; t
                   {isFa ? "رایگان" : "Free"}
                 </span>
               </div>
-              <h3 className="mt-5 text-lg font-bold leading-8 text-foreground transition-colors group-hover:text-accent">
+              <Heading className="mt-5 text-lg font-bold leading-8 text-foreground transition-colors group-hover:text-accent">
                 {tool.title[locale]}
-              </h3>
+              </Heading>
               <p className="mt-2 flex-1 text-sm leading-7 text-muted">{tool.summary[locale]}</p>
               <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-foreground">
                 {isFa ? "استفاده از ابزار" : "Use the tool"}

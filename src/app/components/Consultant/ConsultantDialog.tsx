@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
-import { FiArrowLeft, FiArrowRight, FiCheckCircle, FiCompass, FiX } from "react-icons/fi";
+import { FiArrowLeft, FiArrowRight, FiCheckCircle, FiX } from "react-icons/fi";
+import { LuSparkles } from "react-icons/lu";
 
 import type { Locale } from "@/app/i18n";
 
@@ -578,7 +579,7 @@ export default function ConsultantDialog({ locale, open, onClose }: { locale: Lo
           <div className="pointer-events-none absolute -end-10 -top-14 h-36 w-36 rounded-full bg-primary/25 blur-3xl" />
           <div className="relative flex items-center gap-3">
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-linear-to-br from-primary to-accent text-background">
-              <FiCompass className="h-5 w-5" aria-hidden="true" />
+              <LuSparkles className="h-5 w-5" aria-hidden="true" />
             </span>
             <div className="min-w-0 flex-1">
               <p className="text-sm font-extrabold text-white">{copy.title}</p>

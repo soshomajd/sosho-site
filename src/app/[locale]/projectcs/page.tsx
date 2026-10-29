@@ -3,6 +3,7 @@ import Link from "next/link";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import JsonLd from "@/app/components/JsonLd";
 import Projects from "@/app/components/Projects";
+import { getProjectShareImage } from "@/app/components/Projects/data";
 import { MORE_PROJECTS } from "@/app/components/Projects/showcase";
 import { getDictionary, isLocale, type Locale } from "@/app/i18n";
 import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, websiteId } from "@/app/seo";
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale: Locale = isLocale(rawLocale) ? rawLocale : "fa";
   const meta = META[locale];
   const dict = getDictionary(locale);
-  const image = MORE_PROJECTS[0].images[0];
+  const image = { ...getProjectShareImage(locale, MORE_PROJECTS[0].slug), alt: MORE_PROJECTS[0].images[0].alt };
   return {
     title: meta.title,
     description: meta.description,

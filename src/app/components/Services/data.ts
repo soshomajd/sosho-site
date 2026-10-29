@@ -110,8 +110,8 @@ export const SERVICES: Service[] = [
     seo: {
       title: { fa: "طراحی و توسعه وب‌اپلیکیشن با Next.js و React", en: "Web Application Development with Next.js & React" },
       description: {
-        fa: "طراحی و توسعه وب‌اپلیکیشن اختصاصی با Next.js و React: پنل کاربری، داشبورد مدیریتی، SaaS، نقش‌ها و سطح دسترسی، API و اتصال به سرویس‌ها، با تست، استقرار و پشتیبانی.",
-        en: "Custom web application development with Next.js and React: user portals, admin dashboards, SaaS, roles and permissions, APIs and integrations, with testing, deployment, and support.",
+        fa: "طراحی و توسعه وب‌اپلیکیشن اختصاصی با Next.js و React: پنل کاربری، داشبورد مدیریتی، SaaS، سطح دسترسی و اتصال API، همراه با تست، استقرار و پشتیبانی.",
+        en: "Custom web app development with Next.js and React: user portals, admin dashboards, SaaS, roles, APIs and integrations, plus testing, deployment and support.",
       },
     },
     detail: serviceDetail(
@@ -144,8 +144,8 @@ export const SERVICES: Service[] = [
     seo: {
       title: { fa: "طراحی و ساخت اپلیکیشن موبایل اندروید و iOS", en: "Mobile App Development for Android & iOS" },
       description: {
-        fa: "طراحی و ساخت اپلیکیشن موبایل اندروید و iOS با React Native: طراحی رابط کاربری، ورود و پرداخت، اعلان، اتصال به سایت و API، پنل مدیریت و انتشار در گوگل‌پلی، اپ‌استور، بازار و مایکت.",
-        en: "Android and iOS app development with React Native: UI design, sign-in and payments, push notifications, website and API integration, an admin panel, and release on Google Play and the App Store.",
+        fa: "طراحی و ساخت اپلیکیشن موبایل اندروید و iOS با React Native: رابط کاربری، ورود و پرداخت، اعلان، پنل مدیریت و انتشار در گوگل‌پلی، اپ‌استور، بازار و مایکت.",
+        en: "Android and iOS apps with React Native: UI design, sign-in, payments, push notifications, an admin panel, and release on Google Play and the App Store.",
       },
     },
     detail: serviceDetail(

@@ -8,7 +8,7 @@ import Breadcrumbs from "@/app/components/Breadcrumbs";
 import JsonLd from "@/app/components/JsonLd";
 import ConceptCase, { conceptSeo } from "@/app/components/Projects/ConceptCase";
 import { CONCEPT_PROJECTS } from "@/app/components/Projects/concepts";
-import { PROJECTS, getProject, getProjectHref } from "@/app/components/Projects/data";
+import { PROJECTS, getProject, getProjectHref, getProjectShareImage } from "@/app/components/Projects/data";
 import { getService, getServiceHref, type ServiceSlug } from "@/app/components/Services/data";
 import { getDictionary, isLocale, type Locale } from "@/app/i18n";
 import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, websiteId } from "@/app/seo";
@@ -39,7 +39,8 @@ export async function generateMetadata({
   const title = seo ? seo.title : getProject(slug)!.seo.title[locale];
   const description = seo ? seo.description : getProject(slug)!.seo.description[locale];
   const canonical = `/${locale}/projects/${project.slug}`;
-  const image = new URL(project.images[0].src, siteUrl).toString();
+  const share = getProjectShareImage(locale, project.slug);
+  const image = new URL(share.src, siteUrl).toString();
   return {
     metadataBase: new URL(siteUrl),
     title,
@@ -60,7 +61,7 @@ export async function generateMetadata({
       siteName: dict.siteName,
       title: `${title} | ${dict.siteName}`,
       description,
-      images: [{ url: image, width: project.images[0].width, height: project.images[0].height, alt: project.images[0].alt[locale] }],
+      images: [{ url: image, width: share.width, height: share.height, alt: project.images[0].alt[locale] }],
     },
     twitter: {
       card: "summary_large_image",

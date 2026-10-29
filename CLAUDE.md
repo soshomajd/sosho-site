@@ -35,6 +35,7 @@ npx wrangler deploy --dry-run # validate the production bundle
 npm run deploy                # build:sites then wrangler deploy — CHANGES PRODUCTION, only with explicit authorization
 npm run deploy:staging       # build + deploy sosho-site-staging on workers.dev (no prod routes)
 npm run blog:cover -- --slug "post-slug" --tag "SEO"   # Playwright 1200x630 cover PNG
+npm run projects:og           # Playwright 1200x630 project share cards in public/projects/og/
 npm run blog:art              # regenerate the per-post SVG illustrations in public/blog/*.jpg
 npm run seo:indexnow          # after a production deploy: submit live sitemap URLs to IndexNow
 ```

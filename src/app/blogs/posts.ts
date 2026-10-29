@@ -5144,6 +5144,10 @@ export const BLOG_POSTS: BlogPost[] = [
       fa: "جنگ و قطعی‌های اینترنت در ۲۰۲۶ فروش کسب‌وکارهای اینستاگرامی را زمین زد. ببینید چه شد و چطور با سایت قابل‌دسترس در داخل کشور و کانال‌های مستقل، فروش را نگه دارید.",
       en: "War and internet shutdowns in 2026 hit Instagram-based sellers in Iran hard. Here is what happened and how a site reachable inside the country plus channels you own can protect sales.",
     },
+    seoDescription: {
+      fa: "قطعی اینترنت در ۲۰۲۶ فروش کسب‌وکارهای اینستاگرامی را زمین زد. ببینید چطور سایت قابل‌دسترس در داخل کشور و کانال‌های مستقل، فروش شما را حفظ می‌کند.",
+      en: "Internet shutdowns in 2026 hit Iran’s Instagram sellers hard. See how a website reachable inside the country and channels you own can protect your sales.",
+    },
     tags: ["Website", "Strategy", "Iran", "Instagram"],
     publishedAt: "2026-10-25",
     coverImage: "/blog/internet-shutdown-instagram-own-website-editorial-20261025.jpg",

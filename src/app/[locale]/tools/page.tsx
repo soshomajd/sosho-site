@@ -169,7 +169,7 @@ export default async function ToolsPage({ params }: { params: Promise<{ locale: 
         </div>
       </header>
 
-      <ToolsGrid locale={locale} />
+      <ToolsGrid locale={locale} headingLevel="h2" />
 
       <section aria-labelledby="tools-guide-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
         <h2 id="tools-guide-title" className="text-xl font-bold text-foreground">{meta.guideTitle}</h2>

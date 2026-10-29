@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { FiCompass } from "react-icons/fi";
+import { LuSparkles } from "react-icons/lu";
 
 import type { Locale } from "@/app/i18n";
 
@@ -36,7 +36,7 @@ export default function ConsultantButton({
       onClick={(event) => window.dispatchEvent(new CustomEvent(CONSULTANT_OPEN_EVENT, { detail: { opener: event.currentTarget } }))}
       className={`${styles[variant]} ${className}`}
     >
-      <FiCompass className="h-4 w-4" aria-hidden="true" />
+      <LuSparkles className="h-4 w-4" aria-hidden="true" />
       {children ?? consultantCopy(locale).open}
     </button>
   );

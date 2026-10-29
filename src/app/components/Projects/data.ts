@@ -203,3 +203,8 @@ export function getProject(slug: string): Project | undefined {
 export function getProjectHref(locale: "fa" | "en", slug: string) {
   return `/${locale}/projects/${slug}`;
 }
+
+/** The 1200x630 share card made by scripts/build-project-og.mjs (case studies and concepts alike). */
+export function getProjectShareImage(locale: "fa" | "en", slug: string) {
+  return { src: `/projects/og/${slug}-${locale}.jpg`, width: 1200, height: 630 };
+}

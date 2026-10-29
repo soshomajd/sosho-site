@@ -13,7 +13,9 @@
 .sh-cta { display: inline-flex; min-height: 56px; align-items: center; justify-content: center; gap: 20px; border-radius: 999px; padding: 14px 28px; background: var(--color-primary); color: var(--color-background); font-size: 14px; font-weight: 800; box-shadow: 0 8px 36px rgb(141 175 197 / 12%); transition: transform 250ms ease, background 250ms ease; }
 .sh-cta:hover { background: var(--color-foreground); }
 .sh-cta svg { width: 20px; height: 20px; }
-.sh-secondary { font-size: 13px; color: var(--color-muted); text-underline-offset: 6px; }
+.sh-secondary { position: relative; font-size: 13px; color: var(--color-muted); text-underline-offset: 6px; }
+/* Text-only links: grow the tap target to ~44px without moving the layout. */
+.sh-secondary::after { content: ""; position: absolute; inset: -13px -8px; }
 .sh-secondary:hover { color: var(--color-foreground); text-decoration: underline; }
 .sh-estimate { display: inline-flex; align-items: center; gap: 8px; color: var(--color-primary); font-weight: 700; cursor: pointer; }
 .sh-cta:focus-visible, .sh-secondary:focus-visible, .sh-scroll:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 6px; }
@@ -41,7 +43,7 @@
 }
 @media (max-width: 480px) {
   .sh-hero { padding-top: 20px; }
-  .sh-eyebrow { font-size: 9px; letter-spacing: .03em; }
+  .sh-eyebrow { font-size: 11px; letter-spacing: .03em; }
   .sh-stage { gap: 18px; padding-top: 35px; }
   .sh-wordmark { inset-block-start: 50px; font-size: 11.2vw; }
   .sh-portrait { width: 85vw; margin-top: 50px; }
@@ -49,6 +51,6 @@
   .sh-sub { font-size: 12px; }
   .sh-cta { min-height: 50px; padding: 12px 22px; font-size: 12px; }
   .sh-secondary { font-size: 12px; }
-  .sh-feats { font-size: 10px; gap: 10px 14px; }
+  .sh-feats { font-size: 11px; gap: 10px 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .sh-portrait, .sh-cta { transition: none; } }

@@ -210,7 +210,7 @@ export default function Footer({ locale }: { locale: Locale }) {
 
                 <div className="mt-12 flex w-full flex-col gap-2 border-t border-foreground/10 pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
                     <p>
-                        © {new Date().getFullYear()} Sosho Studio. {isFa ? "تمام حقوق محفوظ است." : "All rights reserved."}
+                        <bdi dir="ltr">© {new Date().getFullYear()} Sosho Studio</bdi>. {isFa ? "تمام حقوق محفوظ است." : "All rights reserved."}
                     </p>
                     <p className="text-muted/80">
                         {isFa ? "از ایده تا طراحی، اجرا و رشد" : "From idea to launch and growth"}

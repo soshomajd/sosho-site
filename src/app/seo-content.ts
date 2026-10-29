@@ -14,7 +14,7 @@ export const seoContent: Record<
     fa: {
         title: "سوشو استودیو | طراحی سایت، وردپرس، سئو، Web3 و هوش مصنوعی",
         description:
-            "سوشو استودیو از ایده تا اجرا، طراحی و توسعه سایت‌های اختصاصی و وردپرسی، وب‌اپلیکیشن با Next.js و React، اپلیکیشن موبایل، سئو و رشد در گوگل، راهکارهای Web3 و یکپارچه‌سازی هوش مصنوعی را انجام می‌دهد.",
+            "سوشو استودیو؛ طراحی سایت اختصاصی و وردپرسی، وب‌اپلیکیشن با Next.js، اپلیکیشن موبایل، سئو و رشد در گوگل، Web3 و هوش مصنوعی، از ایده تا اجرا.",
         keywords: [
             "سوشو استودیو",
             "طراحی سایت",
@@ -41,7 +41,7 @@ export const seoContent: Record<
     en: {
         title: "Sosho Studio | Web Design, WordPress, SEO, Web3 & AI",
         description:
-            "Sosho Studio delivers end-to-end web design and development, Next.js and React web apps, mobile apps, WordPress, SEO and Google growth, Web3 experiences, and practical AI integrations.",
+            "Sosho Studio builds custom websites, WordPress stores, Next.js web apps and mobile apps, plus SEO and Google growth, Web3 and practical AI integrations.",
         keywords: [
             "Sosho Studio",
             "web design studio",

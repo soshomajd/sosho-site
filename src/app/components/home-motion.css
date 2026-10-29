@@ -31,7 +31,7 @@
 @keyframes ribbon-loop { to { transform: translateX(-50%); } }
 .work-ribbon-tile { position: relative; flex: 0 0 360px; width: 360px; height: 210px; overflow: hidden; border: 1px solid rgb(141 175 197 / 20%); border-radius: 20px; background: var(--color-surface); }
 .work-ribbon-caption { position: absolute; inset: auto 0 0; padding: 28px 14px 12px; display: flex; align-items: end; justify-content: space-between; gap: 10px; background: linear-gradient(transparent, rgb(10 16 23 / 92%)); color: #eceee9; font-size: 11px; font-weight: 700; }
-.work-ribbon-kind { flex-shrink: 0; color: #b6c4cd; font-size: 9px; font-weight: 400; }
+.work-ribbon-kind { flex-shrink: 0; color: #b6c4cd; font-size: 11px; font-weight: 400; }
 .service-list { margin-top: 40px; border-top: 1px solid rgb(236 238 233 / 12%); }
 .service-row { display: grid; grid-template-columns: 100px minmax(0, 1fr) 48px; align-items: start; gap: 28px; padding: 36px 8px; border-bottom: 1px solid rgb(236 238 233 / 12%); transition: background 250ms ease; }
 .service-row:hover { background: rgb(141 175 197 / 4%); }
@@ -87,7 +87,7 @@
 }
 @media (max-width: 767px) {
   .home-content { gap: 76px; padding-block: 48px 72px; }
-  .about-visual-caption { font-size: 9px; padding-block: 12px; gap: 12px; }
+  .about-visual-caption { font-size: 11px; padding-block: 12px; gap: 12px; }
   .about-visual-caption span { gap: 6px; }
   .work-ribbon { padding-top: 24px; gap: 10px; }
   .work-ribbon-group { gap: 10px; padding-inline-end: 10px; }

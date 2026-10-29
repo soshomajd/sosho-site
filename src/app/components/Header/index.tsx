@@ -28,30 +28,35 @@ type HeaderLabels = {
 const SOCIAL_LINKS = [
     {
         label: "Phone",
+        labelFa: "تماس تلفنی",
         href: CONTACT_INFO.phoneHref,
         Icon: FiPhone,
         external: false,
     },
     {
         label: "WhatsApp",
+        labelFa: "واتس‌اپ",
         href: CONTACT_INFO.whatsappUrl,
         Icon: SiWhatsapp,
         external: true,
     },
     {
         label: "Telegram",
+        labelFa: "تلگرام",
         href: CONTACT_INFO.telegramUrl,
         Icon: SiTelegram,
         external: true,
     },
     {
         label: "Sosho Studio on Instagram",
+        labelFa: "سوشو استودیو در اینستاگرام",
         href: CONTACT_INFO.instagramUrl,
         Icon: SiInstagram,
         external: true,
     },
     {
         label: "Soheil Shokouhi Majd on LinkedIn",
+        labelFa: "سهیل شکوهی مجد در لینکدین",
         href: CONTACT_INFO.linkedinUrl,
         Icon: SiLinkedin,
         external: true,
@@ -111,13 +116,13 @@ export default function Header({
                     <LanguageSwitch />
                     <span className="hidden h-4 w-px bg-foreground/10 sm:block" aria-hidden="true" />
                     <div className="hidden items-center sm:flex">
-                        {SOCIAL_LINKS.map(({ href, label, Icon, external }) => (
+                        {SOCIAL_LINKS.map(({ href, label, labelFa, Icon, external }) => (
                             <a
                                 key={href}
                                 href={href}
                                 {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                                aria-label={label === "Phone" && locale === "fa" ? "تماس تلفنی" : label}
-                                title={label === "Phone" ? CONTACT_INFO.phoneDisplay : label}
+                                aria-label={locale === "fa" ? labelFa : label}
+                                title={label === "Phone" ? CONTACT_INFO.phoneDisplay : locale === "fa" ? labelFa : label}
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors duration-200 hover:bg-foreground/5 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                             >
                                 <Icon className="h-4 w-4" aria-hidden="true" />
@@ -134,9 +139,9 @@ export default function Header({
                         key={locale}
                         locale={locale}
                         navItems={NAV_ITEMS.map(({ label, href }) => ({ label, href }))}
-                        socialLinks={SOCIAL_LINKS.filter(({ external }) => external).map(({ href, label, Icon }) => ({
+                        socialLinks={SOCIAL_LINKS.filter(({ external }) => external).map(({ href, label, labelFa, Icon }) => ({
                             href,
-                            label,
+                            label: locale === "fa" ? labelFa : label,
                             icon: <Icon className="h-5 w-5" aria-hidden="true" />,
                         }))}
                         phone={{

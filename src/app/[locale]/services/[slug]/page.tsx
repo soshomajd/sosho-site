@@ -110,7 +110,7 @@ function Section({
 }) {
     return (
         <section className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 transition-colors hover:border-accent/20">
-            <span className="font-mono text-xs text-accent/80">{number}</span>
+            <span className="font-mono text-xs text-accent">{number}</span>
             <h2 className="mt-5 text-lg font-bold text-foreground">{title}</h2>
             {children}
         </section>
