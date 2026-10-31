@@ -244,6 +244,30 @@
       "output": "public/blog/3d-website-design-guide-editorial-20261024.jpg",
       "prompt": "Use case: stylized-concept. Asset type: an original cover for the SoSho Studio bilingual technology journal. Subject: an elegant sculptural designer chair as a 3D product model inside a floating browser frame, partial fine wireframe mesh over one edge, a subtle orbit arc around the chair, and a small mobile browser with a flat still-image alternative; visually clear editorial explanation of interactive 3D with a lightweight fallback. High-end editorial 3D art, carefully balanced architectural composition and convincing physical materials, frosted glass and brushed metal, midnight navy background, electric cyan and violet highlights, a tiny warm amber accent. Soft cinematic studio lighting, precise silhouettes, premium and calm. Wide landscape 1.905:1 composition; keep the complete important subject within the central 65% for a 21:9 crop. No text, no letters, no logos, no watermarks, no fake numerical data. Finished high-resolution raster illustration, not a website screenshot.",
       "generatedAt": "2026-10-24"
+    },
+    {
+      "slug": "webmcp-agent-ready-websites",
+      "output": "public/blog/webmcp-agent-ready-websites-editorial-20261031.jpg",
+      "subject": "Structured website tools and human confirmation",
+      "alt": {
+        "fa": "تصویر مفهومی یک عامل هوش مصنوعی متصل به ابزارهای مرورگر و کنترل تأیید انسانی",
+        "en": "Conceptual AI agent connected to browser tools alongside a human confirmation control"
+      },
+      "prompt": "Use case: stylized-concept. Create an original editorial blog cover for SoSho Studio about WebMCP and websites collaborating with AI agents. A sculptural frosted-glass browser window with three simple unlabeled interface modules, a small abstract silver agent orb using a precise luminous connector to one module, and a human fingertip near a separate confirmation tile. Make the distinction between structured interaction and human confirmation visually clear without text. Premium tactile 3D editorial art, brushed silver and frosted glass, midnight navy backdrop, restrained cyan and violet light, tiny warm copper accent. Sophisticated calm studio lighting, strong silhouettes and generous breathing room. Landscape 1.905:1 composition for a 1200x630 cover; keep all important objects within central 65% so they survive 21:9 cropping. No text, no letters, no numbers, no logos, no watermarks, no fake analytics, not a screenshot.",
+      "generatedAt": "2026-10-31",
+      "provider": "Built-in ImageGen"
+    },
+    {
+      "slug": "passkeys-passwordless-website-login",
+      "output": "public/blog/passkeys-passwordless-website-login-editorial-20261031.jpg",
+      "subject": "Device-based passwordless sign-in credential",
+      "alt": {
+        "fa": "کلید شیشه‌ای با نقش اثر انگشت میان گوشی و پنجره ورود مرورگر؛ تصویر مفهومی Passkey",
+        "en": "Conceptual glass passkey with a fingerprint motif between a phone and browser sign-in window"
+      },
+      "prompt": "Use case: stylized-concept. Create an original editorial blog cover for SoSho Studio about passkeys and passwordless website sign-in. A polished abstract physical key made of frosted glass and brushed silver, with a fingerprint-shaped luminous cyan groove, floating between a small elegant smartphone and a browser card with a single confirmation check shape. Suggest device-based identity without depicting a password or revealing biometric data. Premium tactile 3D editorial art, midnight navy background, restrained electric cyan and violet highlights, tiny warm copper accent. Minimal, sophisticated composition, soft cinematic studio illumination, convincing materials and crisp silhouettes. Landscape 1.905:1 composition for 1200x630; complete important subjects in middle 65% to survive a 21:9 crop. No text, no letters, no numbers, no logos, no watermarks, no fake chart data, not a screenshot.",
+      "generatedAt": "2026-10-31",
+      "provider": "Built-in ImageGen"
     }
   ],
   "updatedAt": "2026-10-24"

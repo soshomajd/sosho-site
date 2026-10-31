@@ -430,6 +430,13 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         "title": {
+          "fa": "W3C: استاندارد WebAuthn و اعتبارنامه‌های کلید عمومی",
+          "en": "W3C: WebAuthn and public-key credentials"
+        },
+        "url": "https://www.w3.org/TR/webauthn-3/"
+      },
+      {
+        "title": {
           "fa": "web.dev: ورود با Passkey از طریق autofill",
           "en": "web.dev: sign in with a passkey through form autofill"
         },
