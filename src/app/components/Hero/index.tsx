@@ -1,8 +1,7 @@
 import type { Locale } from "@/app/i18n";
-import Image from "next/image";
 import { FiArrowDown, FiArrowUpRight } from "react-icons/fi";
 import ConsultantButton from "../Consultant/ConsultantButton";
-import PortraitEyes from "./PortraitEyes";
+import TeamCarousel from "./TeamCarousel";
 import "./hero.css";
 
 export const HERO_COPY = {
@@ -47,19 +46,7 @@ export default function Hero({ locale }: { locale: Locale }) {
             <div className="sh-stage">
                 <p className="sh-eyebrow" data-reveal>{copy.eyebrow}</p>
                 <p className="sh-wordmark" aria-hidden="true" dir="ltr">SOSHO STUDIO</p>
-                <div className="sh-portrait">
-                    <Image
-                        src="/brand/soheil-character-3d.webp"
-                        alt={isFa ? "چهرهٔ کارتونی سه‌بعدی سهیل شکوهی مجد، بنیان‌گذار سوشو استودیو" : "3D cartoon portrait of Soheil Shokouhi Majd, founder of Sosho Studio"}
-                        width={1000}
-                        height={1000}
-                        sizes="(max-width: 640px) 85vw, (max-width: 1024px) 60vw, 540px"
-                        fetchPriority="high"
-                        loading="eager"
-                        className="sh-character"
-                    />
-                    <PortraitEyes />
-                </div>
+                <TeamCarousel locale={locale} />
                 <div className="sh-intro" data-reveal>
                     <h1 id="studio-hero-title" className="sh-title">{copy.title}</h1>
                     <p className="sh-sub">{copy.description}</p>

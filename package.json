@@ -17,6 +17,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
+    "test:hero": "node scripts/check-hero-team.mjs",
     "seo:indexnow": "node scripts/indexnow.mjs",
     "blog:art": "node scripts/generate-blog-art.mjs",
     "projects:og": "node scripts/build-project-og.mjs"

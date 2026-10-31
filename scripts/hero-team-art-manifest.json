@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-10-29",
+  "provider": "built-in image_gen",
+  "reference": "public/brand/soheil-character-3d.webp",
+  "note": "Original fictional AI collaborator portraits, not official mascots. Brand icons are rendered separately using react-icons, not painted into the generated artwork. Original founder image is unchanged.",
+  "optimization": "node scripts/build-team-portraits.mjs <selected-claude-PNG> <selected-codex-PNG>",
+  "assets": [
+    {
+      "id": "claude",
+      "file": "public/brand/claude-character-20261029.webp",
+      "width": 1000,
+      "height": 1000,
+      "hasAlpha": true,
+      "bytes": 119344,
+      "prompt": "Use case: stylized-concept. Asset: an original fictional AI collaborator floating FACE for a studio website hero carousel. Use the reference ONLY for premium stylized 3D rendering quality, face scale, soft studio illumination and framing, NOT for the human identity. Head only, NO neck, shoulders or body. One front-facing floating head, level eyes, warm gentle closed-mouth smile. Entire head in frame, centered in a square canvas with transparent margins; silhouette occupies about 82% of canvas height and 70% of width. Real transparent alpha background, clean cutout, no floor or shadow outside silhouette, no words, no letters, no logos, no watermark. Smooth beautifully sculpted toy-like forms with dimensional materials and restrained steel-blue rim light; friendly mature intelligent personality, not a scary machine. Simple attractive face readable at 250px. This is an original illustrated mascot, not an official character. Character CLAUDE: a friendly warm terracotta and copper humanoid AI robot face, softly rounded cheeks, gentle expressive dark brown eyes, sculpted brows, small subtly defined nose and a welcoming smile. Matte ceramic clay material in warm copper #C98B62 with deep navy recessed accents, restrained ivory highlights. Small layered ear discs, elegant subtle seams, rounded smooth crown with a few swept-back copper sculpted ridges suggesting hair. Cohesive polished Pixar-like character treatment matching the reference's human face, neither a realistic human nor a featureless helmet. Keep forehead and sides clean; a precise brand icon will be added separately in the website.",
+      "icon": "SiClaude"
+    },
+    {
+      "id": "codex",
+      "file": "public/brand/codex-character-20261029.webp",
+      "width": 1000,
+      "height": 1000,
+      "hasAlpha": true,
+      "bytes": 85406,
+      "prompt": "Use case: stylized-concept. Asset: an original fictional AI collaborator floating FACE for a studio website hero carousel. Use the reference ONLY for premium stylized 3D rendering quality, face scale, soft studio illumination and framing, NOT for the human identity. Head only, NO neck, shoulders or body. One front-facing floating head, level eyes, warm gentle closed-mouth smile. Entire head in frame, centered in a square canvas with transparent margins; silhouette occupies about 82% of canvas height and 70% of width. Real transparent alpha background, clean cutout, no floor or shadow outside silhouette, no words, no letters, no logos, no watermark. Smooth beautifully sculpted toy-like forms with dimensional materials and restrained steel-blue rim light; friendly mature intelligent personality, not a scary machine. Simple attractive face readable at 250px. This is an original illustrated mascot, not an official character. Character CODEX: a friendly ivory and graphite humanoid AI robot face, softly squared yet rounded cheeks and jaw, intelligent expressive steel-blue eyes, small sculpted nose and welcoming subtle smile. Smooth bone-white ceramic face #ECEEE9 with a dark navy crown/head shell #111820, restrained steel-blue #8DAFC5 metal edge accents, very subtle copper joints. Elegant dark temple seams and small rounded ear modules. Cohesive polished Pixar-like character treatment matching the reference's human face. Distinct from the warm copper Claude robot; cool, calm, creative engineer/designer. Keep forehead and sides clean; a precise brand icon will be added separately in the website.",
+      "icon": "SiOpenai (OpenAI brand for Codex)"
+    }
+  ],
+  "brandReferences": [
+    "https://openai.com/brand/",
+    "https://openai.com/codex/",
+    "https://claude.ai/"
+  ]
+}

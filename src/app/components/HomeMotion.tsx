@@ -40,7 +40,12 @@ export default function HomeMotion() {
       root.querySelectorAll("[data-reveal]").forEach((element) => observer.observe(element));
 
       const hero = root.querySelector<HTMLElement>(".sh-stage");
-      const portrait = root.querySelector<HTMLElement>(".sh-portrait");
+      const portraits = [...root.querySelectorAll<HTMLElement>(".sh-team-slide")].map((slide) => ({
+        slide,
+        choice: root.querySelector<HTMLInputElement>(`#team-${slide.dataset.teamMember}`),
+        portrait: slide.querySelector<HTMLElement>(".sh-portrait"),
+        eyes: [...slide.querySelectorAll<SVGGElement>("[data-eye-pupil]")],
+      }));
       const button = root.querySelector<HTMLElement>(".sh-cta");
       const pointer = window.matchMedia("(hover: hover) and (pointer: fine)");
       const eyes = [...root.querySelectorAll<SVGGElement>("[data-eye-pupil]")];
@@ -50,16 +55,18 @@ export default function HomeMotion() {
       let cursorY = 0;
       const updateEyes = () => {
         eyeFrame = 0;
-        if (!portrait || !heroVisible) return;
-        const rect = portrait.getBoundingClientRect();
-        eyes.forEach((eye) => {
+        if (!heroVisible) return;
+        const active = portraits.find(({ choice }) => choice?.checked);
+        if (!active?.portrait) return;
+        const rect = active.portrait.getBoundingClientRect();
+        active.eyes.forEach((eye) => {
           const centerX = rect.left + Number(eye.dataset.eyeX) / 1000 * rect.width;
           const centerY = rect.top + Number(eye.dataset.eyeY) / 1000 * rect.height;
           const dx = cursorX - centerX;
           const dy = cursorY - centerY;
           const angle = Math.atan2(dy, dx);
           const distance = Math.min(1, Math.hypot(dx, dy) / Math.max(240, rect.width));
-          eye.setAttribute("transform", `translate(${(Math.cos(angle) * distance * 12).toFixed(2)}, ${(Math.sin(angle) * distance * 7).toFixed(2)})`);
+          eye.setAttribute("transform", `translate(${(Math.cos(angle) * distance * Number(eye.dataset.eyeRangeX || 12)).toFixed(2)}, ${(Math.sin(angle) * distance * Number(eye.dataset.eyeRangeY || 7)).toFixed(2)})`);
         });
       };
       const move = (event: PointerEvent) => {
@@ -84,6 +91,7 @@ export default function HomeMotion() {
         button.style.transform = `translate(${(event.clientX - rect.left - rect.width / 2) / 10}px, ${(event.clientY - rect.top - rect.height / 2) / 8}px)`;
       };
       const resetButton = () => button?.style.removeProperty("transform");
+      root.addEventListener("teamchange", reset);
       window.addEventListener("pointermove", move, { passive: true });
       document.documentElement.addEventListener("pointerleave", reset);
       window.addEventListener("blur", reset);
@@ -104,6 +112,7 @@ export default function HomeMotion() {
         galleryObserver.disconnect();
         heroObserver.disconnect();
         animations.forEach((animation) => animation.cancel());
+        root.removeEventListener("teamchange", reset);
         window.removeEventListener("pointermove", move);
         document.documentElement.removeEventListener("pointerleave", reset);
         window.removeEventListener("blur", reset);

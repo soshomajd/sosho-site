@@ -24,11 +24,11 @@ SoSho Studio is a bilingual Persian/English marketing website with an AI-assiste
 Primary capabilities:
 
 - Persian RTL and English LTR marketing site
-- Services, projects, About, contact, and blog surfaces
-- Owned 3D character render with lightweight pupil tracking and homepage scroll motion
+- Services, projects, About, contact, blog and five free-tool surfaces
+- Owned founder portrait and explicitly labelled AI collaborator mascot carousel, with lightweight pupil tracking and homepage scroll motion
 - Static service and article routes
 - Metadata, canonical/alternate URLs, Open Graph, sitemap, robots, manifest, and JSON-LD
-- Floating website sales assistant
+- Floating project estimate («برآورد هوشمند») and direct-contact controls; SalesAssistant is retained but unmounted
 - Admin-only Persian AI content campaign generation with validated multi-platform bundles
 - Optional Telegram content approval and deduplicated sales notifications
 - Persian RTL admin dashboard with bounded D1 views, HttpOnly sessions, audited Campaign actions, and Human Handoff take-over
@@ -44,7 +44,7 @@ Primary capabilities:
 ```text
 /
 |- AGENTS.md
-|- README.md
+|- README.md / CLAUDE.md                Setup guide / short Claude orientation
 |- src/
 |  |- proxy.ts                           Default-locale redirect
 |  `- app/                               Next.js pages and components
@@ -55,6 +55,10 @@ Primary capabilities:
 |  |- admin-dashboard.js                 Admin session security and bounded read-only D1 queries
 |  |- campaign-actions.js                Shared Dashboard/Telegram transitions, idempotency, and audit
 |  |- conversation-actions.js            Atomic Human Handoff/Take-over transitions and audit
+|  |- sales-flow.js                      Application-owned three-step Sales Chat
+|  |- workers-ai-sales-provider.js        Workers AI Sales provider and output repair
+|  |- consultant*.js / pricing-engine.js  Guided estimate, consented requests and tariff pricing
+|  |- site-audit.js                       Bounded public-site fetch and SSRF validation
 |  |- core.js                            Validation, policy, retry utilities
 |  |- content-generation.js              Content schema, validation, and provider selection
 |  |- workers-ai-content-provider.js     Workers AI primary/fallback content provider
@@ -87,8 +91,8 @@ Primary capabilities:
 - CSS stack: Tailwind CSS 4 through `@tailwindcss/postcss`; there is no `tailwind.config.*`.
 - Visual stack: Three.js, React Three Fiber, Drei, and React Icons.
 - Deployment stack: Wrangler, Cloudflare Workers/assets, D1, and OpenAI Sites metadata.
-- Playwright exists only for blog-cover screenshots. Worker tests use Vitest 4 with the official Cloudflare Vitest plugin, Miniflare, D1 migrations, MSW, and `@msw/cloudflare`.
-- There are no separate `typecheck`, `format`, or browser E2E scripts.
+- Playwright supports asset screenshots, project share cards, blog-art contact sheets and ad hoc browser checks. Worker tests use Vitest 4 with the official Cloudflare Vitest plugin, Miniflare, D1 migrations, MSW, and `@msw/cloudflare`.
+- There are no separate `typecheck` or `format` scripts. `npm run test:hero` is a focused Playwright check of the built Hero; there is no general site-wide browser E2E suite.
 - `@/*` maps to `src/*`.
 - Do not add a nested `package.json` or another application directory unless the owner explicitly asks to relocate the application.
 
@@ -102,26 +106,32 @@ Primary capabilities:
 - `/{fa|en}/blogs` is the blog index.
 - `/{fa|en}/blogs/{slug}` is an article page.
 - `/{fa|en}/projectcs` continues the portfolio with eight design concepts; the first five showcase items remain on the homepage.
+- `/{fa|en}/projects/{slug}` renders three real case studies and ten labelled, `noindex` design concepts.
+- `/{fa|en}/tools` and `/{fa|en}/tools/{slug}` expose five free tools.
+- `/admin` and `/admin/{campaigns,leads,conversations,messages,consultant,tariffs}` are Persian admin surfaces; campaign, conversation and consultant details use `/detail?id=...` rather than dynamic route segments.
+- `/llms.txt` and `/llms-full.txt` are statically generated text route handlers for AI answer engines.
 - `/robots.txt`, `/sitemap.xml`, and `/manifest.webmanifest` are metadata routes.
 
-`src/proxy.ts` redirects extensionless, non-asset/non-API paths without a locale prefix to the same path under `/fa`. The built Worker repeats static asset resolution, `.html`/`index.html` fallback, and default-locale redirect behavior in production.
+Keep the existing public spelling `/projectcs`. `src/proxy.ts` redirects extensionless, non-asset/non-API paths without a locale prefix to the same path under `/fa`, while exempting `/admin` and its children. The built Worker repeats static asset resolution, `.html`/`index.html` fallback, and default-locale redirect behavior in production.
 
 All dynamic page routes must remain statically enumerable through `generateStaticParams`. Runtime behavior belongs in `worker/index.js`, not in Next API routes or server actions, unless the deployment architecture is intentionally changed.
 
 ### Layouts and page composition
 
-- `src/app/layout.tsx` owns root metadata, HTML defaults, viewport, global CSS, and Speed Insights.
-- `src/app/[locale]/layout.tsx` owns locale metadata, JSON-LD, Header, Footer, `HtmlLangDir`, the floating `ConsultantLauncher` («برآورد هوشمند») and `ConsultantHost`. Since 2026-10-27 the floating corner button opens the project estimate, not the Sales Chat: the owner asked for every smart-consultation button to be «برآورد هوشمند». The `SalesAssistant` widget files remain (the Sales Chat API still serves Instagram) but are not mounted on the website.
-- `src/app/[locale]/page.tsx` composes Hero, Services, Projects, About, BlogPreview, and Contact.
+- `src/app/layout.tsx` owns root metadata, HTML defaults, viewport, global CSS and local font preloads. It does not mount Speed Insights.
+- `src/app/[locale]/layout.tsx` owns locale metadata, JSON-LD, Header, Footer, `HtmlLangDir`, floating `ConsultantLauncher` («برآورد هوشمند»), `FloatingContact` and `ConsultantHost`. Since 2026-10-27 the floating corner button opens the project estimate: the owner asked for every smart-consultation button to be «برآورد هوشمند». The `SalesAssistant` widget files remain (the Sales Chat API still serves Instagram) but are not mounted on the website.
+- `src/app/[locale]/page.tsx` composes Hero, WorkRibbon, About, Services, Projects, free-tool teaser, BlogPreview and the contact section with ContactForm.
 - Server Components are the default. Add `"use client"` only for hooks, browser APIs, portals, or interactive/WebGL behavior.
-- Existing active client boundaries include `MobileMenu`, `LanguageSwitch`, `HtmlLangDir`, `HomeMotion`, `ContactForm`, and `SalesAssistant`.
-- The homepage hero (`src/app/components/Hero`) is a Server Component with the owned transparent `public/brand/soheil-character-3d.webp` portrait. It does not import the historical video or WebGL tour. `HomeMotion.tsx` is a small effect-only client island; `home-motion.css` handles CSS gallery loops and scroll-driven project stacking. The gallery has a native pause checkbox and pauses off-screen. All copy and links remain in prerendered HTML. Site font is IRANYekan from `public/fonts/iranyekan` (licensed commercial font — see the license note before redistributing).
+- Active client boundaries include `MobileMenu`, `LanguageSwitch`, `HtmlLangDir`, `HomeMotion`, `TeamCarouselMotion`, `ContactForm`, the consultant UI, `FloatingContact`, individual tools and the admin dashboard. `SalesAssistant` and the historical WebGL tour are present but unmounted.
+- The homepage hero (`src/app/components/Hero`) and `TeamCarousel.tsx` are Server Components. `team-data.ts` owns the three bilingual identities: Soheil (founder/tech lead), Claude (AI backend/DevOps collaborator) and Codex (AI frontend/design collaborator), including images, roles, bios and alt text. Keep AI labels explicit; do not imply human staff or provider endorsement. The approved transparent `public/brand/soheil-character-3d.webp` face and its `PortraitEyes.tsx` are preserved. The other slides use original 3D AI mascots with interface brand badges and server-rendered `RobotPortraitEyes.tsx` overlays clipped to each mascot's eye apertures. The `SOSHO STUDIO` wordmark occupies its own grid row above the carousel, with a 24px gap at every viewport size.
+- Native radios and CSS select each complete portrait/caption together. `TeamCarouselMotion.tsx` is an effect-only island for actual arrow buttons, direction-aware keyboard navigation, swipe, announcements and finite slide transitions. Navigation remains usable with reduced motion; native radios/labels work without JavaScript. There is no autoplay or AI/API call. Do not replace the approved founder portrait or reintroduce a body/neck rig, video or WebGL tour without an explicit request.
+- `HomeMotion.tsx` handles progressive section reveals, pupil tracking for the selected team member and gallery visibility. Only the active slide's two pupils move; all six reset on member changes, pointer leave, window blur or when the Hero leaves the viewport. `home-motion.css` handles CSS gallery loops and scroll-driven project stacking. The gallery has a native pause checkbox and pauses off-screen. All copy and links remain prerendered. Font provenance and the licence check are recorded in `public/fonts/iranyekan/LICENSE-NOTE.txt`.
 
 ### Localization and RTL/LTR
 
 - Supported locales are the `fa` and `en` tuple in `src/app/i18n.ts`; Persian is the default.
 - `i18n.ts` contains only a small shared dictionary. Most translations are colocated as `{ fa, en }` records or `locale === "fa"` branches.
-- Every user-facing feature must ship Persian and English copy, metadata, labels, errors, quick replies, and accessible names together.
+- Every public-facing feature must ship Persian and English copy, metadata, labels, errors, quick replies, and accessible names together. The owner-facing admin dashboard is intentionally Persian RTL.
 - Prefer logical layout utilities such as `start`, `end`, `ms`, `me`, `ps`, and `pe`. Avoid hard-coded left/right behavior unless it is intentionally direction-independent.
 - Slugs are currently shared across locales. `LanguageSwitch.tsx` swaps only the first path segment.
 - Adding another locale requires coordinated changes to the locale tuple, proxy, static params, sitemap alternates, metadata/JSON-LD, fonts/direction, language switch, all localized data, and Worker replies.
@@ -130,11 +140,11 @@ All dynamic page routes must remain statically enumerable through `generateStati
 
 - Tailwind is CSS-first. Semantic colors in `src/app/globals.css` use navy `background`, graphite `surface`, steel-blue `primary`, copper `accent`, `sage`, bone `foreground`, `muted`, and `success`/`warning`/`danger` status colors.
 - The custom `.container` is a centered flex column by default. Add `items-stretch`, `flex-row`, or other overrides where needed.
-- Persian uses Tahoma/Arial/system fallbacks; English uses Trebuchet MS/Arial/system fallbacks. No hosted font fetch is required.
+- Both locales use self-hosted IRANYekan with system fallbacks from `src/app/globals.css`; regular and bold WOFF2 files are preloaded by the root layout. The font is proprietary: `public/fonts/iranyekan/LICENSE-NOTE.txt` records that web-use licence ownership must be confirmed; the repository does not prove a licence. No hosted font fetch is required.
 - Use `next/image` for site images, `next/link` for internal routes, and React Icons for interface icons.
 - External links opened in a new tab must use `rel="noopener noreferrer"`.
 - Preserve semantic elements, visible focus, keyboard operation, appropriate `aria-*` labels, and reduced-motion behavior.
-- The Hero uses a fixed, head-only 3D render with `PortraitEyes.tsx` supplying server-rendered brown iris layers. Only pupils follow a fine pointer; the head never translates or rotates. Homepage motion progressively enhances visible HTML; reduced-motion disables reveals, pupil tracking, gallery motion and sticky stacking. Re-test no-JavaScript content, pointer behavior, mobile layout and reduced motion after Hero changes. Avoid adding heavy client dependencies to this page.
+- Within each Hero slide, the head-only portrait is fixed; `PortraitEyes.tsx` supplies server-rendered brown iris layers on the founder, and `RobotPortraitEyes.tsx` supplies clipped sclera/iris overlays on Claude and Codex. Only the selected slide's pupils follow a fine pointer; pointer/scroll interaction never translates or rotates a head. Finite carousel transitions move the complete slide. Reduced motion disables slide animation, reveals, pupil tracking, gallery motion and sticky stacking while retaining navigation. Keep the portrait square so the 1000×1000 eye coordinates stay aligned. Re-test no-JavaScript content, pointer behavior, keyboard/swipe navigation, mobile layout and reduced motion after Hero changes. Avoid heavy client dependencies.
 - The five homepage project cards stack from 1024px width and 760px height. Complete device frames adapt to viewport height through a server-rendered `--view-ratio`; do not disable the effect below 1000px height. All five cards have distinct offsets/scales. Archive cards, mobile and reduced motion keep normal flow.
 - Follow the neighboring file's style. Avoid repository-wide formatting, import sorting, encoding changes, or line-ending normalization; Persian files have mixed historical CRLF/LF behavior.
 
@@ -147,19 +157,21 @@ All dynamic page routes must remain statically enumerable through `generateStati
 | Projects | `src/app/components/Projects/index.tsx`, `showcase.ts`, `DeviceViews.tsx` | Five homepage items, eight more at `/{fa,en}/projectcs`, in shared order; three complete hero views per item |
 | About/process/stack | `src/app/components/About/index.tsx` | Homepage studio/process/tool content plus a full-width owned 3D panorama. Responsive WebP assets in `public/brand/about-studio-panorama-20261026*.webp`; prompt/alt/dimensions in `scripts/about-art-manifest.json`, optimization in `scripts/build-about-art.mjs`. `data-reveal="cinematic"` uses the existing HomeMotion island for finite clip/zoom/light reveals; all content remains server-rendered and fully visible with no JS or reduced motion. |
 | Header dictionary | `src/app/i18n.ts` | Shared navigation labels only |
+| Hero team | `src/app/components/Hero/team-data.ts`, `TeamCarousel.tsx`, `TeamCarouselMotion.tsx`, `hero.css`, `PortraitEyes.tsx`, `RobotPortraitEyes.tsx` | Three complete bilingual SSR portrait/caption slides; approved Soheil face plus explicitly labelled Claude/Codex AI collaborators. Radios own selection; the small client island adds arrows/keyboard/swipe and optional finite motion. No autoplay or runtime AI call. |
+| Hero mascot assets | `scripts/hero-team-art-manifest.json`, `scripts/build-team-portraits.mjs`, `public/brand/{claude,codex}-character-20261029.webp` | Original fictional head-only AI portraits, not official mascots. Manifest records prompts, dimensions and provenance. The optimizer accepts selected Claude/Codex PNGs and writes square 1000×1000 transparent WebPs; brand icons are rendered separately in the interface. Never overwrite the approved Soheil portrait with these outputs. |
 | Portfolio | `src/app/components/Projects/data.ts`, `hero-views.ts`, `public/projects/hero/` | The three actual projects drive case-study routes, sitemap and llms.txt. Their desktop/tablet/mobile hero images are real captures from October 26. The shared showcase adds ten explicitly labeled design concepts; every item, real or concept, has its own page at `/{fa,en}/projects/[slug]` (concepts render `ConceptCase.tsx`: labelled as a design concept, `noindex` and kept out of the sitemap, no live link, no client or result claims). The home work ribbon (`WorkRibbon.tsx`) links every tile to that page and only its pause checkbox stops it (never hover or focus). Home shows the first five (three real, two concepts); `/projectcs` shows the remaining eight in order. Never add fictional client results to either dataset. |
 | Project concepts and gallery | `src/app/components/Projects/concepts.ts`, `src/app/components/WorkRibbon.tsx`, `scripts/project-hero-art-manifest.json`, `scripts/project-hero-captures.json`, `scripts/project-hero-assets.json` | Ten ImageGen still-image concepts (six Persian RTL, four English LTR), each with separately composed desktop/tablet/mobile hero art. All 39 images live in `public/projects/hero/`; dimensions and bilingual alt text come from `hero-views.ts`. `DeviceViews` shows complete images without cropping. Ribbon uses 720px-wide desktop thumbnails for all 13 logical items. Native pause and reduced motion work without JS. `scripts/build-project-heroes.mjs <source-map.json>` optimizes assets and writes the image registry. Earlier concept assets/manifests remain as design references. |
 | Free tools | `src/app/components/Tools/data.ts`, `guide.ts` (when to use, tips, two related articles per tool; the hub page adds a guide and an FAQ) (+ one component per tool, `ToolsGrid.tsx`) | Drives `/{fa,en}/tools`, `/{fa,en}/tools/[slug]`, the home teaser, nav/footer links, sitemap and llms.txt. Four tools run fully in the browser; the audit uses `/api/tools/audit`. `scripts/build-brand-assets.mjs` is unrelated (brand logos). Add a tool by adding a `TOOLS` entry, a component and a `TOOL_COMPONENTS` mapping in the slug page. |
 | Project share cards | `scripts/build-project-og.mjs`, `public/projects/og/<slug>-<locale>.jpg` | 1200x630 JPEG og:image for every case study and concept, rendered with Playwright from the real hero captures; `getProjectShareImage` in `Projects/data.ts` points the project pages and `/projectcs` at them. Run `npm run projects:og` after adding a project or replacing its captures. |
-| Blog art | `scripts/blog-art-manifest.json`, `public/blog/*-editorial-*.jpg` | 26 original ImageGen editorial covers, 1200x630 JPEG; manifest records prompts, bilingual alt text and dates (newer batches may store a per-asset prompt). `npm run blog:art` verifies current assets; `--sheet <path>` previews them. `--legacy` explicitly selects the historical SVG renderer, whose files are not used by current posts. Each post carries `coverImage` and bilingual `coverImageAlt`; update the manifest and post together when replacing art. |
+| Blog art | `scripts/blog-art-manifest.json`, `public/blog/*-editorial-*.jpg` | Original ImageGen editorial covers, 1200x630 JPEG; manifest records prompts, bilingual alt text and dates (newer batches may store a per-asset prompt). `npm run blog:art` verifies manifest-listed assets; `--sheet <path>` previews them. `--legacy` explicitly selects the historical SVG renderer, whose files are not used by current posts. Each post carries `coverImage` and bilingual `coverImageAlt`; update the manifest and post together when replacing art. |
 | Legacy cover URLs | `public/_redirects` | Asset-server 301 redirects preserve the 18 previous `/blog/<slug>.jpg` URLs after the ImageGen refresh. Keep these when replacing cover files again. |
-| SEO/GEO extras | `src/app/llms-content.ts`, `src/app/llms.txt/`, `src/app/llms-full.txt/`, `src/app/blogs/related.ts`, `src/app/components/Services/faq.ts`, `public/<key>.txt` | `/llms.txt` and `/llms-full.txt` for AI answer engines (built from services, service FAQs, and posts); tag-based related posts and article→service links; per-service FAQ rendered with FAQPage schema; IndexNow key file. Posts accept optional `seoTitle`/`seoDescription` when the headline or excerpt is too long or short for search results; bump `updatedAt` on real edits and `SITE_CONTENT_UPDATED_AT` in `src/app/seo.ts` when home or service copy changes (both feed sitemap `lastmod`) |
+| SEO/GEO extras | `src/app/llms-content.ts`, `src/app/llms.txt/`, `src/app/llms-full.txt/`, `src/app/blogs/related.ts`, `src/app/components/Services/faq.ts`, `public/<key>.txt` | `/llms.txt` and `/llms-full.txt` for AI answer engines (built from services, service FAQs, real projects, tools and posts); tag-based related posts and article→service links; per-service FAQ rendered with FAQPage schema; IndexNow key file. Posts accept optional `seoTitle`/`seoDescription` when the headline or excerpt is too long or short for search results; bump `updatedAt` on real edits and `SITE_CONTENT_UPDATED_AT` in `src/app/seo.ts` when home or service copy changes (both feed sitemap `lastmod`) |
 | SEO helpers | `src/app/seo.ts`, `components/JsonLd.tsx`, `components/Breadcrumbs.tsx` | Base URL, `@id`s, BreadcrumbList builder, JSON-LD renderer, and visible breadcrumbs. Organization/Person/WebSite are site-wide (locale layout); every page emits its own WebPage node |
 | Contact details | `src/app/contact-info.ts` | Phone, email, WhatsApp, Telegram, Instagram, and LinkedIn used by Header, mobile menu, Footer, the contact section, and JSON-LD `sameAs` |
 | Project consultant | `worker/consultant-flow.js` (questions), `worker/consultant-scope.js`, `worker/pricing-engine.js`, `src/app/components/Consultant/*` | Six questions + one content follow-up, adaptive per project type; WordPress/WooCommerce/custom recommendation; economic and professional tiers; prices only from the admin tariff (`/admin/tariffs`). Opened by `ConsultantButton` (hero, contact section, service pages) or `#estimate`. Details: `docs/PROJECT_CONSULTANT.md`. |
 | Contact form | `src/app/components/ContactForm/index.tsx` | Bilingual "leave a message" form posting to `/api/contact`; messages are read and answered in `/admin/messages` |
 | Sales UI | `src/app/components/SalesAssistant/index.tsx` | Client state, localized UI copy, API contract, and quick replies |
-| Sales backend | `worker/index.js` | Prompt, schema, persistence, fallback, rate limit, webhook, and API routing |
+| Sales backend | `worker/index.js`, `sales-flow.js`, `workers-ai-sales-provider.js`, `core.js` | Prompt, strict output validation, provider choice, fixed three-step flow, persistence, fallback, rate limit, webhook and API routing |
 
 Content rules:
 
@@ -175,14 +187,15 @@ Content rules:
 ### End-to-end flow
 
 ```text
-Website SalesAssistant
+Website SalesAssistant (retained, currently unmounted)
   -> POST /api/sales/chat
   -> strict schema/origin validation and IP rate limit
   -> resolve/create durable conversation
   -> conversation rate limit
   -> load D1 history and extracted lead profile
-  -> OpenAI Responses API with strict JSON Schema
+  -> configured OpenAI Responses / Workers AI provider with strict schema validation
      or deterministic bilingual fallback
+  -> application-owned three-step sales flow (also on fallback turns)
   -> validate output shape and business-policy claims
   -> update lead + persist user/assistant messages
   -> return conversationId, reply, stage, quickReplies, isComplete, requestId
@@ -238,6 +251,10 @@ The ordered SQL migrations create and evolve:
 - `telegram_updates`: deduplicated Telegram update/callback processing records.
 - `telegram_notifications`: deduplicated content preview and sales notification delivery state.
 - `contact_messages`: website contact-form messages (name, phone/email, text, locale, `new|read|replied|archived` status, read/replied timestamps) with an `expires_at` removed by the daily retention cron (`CONTACT_MESSAGE_RETENTION_DAYS`, default 365).
+- `pricing_tariffs`: versioned, admin-entered tariff JSON; the newest valid tariff is active. No real price ships in code.
+- `consultant_requests`: consented answers, scope, internal estimate, tariff version, summary, contact, hashed update token, report state and retention dates.
+
+The repository currently contains migrations `0000` through `0009` and 15 application tables. This is a local source inventory, not confirmation that a remote database has applied them.
 
 `db/migrations/*.sql` is the only runtime schema source of truth. `db/schema.ts` is a TypeScript mirror and never creates tables. Worker requests must not execute DDL or bootstrap schema. Use standard `wrangler d1 migrations apply` commands and keep the SQL, type mirror, queries, tests, build, and setup docs synchronized.
 
@@ -254,11 +271,11 @@ The ordered SQL migrations create and evolve:
 - Image generation requires a generated and approved campaign, validates Base64 and binary type/size, stores only through the ArvanCloud object storage adapter (`worker/arvan-storage.js`, S3-compatible, signed requests via `aws4fetch`), and never returns a public or presigned URL.
 - One `main_image` row and deterministic object key are allowed per campaign. Repeated successful requests return existing metadata without another model call. Regenerating campaign text marks a stored image `superseded_at`; the next `generate-image` call rebuilds it in place.
 - Missing `AI` or ArvanCloud credentials (`ARVAN_S3_ACCESS_KEY`/`ARVAN_S3_SECRET_KEY`/`ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET`) return `configuration_missing`; they must not crash the Worker or affect text generation, Telegram, Sales Chat, or Instagram. Staging may run without them (`/api/health` still reports `mediaStorage: false` but stays ready); production is expected to have them.
-- Sales Chat flow (`worker/sales-flow.js`, applied after any model turn): exactly three steps — site type (10 fixed options), budget band (about 50 / 100 / 150 / 200 million Toman, over 300 million), then full name and phone — after which the reply is a fixed thank-you and the lead becomes `proposal_ready` (this fires the Telegram notification). The application owns every question and option; the model only writes one short lead-in sentence for real free-text messages (never after a tapped option, greeting or thank-you), and its questions, "I understand" openers, requests and contact promises are dropped. The widget's starter replies must match `SITE_TYPES` labels. Budget bands are options the customer picks, never quotes. Scripted fallback turns (no model) skip the flow. Returning customers: the widget forgets its stored `conversationId` once a request is complete (a reload starts a fresh conversation); on the server, a site type chosen after `flowDone` starts a new request (`profile.inquiry` 2, 3, ...) that keeps the name and phone, asks the budget again and gets its own `proposal_ready` Telegram event (`sales:proposal_ready:<conversation>:<n>`). Telegram events are deduplicated per conversation, never per IP. The flow also runs on scripted turns (no model answer), and `extractName` reads the name from the message when the model did not.
+- Sales Chat flow (`worker/sales-flow.js`, applied after any model turn): exactly three steps — site type (10 fixed options), budget band (about 50 / 100 / 150 / 200 million Toman, over 300 million), then full name and phone — after which the reply is a fixed thank-you and the lead becomes `proposal_ready` (this fires the Telegram notification). The application owns every question and option; the model only writes one short lead-in sentence for real free-text messages (never after a tapped option, greeting or thank-you), and its questions, "I understand" openers, requests and contact promises are dropped. The widget's starter replies must match `SITE_TYPES` labels. Budget bands are options the customer picks, never quotes. Scripted fallback turns (no model) also run the flow. Returning customers: the widget forgets its stored `conversationId` once a request is complete (a reload starts a fresh conversation); on the server, a site type chosen after `flowDone` starts a new request (`profile.inquiry` 2, 3, ...) that keeps the name and phone, asks the budget again and gets its own `proposal_ready` Telegram event (`sales:proposal_ready:<conversation>:<n>`). Telegram events are deduplicated per conversation, never per IP. The flow also runs on scripted turns (no model answer), and `extractName` reads the name from the message when the model did not.
 - Sales Chat provider: `SALES_AI_PROVIDER` (`auto` default, `openai`, `workers_ai`). `auto` uses OpenAI when `OPENAI_API_KEY` is set, otherwise the `AI` binding (`worker/workers-ai-sales-provider.js`: Qwen3 with thinking switched off, one Llama fallback, output repaired by `normalizeSalesOutput`, then the same schema and business-policy validation as OpenAI). Workers AI turns have their own global caps (`WORKERS_AI_SALES_HOURLY_LIMIT` 300, `WORKERS_AI_SALES_DAILY_LIMIT` 1500). Qwen3 on Workers AI puts the JSON in `message.reasoning` when thinking is off; `extractSalesOutput` reads it.
 - If no Sales Chat provider is configured, provider quota is exhausted, the model call fails/times out, or the returned payload fails schema/policy validation, fixed bilingual discovery questions are used.
 - The assistant may recommend an economic, professional, or exclusive tier, but must not invent exact prices, discounts, delivery promises, legal terms, or unsupported features.
-- Deterministic pricing is not implemented yet. Do not present model-generated amounts as authoritative.
+- Sales Chat never prices. The separate project consultant has deterministic pricing in `worker/pricing-engine.js`, using only the latest valid admin tariff in D1; without one it returns `needs_review` («نیازمند بررسی کارشناسی»). The model may interpret free text and summarize, but it cannot supply prices or deadlines.
 - The website client must send only `conversationId`, `locale`, and `message`. Never accept client-owned `source`, `externalUserId`, message counts, or Instagram fields.
 - Website conversation IDs are cryptographically random UUIDv4 values stored in `localStorage`. Frontend calls use `AbortController` and a finite timeout.
 - Keep Worker response stages/types compatible with `SalesAssistant` (`discovery`, `qualification`, `proposal_ready`, `handoff`).
@@ -285,9 +302,10 @@ The ordered SQL migrations create and evolve:
 2. Requires `out/index.html`.
 3. Recursively replaces `dist/`.
 4. Copies the export to `dist/client/`.
-5. Copies the Worker module tree to `dist/server/`.
-6. Verifies `dist/server/index.js` exists.
-7. Copies Sites metadata and every SQL migration to `dist/.openai/`.
+5. Rewrites English HTML `lang`/`dir` and mirrors nested RSC segment payloads to the dot-joined filenames requested by the Next client.
+6. Copies the Worker module tree to `dist/server/`.
+7. Verifies `dist/server/index.js` exists.
+8. Copies Sites metadata and every SQL migration to `dist/.openai/` (migrations under `drizzle/`).
 
 Production Wrangler uses generated `dist/server/index.js`; local Wrangler uses `worker/index.js`. Never inject migrations into the Worker bundle.
 
@@ -299,7 +317,7 @@ Production Wrangler uses generated `dist/server/index.js`; local Wrangler uses `
 - `/_next/static/*` overrides the asset-server default (`public, max-age=0, must-revalidate`) with `public, max-age=31536000, immutable`, which is safe because those filenames are content-hashed.
 - `/admin` and `/admin/*` add `X-Robots-Tag: noindex, nofollow, noarchive` and `Cache-Control: no-store` on top of the `noindex` metadata already in `src/app/admin/layout.tsx`.
 
-- `/fonts/*` is `immutable` for a year (rename a font file when replacing it); `/blog/*`, `/projects/*`, and `/og.jpg` get a week (day for og.jpg) plus `stale-while-revalidate`.
+- `/fonts/*` is `immutable` for a year (rename a font file when replacing it); `/blog/*`, `/brand/*`, `/projects/*`, and `/og.jpg` get a week (day for og.jpg) plus `stale-while-revalidate`.
 
 Cloudflare applies `_headers` only to responses the asset server returns directly, never to responses built inside `worker/index.js`. Page routes (`/`, `/fa*`, `/en*`, `/admin*`, `*.html`, `/404`) run the Worker first (see `run_worker_first` in `wrangler.jsonc`), so the Worker re-applies the `/*` security headers itself from `PAGE_SECURITY_HEADERS` (plus the admin `noindex`/`no-store` pair); `tests/routing.test.js` fails if that constant drifts from `public/_headers`, so **change both together**. Hashed bundles, fonts, images, and RSC `.txt` payloads stay asset-first and are covered by `_headers` directly. The CSP is `default-src 'self'` plus the two CloudFront hosts of the hero poster (`img-src`) and video (`media-src`), with `'unsafe-inline'` for scripts and styles because a static export cannot issue per-request nonces and pages emit inline JSON-LD and inline CSS (`experimental.inlineCss`). Verify with `curl -I https://sosho-studio.net/fa` after any deploy that touches this file.
 
@@ -319,6 +337,7 @@ npm test
 npm run build:next
 npm run start
 npm run build
+npm run test:hero               # focused local Playwright checks of dist/client, no live API calls
 npx wrangler deploy --dry-run
 npm run deploy
 npm run deploy:staging
@@ -330,9 +349,10 @@ npm run seo:indexnow             # after a production deploy: submit the live si
 
 Command semantics:
 
-- `dev`: applies local D1 migrations and starts both Worker on port 8787 and Next on port 3000; Next proxies `/api/*` to the Worker. The first run needs Cloudflare auth because the `AI` binding still connects to Cloudflare in local dev. On the owner's network `wrangler login` (OAuth) fails — `dash.cloudflare.com/oauth2/token` answers with a bot-challenge HTML page (HTTP 403), so Wrangler can neither obtain nor refresh an OAuth token — therefore set `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in a git-ignored root `.env`. Wrangler reads both from `.env` and then talks only to `api.cloudflare.com`, which is not challenge-gated.
+- `dev`: applies local D1 migrations and starts both Worker on port 8787 and Next on port 3000; Next proxies `/api/*` to the Worker. Cloudflare auth is needed for the remote `AI` binding even during local dev. Prior setup records report OAuth bot challenges on the owner's network; when applicable use `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in a git-ignored root `.env`, with values supplied by the owner. Do not print credentials or assume network/token permissions are unchanged.
 - `dev:next` and `dev:worker`: start either side independently.
 - `test`: runs Worker-runtime unit/integration tests with isolated local D1 storage and outbound provider mocks.
+- `test:hero`: serves the existing `dist/client` export locally and checks both locales, selected portraits/captions, arrows/radios/keyboard/swipe, pointer behavior, no-JavaScript and reduced-motion layouts. Build first and provide installed Chromium (or `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`). Artifacts default to `.playwright-mcp/hero-team-eyes-20261031`; `HERO_TEAM_ARTIFACT_DIR` overrides the location. It stubs API failures and blocks external requests, so it does not validate the live Worker.
 - `lint`: runs ESLint; config ignores `.next`, `out`, `dist`, `build`, and `.wrangler`.
 - `build:next`: ordinary `.next` build. Pair this with `start`.
 - `build`: aliases `build:sites`.
@@ -352,10 +372,11 @@ Frontend/public configuration:
 Worker bindings and secrets:
 
 - `DB`: D1 binding.
-- `AI`: Cloudflare Workers AI binding used by the default content provider.
-- `ARVAN_S3_ACCESS_KEY`, `ARVAN_S3_SECRET_KEY`: ArvanCloud Object Storage (S3-compatible) credentials for private generated campaign media. Cloudflare R2 is not used because this account cannot enable it; no public bucket URL is exposed regardless of provider.
+- `AI`: Cloudflare Workers AI binding used by default content/image generation, Sales Chat when selected, and optional consultant interpretation.
+- `ARVAN_S3_ACCESS_KEY`, `ARVAN_S3_SECRET_KEY`: ArvanCloud Object Storage (S3-compatible) credentials for private generated campaign media. This project uses ArvanCloud rather than R2; no public bucket URL is exposed.
 - `ARVAN_S3_ENDPOINT`, `ARVAN_S3_BUCKET`: non-secret ArvanCloud Object Storage endpoint and bucket name.
-- `OPENAI_API_KEY`: optional. Switches Sales Chat to OpenAI (otherwise it runs on Workers AI) and enables the optional OpenAI content provider.
+- `OPENAI_API_KEY`: optional. In `SALES_AI_PROVIDER=auto`, selects OpenAI for Sales Chat; otherwise `auto` uses the `AI` binding. Also enables the explicitly selected OpenAI content provider.
+- `SALES_AI_PROVIDER`: `auto` (default), `openai` or `workers_ai`; explicit selections do not silently change providers.
 - `ADMIN_API_TOKEN`: protects every `/api/content/*` endpoint and is exchanged only through the admin login POST for a short-lived signed HttpOnly cookie; it must never be bundled, persisted in browser storage, placed in URLs, or logged.
 - `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ADMIN_CHAT_ID`, `TELEGRAM_ADMIN_USER_ID`, and `TELEGRAM_WEBHOOK_SECRET`: optional Telegram approval/notification configuration.
 - `OPENAI_MODEL`: optional; current fallback in code is `gpt-5.6-luna`.
@@ -382,7 +403,7 @@ Rules:
 - Never commit real secrets. `.env.example` must contain names/placeholders only.
 - Use the hosting platform's secret manager for production values.
 - Do not print secrets in logs, screenshots, test output, commits, or handoff notes.
-- Do not expose configuration values through `/api/health`; keep it boolean-only.
+- Do not expose secrets or configuration values through `/api/health`; readiness and check fields are booleans (plus the standard request identifier).
 
 ## Deployment and CI
 
@@ -390,33 +411,18 @@ Rules:
 - `wrangler.staging.jsonc` targets the isolated `sosho-site-staging` Worker and `sosho-sales-staging` D1 database on `workers.dev`; it must never declare the production routes.
 - Observability is enabled.
 - `.openai/hosting.json` identifies the Sites project and declares D1 binding `DB`.
-- `wrangler.jsonc` declares `DB`, its migration directory, vars, and cron triggers. `DB.database_id` is set to the provisioned production D1 database (`sosho-sales`); `ARVAN_S3_ENDPOINT` / `ARVAN_S3_BUCKET` are set to the real ArvanCloud values (`https://s3.ir-thr-at1.arvanstorage.ir`, bucket `soshosite`, path-style access confirmed with a live PUT/GET/DELETE probe).
+- `wrangler.jsonc` declares `DB`, its migration directory, vars and cron triggers. It contains the production D1 database ID (`sosho-sales`) and ArvanCloud endpoint/bucket (`https://s3.ir-thr-at1.arvanstorage.ir`, `soshosite`). Treat these as deployment targets; source inspection does not verify remote resources or credentials.
 - Root `.github/workflows/ci.yml` validates pushes/PRs. Root `.github/workflows/deploy.yml` is manual-only, validates first, applies remote D1 migrations, then deploys.
 - A deployment request must specify the target environment. Before deploying, verify branch, cwd, generated bundle, domain, Sites project, D1 binding/migrations, `NEXT_PUBLIC_SITE_URL`, and secrets.
 - Never deploy, migrate production data, provision/delete infrastructure, rotate credentials, or contact external users without explicit authorization.
 
-### Production provisioning status (as of 2026-09-07 — deployed and live)
+### Production records and verification boundary
 
-The production Cloudflare account is `soheilshokoohi.23@gmail.com` (account id `6249a52e85fd7dccd48884f0744bbcbc`). The owner has three Cloudflare accounts and briefly logged into the wrong ones during setup — always confirm `wrangler whoami` shows this account before running anything.
+The checked-in production target is Worker `sosho-site`, D1 `sosho-sales`, the apex/`www` domains and private ArvanCloud bucket `soshosite`. Staging is a separate Worker/D1 target without production routes. Prior setup records identify the production Cloudflare account as `soheilshokoohi.23@gmail.com`; confirm the intended account with `wrangler whoami` before an authorized remote action.
 
-Live:
+Earlier notes record successful deployments, media probes, Telegram webhook setup and applied migrations on particular dates. They do **not** establish today's live version, database migrations, credentials, provider billing, webhook health or zone settings. The 2026-10-29 project review is local source review only. Do not infer runtime readiness from configured resource IDs or from a secret name appearing in a listing.
 
-- Worker `sosho-site` deployed (first live version `c6b906a4-8cb1-474c-940b-591e94c0750f`; latest verified deployment on 2026-10-24: `c01f7c69-c1b5-44d5-b67c-2bba03c1e118`). `https://sosho-studio.net` and `https://www.sosho-studio.net` serve the site; `/` → 308 `/fa`; cron triggers active. This deployment adds three bilingual web-design guides (2026 trends, AI-assisted website design, and 3D website design), bringing the blog to 26 articles with ImageGen covers. The six new localized pages, three deployed cover hashes, schemas, sitemap, llms outputs, security headers and a legacy image redirect were checked live. IndexNow accepted 70 sitemap URLs (HTTP 200). Research and validation notes: `docs/WEB_DESIGN_RESEARCH_2026-10-24.md`.
-- `public/_headers` is live and verified: `/fa` returns Content-Security-Policy, Strict-Transport-Security, Cross-Origin-Opener-Policy, Permissions-Policy, Referrer-Policy, `x-content-type-options: nosniff` and `x-frame-options: DENY`; `/_next/static/*` returns `public, max-age=31536000, immutable`; `/admin` returns `x-robots-tag: noindex, nofollow, noarchive` and `cache-control: no-store`.
-- D1 `sosho-sales` (`76f1648b-b8b8-44a4-8ed3-1e01e68db5b3`); all 8 migrations (0000–0007) applied remotely — 13 app tables.
-- ArvanCloud bucket `soshosite` (region ir-thr-at1); `ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET` vars + `ARVAN_S3_ACCESS_KEY`/`ARVAN_S3_SECRET_KEY` secrets. `/api/health` reports `mediaStorage: true`. (One secret was first stored empty and silently failed the readiness check until re-set — re-`put` any secret whose check is unexpectedly false rather than trusting `wrangler secret list`, which only shows names.)
-- Worker secrets set: `ADMIN_API_TOKEN`, `RATE_LIMIT_SALT`, `ARVAN_S3_ACCESS_KEY`, `ARVAN_S3_SECRET_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ADMIN_CHAT_ID` (`104836498`), `TELEGRAM_ADMIN_USER_ID` (`104836498`), `TELEGRAM_WEBHOOK_SECRET`.
-- Telegram webhook registered: `https://sosho-studio.net/api/webhooks/telegram`, `allowed_updates: ["callback_query"]`, secret token matches the `TELEGRAM_WEBHOOK_SECRET` secret, `getWebhookInfo` shows no errors.
-- `sosho-studio.net` zone active on the production account (registrar joker.com via the iranserver reseller; nameservers `liv`/`vick.ns.cloudflare.com`; DNS Setup Full).
-- Launch is deliberately **chat-free**: the `SalesAssistant` widget stays hidden while `GET /api/sales/status` reports `available: false`. `/api/health` returns `ready: false` (HTTP 503) purely because Meta is unconfigured; this does not affect page serving.
-
-Pending (needs owner):
-
-- `OPENAI_API_KEY` secret — OpenAI does not accept the owner's payment methods and does not serve Iran, so Sales Chat stays off until that is solved (fund the API account through someone abroad, or port `handleSalesTurn` to the Workers AI `AI` binding). Setting the secret makes the widget appear with no redeploy.
-- `META_VERIFY_TOKEN` / `META_APP_SECRET` / `META_INSTAGRAM_ACCESS_TOKEN` secrets — Meta app not created yet. Instagram DM path is the only thing blocked.
-- The Telegram bot token leaked into chat twice during setup and should be rotated once more via BotFather `/revoke`, then re-`wrangler secret put TELEGRAM_BOT_TOKEN` and re-run `setWebhook` with the same `secret_token`.
-- End-to-end admin smoke test on production (log in at `/admin`, create a campaign, generate content + image, approve via Telegram) has not been run yet.
-- `CLOUDFLARE_API_TOKEN` — a User API token still needs to be created. The production Worker was first deployed over `wrangler login` OAuth; that token expired on 2026-09-07 and OAuth can no longer be renewed on the owner's network (bot challenge on `dash.cloudflare.com`), so all further deploys and `wrangler` calls must use an API token. Create it from the **Edit Cloudflare Workers** template, then add **Account › D1 › Edit** (remote `wrangler d1` commands) and **Account › Workers AI › Edit** (`npm run dev` AI binding); scope it to this account and the `sosho-studio.net` zone. Store it with `CLOUDFLARE_ACCOUNT_ID` in a git-ignored root `.env` — agent tool calls never see it, so the owner runs `npm run deploy` and `wrangler secret put` themselves. The same token is what `deploy.yml` needs as a repo secret (with `CLOUDFLARE_ACCOUNT_ID` and the `SITE_URL` variable) if CI deploy is ever wanted.
+Before an authorized release, compare the current generated bundle and all local migrations with the intended environment, then perform scoped readiness and smoke checks. The website currently mounts the project consultant; Sales Chat provider availability is determined by `resolveSalesProvider` and can use Workers AI without an OpenAI key. Meta and Telegram remain separate integrations with separate configuration requirements. Historical credential-rotation and admin-smoke-test reminders must be confirmed with the owner, never treated as proof that a current secret is exposed or a current test passed.
 
 ## Validation and definition of done
 
@@ -429,14 +435,14 @@ npm run build
 npx wrangler deploy --dry-run
 ```
 
-Report lint, automated tests, build, and Wrangler dry-run separately. The suite covers backend behavior, not browser layout or full Meta staging behavior.
+Report lint, Worker tests, build, Wrangler dry-run and any focused browser checks separately. `npm test` covers backend behavior, while `npm run test:hero` covers the exported Hero. Neither establishes full-site browser behavior or live Meta/provider integration.
 
 Additional checks by change type:
 
 - Frontend/content: `/fa`, `/en`, both directions, mobile/desktop, keyboard focus, language switch, and 320px minimum width.
 - Routing: blog index/detail, service detail, aliases, missing slug, proxy redirects, static params, sitemap, and metadata.
 - SEO: canonical/alternate URLs, OG image path/dimensions, JSON-LD scope, robots host, and production `NEXT_PUBLIC_SITE_URL`.
-- Hero: prerendered head/centered pupils/copy, client dependency size, scroll performance, pupil-only fine-pointer interaction, no-JavaScript output, mobile layout and reduced-motion fallback.
+- Hero: prerendered portraits/captions and selected radio state, arrow/radio/keyboard navigation, synchronized localized name/role/AI labels, client dependency size, centered pupils, pupil-only fine-pointer interaction, no-JavaScript output, mobile layout and reduced-motion fallback.
 - Sales UI: open/close/reset, localized greeting/error/quick replies, pending/disabled states, max length, and API error recovery.
 - Worker: health, invalid JSON, empty/oversize input, successful AI output, model fallback, persistence, history ordering, rate limit, and missing binding behavior.
 - Instagram: verification challenge, valid/invalid signatures, echo filtering, duplicate event IDs, background processing, and send failures.
@@ -454,6 +460,8 @@ A change is done only when:
 
 ## Known issues and maintenance traps
 
+The dated review in `docs/PROJECT_REVIEW_2026-10-29.md` records source findings and remaining verification gaps. It is not a production health report.
+
 These are documented facts, not permission to expand an unrelated task:
 
 1. The shared root layout renders `lang="fa" dir="rtl"`; `scripts/build-sites.mjs` rewrites every exported `/en` HTML file to `lang="en" dir="ltr"` (and `HtmlLangDir` keeps them in sync after hydration). Keep that rewrite if the export layout changes.
@@ -465,16 +473,16 @@ These are documented facts, not permission to expand an unrelated task:
 7. The mobile menu handles Escape, initial focus, and scroll locking, but lacks a full focus trap and trigger-focus restoration.
 8. There are no route-level `loading.tsx` or `error.tsx` files; the only `not-found.tsx` is the root one used for `404.html`.
 9. Contact details live in `src/app/contact-info.ts` and SEO constants in `src/app/seo.ts` / `src/app/seo-content.ts`; a few legacy literals (for example the Instagram URL in the locale layout) remain.
-10. Sales Chat never prices. The only prices on the site come from the project consultant's deterministic engine (`worker/pricing-engine.js`) and only from the admin-entered tariff; without one it shows «نیازمند بررسی کارشناسی». There is no committed browser E2E suite (Playwright checks are run ad hoc).
-11. The production D1 database (`sosho-sales`) is provisioned and its UUID is set in `wrangler.jsonc`. ArvanCloud `ARVAN_S3_ENDPOINT`/`ARVAN_S3_BUCKET` are set to real values and the credentials are stored as Worker secrets; remaining pre-deploy steps are tracked in "Production provisioning status" above.
+10. Sales Chat never prices. The only prices on the site come from the project consultant's deterministic engine (`worker/pricing-engine.js`) and only from the admin-entered tariff; without one it shows «نیازمند بررسی کارشناسی». The committed browser script covers the Hero only; broader browser checks remain manual/ad hoc.
+11. Production D1 and ArvanCloud resource names are configured in `wrangler.jsonc`. Remote secret availability, applied migrations and readiness require an explicitly authorized environment check; configuration files cannot prove them.
 12. The Sales Chat OpenAI model, Workers AI content models, and Meta Graph version are configurable; external compatibility must be reviewed before production changes.
 13. Content generation creates bundles and one private main image for an approved campaign; text overlay, scheduling, and social publishing are intentionally not implemented.
 14. Telegram sends generated-image previews by reading the private ArvanCloud object and uploading it directly with multipart; social publishing is not implemented.
-15. Cloudflare R2 is not usable on this account (R2 requires enabling billing in the Cloudflare dashboard, which rejects the owner's card); private campaign media storage uses ArvanCloud Object Storage instead (`worker/arvan-storage.js`, S3-compatible via `aws4fetch`, path-style URLs). The production bucket `soshosite` and its credentials are provisioned; a staging bucket is not — `sosho-site-staging` has its own separate secret store and still needs one before staging image generation works.
+15. Private campaign media storage uses ArvanCloud Object Storage (`worker/arvan-storage.js`, S3-compatible via `aws4fetch`, path-style URLs). Prior setup records report an R2 billing limitation. Staging deliberately omits `ARVAN_S3_*` config and has a separate secret store; provision isolated media storage only when authorized.
 16. RSC prefetch payloads: the static export writes dynamic-segment payloads as nested paths (`fa/__next.$d$locale/__PAGE__.txt`) while the Next client requests them dot-joined (`fa/__next.$d$locale.__PAGE__.txt`). `scripts/build-sites.mjs` mirrors every nested payload to the dot-joined name, which removes the console 404s and lets `<Link>` prefetch work. Re-check after each Next upgrade; drop the mirror step once Next writes the requested names itself.
 17. Links that point to the homepage use `prefetch={false}` to avoid unnecessary homepage requests. Keep this for new links to `/${locale}` or `/${locale}#...`.
 18. The old hero video/poster remain historical source only; the homepage no longer requests those remote assets. The owned character is a transparent 1000×1000 WebP. `scripts/build-character-asset.mjs <selected-PNG>` reproduces its optimization; provenance and motion decisions live in `docs/HOMEPAGE_MOTION_2026-10-25.md`. Do not reintroduce or download the historical provider video.
-19. Cloudflare zone settings that affect SEO live outside the repo: `Always Use HTTPS` is on (set via API on 2026-10-19), and on 2026-10-20 the owner turned off AI Crawl Control's "Bot Preference Sync" (the Cloudflare-managed robots.txt prefix with `Content-Signal` and training-crawler `Disallow` lines) and its crawler blocks, so the live robots.txt is exactly `src/app/robots.ts`, every AI crawler (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot, PerplexityBot, OAI-SearchBot...) gets 200, and Lighthouse SEO is 100. Re-enabling either setting in the dashboard brings back the 403s and caps Lighthouse SEO at 92. The zone lives on the `soheilshokoohi.23@gmail.com` account, not on the separate empty "sosho-studio" account. The current API token cannot read bot settings or edit redirect rules.
+19. Cloudflare zone settings can override repository SEO behavior. Prior 2026-10-19/20 records report HTTPS enabled and AI Crawl Control's Bot Preference Sync/crawler blocks disabled to preserve the app robots.txt and crawler access. Those external settings, token permissions and old Lighthouse scores were not reverified by the 2026-10-29 source review; do not report them as current guarantees.
 
 ## Change discipline
 

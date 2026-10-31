@@ -101,7 +101,7 @@
   .project-card { padding: 18px; border-radius: 24px; }
   .project-card-head { flex-wrap: wrap; gap: 16px; }
   .project-card-number { font-size: 40px; }
-  .project-card--devices .project-card-head > .flex { display: block; }
+  .project-card--devices .project-card-head > .flex:first-child { display: block; }
   .project-card--devices .project-card-number { display: block; margin-block-end: 12px; }
   .project-device-gallery { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 14px; padding: 14px; border-radius: 16px; }
   .project-device--desktop { grid-column: 1 / -1; }

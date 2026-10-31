@@ -1,114 +1,74 @@
-# CLAUDE.md
+# Claude Code guide for SoSho Studio
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Read [AGENTS.md](./AGENTS.md) and [README.md](./README.md) before editing. `AGENTS.md` is the canonical project guide; this file is a short orientation, not a separate set of architecture or security rules. The dated [project review](./docs/PROJECT_REVIEW_2026-10-29.md) distinguishes local findings from unverified production state.
 
-## Read first
+## Working rules
 
-`AGENTS.md` at the repo root is the authoritative, detailed project guide (mission, content sources of truth, AI-sales invariants, deployment, known issues, change discipline). Read it and the root `README.md` (Persian) before editing. This file is the short orientation layer; when the two disagree, `AGENTS.md` wins and should be corrected.
-
-The active application is the repository root itself. A former duplicate app was deliberately deleted — do not restore it from git history, and do not add a nested `package.json` or second app directory unless the owner explicitly asks.
-
-## Branch rule (standing owner instruction)
-
-**Updated 2026-10-19:** the owner explicitly asked to merge both `openai-chats` and `3d-scroll-tour` into `main`, and that is done locally (merge commits `e9b1509`, `9bd952a`). `main` is now the complete branch. Pushing `main` and deploying still need the owner's go-ahead each time. The `3d-scroll-tour` components are in the tree but **not wired into the homepage** — the owner rejected the blocked-out look, so `src/app/[locale]/page.tsx` keeps the approved layout. Do not hook the tour up without screenshots the owner has approved first.
-
-## Environment
-
-- Windows host; the default shell is PowerShell 5.1, with a Bash tool also available. `npm run dev` orchestration and Wrangler are cross-platform.
-- Node.js 22+ is required (pinned Wrangler needs it). Use `npm ci` (lockfile v3).
-- Line endings: Persian source files have mixed historical CRLF/LF. Do not run repo-wide reformatting, import sorting, or EOL normalization; match each neighboring file.
-- This repo was previously worked on with the OpenAI Codex CLI (there is a user-level `~/.codex/config.toml`). `AGENTS.md` is the shared cross-agent guide.
+- The only application/package lives at the repository root. Run npm and Wrangler here. Do not restore the deliberately deleted duplicate app or create another root, package boundary or branch unless explicitly asked.
+- Start with `git status --short`; preserve existing edits, assets and deletions. Match local style and historical CRLF/LF, especially in Persian source. Avoid repository-wide formatting or import cleanup.
+- Edit source, never generated `.next/`, `out/`, `dist/`, `node_modules/`, `.wrangler/` or coverage output.
+- Do not deploy, apply remote migrations, provision/delete infrastructure, rotate credentials, push changes or contact external users without the owner's explicit authorization for that action and target. A local source review does not establish production health.
+- Never expose secrets or customer PII in commands, logs, fixtures, commits or handoffs.
 
 ## Commands
 
+Node.js 22+ and npm are required; `package-lock.json` is v3. There is one root package.
+
+When using Windows Node from WSL, run from the repository's canonical Windows path casing. In this checkout a lowercase-path invocation caused Vitest's “failed to find the runner” error before any test ran; the identical suite passed from the canonical path without changing test code.
+
 ```bash
-npm ci                        # deterministic install (run from repo root only)
-npm run dev                   # applies local D1 migrations, starts Worker :8787 + Next :3000, proxies /api/* to Worker
+npm ci                        # deterministic dependency install
+npm run dev                   # local D1 migration, Worker :8787 + Next :3000, /api proxy
 npm run dev:next              # Next only
-npm run dev:worker            # Worker only (wrangler dev --config wrangler.dev.jsonc)
-npm run db:migrate:local     # apply D1 migrations to the local dev DB
-npm run lint                  # eslint (ignores .next, out, dist, build)
-npm test                      # vitest run — Worker-runtime + D1 integration tests
-npm run build                 # alias of build:sites — static export + custom Worker bundle into dist/
-npm run build:next            # plain .next build (pair with `npm run start`)
-npx wrangler deploy --dry-run # validate the production bundle
-npm run deploy                # build:sites then wrangler deploy — CHANGES PRODUCTION, only with explicit authorization
-npm run deploy:staging       # build + deploy sosho-site-staging on workers.dev (no prod routes)
-npm run blog:cover -- --slug "post-slug" --tag "SEO"   # Playwright 1200x630 cover PNG
-npm run projects:og           # Playwright 1200x630 project share cards in public/projects/og/
-npm run blog:art              # regenerate the per-post SVG illustrations in public/blog/*.jpg
-npm run seo:indexnow          # after a production deploy: submit live sitemap URLs to IndexNow
+npm run dev:worker            # Worker only, using wrangler.dev.jsonc
+npm run db:migrate:local      # local DB only, using wrangler.dev.jsonc
+npm run lint
+npm test                      # Vitest in Cloudflare Worker runtime with local D1/mocks
+npm run build                 # static export + Worker + metadata/migrations into dist/
+npm run test:hero             # focused Playwright checks of that export; local API stubs only
+npx wrangler deploy --dry-run # validate the generated production bundle without publishing
+npm run build:next            # ordinary .next build, paired with npm run start
+npm run blog:art              # verify manifest-listed ImageGen assets; --sheet <path> previews
+npm run projects:og           # render 1200x630 project share cards with Playwright
+npm run blog:cover -- --slug "post-slug" --tag "SEO"
 ```
 
-Run one test file / one test:
+For focused tests: `npx vitest run tests/worker.test.js` or `npx vitest run -t "case name"`. There is no separate typecheck or formatter script and no general site-wide browser E2E suite. `test:hero` requires a fresh build and Chromium; it serves the export locally and blocks external calls. Artifacts default to `.playwright-mcp/hero-team-eyes-20261031` (override `HERO_TEAM_ARTIFACT_DIR`; use `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` for an installed browser).
 
-```bash
-npx vitest run tests/worker.test.js
-npx vitest run -t "name of the test case"
-npx vitest tests/worker.test.js        # watch mode
-```
+`npm run deploy` targets production domains. `npm run deploy:staging` and `npm run db:migrate:staging` also mutate remote state, using the separate staging config. `npm run seo:indexnow` submits the live sitemap externally after an authorized release. These are operational commands, not local validation steps.
 
-There is no separate `typecheck`, `format`, or browser-E2E script. Playwright exists only for blog covers.
+CI validates lint, Worker tests, build and Wrangler dry-run. The deployment workflow is manual-only, validates first, applies migrations, then deploys. Report each validation result separately; do not equate successful compilation with browser or integration verification.
 
-Pre-deploy / definition-of-done baseline (report each result separately): `npm run lint`, `npm test`, `npm run build`, `npx wrangler deploy --dry-run`. CI (`.github/workflows/ci.yml`) runs exactly these on every push/PR with `NEXT_PUBLIC_SITE_URL=https://sosho-studio.net`. `deploy.yml` is `workflow_dispatch`-only.
+## Architecture and sources
 
-## Architecture
+- **Frontend:** Next.js 16 App Router, React 19, TypeScript strict, React Compiler and CSS-first Tailwind 4. `@/*` maps to `src/*`. Server Components are the default. `SITES_STATIC_EXPORT=1` enables static export and unoptimized images.
+- **Runtime:** `worker/index.js` and the plain ESM modules in `worker/` own API, D1, AI providers, Meta/Instagram, Telegram and private ArvanCloud storage. Do not add Next API routes or server actions to this static architecture.
+- **Routing:** `/` redirects to `/fa`; locales are `fa` RTL and `en` LTR. Marketing routes include services, blogs, project detail, the existing `/projectcs` archive spelling and tools. `/admin` is Persian RTL and unlocalized. Dynamic marketing routes must remain enumerable with `generateStaticParams`.
+- **Packaging:** `scripts/build-sites.mjs` exports Next into `dist/client`, corrects English HTML language/direction, mirrors RSC segment payload filenames, copies the Worker into `dist/server` and packages every SQL migration/Sites metadata. Local Wrangler uses source; deployment Wrangler uses generated `dist/server/index.js`.
+- **Headers/routing:** `public/_headers` controls asset headers. Worker-built pages repeat security headers from `PAGE_SECURITY_HEADERS`; change both together (routing tests check parity). Preserve canonical redirects, real 404 responses and admin no-store/noindex behavior.
+- **Schema:** ordered `db/migrations/*.sql` is the only runtime source of truth. `db/schema.ts` is a mirror. Keep SQL, types, queries, tests and setup docs aligned; never execute DDL during requests. Local migrations currently run through `0009`; this does not establish remote migration state.
 
-Two deployables in one package:
+Find exact frontend sources in the content table in `AGENTS.md`: services in `Services/{data,faq,guide}.ts`, blog in `blogs/posts.ts`, real projects in `Projects/data.ts`, concepts/showcase/hero views in neighboring files, tools in `Tools/{data,guide}.ts`, contacts in `contact-info.ts`, SEO in `seo.ts`/`seo-content.ts`. Slugs are shared across languages and must stay stable. New services also need manual Hero tag, offer-catalog and related-article review. Concept work must stay explicitly labelled with no fabricated client claims.
 
-1. **Static marketing site** — Next.js 16 App Router, React 19, React Compiler, TypeScript strict, Tailwind CSS 4 (CSS-first, no `tailwind.config.*`). Bilingual `fa` (default, RTL) / `en` (LTR). Built with `output: "export"` when `SITES_STATIC_EXPORT=1`. Every dynamic route must stay statically enumerable via `generateStaticParams`. `@/*` → `src/*`.
-2. **Cloudflare Worker** (`worker/`, plain ESM `.js`, no build step for local dev) — all runtime API, D1, OpenAI, Workers AI, ArvanCloud object storage, Instagram/Meta, and Telegram behavior. No Next API routes or server actions.
+The locale layout mounts `ConsultantLauncher`, `FloatingContact` and `ConsultantHost`. The retained `SalesAssistant` and historical video/WebGL tour are unmounted. Public features require aligned Persian/English copy, accessible controls and reduced-motion behavior. Both locales use local IRANYekan; see its proprietary font licence note before asserting redistribution rights.
 
-### Request path
+The Hero keeps the approved original Soheil portrait and uses `Hero/team-data.ts` + server `TeamCarousel.tsx` for three complete portrait/caption slides. The `SOSHO STUDIO` wordmark has its own grid row with a 24px gap above the slides. `PortraitEyes.tsx` preserves the founder's eyes; server `RobotPortraitEyes.tsx` overlays the mascot eyes. `HomeMotion.tsx` tracks only the active slide's pupils and resets all six on selection, pointer leave, window blur or leaving the viewport; reduced motion disables tracking. Native radios own selection; `TeamCarouselMotion.tsx` adds arrows/keyboard/swipe and finite animation without autoplay or backend calls. Claude and Codex are labelled AI collaborators, not human employees or provider endorsements. Mascot prompts/provenance are in `scripts/hero-team-art-manifest.json`; `scripts/build-team-portraits.mjs` optimizes their selected PNGs without touching Soheil. Follow `AGENTS.md` for square portrait alignment, no-JavaScript/reduced-motion navigation and pupil-only pointer motion; do not restore historical head/body rigs or video assets without an explicit request.
 
-- `src/proxy.ts` (and the built Worker) redirect locale-less, extensionless, non-asset/non-API paths to `/fa/...`.
-- Production Worker (`worker/index.js` `worker.fetch`): `/api/*` → `handleApi`; page routes run the Worker first (`run_worker_first` in `wrangler.jsonc`) so it can 301 www/http/trailing-slash/`.html` to the canonical apex URL, serve `404.html` with a real 404, and re-apply the security headers from `PAGE_SECURITY_HEADERS` (keep it identical to the `/*` block of `public/_headers`; a test enforces this). `/` → 308 `/fa`; otherwise serve `dist/client` assets with `.html` / `index.html` fallback, then locale redirect.
-- `handleApi` is a flat sequence of `if (url.pathname === ... && method === ...)` / regex-match blocks ending in a 404. Every JSON response carries `requestId` + `x-request-id`.
-- `worker.scheduled`: cron `*/5 * * * *` → webhook retry sweep; `15 3 * * *` → retention cleanup.
+## Backend invariants to preserve
 
-### Worker module map
+- D1 is mandatory for Sales Chat; database failure returns 503. The website client sends only `conversationId`, `locale`, `message`; validate strict fields, origin, lengths and per-IP/conversation rate limits.
+- `sales-flow.js` owns three steps (site type, budget band, name/phone), applied even after provider fallback. The model cannot invent questions, quotes, discounts, deadlines or legal terms.
+- `SALES_AI_PROVIDER=auto` selects OpenAI when its key exists, otherwise Workers AI. Explicit provider selections stay explicit. `CONTENT_AI_PROVIDER=workers_ai` never calls OpenAI. Providers have bounded timeouts/retries/quotas and validated output.
+- The separate project consultant prices only through `pricing-engine.js` and an admin-entered D1 tariff; no valid tariff means `needs_review`. AI only interprets free text/summarizes and cannot create prices or deadlines. Persist requests/contact only with consent. See `docs/PROJECT_CONSULTANT.md`.
+- Preserve Meta HMAC verification, event claim/deduplication, cached responses and event-linked message uniqueness. Retried webhooks must never recreate completed turns.
+- Handoff-requested/human-active conversations store inbound messages without generating an AI answer. Take-over is atomic and audited.
+- Admin writes require signed HttpOnly session, allowed Origin, JSON, session-bound CSRF and, for campaign/take-over actions, UUID idempotency. Dashboard and Telegram campaign transitions share `campaign-actions.js`; never write approval state directly in a handler.
+- Image generation needs an approved campaign, validates bytes/type/size, reuses its unique media claim and stores privately through ArvanCloud. No public/presigned URL. Missing media configuration does not break unrelated features.
+- Telegram is optional, gated to the configured admin, callback-acknowledged and deduplicated. Notifications/reports use the outbox and must not break persistence if delivery fails.
+- Keep audit SSRF guards (public HTTP(S) hostnames only, every redirect revalidated, time/body/redirect caps), retention and PII-safe logs. `/api/health` exposes readiness booleans, never configuration values.
 
-| File | Role |
-| --- | --- |
-| `worker/index.js` (~2.2k lines) | Router, health/readiness, sales-turn pipeline, Instagram webhook state machine, content-campaign + image endpoints, retention/retry crons |
-| `worker/core.js` | Shared validation, business-policy checks, sales JSON Schema, `ServiceError`, `fetchWithTimeout`, `retryWithBackoff`, id/hash helpers |
-| `worker/admin-dashboard.js` | Admin session issue/verify (constant-time token compare → signed 8h HttpOnly cookie), CSRF, bounded read-only D1 list/detail queries (max 50 rows), PII redaction |
-| `worker/campaign-actions.js` | Single source for approve/reject/regenerate transitions — idempotency via `campaign_action_audit` claim, shared by Dashboard route handlers and Telegram callbacks. Route handlers must never write approval status directly. |
-| `worker/content-generation.js` | Content bundle schema, local validation, provider selection |
-| `worker/workers-ai-content-provider.js` | Default `AI`-binding content provider: Qwen primary, one Llama fallback |
-| `worker/image-generation.js` + `worker/workers-ai-image-provider.js` | FLUX main-image generation, Base64/binary validation |
-| `worker/arvan-storage.js` | Private ArvanCloud (S3-compatible) object storage adapter, signed via `aws4fetch`; Cloudflare R2 is not used — this account cannot enable R2 billing — and no public/signed URL is ever returned |
-| `worker/sales-flow.js` | Three-step Sales Chat flow (site type, budget band, name and phone) applied after any model turn; owns every question and option |
-| `worker/workers-ai-sales-provider.js` | Sales Chat turns on the `AI` binding (Qwen3 with thinking off, Llama fallback, output repair) |
-| `worker/site-audit.js` | Free website audit for `POST /api/tools/audit` with an SSRF-guarded fetch of one public page, robots.txt and sitemap |
-| `worker/consultant.js` (+ `consultant-flow.js`, `consultant-scope.js`, `consultant-ai.js`, `consultant-report.js`, `pricing-engine.js`) | Project consultant: question flow, deterministic scope and two tiers, tariff-based price/time engine, AI interpretation and summary with output checks, consented D1 storage, Telegram report via the outbox, admin list/detail/tariffs. See `docs/PROJECT_CONSULTANT.md` |
-| `worker/telegram-service.js` | Telegram Bot API transport, admin chat/user gating, `answerCallbackQuery`, multipart photo upload |
+## Validation and delivery
 
-### Data / schema
+Use the relevant lint, Worker tests, build and dry-run checks from `AGENTS.md`. For public UI also check `/fa` and `/en`, 320px/mobile/desktop, keyboard/focus, no-JavaScript HTML and reduced motion. Provider mocks and local D1 do not prove live AI, Telegram, Meta, object storage, DNS or production credentials.
 
-`db/migrations/*.sql` (ordered, additive-only) is the **only** schema source of truth. `db/schema.ts` is a hand-maintained TypeScript mirror that creates nothing. The Worker never runs DDL at request time; migrations are applied with `wrangler d1 migrations apply` before deploy. `vitest.config.mjs` feeds the same migrations into Miniflare D1 for tests. Keep SQL, the type mirror, queries, tests, and docs in sync in one change.
-
-### Frontend content sources of truth
-
-Editing these drives cards / static params / sitemap / SEO — see the table in `AGENTS.md`. Key ones: `src/app/components/Services/data.ts`, `src/app/blogs/posts.ts`, `src/app/components/Projects/index.tsx`, `src/app/i18n.ts` (nav labels only). Slugs are shared across locales and must stay stable (add aliases deliberately). New services do **not** auto-update the fixed Hero modules or the locale-layout offer catalog.
-
-`/admin` is a Persian RTL dashboard (`src/app/admin/`, `noindex`); client components talk to `/api/admin/*`. Server Components are the default everywhere; add `"use client"` only for hooks/browser APIs/WebGL. The homepage hero is a looping video (`Hero/HeroVideo.tsx`); the old WebGL hero was removed.
-
-## Non-negotiable invariants (see AGENTS.md "AI sales system" for the full list)
-
-- D1 is mandatory; `/api/sales/chat` fails closed with `503` when it is down.
-- The website client sends only `conversationId`, `locale`, `message`. Never accept client-supplied `source`, `externalUserId`, message counts, or Instagram fields.
-- Preserve Meta HMAC signature verification and event-id deduplication; retries must never recreate a completed sales turn.
-- `CONTENT_AI_PROVIDER=workers_ai` (the default) must never call OpenAI. `OPENAI_API_KEY` is optional: Sales Chat runs on the Workers AI `AI` binding without it (`resolveSalesProvider`), and the key also enables the optional OpenAI content provider.
-- Missing `AI` binding or ArvanCloud credentials (`ARVAN_S3_*`) return `configuration_missing` and must not crash the Worker or affect text/Telegram/Sales/Instagram paths.
-- The Sales Chat assistant must not invent prices, discounts, delivery promises, or legal terms. The only prices come from the project consultant's deterministic engine (`worker/pricing-engine.js`) using the admin-entered tariff in D1; with no tariff it answers «نیازمند بررسی کارشناسی». The AI there only reads free text and writes a summary that is rejected if it mentions money or dates.
-- Dashboard campaign writes require signed session + allowed Origin + JSON content-type + session-bound CSRF token + UUID idempotency key.
-- `/api/health` returns booleans only — never leak config values.
-- Every user-facing feature ships Persian and English copy/metadata/labels/errors together. Prefer logical CSS (`start`/`end`/`ms`/`me`/`ps`/`pe`).
-- Leads hold real PII — never log it, commit it, or use production records as fixtures.
-- Edit source, not generated output (`.next/`, `out/`, `dist/`, `.wrangler/`, coverage).
-- The production D1 database (`sosho-sales`, on the `soheilshokoohi.23@gmail.com` Cloudflare account) is provisioned, its `database_id` is set in `wrangler.jsonc`, and migrations through `0009_project_consultant` are applied remotely (0009 on 2026-10-27). The Worker is deployed and live; apply new migrations remotely before deploying code that needs them.
-
-## Current working state
-
-The AI sales system, admin dashboard, audited campaign approve/reject/regenerate, human handoff, Telegram integration, and the R2→ArvanCloud media migration are merged into `main` (with `openai-chats`), which is **deployed and live** at `https://sosho-studio.net` (Worker `sosho-site` on the `soheilshokoohi.23@gmail.com` account). Launched chat-free: the `SalesAssistant` widget is gated on `GET /api/sales/status` and stays hidden until `OPENAI_API_KEY` is set. Still pending: OpenAI billing (blocked by sanctions), Meta/Instagram secrets, a production admin smoke test, and a final Telegram bot-token rotation. See "Production provisioning status" in `AGENTS.md` for the live checklist. SEO/GEO state (llms.txt, IndexNow, redirects, Cloudflare zone settings, the hero-video licence constraint) is tracked under "Known issues" in `AGENTS.md`.
+Keep guide/setup documentation accurate when architecture changes. Report actual changes, checks and remaining limitations; leave production status unverified unless the intended environment was explicitly checked.

@@ -35,6 +35,409 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    "slug": "webmcp-agent-ready-websites",
+    "title": {
+      "fa": "WebMCP چیست؟ آماده‌سازی سایت برای عامل‌های هوش مصنوعی",
+      "en": "What Is WebMCP? Preparing Websites for AI Agents"
+    },
+    "seoTitle": {
+      "fa": "WebMCP چیست؟ راهنمای سایت‌های آماده برای AI",
+      "en": "WebMCP: A Practical Guide to Agent-Ready Websites"
+    },
+    "excerpt": {
+      "fa": "WebMCP تعامل عامل‌های هوش مصنوعی با سایت را ساختارمند می‌کند. کاربردها، وضعیت آزمایشی، کنترل کاربر و مسیر اجرای یک پایلوت را بشناسید.",
+      "en": "Explore WebMCP, its experimental status and practical uses for AI agents, with a pilot plan that preserves human control and ordinary website access."
+    },
+    "tags": [
+      "AI",
+      "Website",
+      "Frontend",
+      "Strategy"
+    ],
+    "publishedAt": "2026-10-31",
+    "coverImage": "/blog/webmcp-agent-ready-websites-editorial-20261031.jpg",
+    "coverImageAlt": {
+      "fa": "تصویر مفهومی یک عامل هوش مصنوعی متصل به ابزارهای مرورگر و کنترل تأیید انسانی",
+      "en": "Conceptual AI agent connected to browser tools alongside a human confirmation control"
+    },
+    "directAnswer": {
+      "fa": "WebMCP روشی پیشنهادی برای معرفی قابلیت‌های یک صفحه وب به عامل‌های هوش مصنوعی در قالب ابزارهای ساختارمند است. به‌جای تفسیر حدسی دکمه‌ها، عامل می‌تواند هدف و ورودی ابزار را بشناسد. تا ۳۱ اکتبر ۲۰۲۶ این فناوری همچنان آزمایشی است؛ برای شروع، یک کار کم‌خطر مانند جست‌وجوی محصول را به‌صورت تکمیلی اضافه کنید و مسیر عادی سایت را نگه دارید.",
+      "en": "WebMCP is a proposed way for web pages to expose capabilities to AI agents as structured tools. Rather than infer every button’s purpose, an agent can discover a tool and its inputs. As of October 31, 2026 it remains experimental. Start with a limited task such as product search, keep the ordinary interface and evaluate the result through a controlled pilot."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "چرا WebMCP اکنون مورد توجه است؟",
+          "en": "Why WebMCP deserves attention now"
+        },
+        "paragraphs": {
+          "fa": [
+            "مستندات Chrome که در ۷ اکتبر ۲۰۲۶ به‌روزرسانی شده‌اند، WebMCP را مسیری برای تعامل ساختارمند سایت و عامل معرفی می‌کنند. پیش‌نویس گروه جامعه وب نیز در ۲۷ اکتبر منتشر شده است. این دو نشانه، دلیل انتخاب موضوع در تحریریه سوشو هستند؛ نه ادعای رتبه اول جست‌وجو یا تضمین افزایش فروش.",
+            "برای یک کسب‌وکار، پرسش مفید این است: اگر کاربر از یک دستیار بخواهد خدمت مناسب را پیدا کند، چه کاری باید روی سایت قابل انجام باشد؟ پاسخ می‌تواند از یک جست‌وجوی ساده شروع شود. لازم نیست برای دنبال کردن این روند، کل سایت یا هویت بصری آن را عوض کنید."
+          ],
+          "en": [
+            "Chrome updated its WebMCP guidance on October 7, 2026, and the community draft is dated October 27. These primary-source developments informed SoSho’s editorial choice. They establish active work on the topic, rather than a ranking of search demand or a promise of commercial results.",
+            "A useful business question is what a customer’s assistant should be able to do on your site. Finding an appropriate service or filtering products may be enough for an initial experiment. Following the trend does not require replacing your entire website or visual identity."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "ابزار ساختارمند چه تفاوتی ایجاد می‌کند؟",
+          "en": "What a structured tool changes"
+        },
+        "paragraphs": {
+          "fa": [
+            "در توضیح Chrome، سایت می‌تواند هدف یک قابلیت و ورودی‌های آن را روشن معرفی کند؛ مثلاً جست‌وجوی خدمت به‌جای زنجیره‌ای از کلیک‌های تفسیری. مسیرهای JavaScript و فرم HTML در این طرح مطرح‌اند. این قابلیت را باید ارتقای تدریجی تجربه بدانیم؛ فرم و دکمه برای بازدیدکننده انسانی همچنان لازم‌اند.",
+            "مثال فرضی ما یک سایت رزرو فضای کار است: کاربر می‌گوید «اتاق شش‌نفره برای سه‌شنبه می‌خواهم». ابزار جست‌وجو فقط گزینه‌های موجود را برمی‌گرداند. انتخاب نهایی، مشاهده شرایط و تأیید رزرو در تجربه‌ای روشن انجام می‌شود. این مثال پیشنهاد اجرایی سوشو است، نه گزارشی از یک پروژه انجام‌شده."
+          ],
+          "en": [
+            "Chrome describes declaring a capability’s purpose and inputs, instead of relying entirely on an agent interpreting a sequence of clicks. The proposal includes JavaScript tools and HTML-form annotations. Treat this as progressive enhancement: people still need a usable form and visible controls.",
+            "Consider a hypothetical workspace-booking site. A customer requests a six-person room for Tuesday. A search tool returns available options; the customer then reviews terms and confirms a choice. This is SoSho’s proposed pilot scenario, not a claim about a completed client project."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "مرز WebMCP، API و سئو را روشن نگه دارید",
+          "en": "Keep WebMCP, APIs and SEO distinct"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیش‌نویس WebMCP درباره ابزارهایی است که برنامه وب در محیط صفحه ارائه می‌کند. این سند صریحاً استاندارد نهایی W3C نیست. بنابراین نباید یک اتصال آزمایشی مرورگر را به‌عنوان جایگزین قطعی API سرور یا قابلیتی همگانی در همه مرورگرها معرفی کرد.",
+            "تحلیل ما این است که «قابل استفاده بودن برای عامل» و «قابل پیدا شدن در جست‌وجو» دو هدف جدا هستند. برای سایت شما، متن روشن، لینک داخلی، HTML قابل خواندن و اطلاعات درست خدمت همچنان کار مستقل خود را دارند. ثبت یک ابزار به‌تنهایی دلیل کافی برای ادعای رشد رتبه یا ارجاع در پاسخ‌های AI نیست."
+          ],
+          "en": [
+            "The community draft concerns tools exposed by a web application in its page context. It explicitly is not a completed W3C standard. An experimental browser integration should therefore not be sold as a universal replacement for a server API.",
+            "Our editorial assessment separates agent usability from search discovery. Clear service descriptions, readable HTML and sensible internal links remain independent work. Merely registering a tool does not justify promising better search rankings or more citations in AI answers."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "پایلوت پیشنهادی: یک کار مشخص و قابل بازگشت",
+          "en": "A pilot built around one bounded task"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیشنهاد سوشو این است که قبل از انتخاب کتابخانه، یک سناریو و معیار پذیرش بنویسید. مثلاً «عامل باید با نوع خدمت و شهر، سه گزینه مرتبط نشان دهد». سپس همان کار را یک بار با رابط معمولی و یک بار با مسیر ساختارمند بررسی کنید. هدف، دیدن خطاها و نقاط ابهام است؛ نه نمایش تعداد زیادی ابزار.",
+            "برای تیم کوچک، خروجی پایلوت می‌تواند یک گزارش کوتاه باشد: کدام درخواست‌ها درست انجام شدند، کجا ورودی ناقص بود و آیا کاربر توانست نتیجه را اصلاح کند؟ اگر مسئله اصلی سایت هنوز محتوای مبهم یا فرم خراب است، ابتدا همان مانع را برطرف کنید."
+          ],
+          "en": [
+            "Before choosing a library, write one scenario and an acceptance criterion. For example: given a service category and city, the agent should return three relevant options. Compare the ordinary interface with the structured route. Look for ambiguous inputs and incorrect outcomes rather than maximising the number of registered tools.",
+            "For a small team, the pilot can end with a short report covering successful requests, missing information and whether customers could correct the result. If unclear copy or a broken form is the underlying problem, address that obstacle first."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "کار را با جست‌وجو، فیلتر یا نمایش وضعیت شروع کنید؛ عملیات نوشتن را جدا تعریف کنید.",
+            "ورودی ضروری، خروجی قابل فهم و رفتار در صورت نبود نتیجه را مشخص کنید.",
+            "برای لغو، خطا و مرورگر فاقد پشتیبانی مسیر مشخص داشته باشید.",
+            "پیش از انتشار عمومی، همان سناریو را با کیبورد و موبایل هم بررسی کنید."
+          ],
+          "en": [
+            "Begin with search, filtering or status lookup; define state-changing operations separately.",
+            "Specify required inputs, understandable output and a meaningful empty state.",
+            "Plan cancellation, errors and the experience in unsupported browsers.",
+            "Check the same journey with a keyboard and on a mobile layout before release."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "کنترل کاربر و اعتبارسنجی را در طراحی قرار دهید",
+          "en": "Design user control into the workflow"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیش‌نویس جامعه، موضوع‌هایی مانند تزریق دستور، نشت داده و ناهماهنگی با قصد کاربر را در بخش امنیت بررسی می‌کند. برداشت اجرایی ما این است که نام خوب ابزار کافی نیست: داده ورودی باید در سمت سرور اعتبارسنجی شود و دسترسی هر اقدام به حساب همان کاربر وابسته بماند.",
+            "در مثال رزرو، نمایش قیمت با ثبت نهایی رزرو یک عمل نیست. خلاصه انتخاب، هزینه و شرایط باید قبل از اقدام نهایی دیده شوند. برای شروع آزمایشی، داده ساختگی و حساب آزمایش استفاده کنید تا تیم بتواند رفتار اشتباه و لغو عملیات را بدون اثر واقعی بررسی کند."
+          ],
+          "en": [
+            "The community draft discusses prompt injection, privacy leakage and divergence from user intent. Our implementation recommendation is to retain server validation and account-based permissions rather than rely on a persuasive tool description.",
+            "In the booking example, displaying a price and committing a reservation are different operations. Show the selection, cost and terms before the consequential action. Use synthetic records and test accounts in the pilot so cancellation and incorrect inputs can be examined without a real booking."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "چطور نتیجه را آزمایش و درباره اجرا تصمیم بگیریم؟",
+          "en": "How to test and decide what comes next"
+        },
+        "paragraphs": {
+          "fa": [
+            "مستندات فعلی Playwright برای WebMCP امکان فهرست کردن و فراخوانی ابزارها را توضیح می‌دهند و فعال‌سازی آزمایشی مرورگر را لازم می‌دانند. نام و خروجی ابزار هم داده قابل اعتماد ذاتی نیستند. این قابلیت تست را با آزمون معمول رابط انسانی ترکیب کنید؛ نام نسخه ابزار و مرورگر را در گزارش ثبت کنید.",
+            "اگر پایلوت مسئله واقعی را حل کرد، دامنه را یک قدم گسترش دهید. اگر فقط یک دموی جذاب شد، همان‌جا نگهش دارید. برای انتخاب مسیر اجرایی در سایت شما، ابتدا فهرست کارهای قابل انجام، سطح دسترسی و مسیر تأیید کاربر را آماده کنید؛ این اطلاعات پایه یک برآورد فنی قابل بررسی است."
+          ],
+          "en": [
+            "Current Playwright documentation describes discovering and calling WebMCP tools with experimental browser support enabled. Tool descriptions and results are themselves untrusted input. Combine these checks with ordinary human-interface tests and record the tool and browser versions used.",
+            "Expand the pilot one step if it solves a real problem. Keep it as an experiment if it only makes an attractive demo. For a useful technical estimate, first list the customer tasks, their permission requirements and the human confirmation steps."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا WebMCP همین حالا در همه مرورگرها کار می‌کند؟",
+          "en": "Does WebMCP work in every browser?"
+        },
+        "answer": {
+          "fa": "خیر. تا تاریخ بررسی این مقاله، فناوری آزمایشی است و پشتیبانی باید برای نسخه و تنظیمات مرورگر هدف بررسی شود. تجربه عادی سایت را به وجود آن وابسته نکنید.",
+          "en": "No. At this article’s review date it remains experimental. Check the target browser version and configuration, and keep the ordinary site usable without it."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا اضافه کردن WebMCP سئو را بهتر می‌کند؟",
+          "en": "Will WebMCP improve SEO?"
+        },
+        "answer": {
+          "fa": "از معرفی ابزار نمی‌توان به‌تنهایی رشد رتبه یا ارجاع AI را نتیجه گرفت. این مقاله آن را برای انجام کار روی صفحه بررسی می‌کند؛ سئوی محتوا و فنی به ارزیابی جدا نیاز دارند.",
+          "en": "Tool registration alone cannot establish a ranking or AI-citation improvement. This guide considers performing tasks on a page; technical and content SEO need their own evaluation."
+        }
+      },
+      {
+        "question": {
+          "fa": "برای شروع باید کل سایت را بازنویسی کنیم؟",
+          "en": "Must we rewrite the entire site?"
+        },
+        "answer": {
+          "fa": "پیشنهاد ما یک پایلوت محدود روی قابلیت موجود است. ابتدا یک جست‌وجو یا فیلتر را انتخاب کنید و مسیر انسانی، خطاها و سطح دسترسی را حفظ کنید.",
+          "en": "Our recommendation is a bounded pilot around an existing capability. Start with a search or filter and retain the human interface, error handling and access controls."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "Chrome for Developers: راهنمای WebMCP، به‌روزرسانی ۷ اکتبر ۲۰۲۶",
+          "en": "Chrome for Developers: WebMCP, updated October 7, 2026"
+        },
+        "url": "https://developer.chrome.com/docs/ai/webmcp"
+      },
+      {
+        "title": {
+          "fa": "پیش‌نویس WebMCP در گروه جامعه Web Machine Learning",
+          "en": "Web Machine Learning Community Group: WebMCP draft"
+        },
+        "url": "https://webmachinelearning.github.io/webmcp/"
+      },
+      {
+        "title": {
+          "fa": "Playwright: مرجع آزمایشی WebMCP",
+          "en": "Playwright: experimental WebMCP API reference"
+        },
+        "url": "https://playwright.dev/docs/api/class-webmcp"
+      }
+    ]
+  },
+  {
+    "slug": "passkeys-passwordless-website-login",
+    "title": {
+      "fa": "Passkey چیست؟ راهنمای ورود بدون رمز عبور برای سایت‌ها",
+      "en": "What Are Passkeys? A Practical Website Sign-In Guide"
+    },
+    "seoTitle": {
+      "fa": "Passkey چیست؟ ورود بدون رمز عبور در سایت",
+      "en": "Passkeys: Passwordless Sign-In for Websites"
+    },
+    "excerpt": {
+      "fa": "با Passkey، کاربرد ورود بدون رمز عبور و ملاحظات تجربه کاربر آشنا شوید؛ همراه با گزارش تازه FIDO و چک‌لیست اجرای تدریجی در سایت و وب‌اپلیکیشن.",
+      "en": "Understand passkeys and passwordless website login, with the latest FIDO context and a phased rollout checklist covering user experience and recovery."
+    },
+    "tags": [
+      "Frontend",
+      "Security",
+      "Website",
+      "UI/UX"
+    ],
+    "publishedAt": "2026-10-31",
+    "coverImage": "/blog/passkeys-passwordless-website-login-editorial-20261031.jpg",
+    "coverImageAlt": {
+      "fa": "کلید شیشه‌ای با نقش اثر انگشت میان گوشی و پنجره ورود مرورگر؛ تصویر مفهومی Passkey",
+      "en": "Conceptual glass passkey with a fingerprint motif between a phone and browser sign-in window"
+    },
+    "directAnswer": {
+      "fa": "Passkey یک اعتبارنامه دیجیتال برای ورود به سایت یا اپلیکیشن است که به‌جای رمز قابل تایپ، از تأیید دستگاه و رمزنگاری کلید عمومی استفاده می‌کند. برای یک سایت دارای حساب کاربری، مسیر مناسب معمولاً افزودن تدریجی Passkey، توضیح ساده برای کاربر و طراحی بازیابی حساب است؛ نه حذف ناگهانی همه روش‌های ورود.",
+      "en": "A passkey is a digital sign-in credential that uses device verification and public-key cryptography instead of a typed password. For a website with user accounts, a practical rollout usually adds passkeys gradually, explains the flow clearly and designs account recovery before removing existing sign-in methods."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "چرا در اکتبر ۲۰۲۶ دوباره درباره Passkey صحبت می‌شود؟",
+          "en": "Why passkeys are in focus in October 2026"
+        },
+        "paragraphs": {
+          "fa": [
+            "FIDO Alliance در ۱۵ اکتبر ۲۰۲۶ برآورد کرد حدود ۷ میلیارد Passkey در جهان استفاده می‌شود و شاخص تازه خود را با داده ۱۵ سرویس مصرف‌کننده منتشر کرد. این عدد، برآورد تعداد اعتبارنامه‌هاست؛ نه تعداد افراد منحصربه‌فرد یا سهم همه سایت‌های جهان. همین گزارش تازه، دلیل انتخاب این موضوع در مجله سوشو است.",
+            "برای صاحب وب‌اپلیکیشن، مسئله روزمره ملموس‌تر است: کاربر رمز خود را فراموش می‌کند، کد ورود دیر می‌رسد یا بین دستگاه‌ها سردرگم می‌شود. پیشنهاد ما این است که درباره Passkey از مسیر حل یک مشکل مشخص تصمیم بگیرید، نه صرفاً بزرگی عددهای جهانی."
+          ],
+          "en": [
+            "On October 15, 2026, FIDO Alliance estimated that seven billion passkeys were in use worldwide and released an index based on 15 consumer services. The estimate counts credentials, not unique people or adoption across every website. That fresh primary-source report informed this article’s topic selection.",
+            "For a web-app owner, the everyday problem is more concrete: forgotten passwords, delayed sign-in codes or confusion across devices. Our recommendation is to assess passkeys against a specific customer problem rather than the size of a global estimate."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "Passkey چه چیزی را در ورود تغییر می‌دهد؟",
+          "en": "What changes in the sign-in experience"
+        },
+        "paragraphs": {
+          "fa": [
+            "در راهنمای Google، کاربر حساب خود را با قفل دستگاه، مانند اثر انگشت، تشخیص چهره یا PIN تأیید می‌کند. اعتبارنامه به سایت یا اپلیکیشن مربوط است و سرور کلید عمومی را نگه می‌دارد. داده زیست‌سنجی کاربر به وب‌سایت تحویل داده نمی‌شود. بنابراین لازم نیست از کاربر اثر انگشت بگیرید یا تصویر چهره او را در پایگاه داده سایت ذخیره کنید.",
+            "این روش مقاومت در برابر فیشینگ را تقویت می‌کند، چون استفاده از اعتبارنامه به سایت ثبت‌شده وابسته است. با این حال، برداشت درست محصولی این نیست که همه مسئله‌های امنیت حساب تمام شده‌اند. مدیریت نشست، دسترسی‌های حساب و مسیر بازیابی همچنان بخش‌های مستقل طراحی شما هستند."
+          ],
+          "en": [
+            "Google’s guidance describes verification through a device screen lock, such as a fingerprint, face recognition or PIN. The credential is associated with a site or app, and its server retains a public key. Biometric material is not handed to the website; implementing passkeys does not mean collecting customers’ fingerprints or face images.",
+            "Binding the credential to its registered site improves phishing resistance. Our product recommendation is to evaluate session management, account permissions and recovery separately rather than interpret that benefit as a solution to every account-security problem."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "کدام سایت‌ها از بررسی این گزینه شروع کنند؟",
+          "en": "Which websites should evaluate passkeys first?"
+        },
+        "paragraphs": {
+          "fa": [
+            "در ارزیابی پیشنهادی سوشو، وب‌اپلیکیشن‌هایی با ورود پرتکرار، پنل مشتری، اشتراک یا حساب خرید تکرارشونده نامزدهای روشن‌تری هستند. یک سایت معرفی ساده که اصلاً حساب کاربری ندارد، مسئله ورود را تجربه نمی‌کند؛ افزودن عضویت فقط برای استفاده از Passkey معمولاً هدف محصول را پیچیده می‌کند.",
+            "یک مثال فرضی، سامانه آموزشی با دانشجویان بازگشتی است. تیم می‌تواند ابتدا چند کاربر داوطلب را وارد پایلوت کند و ببیند آیا پیدا کردن گزینه ورود و برگشت به درس برای آن‌ها روشن است. این پیشنهاد سناریوی آزمایش است و نباید به‌عنوان نتیجه واقعی یک مشتری یا وعده کاهش هزینه معرفی شود."
+          ],
+          "en": [
+            "In SoSho’s proposed assessment, applications with frequent sign-ins, customer dashboards, subscriptions or repeat purchases are clearer candidates. A brochure website without accounts has no sign-in journey to improve; adding membership simply to use passkeys can complicate its product.",
+            "A hypothetical learning platform could start with a small group of returning students. Observe whether they understand the sign-in choice and can resume a lesson. This is a pilot suggestion, not a client result or a promised cost reduction."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "ورود قدیمی و جدید را چطور کنار هم نگه داریم؟",
+          "en": "How to support existing users during the transition"
+        },
+        "paragraphs": {
+          "fa": [
+            "راهنمای autofill در web.dev پیشنهاد می‌کند ورود با Passkey در تجربه آشنای فرم نام کاربری در کنار روش‌های موجود عرضه شود. این الگو از کاربر نمی‌خواهد از ابتدا به خاطر بیاورد کدام روش را قبلاً فعال کرده است. فعال‌سازی چنین رابطی به پشتیبانی مرورگر هدف وابسته است.",
+            "توصیه اجرایی ما این است که نام گزینه‌ها فارسی و قابل فهم باشد: «ورود با Passkey» همراه با توضیح کوتاه «با قفل دستگاهتان تأیید کنید». برای کاربر تازه‌وارد، توضیح ایجاد Passkey را با ورود روزمره مخلوط نکنید. پیام خطا نیز باید قدم بعدی را نشان دهد، نه فقط یک کد فنی."
+          ],
+          "en": [
+            "The web.dev autofill guide presents passkeys alongside existing credentials in a familiar username-field flow. Users do not have to recall their enrollment method before starting. Availability of this interface still depends on the target browser.",
+            "Our implementation advice is to use clear labels and a brief explanation of device verification. Keep enrollment instructions separate from routine sign-in, localise both Persian and English copy and make error messages explain the next action rather than only display a technical code."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "ایجاد، مدیریت و بازیابی را یک مسیر کامل ببینید",
+          "en": "Treat enrollment, management and recovery as one journey"
+        },
+        "paragraphs": {
+          "fa": [
+            "راهنمای ثبت در web.dev، ارتباط حساب کاربر، مرورگر، ارائه‌دهنده Passkey و کلید عمومی سرور را توضیح می‌دهد. پیاده‌سازی واقعی به WebAuthn و بررسی سمت سرور نیاز دارد؛ افزودن یک دکمه با ظاهر جدید، به‌تنهایی ورود بدون رمز ایجاد نمی‌کند.",
+            "چک‌لیست پیشنهادی ما باید قبل از پایلوت پاسخ دهد: کاربر دستگاهش را عوض کند چه می‌شود؟ اگر به هیچ روش ثبت‌شده‌ای دسترسی نداشته باشد چه راهی دارد؟ چه کسی می‌تواند یک اعتبارنامه را از حساب حذف کند؟ پاسخ‌ها را با سیاست محصول و سطح حساسیت حساب هماهنگ کنید و مسیر پشتیبانی را هم آزمایش کنید."
+          ],
+          "en": [
+            "The web.dev registration guide describes the account, browser, passkey provider and server-side public-key relationship. An actual implementation uses WebAuthn and server verification; a newly styled button alone does not create passwordless authentication.",
+            "Our rollout checklist should answer what happens after a device change, how customers recover when enrolled methods are unavailable and who can remove a credential. Align these decisions with the product’s account sensitivity, then test the support journey as well as the successful sign-in."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "ایجاد Passkey را از یک نشست معتبر و با توضیح روشن شروع کنید.",
+            "صفحه مدیریت اعتبارنامه، نام قابل تشخیص و مسیر حذف آگاهانه داشته باشد.",
+            "سناریوی لغو، دستگاه دیگر و مرورگر فاقد پشتیبانی را بررسی کنید.",
+            "بازیابی حساب و نشست‌های فعال را جدا از موفقیت ورود آزمایش کنید."
+          ],
+          "en": [
+            "Start enrollment from an authenticated session with a clear explanation.",
+            "Provide credential management, recognisable names and deliberate removal.",
+            "Test cancellation, another device and unsupported-browser behaviour.",
+            "Test account recovery and active sessions separately from sign-in success."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "اجرای مرحله‌ای و معیارهای تصمیم برای کسب‌وکار",
+          "en": "A phased rollout with useful decision criteria"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیشنهاد سوشو یک مسیر چهارمرحله‌ای است: ابتدا وضعیت فعلی ورود را اندازه بگیرید، سپس پایلوت داوطلبانه بسازید، رفتارهای خطا و بازیابی را اصلاح کنید و بعد درباره گسترش تصمیم بگیرید. معیارها می‌توانند تکمیل ورود، زمان رسیدن به حساب و تعداد درخواست پشتیبانی مرتبط باشند. هیچ درصد بهبود را قبل از مشاهده داده خودتان وعده ندهید.",
+            "اگر قصد اضافه کردن Passkey به سایت یا پنل خود دارید، فهرست روش‌های ورود فعلی، دستگاه‌های مخاطبان و سیاست بازیابی را آماده کنید. این سه ورودی کمک می‌کنند دامنه کار، تست‌های لازم و مسیر مناسب توسعه وب‌اپلیکیشن روشن شود."
+          ],
+          "en": [
+            "SoSho recommends four stages: measure the current sign-in journey, offer an opt-in pilot, resolve errors and recovery gaps, then decide whether to expand. Useful measures include completed sign-ins, time to account access and related support requests. Do not promise a percentage improvement before observing your own data.",
+            "Before commissioning passkeys for a website or customer portal, document current sign-in methods, the devices your audience uses and the account-recovery policy. These inputs make the development scope and required tests easier to assess."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا Passkey همان اثر انگشت است؟",
+          "en": "Is a passkey the same as a fingerprint?"
+        },
+        "answer": {
+          "fa": "خیر. Passkey اعتبارنامه دیجیتال است. اثر انگشت، چهره یا PIN می‌تواند روش تأیید کاربر روی دستگاه باشد و داده زیست‌سنجی به سایت ارسال نمی‌شود.",
+          "en": "No. A passkey is a digital credential. A fingerprint, face or PIN can verify its user on the device; biometric material is not sent to the website."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا باید رمز عبور را از روز اول حذف کنیم؟",
+          "en": "Should passwords be removed on day one?"
+        },
+        "answer": {
+          "fa": "پیشنهاد این مقاله اجرای تدریجی و حفظ مسیر قابل استفاده برای کاربران موجود است. حذف روش قدیمی باید پس از بررسی پوشش دستگاه‌ها، پشتیبانی و بازیابی حساب تصمیم‌گیری شود.",
+          "en": "This guide recommends a phased rollout with a usable route for existing customers. Removing an old method should follow an assessment of device coverage, support and account recovery."
+        }
+      },
+      {
+        "question": {
+          "fa": "اگر سایت من حساب کاربری ندارد، Passkey لازم است؟",
+          "en": "Does a site without user accounts need passkeys?"
+        },
+        "answer": {
+          "fa": "برای سایت معرفی که ورود ندارد، ابتدا مسئله‌ای برای این قابلیت وجود ندارد. تمرکز را روی کار اصلی بازدیدکننده نگه دارید؛ Passkey را وقتی بررسی کنید که محصول واقعاً به احراز هویت نیاز دارد.",
+          "en": "A brochure site without sign-in has no corresponding authentication journey. Focus on its visitors’ actual task and evaluate passkeys when the product genuinely needs user authentication."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "FIDO Alliance: گزارش و برآورد تازه Passkey، ۱۵ اکتبر ۲۰۲۶",
+          "en": "FIDO Alliance: latest passkey index and estimate, October 15, 2026"
+        },
+        "url": "https://fidoalliance.org/7-billion-passkeys-and-counting-the-next-chapter-of-passwordless-authentication/"
+      },
+      {
+        "title": {
+          "fa": "Google for Developers: معرفی Passkey و حریم خصوصی",
+          "en": "Google for Developers: passkey overview and privacy"
+        },
+        "url": "https://developers.google.com/identity/passkeys"
+      },
+      {
+        "title": {
+          "fa": "web.dev: ایجاد Passkey برای ورود بدون رمز",
+          "en": "web.dev: create a passkey for passwordless logins"
+        },
+        "url": "https://web.dev/articles/passkey-registration"
+      },
+      {
+        "title": {
+          "fa": "web.dev: ورود با Passkey از طریق autofill",
+          "en": "web.dev: sign in with a passkey through form autofill"
+        },
+        "url": "https://web.dev/articles/passkey-form-autofill"
+      }
+    ]
+  },
+  {
     "slug": "web-design-trends-2026",
     "title": {
       "fa": "۱۰ ترند طراحی سایت در ۲۰۲۶؛ کدام برای کسب‌وکار شما مناسب است؟",
