@@ -35,6 +35,441 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    "slug": "wordpress-vs-nextjs-which-website",
+    "title": {
+      "fa": "وردپرس یا Next.js؟ هرکدام برای چه سایتی مناسب‌اند؟",
+      "en": "WordPress vs Next.js: Which Fits Your Website?"
+    },
+    "seoTitle": {
+      "fa": "وردپرس یا Next.js؟ راهنمای انتخاب سایت",
+      "en": "WordPress vs Next.js: A Website Selection Guide"
+    },
+    "excerpt": {
+      "fa": "وردپرس و Next.js چه تفاوتی دارند؟ مدیریت محتوا، فروشگاه، وب‌اپلیکیشن، سئو و هزینه نگهداری را مقایسه کنید تا مسیر مناسب سایت خود را بشناسید.",
+      "en": "Compare WordPress and Next.js for content sites, stores and web applications, including editing, SEO, maintenance and the questions to ask before choosing."
+    },
+    "tags": [
+      "WordPress",
+      "Next.js",
+      "Website",
+      "Strategy"
+    ],
+    "publishedAt": "2026-11-02",
+    "coverImage": "/blog/wordpress-vs-nextjs-which-website-editorial-20261102.jpg",
+    "coverImageAlt": {
+      "fa": "دو ماکت شیشه‌ای وب‌سایت؛ بلوک‌های محتوای آماده در کنار رابط و گردش کار اختصاصی",
+      "en": "Two glass website models comparing reusable content blocks with bespoke interfaces and workflows"
+    },
+    "directAnswer": {
+      "fa": "وردپرس برای سایت‌هایی که انتشار و ویرایش محتوا و امکانات متداول اولویت دارند، اغلب نقطه شروع مناسبی است. Next.js برای رابط‌ها و فرایندهای اختصاصی، پنل‌ها و وب‌اپلیکیشن‌ها انتخاب قابل بررسی است. وردپرس یک سیستم مدیریت محتواست و Next.js چارچوب توسعه مبتنی بر React؛ انتخاب مناسب به نیاز، تیم، بودجه و نگهداری وابسته است.",
+      "en": "WordPress is often a useful starting point when content publishing and established website features are priorities. Next.js is worth considering for bespoke interfaces, workflows and web applications. WordPress is a content management system; Next.js is a React framework. Choose around your requirements, team, budget and maintenance capacity."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "تفاوت اصلی: مدیریت محتوا در برابر چارچوب توسعه",
+          "en": "The core difference: a CMS and a framework"
+        },
+        "paragraphs": {
+          "fa": [
+            "وردپرس ابزارهای آماده‌ای برای نوشته‌ها، برگه‌ها، رسانه و مدیریت کاربران دارد و با قالب و افزونه گسترش پیدا می‌کند. مطابق معرفی رسمی WordPress، این بستر برای انتشار محتوا و انواع سایت قابل توسعه است. در این مقاله منظور از وردپرس، نرم‌افزار متن‌باز WordPress.org است؛ انتخاب هاست و خدمات اجرایی تصمیمی جداگانه است.",
+            "Next.js در مستندات رسمی، چارچوب React برای ساخت برنامه‌های وب معرفی شده است. توسعه‌دهنده با آن رابط و رفتار برنامه را پیاده می‌کند. برای پروژه‌ای که تیم محتوا باید مطالب را بدون کدنویسی ویرایش کند، انتخاب یا ساخت ابزار مدیریت محتوا نیز بخشی از دامنه کار خواهد بود."
+          ],
+          "en": [
+            "WordPress includes tools for posts, pages, media and users, with themes and plugins extending the system. Its official feature overview describes a publishing platform that supports different kinds of websites. Here, WordPress means the open-source WordPress.org software; hosting and implementation services are separate choices.",
+            "Next.js describes itself as a React framework for building web applications. Developers use it to implement interfaces and application behaviour. If editors must change content without coding, selecting or building their content management workflow is also part of the project scope."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "وردپرس برای چه سایت‌هایی مناسب است؟",
+          "en": "Where WordPress is a practical starting point"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیشنهاد اجرایی سوشو این است که برای وبلاگ، مجله، سایت شرکتی و معرفی خدمات، ابتدا مسیر مدیریت محتوا را بررسی کنید. اگر کار اصلی تیم انتشار مطلب، تغییر تصاویر و به‌روزرسانی صفحات است، پنل آماده می‌تواند کار روزمره را ساده کند. پیش از انتخاب قالب، نیاز واقعی و کیفیت تجربه موبایل را بررسی کنید.",
+            "برای فروشگاه نیز WooCommerce یک راهکار تجارت الکترونیکی روی وردپرس است. تناسب آن با پروژه به روش ارسال، پرداخت، نوع کالا، موجودی و اتصال‌های موردنیاز بستگی دارد. وجود یک افزونه در بازار به‌تنهایی سازگاری کامل آن با فرایند کسب‌وکار شما را ثابت نمی‌کند."
+          ],
+          "en": [
+            "SoSho’s implementation recommendation is to examine the publishing workflow first for blogs, magazines, company websites and service sites. When the daily work is publishing articles, changing images and updating pages, a ready-made editing interface can be useful. Evaluate actual requirements and the mobile experience before choosing a theme.",
+            "WooCommerce provides an ecommerce option on WordPress. Its fit depends on shipping, payments, product types, stock management and integrations. Finding a plugin does not, by itself, establish that the complete business workflow is supported."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "Next.js برای چه سایت‌هایی مناسب است؟",
+          "en": "Where Next.js is worth considering"
+        },
+        "paragraphs": {
+          "fa": [
+            "در ارزیابی سوشو، پنل مشتری، داشبورد، ابزار آنلاین و محصولی با تعامل‌های اختصاصی از سناریوهای مناسب برای بررسی Next.js هستند. مثلاً یک سامانه رزرو با قوانین چندمرحله‌ای، نقش‌های متفاوت و اتصال به نرم‌افزار داخلی به تعریف فرایند و توسعه متناسب با همان نیازها احتیاج دارد.",
+            "این انتخاب زمانی عملی‌تر است که مسئول توسعه و پشتیبانی مشخص باشد. برای یک سایت معرفی ساده هم می‌توان Next.js به کار برد، اما باید روشن شود چه ارزشی از این مسیر می‌گیرید و ویرایش متن، انتشار نسخه جدید و رفع خطا بر عهده چه کسی است. اندازه کسب‌وکار به‌تنهایی فناوری را تعیین نمی‌کند."
+          ],
+          "en": [
+            "In SoSho’s assessment, customer portals, dashboards, online tools and products with bespoke interactions are useful candidates for evaluating Next.js. A booking system with multiple steps, user roles and internal integrations needs a clearly specified workflow and an implementation designed around it.",
+            "This choice is more practical when development and maintenance ownership are clear. Next.js can also serve a simple brochure site, but establish what value that choice adds and who will edit content, release changes and fix problems. Business size alone does not determine the technology."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "سرعت و سئو را با خروجی واقعی مقایسه کنید",
+          "en": "Compare actual performance and SEO implementation"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای ارزیابی سئو، امکانات و اجرای همان سایت را ببینید. مستندات Next.js امکان تعریف فراداده صفحه و تصویر اشتراک‌گذاری را توضیح می‌دهند؛ این امکانات باید برای هر مسیر درست تنظیم شوند. عنوان، توضیح، محتوای قابل خواندن و لینک داخلی به تصمیم‌های اجرایی نیاز دارند.",
+            "جمع‌بندی تحریریه سوشو این است که نام فناوری به‌تنهایی معیار کافی برای سرعت یا رتبه جست‌وجو نیست. هنگام مقایسه پیشنهادها، همان صفحه و همان محتوای نمونه را روی موبایل بررسی کنید؛ تصاویر سنگین، اسکریپت‌های اضافی و کیفیت هاست یا زیرساخت هم در نتیجه نقش دارند. هیچ‌کدام را با وعده رتبه قطعی انتخاب نکنید."
+          ],
+          "en": [
+            "For SEO, inspect the capabilities and implementation of the actual site. Next.js documentation describes page metadata and social-sharing images; these must be configured correctly for the relevant routes. Titles, descriptions, readable content and internal links require implementation decisions.",
+            "SoSho’s editorial assessment is that a technology name alone is insufficient evidence of speed or search performance. Compare the same sample page and content on mobile, including image weight, extra scripts and infrastructure. Avoid choosing either option on a guaranteed-ranking promise."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "هزینه ساخت و نگهداری چه تفاوتی دارد؟",
+          "en": "Consider build and ongoing ownership costs"
+        },
+        "paragraphs": {
+          "fa": [
+            "در برآورد پروژه، آماده بودن یک راهکار متناسب می‌تواند حجم توسعه را کم کند؛ طراحی اختصاصی و اتصال‌های خاص می‌توانند کار بیشتری ایجاد کنند. برای هر دو مسیر، هزینه محتوا، مجوز ابزارهای پولی، به‌روزرسانی، پشتیبان‌گیری و پشتیبانی را مشخص کنید. هیچ نسبت قیمتی ثابتی میان دو فناوری برای همه پروژه‌ها وجود ندارد.",
+            "Next.js روش‌های مختلف استقرار، از سرور Node.js تا خروجی استاتیک، دارد. مستندات رسمی تصریح می‌کنند که خروجی استاتیک امکانات نیازمند سرور را پشتیبانی نمی‌کند. بنابراین زیرساخت را براساس قابلیت‌های واقعی انتخاب کنید؛ صرفاً دیدن یک صفحه ساده، نیازهای ورود کاربر یا پردازش اطلاعات را مشخص نمی‌کند."
+          ],
+          "en": [
+            "A suitable existing solution may reduce development effort; bespoke design and integrations can add work. For both approaches, identify content work, paid licences, updates, backups and support. There is no fixed price ratio between the technologies that applies to every project.",
+            "Next.js supports several deployment approaches, including a Node.js server and static export. Its documentation states that static export does not support features requiring a server. Select infrastructure around actual functionality, including authentication and data processing requirements."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "آیا می‌توان وردپرس و Next.js را با هم استفاده کرد؟",
+          "en": "Can WordPress and Next.js work together?"
+        },
+        "paragraphs": {
+          "fa": [
+            "بله. REST API وردپرس امکان استفاده از محتوا در برنامه‌ای جدا را فراهم می‌کند. در معماری هدلس می‌توان مدیریت مقاله را در وردپرس نگه داشت و نمایش سایت را با Next.js ساخت. این ترکیب، یکی از گزینه‌های معماری است و لزوماً برای هر پروژه لازم نیست.",
+            "پیش از انتخاب این روش، مسیر پیش‌نمایش مطلب، به‌روزرسانی محتوا پس از انتشار، جست‌وجو و مسئولیت پشتیبانی دو بخش را مشخص کنید. توصیه سوشو این است که ترکیب دو ابزار را زمانی انتخاب کنید که نیاز مشخصی را حل کند و تیم بتواند هزینه نگهداری آن را بپذیرد."
+          ],
+          "en": [
+            "Yes. The WordPress REST API allows a separate application to use WordPress content. A headless architecture can keep editorial work in WordPress while Next.js handles the website interface. This is an architectural option rather than a requirement for every project.",
+            "Before selecting it, define content previews, update propagation, search and maintenance ownership across both parts. SoSho recommends using the combination when it solves a clear requirement and the team can support the additional maintenance."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "برای انتخاب، این اطلاعات را آماده کنید",
+          "en": "Prepare these inputs before choosing"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک فهرست کوتاه از صفحات، امکانات و کارهای روزمره مدیر سایت بنویسید. سپس از مجری بخواهید پیشنهاد خود را با همان فهرست توضیح دهد. برای بررسی پروژه در سوشو، این اطلاعات از انتخاب زودهنگام یک نام فناوری مفیدترند."
+          ],
+          "en": [
+            "Write a short list of pages, features and routine editorial tasks. Ask the implementation team to justify its recommendation against that list. These inputs are more useful for a SoSho project discussion than choosing a technology before defining the work."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "چه کسی متن‌ها و تصاویر را ویرایش می‌کند؟",
+            "کدام امکانات آماده‌اند و کدام فرایندها اختصاصی هستند؟",
+            "آیا اتصال به حسابداری، انبار، CRM یا سرویس بیرونی لازم است؟",
+            "مسئول نگهداری، زیرساخت و توسعه بعدی چه کسی خواهد بود؟"
+          ],
+          "en": [
+            "Who will edit copy and images?",
+            "Which features are established patterns and which workflows are bespoke?",
+            "Are accounting, inventory, CRM or external-service integrations required?",
+            "Who owns maintenance, infrastructure and future development?"
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "برای سایت شرکتی، وردپرس بهتر است یا Next.js؟",
+          "en": "Which should a company website choose?"
+        },
+        "answer": {
+          "fa": "اگر نیاز اصلی معرفی خدمات و ویرایش منظم محتواست، وردپرس را بررسی کنید. اگر تجربه تعاملی یا اتصال اختصاصی مهم است، Next.js هم گزینه مناسبی برای ارزیابی است. تصمیم نهایی به دامنه کار و تیم نگهداری بستگی دارد.",
+          "en": "Evaluate WordPress when publishing and editing service information dominate. Evaluate Next.js when bespoke interactions or integrations matter. The final decision depends on scope and maintenance ownership."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا Next.js همیشه سریع‌تر است؟",
+          "en": "Is Next.js always faster?"
+        },
+        "answer": {
+          "fa": "چنین نتیجه‌ای را نمی‌توان فقط از نام فناوری گرفت. اجرای صفحه، حجم تصاویر و اسکریپت‌ها و زیرساخت را با محتوای واقعی بررسی کنید.",
+          "en": "A technology name alone cannot establish this. Inspect the implementation, image and script weight, and infrastructure using real content."
+        }
+      },
+      {
+        "question": {
+          "fa": "برای فروشگاه کدام مسیر مناسب‌تر است؟",
+          "en": "Which approach fits an online store?"
+        },
+        "answer": {
+          "fa": "برای فرایندهای متداول فروش، وردپرس همراه WooCommerce را بررسی کنید. برای تجربه و قوانین اختصاصی، طراحی معماری جداگانه لازم است و Next.js می‌تواند بخشی از راهکار باشد؛ مدیریت سفارش و پرداخت همچنان باید مشخص شود.",
+          "en": "Evaluate WordPress with WooCommerce for established retail workflows. Bespoke commerce needs an architectural assessment; Next.js may handle the interface while orders, payments and administration still need defined solutions."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "قابلیت‌های رسمی وردپرس",
+          "en": "WordPress features"
+        },
+        "url": "https://wordpress.org/about/features/"
+      },
+      {
+        "title": {
+          "fa": "معرفی رسمی Next.js",
+          "en": "Next.js documentation"
+        },
+        "url": "https://nextjs.org/docs"
+      },
+      {
+        "title": {
+          "fa": "راهکار فروشگاهی WooCommerce",
+          "en": "WooCommerce"
+        },
+        "url": "https://woocommerce.com/"
+      },
+      {
+        "title": {
+          "fa": "فراداده و تصاویر اشتراک‌گذاری در Next.js",
+          "en": "Next.js metadata and OG images"
+        },
+        "url": "https://nextjs.org/docs/app/getting-started/metadata-and-og-images"
+      },
+      {
+        "title": {
+          "fa": "روش‌های استقرار Next.js",
+          "en": "Deploying Next.js"
+        },
+        "url": "https://nextjs.org/docs/app/getting-started/deploying"
+      },
+      {
+        "title": {
+          "fa": "راهنمای REST API وردپرس",
+          "en": "WordPress REST API handbook"
+        },
+        "url": "https://developer.wordpress.org/rest-api/"
+      }
+    ]
+  },
+  {
+    "slug": "website-cost-page-count-complexity",
+    "title": {
+      "fa": "قیمت طراحی سایت چگونه به تعداد و پیچیدگی صفحات بستگی دارد؟",
+      "en": "How Page Count and Complexity Shape Website Cost"
+    },
+    "seoTitle": {
+      "fa": "قیمت طراحی سایت؛ تعداد و پیچیدگی صفحات",
+      "en": "Website Cost: Page Count and Complexity"
+    },
+    "excerpt": {
+      "fa": "هزینه سایت فقط با تعداد صفحات تعیین نمی‌شود. ببینید طراحی‌های یکتا، امکانات هر صفحه، تولید محتوا و اتصال‌ها چگونه دامنه کار و برآورد را تغییر می‌دهند.",
+      "en": "Website cost depends on more than page count. Learn how unique layouts, page functionality, content and integrations shape a clear project estimate."
+    },
+    "tags": [
+      "Website",
+      "Strategy",
+      "UI/UX"
+    ],
+    "publishedAt": "2026-11-02",
+    "directAnswer": {
+      "fa": "قیمت طراحی سایت به تعداد صفحات، تعداد طراحی‌های یکتا و پیچیدگی امکانات وابسته است. ده صفحه خدمات با ساختار مشترک، کار یکسانی با ده صفحه دارای فرم، فیلتر یا فرایند اختصاصی ندارند. برای برآورد دقیق، فهرست صفحات، رفتار هر صفحه، محتوا، اتصال‌ها و محدوده پشتیبانی باید مشخص باشد.",
+      "en": "Website cost depends on page count, unique layouts and functional complexity. Ten service pages sharing a template differ from ten pages with bespoke forms, filters or workflows. An estimate needs a page inventory, required behaviour, content responsibilities, integrations and support scope."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "چرا تعداد صفحات به‌تنهایی برای قیمت‌گذاری کافی نیست؟",
+          "en": "Why a page total is not enough"
+        },
+        "paragraphs": {
+          "fa": [
+            "وقتی می‌گوییم «یک سایت ده‌صفحه‌ای»، هنوز بخش زیادی از کار نامشخص است. ممکن است منظور صفحه اصلی، درباره ما، تماس و چند صفحه معرفی خدمت باشد. در پروژه‌ای دیگر، همین تعداد صفحه شامل رزرو، پرداخت، حساب کاربری و گزارش‌گیری می‌شود. هر دو ده صفحه دارند، اما طراحی، توسعه و آزمون آن‌ها یکسان نیست.",
+            "در این مقاله، معیارهای پیشنهادی سوشو برای روشن کردن دامنه پروژه را مرور می‌کنیم. هدف، توضیح منطق برآورد است؛ مبلغ پروژه پس از بررسی نیازها و براساس تعرفه و پیشنهاد معتبر همان پروژه تعیین می‌شود."
+          ],
+          "en": [
+            "A ten-page website still leaves much unspecified. It might contain a homepage, about and contact pages, plus several service descriptions. Another ten-page project could include booking, checkout, accounts and reporting. The page total matches, but the design, implementation and testing effort differ.",
+            "This article presents SoSho’s suggested way to describe project scope. It explains estimation factors; the actual amount is determined through requirements review and a valid tariff or proposal for that project."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "تعداد صفحات را از تعداد طراحی‌های یکتا جدا کنید",
+          "en": "Separate content pages from unique layouts"
+        },
+        "paragraphs": {
+          "fa": [
+            "فرض کنید یک سایت دوازده صفحه خدمت دارد که همگی از یک ساختار استفاده می‌کنند: معرفی، مزایا، مراحل همکاری و پرسش‌های متداول. طراحی قالب مشترک یک بخش کار است و آماده‌سازی متن و تصویر دوازده صفحه بخش دیگر. استفاده مجدد از قالب، نیاز به تنظیم و بررسی محتوای هر صفحه را حذف نمی‌کند.",
+            "در مقابل، صفحه اصلی، فهرست محصولات، صفحه محصول و پنل مشتری ممکن است چهار ساختار کاملاً متفاوت باشند. برای برآورد، هم تعداد صفحه‌های نهایی و هم تعداد قالب‌ها یا طراحی‌های متفاوت را ثبت کنید. همین تفکیک، مقایسه پیشنهاد دو مجری را روشن‌تر می‌کند."
+          ],
+          "en": [
+            "Imagine twelve service pages sharing an introduction, benefits, process and FAQ layout. Designing that template is one task; preparing and checking twelve sets of text and images is another. Template reuse does not remove the work of arranging and reviewing each page’s content.",
+            "A homepage, product listing, product detail page and customer portal may instead require four distinct layouts. Record both the final page total and the number of unique templates. This makes proposals from different implementation teams easier to compare."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "پیچیدگی صفحه یعنی کاربر چه کاری می‌تواند انجام دهد",
+          "en": "Define complexity through user tasks"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک صفحه تماس با اطلاعات ثابت با فرمی که فایل می‌گیرد، ورودی را بررسی می‌کند، پیام خطا نشان می‌دهد و اطلاعات را به CRM می‌فرستد، دامنه متفاوتی دارد. پیچیدگی صرفاً ظاهر شلوغ نیست؛ قوانین، داده، وضعیت‌ها و اتصال‌های پشت صفحه هم باید طراحی شوند.",
+            "برای هر قابلیت، مسیر موفق و وضعیت‌های دیگر را توضیح دهید. در رزرو، فقط انتخاب زمان مهم نیست: نبود ظرفیت، تغییر انتخاب، درخواست تکراری و نتیجه ناموفق هم باید مشخص باشند. این تصمیم‌ها روی زمان تحلیل، پیاده‌سازی و آزمون اثر می‌گذارند."
+          ],
+          "en": [
+            "A contact page with static details has a different scope from a form that accepts uploads, validates input, displays errors and sends data to a CRM. Complexity is not simply visual density: it includes rules, data, states and integrations.",
+            "For each feature, describe the successful journey and alternative states. Booking needs more than selecting a time: unavailable slots, changed selections, repeated requests and unsuccessful outcomes must also be specified. These decisions affect analysis, implementation and testing."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "دو مثال فرضی با تعداد صفحه مشابه",
+          "en": "Two hypothetical projects with similar page totals"
+        },
+        "paragraphs": {
+          "fa": [
+            "پروژه اول یک سایت معرفی هشت‌صفحه‌ای است: صفحه اصلی، درباره ما، تماس و پنج صفحه خدمت با قالب مشترک. متن‌ها آماده‌اند و فرم تماس ساده است. بخش مهم کار، طراحی ساختارهای مشترک، ورود محتوای تأییدشده و بررسی نمایش روی دستگاه‌های مختلف خواهد بود.",
+            "پروژه دوم هشت صفحه دارد اما شامل انتخاب خدمت، رزرو زمان، پرداخت، ورود کاربر و پیگیری درخواست است. این پروژه به تعریف قوانین و بررسی اتصال بخش‌ها نیاز دارد. مثال‌ها فرضی‌اند و نشان می‌دهند شمار صفحات، بدون شرح امکانات، مبنای کافی برای یکسان دانستن هزینه دو پروژه نیست."
+          ],
+          "en": [
+            "The first project is an eight-page brochure site: home, about, contact and five service pages sharing a layout. Copy is ready and the contact form is simple. Work centres on shared designs, approved content entry and checking different screen sizes.",
+            "The second also has eight pages but includes service selection, booking, payment, login and request tracking. It needs workflow rules and integration checks. These hypothetical examples show why equal page totals are insufficient grounds for equal estimates."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "محتوا، زبان و طراحی بصری چه اثری دارند؟",
+          "en": "Content, languages and visual design add scope"
+        },
+        "paragraphs": {
+          "fa": [
+            "آماده بودن متن و تصاویر با سفارش نگارش، عکاسی یا ساخت تصویر فرق دارد. در قرارداد روشن کنید چه کسی محتوا را تولید می‌کند، چه تعداد محتوا وارد می‌شود و بازبینی آن بر عهده چه کسی است. انتقال مقاله‌ها یا محصولات از سایت قبلی نیز باید جداگانه تعریف شود.",
+            "نسخه دوزبانه فقط یک دکمه تغییر زبان نیست؛ ترجمه، صفحه‌آرایی راست‌به‌چپ و چپ‌به‌راست، عنوان‌ها و مسیرهای متناظر نیاز به بررسی دارند. طراحی اختصاصی، انیمیشن، مدل سه‌بعدی یا نمودار تعاملی هم باید با دامنه و هدف مشخص وارد برآورد شوند."
+          ],
+          "en": [
+            "Supplying approved copy and images differs from commissioning writing, photography or illustration. Specify who produces content, how many entries are included and who reviews them. Migrating articles or products from an existing website also needs an explicit scope.",
+            "A bilingual site involves translation, RTL and LTR layout, titles and corresponding routes, beyond a language button. Bespoke visuals, animation, 3D models and interactive charts should also enter the estimate with a defined purpose and scope."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "هزینه شروع را از هزینه‌های ادامه کار جدا کنید",
+          "en": "Separate initial delivery from ongoing costs"
+        },
+        "paragraphs": {
+          "fa": [
+            "دامنه، هاست یا زیرساخت، مجوز افزونه‌ها و سرویس‌های موردنیاز می‌توانند هزینه‌های جداگانه داشته باشند. پشتیبان‌گیری، به‌روزرسانی، رفع خطا و توسعه بعدی هم یک مفهوم واحد نیستند. در پیشنهاد مشخص شود کدام مورد در مبلغ اولیه قرار دارد و کدام دوره‌ای یا جداگانه محاسبه می‌شود.",
+            "معیار تحویل را نیز روشن کنید: فرم باید به کجا برسد، چه مسیرهایی بررسی شوند، چه کسی آموزش مدیریت سایت را دریافت کند و چه تعداد مرحله اصلاح توافق شده است. جزئیات قابل بررسی، ابهام قیمت را کمتر می‌کنند."
+          ],
+          "en": [
+            "Domain registration, hosting or infrastructure, licences and external services may be separate expenses. Backups, updates, defect fixes and future development are different responsibilities. A proposal should state what is included initially and what is recurring or quoted separately.",
+            "Define acceptance criteria too: where form submissions go, which journeys must work, who receives administration training and which revision rounds are included. Reviewable details make the price easier to assess."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "برای برآورد دقیق، فهرست صفحات و امکانات بفرستید",
+          "en": "Send a page and feature inventory"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای شروع بررسی در سوشو، نام صفحات و هدف هرکدام را بنویسید؛ کنار آن امکانات، وضعیت محتوا و اتصال‌های لازم را مشخص کنید. اگر هنوز همه جزئیات روشن نیست، اولویت‌های نسخه اول را جدا بنویسید تا محدوده‌ای قابل اجرا شکل بگیرد.",
+            "کم کردن دامنه نسخه اول می‌تواند مسیر برآورد را ساده‌تر کند: مثلاً معرفی خدمات و دریافت درخواست را ابتدا آماده کنید و پنل پیچیده را پس از تعریف دقیق فرایند اضافه کنید. انتخاب مرحله‌بندی باید با نیاز واقعی کسب‌وکار هماهنگ باشد."
+          ],
+          "en": [
+            "For an initial SoSho review, list each page and its purpose, then record functionality, content readiness and integrations. If some details remain open, identify the first-release priorities so a deliverable scope can be defined.",
+            "A narrower first release can make estimation more manageable. For example, service information and enquiry capture might come first, with a complex portal considered after its workflow is specified. Choose phases around actual business needs."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "فهرست صفحات و تعداد طراحی‌های متفاوت",
+            "امکانات هر صفحه، نقش کاربران و وضعیت‌های خطا",
+            "تعداد زبان‌ها و مسئول تولید و ورود محتوا",
+            "اتصال به پرداخت، پیامک، CRM یا نرم‌افزار داخلی",
+            "محدوده اصلاحات، آموزش، پشتیبانی و هزینه‌های دوره‌ای"
+          ],
+          "en": [
+            "Page inventory and number of distinct layouts",
+            "Page functions, user roles and error states",
+            "Languages and content production and entry responsibilities",
+            "Payment, messaging, CRM or internal-software integrations",
+            "Revisions, training, support and recurring costs"
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا دو برابر شدن صفحات یعنی دو برابر شدن قیمت؟",
+          "en": "Does doubling pages double the cost?"
+        },
+        "answer": {
+          "fa": "لزوماً خیر. صفحات دارای قالب مشترک و محتوای آماده با صفحات دارای طراحی و امکانات مستقل کار یکسانی ندارند. تعداد صفحات باید همراه ساختار و امکانات آن‌ها بررسی شود.",
+          "en": "Not necessarily. Shared templates with ready content differ from independent layouts and functions. Review page count together with structure and behaviour."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا سایت کم‌صفحه می‌تواند پیچیده‌تر باشد؟",
+          "en": "Can a small site be more complex?"
+        },
+        "answer": {
+          "fa": "بله. یک ابزار محاسبه یا رزرو با چند صفحه ممکن است به قوانین، داده و اتصال‌های بیشتری از یک سایت معرفی پرصفحه نیاز داشته باشد.",
+          "en": "Yes. A calculator or booking tool with a few pages may require more rules, data handling and integrations than a larger brochure site."
+        }
+      },
+      {
+        "question": {
+          "fa": "برای گرفتن قیمت، چه اطلاعاتی لازم است؟",
+          "en": "What is needed for an estimate?"
+        },
+        "answer": {
+          "fa": "نوع کسب‌وکار، هدف سایت، فهرست صفحات، امکانات، وضعیت محتوا، زبان‌ها و اتصال‌ها را مشخص کنید. موارد نامعلوم نیز باید در برآورد با فرض یا نیاز به بررسی روشن شوند.",
+          "en": "Describe the business, website purpose, pages, functionality, content readiness, languages and integrations. Mark unknowns as explicit assumptions or items requiring review."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا این مقاله تعرفه ثابت سوشو را اعلام می‌کند؟",
+          "en": "Does this article state a fixed SoSho tariff?"
+        },
+        "answer": {
+          "fa": "خیر. مقاله عوامل تعیین دامنه کار را توضیح می‌دهد. مبلغ قابل استناد باید از تعرفه معتبر و پیشنهاد مشخص پروژه به دست آید؛ این متن وعده قیمت یا زمان تحویل نیست.",
+          "en": "No. It explains scope factors. A usable amount must come from a valid tariff and a project-specific proposal; this article makes no price or delivery commitment."
+        }
+      }
+    ],
+    "coverImage": "/blog/website-cost-page-count-complexity-editorial-20261102.jpg",
+    "coverImageAlt": {
+      "fa": "صفحات هم‌قالب در کنار رابط چندلایه و مسیرهای گردش کار، با ابزار اندازه‌گیری برای برآورد دامنه سایت",
+      "en": "Shared-template pages beside layered interfaces and workflow paths, with a measuring tool representing project scope"
+    }
+  },
+  {
     "slug": "webmcp-agent-ready-websites",
     "title": {
       "fa": "WebMCP چیست؟ آماده‌سازی سایت برای عامل‌های هوش مصنوعی",

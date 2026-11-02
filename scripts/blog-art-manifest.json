@@ -268,7 +268,31 @@
       "prompt": "Use case: stylized-concept. Create an original editorial blog cover for SoSho Studio about passkeys and passwordless website sign-in. A polished abstract physical key made of frosted glass and brushed silver, with a fingerprint-shaped luminous cyan groove, floating between a small elegant smartphone and a browser card with a single confirmation check shape. Suggest device-based identity without depicting a password or revealing biometric data. Premium tactile 3D editorial art, midnight navy background, restrained electric cyan and violet highlights, tiny warm copper accent. Minimal, sophisticated composition, soft cinematic studio illumination, convincing materials and crisp silhouettes. Landscape 1.905:1 composition for 1200x630; complete important subjects in middle 65% to survive a 21:9 crop. No text, no letters, no numbers, no logos, no watermarks, no fake chart data, not a screenshot.",
       "generatedAt": "2026-10-31",
       "provider": "Built-in ImageGen"
+    },
+    {
+      "slug": "wordpress-vs-nextjs-which-website",
+      "output": "public/blog/wordpress-vs-nextjs-which-website-editorial-20261102.jpg",
+      "subject": "Compare two ways of constructing websites: on one side a sculptural glass browser built from reusable modular content blocks and an editorial content card; on the other a bespoke sculptural browser with interconnected interface panels and a small precision tool representing custom application development. Equal visual importance and craftsmanship for both approaches, side-by-side on a unified architectural plinth, neither is depicted as inferior. Suggest choosing based on needs, no brand logos.",
+      "alt": {
+        "fa": "دو ماکت شیشه‌ای وب‌سایت؛ بلوک‌های محتوای آماده در کنار رابط و گردش کار اختصاصی",
+        "en": "Two glass website models comparing reusable content blocks with bespoke interfaces and workflows"
+      },
+      "prompt": "Use case: stylized-concept. Asset type: original editorial cover for SoSho Studio bilingual technology journal. Premium tactile 3D editorial illustration, frosted glass and brushed silver, midnight navy background, restrained electric cyan and violet light with a tiny copper accent. Calm cinematic studio illumination, precise silhouettes, polished coherent materials. Landscape 1.905:1 composition, intended as 1200x630 cover. Keep all important objects in the central 65% to survive 21:9 cropping; dark breathing room around them. No text, no letters, no numbers, no logos, no watermark, no fake chart data. Finished raster illustration, not a website screenshot. Compare two ways of constructing websites: on one side a sculptural glass browser built from reusable modular content blocks and an editorial content card; on the other a bespoke sculptural browser with interconnected interface panels and a small precision tool representing custom application development. Equal visual importance and craftsmanship for both approaches, side-by-side on a unified architectural plinth, neither is depicted as inferior. Suggest choosing based on needs, no brand logos.",
+      "generatedAt": "2026-11-02",
+      "provider": "Built-in ImageGen"
+    },
+    {
+      "slug": "website-cost-page-count-complexity",
+      "output": "public/blog/website-cost-page-count-complexity-editorial-20261102.jpg",
+      "subject": "Website project scope and estimation: an elegant architectural arrangement of browser page models on a designer's desk. One ordered small stack of matching simple pages sharing an identical layout, alongside a more intricate browser model with connected form controls, layered interface modules and branching workflow paths. A small brushed-metal measuring caliper and abstract blank specification tiles suggest careful scope estimation. Make reusable pages versus complex functionality clearly readable. No coins, no currency, no price figures, no calculator text.",
+      "alt": {
+        "fa": "صفحات هم‌قالب در کنار رابط چندلایه و مسیرهای گردش کار، با ابزار اندازه‌گیری برای برآورد دامنه سایت",
+        "en": "Shared-template pages beside layered interfaces and workflow paths, with a measuring tool representing project scope"
+      },
+      "prompt": "Use case: stylized-concept. Asset type: original editorial cover for SoSho Studio bilingual technology journal. Premium tactile 3D editorial illustration, frosted glass and brushed silver, midnight navy background, restrained electric cyan and violet light with a tiny copper accent. Calm cinematic studio illumination, precise silhouettes, polished coherent materials. Landscape 1.905:1 composition, intended as 1200x630 cover. Keep all important objects in the central 65% to survive 21:9 cropping; dark breathing room around them. No text, no letters, no numbers, no logos, no watermark, no fake chart data. Finished raster illustration, not a website screenshot. Website project scope and estimation: an elegant architectural arrangement of browser page models on a designer's desk. One ordered small stack of matching simple pages sharing an identical layout, alongside a more intricate browser model with connected form controls, layered interface modules and branching workflow paths. A small brushed-metal measuring caliper and abstract blank specification tiles suggest careful scope estimation. Make reusable pages versus complex functionality clearly readable. No coins, no currency, no price figures, no calculator text.",
+      "generatedAt": "2026-11-02",
+      "provider": "Built-in ImageGen"
     }
   ],
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-11-02"
 }
