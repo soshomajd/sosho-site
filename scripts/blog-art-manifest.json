@@ -385,7 +385,37 @@
         "fa": "ماکت سه‌بعدی رابط وب و موبایل روی میز بررسی با کولیس مسی و نشانه‌های ارزیابی",
         "en": "Three-dimensional web and mobile prototypes on a review table with a copper caliper and evaluation tiles"
       }
+    },
+    {
+      "slug": "corporate-website-pages-features-guide",
+      "output": "public/blog/corporate-website-pages-features-guide-editorial-20261107.jpg",
+      "generatedAt": "2026-11-07",
+      "provider": "Built-in ImageGen",
+      "style": "stylized-concept",
+      "width": 1200,
+      "height": 630,
+      "subject": "An architectural model of the essential company website pages",
+      "prompt": "Use case: stylized-concept. Create an original premium editorial cover for a bilingual article about planning a company website, for SoSho Studio. Wide 1.905:1 landscape composition. A beautifully constructed miniature architectural headquarters made of five upright browser-page panels on one curved graphite platform: a main central facade with an elegant entrance, smaller service cards on one side, a tiny portfolio gallery and a copper contact envelope tile on the other. Physical, grounded architectural model, convincing proportions, no people. Materials: matte bone ceramic, frosted glass, brushed copper frames and sage accents, deep midnight navy backdrop, steel-blue platform. Warm interior illumination contrasted with cinematic cool softbox light, highly polished tactile 3D editorial art, detailed shadows, subtle material grain, calm sophisticated composition. Important objects within central 70% width and central 65% height to survive wide 21:9 cropping. Visual story: a clear welcoming company website with structured pages, not a skyscraper or shopping store. No readable text, no letters, no numbers, no logos, no watermark, no generic glowing circuit motif. Original concept, not an actual client website.",
+      "alt": {
+        "fa": "ماکت معماری سه‌بعدی سایت شرکتی با قاب‌های مرورگر، پنل خدمات و نشانهٔ تماس مسی",
+        "en": "An architectural company website model with browser frames, service panels and a copper contact symbol"
+      }
+    },
+    {
+      "slug": "website-or-mobile-app-for-business",
+      "output": "public/blog/website-or-mobile-app-for-business-editorial-20261107.jpg",
+      "generatedAt": "2026-11-07",
+      "provider": "Built-in ImageGen",
+      "style": "stylized-concept",
+      "width": 1200,
+      "height": 630,
+      "subject": "A laptop and phone with booking interfaces and a branching customer task path",
+      "prompt": "Use case: stylized-concept. Create an original premium editorial cover for a business decision article: responsive website or mobile app? Wide 1.905:1 landscape composition, high resolution. On a refined low graphite stage, an open slim unbranded laptop on one side shows a beautifully arranged miniature appointment-booking website with a service image, calendar squares and a copper action block; on the other side a phone held upright in a sculptural brushed-copper stand shows a matching native appointment interface. Between them, a small sage ceramic branching path connects to both devices, suggesting choice based on customer tasks rather than competition. Devices have convincing screen reflections and precise physical geometry. Deep midnight navy studio background, steel blue, warm bone and restrained sage palette with copper accents. Premium tactile 3D editorial product photography, cinematic warm side-light, soft shadows, clean balanced composition with generous breathing room. Keep important devices and path inside middle 70% width and middle 65% height for 21:9 article crops. Distinct silhouette from a company website architectural cover. No people, no readable text, no letters, no numbers, no logos, no watermark, no stars, no fictitious performance claims. Original conceptual illustration.",
+      "alt": {
+        "fa": "لپ‌تاپ و گوشی با رابط نوبت‌دهی هماهنگ و مسیر منشعب سبز سیج روی سکوی گرافیتی",
+        "en": "A laptop and phone with matching booking interfaces connected by a branching sage path on a graphite stage"
+      }
     }
   ],
-  "updatedAt": "2026-11-04"
+  "updatedAt": "2026-11-07"
 }

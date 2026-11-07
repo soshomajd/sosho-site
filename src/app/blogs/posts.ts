@@ -35,6 +35,502 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    "slug": "corporate-website-pages-features-guide",
+    "title": {
+      "fa": "طراحی سایت شرکتی؛ چه صفحه‌ها و امکاناتی واقعاً لازم دارید؟",
+      "en": "Corporate Website Design: Which Pages and Features Do You Need?"
+    },
+    "seoTitle": {
+      "fa": "طراحی سایت شرکتی؛ صفحات و امکانات ضروری",
+      "en": "Corporate Website Pages and Features Guide"
+    },
+    "excerpt": {
+      "fa": "برای سفارش سایت شرکتی چه چیزهایی آماده کنیم؟ ساختار صفحات، معرفی خدمات، نمونه‌کار، فرم تماس و امکانات مدیریت را با مثال و چک‌لیست بررسی کنید.",
+      "en": "Plan a company website with a practical guide to essential pages, service information, project evidence, contact forms and everyday administration."
+    },
+    "tags": [
+      "Website",
+      "Strategy",
+      "UI/UX"
+    ],
+    "publishedAt": "2026-11-07",
+    "coverImage": "/blog/corporate-website-pages-features-guide-editorial-20261107.jpg",
+    "coverImageAlt": {
+      "fa": "ماکت معماری سه‌بعدی سایت شرکتی با قاب‌های مرورگر، پنل خدمات و نشانهٔ تماس مسی",
+      "en": "An architectural company website model with browser frames, service panels and a copper contact symbol"
+    },
+    "directAnswer": {
+      "fa": "سایت شرکتی باید به مخاطب نشان دهد چه خدمتی ارائه می‌کنید، برای چه کسی مناسب است، چه شواهدی از توان اجرای آن دارید و چطور می‌توان با شما همکاری کرد. صفحهٔ اصلی، صفحات خدمات، دربارهٔ مجموعه، نمونه‌کار و تماس، نقطهٔ شروع مناسبی هستند. امکانات اضافه را بر اساس مسیر واقعی مشتری و توان مدیریت محتوا انتخاب کنید.",
+      "en": "A company website should explain your services, who they suit, what evidence supports your work and how to start a conversation. A homepage, service pages, company information, project examples and contact details provide a useful starting structure. Choose additional features according to customer tasks and your ability to maintain them."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "سایت شرکتی را حول سؤال مشتری بچینید",
+          "en": "Organise the website around customer questions"
+        },
+        "paragraphs": {
+          "fa": [
+            "بازدیدکننده‌ای که نام شما را در لینکدین دیده، با کسی که از گوگل دنبال یک خدمت مشخص می‌گردد، اطلاعات یکسانی ندارد. نفر اول ممکن است اعتبار مجموعه را بررسی کند؛ نفر دوم می‌خواهد بداند مشکلش را حل می‌کنید یا نه. ساختار سایت باید برای هر دو، مسیر روشنی به اطلاعات و قدم بعدی بدهد.",
+            "پیش از فهرست‌کردن امکانات، سه سؤال بنویسید: مشتری چه نیازی دارد، پیش از تماس چه ابهامی دارد و بعد از خواندن صفحه چه کاری باید انجام دهد؟ پاسخ‌ها کمک می‌کنند دربارهٔ منو، متن و فرم تصمیم بگیرید. تعداد زیاد صفحه به‌خودی‌خود به معنی کامل‌بودن سایت نیست."
+          ],
+          "en": [
+            "A visitor arriving from LinkedIn may want to verify the business, while someone searching Google for a specific service needs to know whether you can solve their problem. Both need a clear route to relevant information and a useful next step.",
+            "Before listing features, write down the customer’s need, their uncertainty before contacting you and the action the page should support. Use those answers to shape navigation, copy and forms. A larger page count does not automatically create a more useful website."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "صفحهٔ اصلی باید مسیر بدهد، نه اینکه همه‌چیز را تکرار کند",
+          "en": "Use the homepage to direct visitors"
+        },
+        "paragraphs": {
+          "fa": [
+            "در ابتدای صفحه، نام خدمت یا حوزهٔ فعالیت، مخاطب مناسب و راه ادامه را با جمله‌های روشن معرفی کنید. عبارتی مثل «ارائه‌دهندهٔ راهکارهای نوین» بدون توضیح، به مشتری نمی‌گوید چه چیزی دریافت می‌کند. برای یک مجموعهٔ فرضی خدمات نگهداری ساختمان، معرفی نوع خدمات و محدودهٔ همکاری از یک شعار کلی کاربردی‌تر است.",
+            "سپس خلاصه‌ای از خدمات، شواهد واقعی، روند همکاری و راه تماس را نشان دهید. هر خلاصه می‌تواند به صفحهٔ مرتبط وصل شود. بنر، ویدیو یا حرکت تصویری زمانی ارزش دارد که فهم پیام را آسان‌تر کند و متن یا دکمهٔ اصلی را عقب نیندازد."
+          ],
+          "en": [
+            "State the service, suitable audience and next step near the start. A phrase such as “innovative solutions” needs concrete explanation. For a hypothetical building-maintenance business, describing the maintenance work and service area is more helpful than a broad slogan.",
+            "Follow with short introductions to services, genuine evidence, the working process and contact options. Link each summary to its detailed page. Banners, video and animation should help people understand the message while keeping the main copy and action easy to reach."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "برای خدمات اصلی، صفحهٔ قابل تصمیم‌گیری بسازید",
+          "en": "Give key services pages that support a decision"
+        },
+        "paragraphs": {
+          "fa": [
+            "اگر خدمات شما نیازهای متفاوتی را پوشش می‌دهند، برای هرکدام توضیح متناسب آماده کنید. بازدیدکننده باید بداند این خدمت چه مسئله‌ای را پوشش می‌دهد، چه خروجی‌هایی دارد، چه اطلاعاتی برای شروع لازم است و چه مواردی خارج از محدوده هستند. فهرست بلند نام فناوری‌ها جای این پاسخ‌ها را نمی‌گیرد.",
+            "یک الگوی محتوایی ثابت به مدیریت کمک می‌کند، اما متن هر خدمت باید دربارهٔ همان نیاز باشد. اگر دو صفحه فقط در نام شهر یا چند کلمه فرق دارند، پیش از ساخت آن‌ها روشن کنید چه اطلاعات متمایزی به کاربر می‌دهند. راهنمای محتوای گوگل بر اطلاعات مفید و ارزش افزودهٔ واقعی برای مخاطب تأکید دارد."
+          ],
+          "en": [
+            "When services address different needs, prepare an explanation for each. Visitors should understand the problem covered, deliverables, information needed to begin and exclusions. A long list of technology names is not a substitute for those answers.",
+            "A consistent content template can simplify maintenance, but each service still needs a distinct explanation. Before creating near-identical location pages, identify the useful differences for readers. Google’s content guidance emphasises helpful information and substantive value for the audience."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "دربارهٔ مجموعه و نمونه‌کار را با مدرک واقعی تکمیل کنید",
+          "en": "Support company and project information with real evidence"
+        },
+        "paragraphs": {
+          "fa": [
+            "در صفحهٔ درباره، مشخص کنید چه کسی مسئول کار است، چطور همکاری می‌کنید و چه راهی برای تماس وجود دارد. اگر فعالیت انفرادی یا استودیویی دارید، همان را دقیق معرفی کنید. لازم نیست برای شبیه‌شدن به شرکت‌های بزرگ، تعداد اعضا، مشتری یا سابقه بسازید.",
+            "در نمونه‌کار، مسئله، نقش شما، محدودهٔ اجرا و تصاویر متعلق به پروژه را توضیح دهید. نتیجهٔ عددی فقط زمانی بنویسید که دادهٔ قابل اتکا و اجازهٔ انتشار دارید. طرح مفهومی را هم می‌توان نمایش داد، به شرط اینکه برچسبش روشن باشد و به‌عنوان پروژهٔ تحویل‌شده معرفی نشود."
+          ],
+          "en": [
+            "Explain who is responsible for the work, how collaboration happens and how the business can be contacted. Describe a solo practice or studio accurately. There is no need to invent staff, clients or a longer history to resemble a larger organisation.",
+            "For projects, describe the problem, your contribution, the implemented scope and the relevant images. Publish measured results only when supported and authorised. Concept work can also demonstrate design ability when clearly labelled as a concept rather than delivered client work."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "تماس را به یک فرایند قابل پیگیری تبدیل کنید",
+          "en": "Make enquiries manageable after submission"
+        },
+        "paragraphs": {
+          "fa": [
+            "راه تماس باید با شیوهٔ پاسخ‌گویی شما هماهنگ باشد. اگر فرم دارید، فقط اطلاعاتی را بگیرید که برای بررسی اولیه لازم است. مشخص کنید پیام کجا می‌رود، چه کسی آن را می‌بیند و چگونه از فراموش‌شدن آن جلوگیری می‌کنید. وجود دکمهٔ ارسال بدون مسیر رسیدگی، مسئلهٔ مشتری را حل نمی‌کند.",
+            "فرم را با دادهٔ آزمایشی بررسی کنید: ارسال موفق، ورودی ناقص و خطای ارتباط. پیام موفقیت باید تنها پس از ثبت معتبر نشان داده شود و کاربر برای اصلاح یک خطا مجبور به نوشتن دوبارهٔ همه‌چیز نشود. دربارهٔ اطلاعات شخصی هم روشن و متناسب با عملکرد واقعی سایت توضیح دهید."
+          ],
+          "en": [
+            "Choose contact options you can actually monitor. If you use a form, request what is needed for an initial review and decide where submissions go, who reads them and how follow-up is tracked. A submit button needs an operational process behind it.",
+            "Test successful submission, incomplete input and connection errors with test data. Display success only after a valid submission, and preserve correct entries when an error needs fixing. Explain personal-data handling in a way that accurately reflects the site’s behaviour."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "موبایل و دسترس‌پذیری را در همان ساختار اولیه ببینید",
+          "en": "Include mobile use and accessibility from the start"
+        },
+        "paragraphs": {
+          "fa": [
+            "منو، عنوان‌ها و ترتیب بخش‌ها باید در صفحهٔ کوچک هم قابل فهم باشند. راهنمای ساختار صفحهٔ W3C به بخش‌بندی معنادار و عنوان‌های مرتب برای پیدا کردن و حرکت در محتوا می‌پردازد. در عمل، یک بازدیدکننده باید بتواند خدمت، شرایط اولیه و راه تماس را بدون گشتن طولانی پیدا کند.",
+            "روی گوشی واقعی، با بزرگ‌کردن متن و با صفحه‌کلید سایت را بررسی کنید. منوی بازشده نباید راه بستن نامشخص داشته باشد، شمارهٔ تماس باید خوانا باشد و دکمه‌های شناور نباید فرم را بپوشانند. تصویری که در ارائهٔ دسکتاپ خوب دیده می‌شود، به‌تنهایی کیفیت تجربهٔ موبایل را ثابت نمی‌کند."
+          ],
+          "en": [
+            "Navigation, headings and section order need to remain understandable on small screens. W3C’s page-structure tutorial explains meaningful regions and organised headings that help people find and navigate content. In practice, visitors should be able to locate a service, its basic requirements and the contact route without an extended search.",
+            "Review the site on a real phone, with enlarged text and with a keyboard. Menus need a clear way to close, contact details must remain readable and floating controls should not cover forms. A desktop presentation cannot establish the quality of mobile use."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "پنل مدیریت را با کارهای روزمره انتخاب کنید",
+          "en": "Choose administration features through everyday tasks"
+        },
+        "paragraphs": {
+          "fa": [
+            "فهرستی از تغییرهای معمول بنویسید: اصلاح متن خدمت، اضافه‌کردن پروژه، تغییر راه تماس و رسیدگی به پیام‌ها. از سازنده بخواهید انجام این کارها را نشان دهد. لازم نیست همهٔ پروژه‌ها پنل سفارشی داشته باشند؛ مهم این است که روش مدیریت با مهارت و زمان مسئول سایت سازگار باشد.",
+            "اگر بخش دو‌زبانه، استخدام یا فایل قابل دانلود دارید، مسئول به‌روز نگه‌داشتن آن را هم مشخص کنید. هر بخش تازه، محتوای تازه و رسیدگی می‌خواهد. وبلاگی که برنامهٔ مشخصی برای آن ندارید، می‌تواند در مرحلهٔ بعد اضافه شود؛ برای شروع لازم نیست همهٔ امکانات احتمالی را سفارش دهید."
+          ],
+          "en": [
+            "List routine changes: editing a service, adding a project, updating contact details and processing enquiries. Ask the developer to demonstrate them. Not every project needs bespoke administration; the approach should fit the site manager’s skills and available time.",
+            "Assign maintenance responsibility for additional languages, vacancies and downloadable resources. Each feature adds content and operational work. A blog without an editorial plan can wait for a later phase; you do not need every possible feature in the first release."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "پیش از سفارش، این بستهٔ محتوا را آماده کنید",
+          "en": "Prepare a small content pack before commissioning"
+        },
+        "paragraphs": {
+          "fa": [
+            "داشتن محتوای اولیه، گفت‌وگو دربارهٔ طراحی و محدودهٔ پروژه را دقیق‌تر می‌کند. متن نهایی همهٔ صفحه‌ها لازم نیست، اما باید بدانید چه چیزی در اختیار دارید و چه چیزی باید تولید شود. مالکیت عکس‌ها و اجازهٔ استفاده از نام یا تصویر مشتری را قبل از قرارگرفتن در طرح بررسی کنید.",
+            "این چک‌لیست پیشنهادی سوشو برای یک شروع منظم است. برای هر مورد یک مسئول بگذارید. اگر چیزی هنوز آماده نیست، همان را در پیشنهاد پروژه مشخص کنید تا تولید محتوا با طراحی یا توسعه اشتباه گرفته نشود."
+          ],
+          "en": [
+            "Initial content makes design and scope discussions more concrete. You do not need final copy for every page, but should know what exists and what must be created. Verify image ownership and permission to publish client names or materials before putting them into designs.",
+            "Use the following suggested content pack and assign an owner to each item. Identify missing material in the proposal so that content production is scoped explicitly alongside design and development."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "شرح کوتاه فعالیت و مخاطبان مناسب",
+            "خدمات اصلی، محدودهٔ هر خدمت و سؤال‌های مشتری",
+            "اطلاعات واقعی مجموعه و راه‌های تماس",
+            "نمونه‌کارها و تصاویر مجاز برای انتشار",
+            "روش رسیدگی به درخواست‌ها و مسئول مدیریت سایت"
+          ],
+          "en": [
+            "A short business description and intended audiences",
+            "Main services, their scope and customer questions",
+            "Accurate company and contact information",
+            "Projects and images authorised for publication",
+            "An enquiry process and named site manager"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "نسخهٔ اول را با یک مسیر کامل تحویل بگیرید",
+          "en": "Accept a first release through a complete customer journey"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای پذیرش سایت، از یک نفر بخواهید بدون راهنمایی شما یک خدمت را پیدا کند، دربارهٔ آن بخواند، شواهد مرتبط را ببیند و پیام بفرستد. بعد بررسی کنید پیام در محل درست ثبت شده است. نقص این مسیر از کم‌بودن تعداد افکت‌ها مهم‌تر است.",
+            "برای گفت‌وگو با سوشو، همین مسیر مشتری و فهرست محتوای آماده را بیاورید. صفحهٔ خدمات طراحی سایت، نقطهٔ شروع بررسی همکاری است و «برآورد هوشمند» به تعریف اولیهٔ نیاز کمک می‌کند. هزینه و زمان فقط پس از روشن‌شدن صفحات، امکانات، محتوا و مسئولیت نگهداری قابل بررسی‌اند."
+          ],
+          "en": [
+            "Ask someone to find a service, read its explanation, inspect relevant evidence and send an enquiry without your guidance. Then verify that the message reaches the intended destination. Gaps in that journey matter more than additional visual effects.",
+            "Bring that customer journey and your content inventory to a discussion with SoSho. The website design service page and project estimate provide starting points. Pages, functionality, content work and maintenance responsibilities need to be defined before assessing cost and timing."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا سایت شرکتی باید فروشگاه هم داشته باشد؟",
+          "en": "Does a company website need an online shop?"
+        },
+        "answer": {
+          "fa": "فقط اگر فرایند فروش شما به انتخاب کالا، پرداخت و مدیریت سفارش نیاز دارد. برای معرفی خدمات و دریافت درخواست، اضافه‌کردن فروشگاه ممکن است کار غیرضروری ایجاد کند.",
+          "en": "Only if the sales process needs product selection, payment and order management. A service information and enquiry site may not benefit from a shop."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا می‌توان سایت شرکتی را با وردپرس ساخت؟",
+          "en": "Can WordPress be used for a company website?"
+        },
+        "answer": {
+          "fa": "بله، بسته به نیاز مدیریت محتوا و اتصال‌ها می‌تواند یکی از گزینه‌ها باشد. روش ساخت را با وظیفه‌های واقعی و مسئولیت نگهداری مقایسه کنید.",
+          "en": "Yes, depending on content management and integration requirements. Compare approaches through actual tasks and maintenance responsibilities."
+        }
+      },
+      {
+        "question": {
+          "fa": "چند صفحه برای شروع کافی است؟",
+          "en": "How many pages are enough to start?"
+        },
+        "answer": {
+          "fa": "تعداد ثابت نداریم. هر صفحه باید سؤال یا نیاز مشخصی را پوشش دهد. ابتدا معرفی، خدمات اصلی، شواهد و تماس را کامل کنید و سپس بخش‌های ضروری دیگر را اضافه کنید.",
+          "en": "There is no fixed count. Each page should address a real need. Start with an introduction, core services, evidence and contact, then add other necessary sections."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا سایت جدید خودبه‌خود مشتری می‌آورد؟",
+          "en": "Will a new website automatically bring customers?"
+        },
+        "answer": {
+          "fa": "خیر. سایت به معرفی، محتوای مفید، قابلیت پیدا شدن و رسیدگی به درخواست‌ها نیاز دارد. داشتن سایت به‌تنهایی نتیجهٔ تجاری را تضمین نمی‌کند.",
+          "en": "No. Discovery, useful content, promotion and enquiry handling all matter. The existence of a website does not establish a business outcome."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "راهنمای W3C دربارهٔ ساختار صفحه",
+          "en": "W3C page structure tutorial"
+        },
+        "url": "https://www.w3.org/WAI/tutorials/page-structure/"
+      },
+      {
+        "title": {
+          "fa": "راهنمای گوگل برای محتوای مفید",
+          "en": "Google guidance on helpful content"
+        },
+        "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+      }
+    ]
+  },
+  {
+    "slug": "website-or-mobile-app-for-business",
+    "title": {
+      "fa": "سایت یا اپلیکیشن؟ راهنمای انتخاب برای شروع و رشد کسب‌وکار",
+      "en": "Website or Mobile App? Choosing for Your Business"
+    },
+    "seoTitle": {
+      "fa": "سایت یا اپلیکیشن؛ کدام برای کسب‌وکار شما؟",
+      "en": "Website or App: Which Does Your Business Need?"
+    },
+    "excerpt": {
+      "fa": "سایت ریسپانسیو، وب‌اپ یا اپلیکیشن موبایل؟ بر اساس کار مشتری، دفعات استفاده، امکانات دستگاه و هزینهٔ نگهداری، گزینهٔ مناسب را با مثال انتخاب کنید.",
+      "en": "Compare responsive websites, web apps and mobile apps through customer tasks, repeat use, device features and maintenance rather than technology labels."
+    },
+    "tags": [
+      "Website",
+      "Mobile",
+      "Strategy"
+    ],
+    "publishedAt": "2026-11-07",
+    "coverImage": "/blog/website-or-mobile-app-for-business-editorial-20261107.jpg",
+    "coverImageAlt": {
+      "fa": "لپ‌تاپ و گوشی با رابط نوبت‌دهی هماهنگ و مسیر منشعب سبز سیج روی سکوی گرافیتی",
+      "en": "A laptop and phone with matching booking interfaces connected by a branching sage path on a graphite stage"
+    },
+    "directAnswer": {
+      "fa": "اگر مخاطب باید شما را پیدا کند، دربارهٔ خدمات بخواند و بدون نصب وارد شود، سایت ریسپانسیو معمولاً نقطهٔ شروع قابل بررسی است. وقتی مشتری کار مشخصی را مرتب تکرار می‌کند یا به اتصال خاص دستگاه نیاز دارید، اپلیکیشن هم ارزش ارزیابی دارد. وب‌اپ و PWA گزینه‌های دیگری هستند؛ انتخاب نهایی باید با آزمون همان کار روی دستگاه‌های مخاطبان انجام شود.",
+      "en": "A responsive website is a useful starting option when people need to discover your business, read about services and enter without installation. A mobile app is worth evaluating for frequent repeated tasks or specific device integrations. Web apps and PWAs are further options. Validate the actual task on the devices your customers use before deciding."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "اول بپرسید مشتری چه کاری انجام می‌دهد",
+          "en": "Start with the customer’s task"
+        },
+        "paragraphs": {
+          "fa": [
+            "فرض کنید یک مرکز آموزشی می‌خواهد حضور آنلاینش را بهتر کند. فردی که برای اولین بار دنبال کلاس است، به معرفی دوره، زمان‌بندی و راه ثبت درخواست نیاز دارد. هنرجوی فعلی ممکن است هر هفته تکلیف بفرستد و برنامهٔ کلاس را ببیند. این دو استفادهٔ متفاوت، الزاماً به یک راه‌حل یکسان نیاز ندارند.",
+            "به جای شروع با سؤال «کدام فناوری جدیدتر است؟»، مسیرهای استفاده را بنویسید. مخاطب از کجا وارد می‌شود، چند وقت یک‌بار برمی‌گردد و چه کاری باید تمام کند؟ مثال مرکز آموزشی صرفاً برای تصمیم‌گیری است و دربارهٔ نتیجهٔ واقعی یک پروژه ادعایی ندارد."
+          ],
+          "en": [
+            "Consider a hypothetical training centre. A prospective student needs course details, schedules and an enquiry route. An existing student might return weekly to submit work or check classes. Those different tasks do not necessarily require the same solution.",
+            "Describe entry points, frequency and completion tasks before comparing technologies. The training-centre example is a planning exercise rather than a claim about a delivered project or its results."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "سایت ریسپانسیو چیست و چه چیزی را حل می‌کند؟",
+          "en": "What a responsive website addresses"
+        },
+        "paragraphs": {
+          "fa": [
+            "طراحی ریسپانسیو یعنی چیدمان و محتوا با اندازهٔ صفحه سازگار شوند. در توضیح MDN، این رویکرد به نمایش منعطف صفحه و رسانه‌ها در اندازه‌های مختلف می‌پردازد. داشتن یک صفحهٔ کوچک‌شده از دسکتاپ کافی نیست؛ منو، تصاویر، متن و فرم باید روی گوشی هم قابل استفاده باشند.",
+            "برای معرفی خدمات، نشان‌دادن نمونه‌کار، انتشار مقاله یا شروع خرید، ورود با لینک می‌تواند مسیر ساده‌ای بسازد. با این حال، یک سایت ممکن است فرم یا پنل پیچیده‌ای هم داشته باشد. واژهٔ «سایت» به‌تنهایی نشان نمی‌دهد چه قابلیت‌هایی اجرا شده یا نشده‌اند."
+          ],
+          "en": [
+            "Responsive design adapts layout and content to the screen. MDN describes flexible approaches to layouts and media across different sizes. Shrinking a desktop screenshot is insufficient: navigation, text, images and forms still need to be usable on a phone.",
+            "Entering through a link can support service information, project examples, articles or starting a purchase. Websites can also contain substantial forms and account features. The word “website” alone does not establish which capabilities have actually been implemented."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "اپلیکیشن چه زمانی ارزش بررسی دارد؟",
+          "en": "When a mobile app is worth investigating"
+        },
+        "paragraphs": {
+          "fa": [
+            "وقتی کاربر مرتب برمی‌گردد، یک تجربهٔ مناسب اپ می‌تواند کار او را منظم‌تر کند. برای نمونه، ثبت کار روزانهٔ نیروی خدماتی، پیگیری مکرر سفارش یا استفاده از قابلیت خاص دستگاه را بررسی کنید. مهم این است که نصب برنامه برای همان کار، فایدهٔ قابل توضیحی داشته باشد.",
+            "از تیم بخواهید سخت‌ترین نیاز را روی دستگاه واقعی نشان دهد. استفادهٔ پس‌زمینه، ارتباط با ابزار جانبی یا مجوزهای خاص می‌تواند بین سیستم‌عامل‌ها تفاوت داشته باشد. اسم «اپلیکیشن» تضمین نمی‌کند همهٔ این قابلیت‌ها آماده‌اند یا با هر گوشی یکسان کار می‌کنند."
+          ],
+          "en": [
+            "An app deserves investigation when users return regularly and a focused experience supports their task, such as daily field-work entries, repeated order tracking or a particular device integration. Installation should offer a benefit you can explain in terms of that task.",
+            "Request a demonstration of the hardest requirement on real devices. Background behaviour, peripherals and permissions can vary by platform. The label “mobile app” does not establish that every capability is present or behaves identically on every phone."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "وب‌اپ و PWA کجای این انتخاب قرار می‌گیرند؟",
+          "en": "Where web apps and PWAs fit"
+        },
+        "paragraphs": {
+          "fa": [
+            "وب‌اپ معمولاً به تجربه‌ای در مرورگر گفته می‌شود که کاربر در آن کاری انجام می‌دهد؛ مثل پنل مشتری یا سامانهٔ رزرو. PWA می‌تواند به تجربهٔ وب، قابلیت نصب و امکاناتی مانند بخشی از کار آفلاین را اضافه کند. راهنمای web.dev توضیح می‌دهد که این قابلیت‌ها بر پایهٔ فناوری وب و بهبود تدریجی ساخته می‌شوند.",
+            "اعلان یا کار آفلاین را فقط مخصوص اپ‌های فروشگاهی فرض نکنید؛ از طرف دیگر، وجود عنوان PWA هم سازگاری یکسان روی همهٔ دستگاه‌ها را ثابت نمی‌کند. برای نیاز دقیق شما، مرورگر، سیستم‌عامل، مجوز کاربر و روش پیاده‌سازی باید بررسی شوند. ثبت نهایی سفارش همچنان باید با موجودی و نتیجهٔ معتبر سرور هماهنگ بماند."
+          ],
+          "en": [
+            "A web app usually describes a browser experience where people complete a task, such as a customer portal or booking system. A PWA can add installation and capabilities such as selected offline behaviour. The web.dev guide describes this as progressively enhancing a web-based experience.",
+            "Do not assume notifications or offline behaviour belong exclusively to store-distributed apps. Equally, a PWA label does not establish identical support everywhere. Evaluate the browser, operating system, permission and implementation for your exact requirement. Final order confirmation still needs valid stock and server state."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "کشف‌شدن و بازگشت مشتری دو مسئلهٔ جدا هستند",
+          "en": "Discovery and returning use are different needs"
+        },
+        "paragraphs": {
+          "fa": [
+            "صفحهٔ معرفی خدمت باید برای کسی که هنوز شما را نمی‌شناسد قابل فهم باشد. اما پنل مشتری می‌تواند روی کار کسی تمرکز کند که از قبل ثبت‌نام کرده است. اگر هر دو گروه برایتان مهم‌اند، ممکن است به صفحات عمومی خوب و یک تجربهٔ حساب کاربری مناسب در کنار هم نیاز داشته باشید.",
+            "برای انتخاب میان سایت و اپ، فقط به علاقهٔ خودتان به یک رابط نگاه نکنید. بررسی کنید لینک معرفی در پیام‌رسان، جست‌وجو یا پروفایل شبکهٔ اجتماعی به کجا می‌رسد و کاربر جدید چه قدم‌هایی باید طی کند. دربارهٔ کاربر فعلی هم ببینید کدام کار تکراری واقعاً دشوار است و آیا راه‌حل پیشنهادی آن را ساده‌تر می‌کند."
+          ],
+          "en": [
+            "Public service information needs to make sense to someone unfamiliar with the business. A customer account can focus on people who have already registered. If both groups matter, clear public pages and a useful account experience may be needed together.",
+            "Review where links from messages, search and social profiles lead, and which steps a newcomer must complete. For existing customers, identify a repeated difficulty and assess whether the proposed experience makes that task easier. Personal preference for an interface is a weaker basis for the decision."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "هزینه را برای کل دورهٔ استفاده مقایسه کنید",
+          "en": "Compare costs across the operating period"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیشنهاد قیمت را با فهرست قابلیت‌های یکسان بررسی کنید. ورود کاربر، پنل مدیریت، پرداخت، اعلان، نگهداری داده و پشتیبانی را مشخص کنید. ممکن است دو پیشنهاد نام مشابهی داشته باشند ولی یکی فقط ظاهر رابط را شامل شود و دیگری زیرساخت و مدیریت را هم پوشش دهد.",
+            "برای اپ، انتشار و به‌روزرسانی نسخه‌ها و برای وب، میزبانی و بررسی مرورگرها را هم در نظر بگیرید؛ مسئولیت‌های مشترک مثل امنیت و بازیابی داده برای هر دو باقی می‌ماند. نسبت ثابتی برای ارزان‌تر بودن یکی وجود ندارد. قیمت به محدودهٔ واقعی، اتصال‌ها و روش اجرا بستگی دارد."
+          ],
+          "en": [
+            "Compare quotes against the same requirements: accounts, administration, payments, notifications, data handling and support. Similar labels can conceal different scope, with one proposal covering interface design and another also covering the backend and operational tools.",
+            "Include release and update work for apps and hosting and browser checks for web solutions. Both still need security and recovery arrangements. There is no fixed cost ratio between them; actual functionality, integrations and implementation determine the work."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "سه سناریوی پیشنهادی برای تصمیم اولیه",
+          "en": "Three scenarios for an initial decision"
+        },
+        "paragraphs": {
+          "fa": [
+            "در این سناریوها، پیشنهادها نقطهٔ شروع بررسی هستند و جای آزمون نیاز واقعی را نمی‌گیرند. اگر هنوز مخاطب یا مسیر فروش روشن ندارید، کوچک‌کردن نسخهٔ اول کمک می‌کند فرض‌های کسب‌وکار را با هزینه و پیچیدگی قابل کنترل‌تری بسنجید.",
+            "برای هر انتخاب، یک دلیل قابل بررسی بنویسید: «کاربر باید بدون نصب مشخصات خدمت را ببیند» یا «نیروی ما باید هر روز با یک ابزار خاص داده ثبت کند». این دلیل در جلسهٔ طراحی و برآورد از عبارت «اپ مدرن می‌خواهم» اطلاعات بیشتری می‌دهد."
+          ],
+          "en": [
+            "The following scenarios are starting points, not substitutes for testing real requirements. Where the audience or sales process is still uncertain, a smaller initial scope can help evaluate business assumptions with manageable complexity.",
+            "Write a testable reason for the choice, such as viewing service details without installation or capturing daily field data through a particular accessory. That makes design and estimation discussions more concrete than asking for a modern app."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "معرفی شرکت و دریافت درخواست: ابتدا یک سایت موبایلی قابل استفاده را بررسی کنید.",
+            "مشتری ثبت‌نام‌شده با کارهای تکراری: وب‌اپ، PWA و اپ را روی همان کار مقایسه کنید.",
+            "نیاز ضروری به اتصال دستگاه یا رفتار خاص پس‌زمینه: پیش از انتخاب نهایی نمونهٔ فنی بسازید."
+          ],
+          "en": [
+            "Company information and enquiries: first evaluate a usable mobile website.",
+            "Registered customers with repeated tasks: compare a web app, PWA and app on that task.",
+            "Essential hardware integration or background behaviour: prototype it before committing."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "با این آزمون کوچک، تصمیم را قابل دفاع کنید",
+          "en": "Use a small test to support the choice"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک مسیر اصلی انتخاب کنید؛ برای مثال، هنرجو وارد حساب شود، کلاس بعدی را پیدا کند و یک فایل بفرستد. با چند نفر از مخاطبان واقعی، نمونهٔ پیشنهادی را روی دستگاه خودشان امتحان کنید. ثبت کنید کجا کمک خواسته‌اند، چه چیزی را نفهمیده‌اند و آیا کار تمام شده است.",
+            "در آزمون، اینترنت ضعیف، خروج از حساب، خطای ارسال و بازگشت به کار نیمه‌تمام را هم ببینید. هدف اثبات برتری همیشگی یک فناوری نیست؛ می‌خواهید بفهمید کدام راه برای نیاز فعلی، قابل استفاده و قابل نگهداری است. نتیجهٔ آزمون را پیش از سفارش قابلیت‌های اضافی مرور کنید."
+          ],
+          "en": [
+            "Choose a primary journey, such as signing in, finding the next class and submitting a file. Ask a small group of intended users to try the proposed experience on their own devices. Record where they need help, what they misunderstand and whether the task is completed.",
+            "Include weak connectivity, signed-out states, failed submissions and returning to unfinished work. The purpose is to identify an approach that is usable and maintainable for the current requirement. Review those observations before adding optional functionality."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "چه اطلاعاتی برای برآورد آماده کنید؟",
+          "en": "What to prepare for an estimate"
+        },
+        "paragraphs": {
+          "fa": [
+            "دفعات استفادهٔ مشتری، مسیر اصلی، دستگاه‌های مخاطبان و اتصال‌های لازم را در یک برگه بنویسید. اگر سایت یا اپ قبلی دارید، مشکلات قابل مشاهدهٔ آن را هم مشخص کنید. از تیم بخواهید بگوید چه چیزی بررسی‌شده و کدام نیاز هنوز به تحقیق یا نمونهٔ فنی احتیاج دارد.",
+            "در سوشو می‌توانیم نیاز را در مسیر خدمات طراحی سایت، وب‌اپ یا اپلیکیشن موبایل بررسی کنیم. با «برآورد هوشمند» تعریف اولیهٔ پروژه را شروع کنید و تصمیم نهایی را به نیاز و نتیجهٔ بررسی وصل کنید. داشتن هم‌زمان سایت و اپ فقط زمانی معنی دارد که نقش هرکدام روشن باشد."
+          ],
+          "en": [
+            "Prepare a brief covering usage frequency, the main journey, audience devices and required integrations. Include observable problems with an existing product. Ask the team to distinguish evaluated requirements from those still needing investigation or a prototype.",
+            "SoSho can review the requirement through website, web application or mobile application services. Use the project estimate to begin defining the scope, then connect the final choice to that requirement and the findings. Running a site and an app together makes sense when their respective roles are clear."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا سایت روی گوشی همان اپلیکیشن است؟",
+          "en": "Is a mobile website the same as an app?"
+        },
+        "answer": {
+          "fa": "خیر. سایت در مرورگر باز می‌شود و باید برای موبایل مناسب باشد. اپ می‌تواند شیوهٔ نصب و امکانات متفاوتی داشته باشد. برای مقایسه، قابلیت واقعی و مسیر استفاده را بررسی کنید.",
+          "en": "No. A website opens in a browser and needs an appropriate mobile layout. An app can differ in installation and capabilities. Compare implemented features and the actual journey."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا فقط اپلیکیشن اعلان می‌فرستد؟",
+          "en": "Are notifications exclusive to mobile apps?"
+        },
+        "answer": {
+          "fa": "خیر. برخی تجربه‌های وب هم می‌توانند اعلان داشته باشند، اما پشتیبانی به دستگاه، مرورگر، مجوز و پیاده‌سازی بستگی دارد. قابلیت مورد نیاز را روی گوشی مخاطبان آزمایش کنید.",
+          "en": "No. Some web experiences also support notifications, subject to device, browser, permission and implementation. Test the required behaviour on audience devices."
+        }
+      },
+      {
+        "question": {
+          "fa": "برای کسب‌وکار تازه کدام بهتر است؟",
+          "en": "Which option suits a new business?"
+        },
+        "answer": {
+          "fa": "اگر نیاز اولیه معرفی و دریافت درخواست است، سایت قابل استفاده معمولاً گزینهٔ مناسبی برای بررسی است. نیاز خاص دستگاه یا استفادهٔ مکرر ممکن است انتخاب دیگری را توجیه کند.",
+          "en": "A usable website is a reasonable option to investigate for initial information and enquiries. Essential device features or repeated use may justify another approach."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا بعداً می‌توان اپ را به سایت اضافه کرد؟",
+          "en": "Can an app be added after a website?"
+        },
+        "answer": {
+          "fa": "ممکن است، ولی حساب کاربری، داده و اتصال‌ها باید بررسی شوند. همهٔ سایت‌ها زیرساخت آماده برای اپ ندارند و نباید انتقال بدون کار اضافه را فرض کرد.",
+          "en": "It may be possible, but accounts, data and integrations need review. An existing website does not automatically provide an app-ready backend or eliminate further work."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "راهنمای MDN دربارهٔ طراحی ریسپانسیو",
+          "en": "MDN responsive design guide"
+        },
+        "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design"
+      },
+      {
+        "title": {
+          "fa": "معرفی PWA در web.dev",
+          "en": "Introduction to PWAs on web.dev"
+        },
+        "url": "https://web.dev/learn/pwa/progressive-web-apps"
+      }
+    ]
+  },
+  {
     "slug": "ecommerce-website-launch-guide",
     "title": {
       "fa": "راهنمای طراحی سایت فروشگاهی؛ از اولین محصول تا اولین سفارش",
