@@ -35,6 +35,1599 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    "slug": "ecommerce-website-launch-guide",
+    "title": {
+      "fa": "راهنمای طراحی سایت فروشگاهی؛ از اولین محصول تا اولین سفارش",
+      "en": "Ecommerce Website Design: From First Product to First Order"
+    },
+    "seoTitle": {
+      "fa": "راهنمای طراحی و راه‌اندازی سایت فروشگاهی",
+      "en": "Ecommerce Website Design and Launch Guide"
+    },
+    "excerpt": {
+      "fa": "برای راه‌اندازی فروشگاه اینترنتی از کجا شروع کنیم؟ انتخاب روش ساخت، آماده‌سازی محصول، طراحی خرید موبایلی و آزمون‌های قبل از انتشار را قدم‌به‌قدم بخوانید.",
+      "en": "Plan an online shop step by step: choose a build approach, prepare products, design mobile checkout and test the complete order journey before launch."
+    },
+    "tags": [
+      "Website",
+      "Ecommerce",
+      "UI/UX",
+      "Strategy"
+    ],
+    "publishedAt": "2026-11-07",
+    "coverImage": "/blog/ecommerce-website-launch-guide-editorial-20261107.jpg",
+    "coverImageAlt": {
+      "fa": "ماکت سه‌بعدی فروشگاه در قاب مرورگر، گوشی و سبد خرید با جزئیات مسی و سبز سیج",
+      "en": "A miniature shop inside a browser frame with a phone, shopping basket and copper and sage details"
+    },
+    "directAnswer": {
+      "fa": "طراحی سایت فروشگاهی را با تعریف کالا، مشتری و روش تحویل شروع کنید. سپس روش ساخت را متناسب با مدیریت روزانه و اتصال‌های لازم انتخاب کنید، اطلاعات محصول را آماده کنید و مسیر خرید را روی موبایل بسازید. پیش از انتشار، یک سفارش کامل و حالت‌های ناموفق آن را آزمایش کنید؛ ظاهر صفحهٔ اول فقط یکی از بخش‌های فروشگاه است.",
+      "en": "Start an ecommerce website by defining the product, customer and delivery process. Choose an implementation that fits daily operations and required integrations, prepare product information and design the mobile purchase journey. Before launch, test a complete order and its failure cases. The homepage is only one part of the store."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "پیش از طراحی، مسیر یک سفارش را روی کاغذ بکشید",
+          "en": "Map one complete order before designing pages"
+        },
+        "paragraphs": {
+          "fa": [
+            "فرض کنید یک فروشگاه فرضی لوازم خانه می‌خواهد فروش اینترنتی را شروع کند. مشتری یک گلدان را پیدا می‌کند، رنگ را انتخاب می‌کند، هزینهٔ ارسال را می‌بیند و پرداخت می‌کند. از آن لحظه باید معلوم باشد چه کسی موجودی را کم می‌کند، بسته را آماده می‌کند و پاسخ پیگیری را می‌دهد. این مثال آموزشی، نمونه‌کار یا نتیجهٔ واقعی سوشو نیست.",
+            "همین داستان کوتاه، نیازهای طراحی را روشن می‌کند. اگر رنگ‌ها موجودی جدا دارند، یک تصویر زیبا کافی نیست و انتخاب رنگ باید به موجودی درست وصل شود. اگر سفارش تلفنی هم می‌گیرید، مشخص کنید موجودی فروش حضوری و اینترنتی چطور هماهنگ می‌ماند. پیش از انتخاب قالب، پاسخ این سؤال‌ها را بنویسید."
+          ],
+          "en": [
+            "Consider a hypothetical homeware shop starting online sales. A customer finds a vase, selects a colour, sees delivery costs and pays. Someone must then update stock, pack the parcel and answer tracking enquiries. This is a teaching example, not a SoSho client project or a reported business result.",
+            "That small story exposes design requirements. Separate stock for each colour needs a working variant selector. If telephone and in-person orders continue, decide how their stock will stay aligned with the website. Write down these rules before choosing a theme."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "کالای فیزیکی، فایل یا خدمت می‌فروشید؟",
+            "چه کسی قیمت و موجودی را به‌روز می‌کند؟",
+            "محدودهٔ ارسال و شیوهٔ پیگیری چیست؟",
+            "سفارش ناموفق یا درخواست مرجوعی را چه کسی بررسی می‌کند؟"
+          ],
+          "en": [
+            "Are you selling physical goods, downloads or services?",
+            "Who maintains prices and stock?",
+            "Where do you deliver, and how is delivery tracked?",
+            "Who handles failed orders and return requests?"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "فروشگاه‌ساز، ووکامرس یا توسعهٔ اختصاصی؟",
+          "en": "Hosted builder, WooCommerce or a custom build?"
+        },
+        "paragraphs": {
+          "fa": [
+            "این انتخاب را با یک کار واقعی بسنجید: مسئول فروش بتواند بدون کمک برنامه‌نویس محصول اضافه کند و سفارش را پیدا کند. در فروشگاه‌ساز آماده، محدودیت قالب، خروجی گرفتن از داده، هزینهٔ دوره‌ای و اتصال به پرداخت و ارسال را بررسی کنید. در وردپرس و ووکامرس، سازگاری افزونه‌ها و مسئول به‌روزرسانی اهمیت دارد. در توسعهٔ اختصاصی هم پنل مدیریت، امنیت و نگهداری باید در محدودهٔ کار باشند.",
+            "برای پروژه‌ای با فرایند خاص، مثل قیمت‌گذاری عمده بر اساس نوع مشتری یا اتصال چند انبار، پیش از انتخاب ابزار یک نمونهٔ کوچک از سخت‌ترین بخش بخواهید. نام فناوری به‌تنهایی مناسب‌بودن راه‌حل را ثابت نمی‌کند. مقایسهٔ درست با نیاز یکسان، امکانات یکسان و مسئولیت‌های روشن انجام می‌شود."
+          ],
+          "en": [
+            "Judge each approach against a real task: can the shop manager add a product and find an order without a developer? For a hosted builder, examine design limits, data export, recurring charges and local payment and shipping integrations. For WordPress and WooCommerce, review extension compatibility and update responsibilities. A custom build also needs administration, security and maintenance in scope.",
+            "For unusual processes, such as customer-specific wholesale pricing or several warehouses, request a small demonstration of the hardest integration first. A technology name does not establish suitability. Compare proposals against the same requirements, features and responsibilities."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "دامنه و حساب‌ها را از ابتدا قابل تحویل نگه دارید",
+          "en": "Keep the domain and service accounts transferable"
+        },
+        "paragraphs": {
+          "fa": [
+            "دامنه، میزبانی، حساب پرداخت و سرویس پیام باید با مالکیت و دسترسی مشخص راه‌اندازی شوند. روشن کنید تمدید هرکدام با چه کسی است و اگر همکاری با سازنده پایان پیدا کرد، چگونه فروشگاه را اداره می‌کنید. نام سرویس‌ها و تاریخ تمدید را در یک فهرست داخلی نگه دارید؛ رمزها را در پیام‌های گروهی یا فایل عمومی ننویسید.",
+            "پیش از خرید میزبانی، حجم عکس‌ها، نیاز پنل، محل داده و روش بازیابی را با تیم فنی مرور کنید. عبارت «بکاپ داریم» کافی نیست: یک نسخهٔ آزمایشی باید در محیط جدا بازیابی شود تا معلوم شود فایل‌ها و سفارش‌ها واقعاً قابل برگشت هستند."
+          ],
+          "en": [
+            "Establish clear ownership and access for the domain, hosting, payment account and messaging service. Agree who renews each service and how you would operate the shop after a change of supplier. Keep an internal service and renewal register; avoid putting passwords in group messages or public files.",
+            "Review image volume, administration requirements, data location and recovery with the technical team before buying hosting. Ask for a backup to be restored in a separate test environment so recoverability is demonstrated rather than assumed."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "اطلاعات محصول را پیش از پرکردن صفحات آماده کنید",
+          "en": "Prepare product information before populating pages"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای هر محصول یک پروندهٔ کوچک بسازید: نام روشن، عکس متعلق به خودتان یا دارای مجوز، ویژگی‌های قابل مقایسه، تفاوت مدل‌ها و اطلاعات لازم برای تحویل. برای همان گلدان فرضی، اندازه، جنس، رنگ و محتوای بسته به تصمیم خریدار کمک می‌کند؛ جمله‌های کلی دربارهٔ کیفیت جای این اطلاعات را نمی‌گیرند.",
+            "توضیح صفحه را از سؤال‌های واقعی مشتری بسازید. آیا رنگ تصویر با محصول فرق دارد؟ چه چیزی در بسته نیست؟ اگر کالا موجود نباشد چه اتفاقی می‌افتد؟ پاسخ‌ها باید قابل نگهداری باشند. هنگام تغییر محصول، عکس، مشخصات و اطلاعات سبد خرید را با هم مرور کنید."
+          ],
+          "en": [
+            "Prepare a small record for each product: a clear name, owned or licensed photography, comparable specifications, variant differences and delivery information. For the example vase, dimensions, material, colour and package contents support a decision better than general praise about quality.",
+            "Use actual customer questions to shape the page. Does the colour vary from the photograph? What is excluded from the package? What happens when stock runs out? Keep the answers maintainable, and review images, specifications and basket information together when a product changes."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "طراحی موبایل را با انجام خرید بسنجید",
+          "en": "Evaluate mobile design by completing a purchase"
+        },
+        "paragraphs": {
+          "fa": [
+            "صفحه را روی گوشی واقعی باز کنید و بدون توضیح شفاهی از یک نفر بخواهید کالای مشخصی پیدا کند. آیا فیلترها قابل فهم‌اند؟ انتخاب رنگ مشخص است؟ دکمهٔ خرید زیر پنجرهٔ مزاحم پنهان می‌شود؟ زیبابودن تصویر دسکتاپ پاسخ این سؤال‌ها را نمی‌دهد.",
+            "راهنمای فرم‌های W3C بر برچسب روشن، درخواست اطلاعات ضروری و پیام قابل فهم برای خطا یا تکمیل کار تأکید دارد. در تسویه‌حساب، خطای شمارهٔ تماس را کنار همان فیلد نشان دهید و اطلاعات درست واردشده را نگه دارید. حرکت با صفحه‌کلید و دیده‌شدن محل تمرکز را هم بررسی کنید."
+          ],
+          "en": [
+            "Open the shop on a real phone and ask someone to find a specific product without verbal guidance. Are filters understandable? Is the selected colour obvious? Can an overlay cover the purchase button? A polished desktop screenshot cannot answer these questions.",
+            "The W3C forms tutorial recommends clear labels, necessary information only and understandable success and error feedback. Apply this at checkout: place contact-number errors beside the relevant field and retain valid entries. Also check keyboard operation and visible focus."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "پرداخت و ارسال را یک مسیر پیوسته طراحی کنید",
+          "en": "Design payment and delivery as one continuous journey"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیش از ورود به پرداخت، مشتری باید بداند چه چیزی می‌خرد و مبلغ نهایی شامل چه بخش‌هایی است. هزینهٔ ارسال را در زمان مناسبی نشان دهید و روش محاسبهٔ آن را روشن کنید. اگر بعضی شهرها یا کالاها شرایط متفاوت دارند، همان موقع توضیح دهید تا کاربر مجبور به حدس‌زدن نباشد.",
+            "بعد از برگشت از درگاه، وضعیت سفارش باید با نتیجهٔ معتبر پرداخت هماهنگ باشد. بستن صفحه، دوبار زدن دکمه یا قطع اینترنت نباید باعث اعلام اشتباه موفقیت یا ساخت سفارش تکراری شود. این حالت‌ها را به تیم فنی بدهید تا نتیجهٔ مورد انتظار هرکدام را مشخص و آزمایش کند."
+          ],
+          "en": [
+            "Before entering payment, the customer should understand the order and the components of the final amount. Show delivery charges at an appropriate point and explain how they are calculated. Make any product or destination exceptions visible when they become relevant.",
+            "The order status after returning from the payment service should match a verified payment result. Closing the page, pressing twice or losing connectivity must not produce a false success message or duplicate orders. Give these scenarios to the technical team and agree the expected behaviour for each."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "سئو را با دادهٔ درست و صفحات قابل فهم شروع کنید",
+          "en": "Start SEO with clear pages and accurate product data"
+        },
+        "paragraphs": {
+          "fa": [
+            "نام دسته‌ها را بر اساس چیزی انتخاب کنید که مشتری می‌فهمد. هر صفحهٔ محصول باید عنوان و توضیح مخصوص خودش را داشته باشد و از دستهٔ مرتبط قابل پیدا کردن باشد. اگر یک کالا حذف یا ناموجود شد، برای صفحهٔ قبلی تصمیم بگیرید تا مسیر کاربر بی‌دلیل قطع نشود.",
+            "راهنمای Google Search Central توضیح می‌دهد که دادهٔ ساخت‌یافتهٔ محصول می‌تواند به درک قیمت، موجودی و اطلاعات کالا کمک کند. این داده باید با محتوای قابل مشاهده هماهنگ باشد. افزودن آن به معنی تضمین نمایش ویژه یا رتبهٔ مشخص نیست؛ ابتدا صحت صفحه و قابلیت بررسی آن را بسنجید."
+          ],
+          "en": [
+            "Choose category names customers understand. Give each product its own title and description, and make it reachable from the relevant category. Decide how old URLs will behave when products are removed or unavailable so visitors are not left at unnecessary dead ends.",
+            "Google Search Central explains that product structured data can help it understand details such as price and availability. Keep that data consistent with the visible page. It does not guarantee a rich result or a particular ranking; first verify the accuracy and accessibility of the page itself."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "نسخهٔ اول را با یک سناریوی کامل تحویل بگیرید",
+          "en": "Accept the first release through complete scenarios"
+        },
+        "paragraphs": {
+          "fa": [
+            "به‌جای تحویل‌گرفتن مجموعه‌ای از صفحات، یک خرید کامل انجام دهید: محصول را انتخاب کنید، نشانی بدهید، پرداخت آزمایشی مورد تأیید ارائه‌دهنده را انجام دهید و سفارش را در پنل پیدا کنید. بعد همان مسیر را با موجودی تمام‌شده، پرداخت لغوشده و نشانی ناقص تکرار کنید.",
+            "چک‌لیست پیشنهادی ما برای پذیرش پروژه، زیر آمده است. نتیجهٔ هر آزمون را با دستگاه و تاریخ ثبت کنید و اصلاح خطاهای مانع خرید را قبل از انتشار نهایی انجام دهید. حالت آزمایشی نباید با پرداخت واقعی یا سفارش مشتری اشتباه گرفته شود."
+          ],
+          "en": [
+            "Accept a complete purchase rather than a collection of pages: select a product, enter delivery details, use the payment provider’s approved test process and locate the order in administration. Repeat with exhausted stock, cancelled payment and an incomplete address.",
+            "Use the suggested acceptance list below. Record the device, date and result, and resolve errors that prevent ordering before launch. Keep test payments and orders distinguishable from real customer activity."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "خرید روی موبایل و دسکتاپ و بررسی نمایش مبلغ نهایی",
+            "ثبت یک‌بارهٔ سفارش و نمایش روشن وضعیت پرداخت",
+            "تغییر موجودی و آزمایش کالای ناموجود",
+            "مشاهده و پیگیری سفارش در پنل مسئول فروش",
+            "بازیابی بکاپ آزمایشی و تحویل دسترسی‌ها"
+          ],
+          "en": [
+            "Purchase on mobile and desktop with the final total visible",
+            "One order recorded with a clear payment status",
+            "Stock updates and out-of-stock behaviour",
+            "Order lookup and processing by the shop manager",
+            "Test backup restoration and access handover"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "بعد از انتشار، مسئول کارهای روزمره را مشخص کنید",
+          "en": "Assign everyday responsibilities after launch"
+        },
+        "paragraphs": {
+          "fa": [
+            "فروشگاه بعد از انتشار به رسیدگی نیاز دارد: بررسی پرداخت ناموفق، پاسخ به مشتری، تغییر موجودی و به‌روزرسانی نرم‌افزار. این کارها را بین صاحب کسب‌وکار و تیم پشتیبانی تقسیم کنید. فقط تعداد بازدید را نبینید؛ سؤال‌های تکراری و نقطه‌هایی که مشتری در خرید متوقف می‌شود هم ارزش بررسی دارند.",
+            "برای شروع همکاری با سوشو، فهرست کالاها، روش ارسال و یک نمونه از مسیر سفارش خودتان را آماده کنید. در صفحهٔ خدمات طراحی سایت می‌توانید مسیر همکاری را ببینید و از «برآورد هوشمند» برای تعریف اولیهٔ نیاز استفاده کنید. تعیین هزینه به امکانات، اتصال‌ها و مسئولیت نگهداری پروژه بستگی دارد."
+          ],
+          "en": [
+            "A launched shop still needs failed-payment checks, customer replies, stock updates and software maintenance. Divide these responsibilities between the business and support team. Review recurring customer questions and obstacles in the purchase journey alongside visit counts.",
+            "To discuss a shop with SoSho, prepare your product list, delivery process and an example order journey. The website design service page explains the collaboration path, and the project estimate can help define an initial scope. Cost depends on features, integrations and maintenance responsibilities."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا برای شروع حتماً سایت اختصاصی لازم است؟",
+          "en": "Do I need a custom-built shop to start?"
+        },
+        "answer": {
+          "fa": "خیر. انتخاب به فرایند فروش، اتصال‌ها و توان مدیریت روزانه بستگی دارد. یک خرید واقعی و سخت‌ترین نیاز خود را روی گزینه‌های پیشنهادی بررسی کنید.",
+          "en": "No. The choice depends on your sales process, integrations and operational capacity. Test a real purchase journey and your hardest requirement against the proposed options."
+        }
+      },
+      {
+        "question": {
+          "fa": "با چند محصول می‌توان فروشگاه را راه انداخت؟",
+          "en": "How many products are needed to launch?"
+        },
+        "answer": {
+          "fa": "حد ثابت و مشترکی وجود ندارد. مجموعه‌ای انتخاب کنید که اطلاعات، موجودی و تحویل آن آماده باشد؛ کامل‌بودن مسیر سفارش از زیادبودن محصول مهم‌تر است.",
+          "en": "There is no universal minimum. Choose a range with ready information, stock and fulfilment. A complete order process matters more than a large catalogue."
+        }
+      },
+      {
+        "question": {
+          "fa": "هزینهٔ طراحی سایت فروشگاهی چگونه مشخص می‌شود؟",
+          "en": "How is an ecommerce build priced?"
+        },
+        "answer": {
+          "fa": "نوع کالا، تنوع‌ها، پرداخت، ارسال، اتصال انبار، ورود اطلاعات و پشتیبانی روی محدودهٔ کار اثر دارند. برای مقایسهٔ پیشنهادها، این موارد را یکسان و مکتوب کنید.",
+          "en": "Products, variants, payments, shipping, inventory integrations, data entry and support affect scope. Put the same requirements in writing before comparing proposals."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا راه‌اندازی فروشگاه به معنی فروش قطعی است؟",
+          "en": "Does launching a shop guarantee sales?"
+        },
+        "answer": {
+          "fa": "خیر. سایت یک ابزار فروش است؛ تقاضا، محصول، قیمت‌گذاری، جذب مخاطب و کیفیت تحویل هم نقش دارند. نتیجه را با دادهٔ واقعی بررسی کنید.",
+          "en": "No. The website supports selling; demand, products, pricing, acquisition and fulfilment also matter. Evaluate outcomes using actual data."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "راهنمای رسمی آماده‌سازی فروشگاه ووکامرس",
+          "en": "WooCommerce store setup guide"
+        },
+        "url": "https://woocommerce.com/document/woocommerce-setup-wizard/"
+      },
+      {
+        "title": {
+          "fa": "راهنمای دسترس‌پذیری فرم‌ها در W3C",
+          "en": "W3C accessible forms tutorial"
+        },
+        "url": "https://www.w3.org/WAI/tutorials/forms/"
+      },
+      {
+        "title": {
+          "fa": "راهنمای گوگل برای دادهٔ محصول",
+          "en": "Google guidance on product data"
+        },
+        "url": "https://developers.google.com/search/docs/specialty/ecommerce/share-your-product-data-with-google"
+      }
+    ]
+  },
+  {
+    "slug": "choose-website-design-team",
+    "title": {
+      "fa": "چگونه تیم طراحی سایت انتخاب کنیم؟ راهنمای بررسی پیشنهاد تا تحویل",
+      "en": "How to Choose a Web Design Team: From Proposal to Handover"
+    },
+    "seoTitle": {
+      "fa": "انتخاب تیم طراحی سایت؛ معیارها و چک‌لیست",
+      "en": "How to Choose a Web Design Team"
+    },
+    "excerpt": {
+      "fa": "پیش از سفارش طراحی سایت، نمونه‌کار، پیشنهاد فنی، هزینه‌های نگهداری و شیوهٔ تحویل را چطور بسنجیم؟ راهنمای عملی برای انتخاب آگاهانهٔ تیم سازنده.",
+      "en": "Evaluate portfolios, technical proposals, maintenance costs and handover arrangements with practical questions before choosing a team to build your website."
+    },
+    "tags": [
+      "Website",
+      "Strategy",
+      "UI/UX"
+    ],
+    "publishedAt": "2026-11-07",
+    "coverImage": "/blog/choose-website-design-team-editorial-20261107.jpg",
+    "coverImageAlt": {
+      "fa": "ماکت سه‌بعدی رابط وب و موبایل روی میز بررسی با کولیس مسی و نشانه‌های ارزیابی",
+      "en": "Three-dimensional web and mobile prototypes on a review table with a copper caliper and evaluation tiles"
+    },
+    "directAnswer": {
+      "fa": "برای انتخاب تیم طراحی سایت، یک شرح نیاز یکسان به گزینه‌ها بدهید، نمونه‌کار مرتبط را روی موبایل بررسی کنید و مسئولیت محتوا، توسعه، پشتیبانی و تحویل دسترسی‌ها را مکتوب بخواهید. پیشنهاد مناسب باید خروجی قابل آزمایش، هزینه‌های روشن و مسیر نگهداری مشخص داشته باشد؛ رتبه‌بندی تبلیغاتی یا ظاهر نمونه‌کار به‌تنهایی معیار کافی نیست.",
+      "en": "Give candidate web design teams the same brief, examine relevant work on mobile and request written responsibilities for content, development, support and access handover. A useful proposal defines testable outcomes, clear costs and ongoing maintenance. Promotional rankings and portfolio appearance alone are insufficient evidence."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "اول مشخص کنید سایت قرار است چه کاری انجام دهد",
+          "en": "Define the job the website needs to do"
+        },
+        "paragraphs": {
+          "fa": [
+            "اگر درخواست شما فقط «یک سایت حرفه‌ای می‌خواهم» باشد، هر تیم می‌تواند برداشت متفاوتی داشته باشد. برای یک مجموعهٔ خدماتی فرضی، نیاز دقیق‌تر این است: بازدیدکننده خدمت مناسب را پیدا کند، مراحل همکاری را بفهمد و درخواستش را با اطلاعات کافی بفرستد. این توضیح، مبنای قابل بررسی‌تری برای طراحی و پیشنهاد قیمت می‌سازد.",
+            "یک برگهٔ کوتاه آماده کنید: مخاطب کیست، چه کاری باید انجام دهد، چه اطلاعاتی دارید و چه کسی بعداً سایت را مدیریت می‌کند. این برگه را به همهٔ گزینه‌ها بدهید. وقتی نیازها متفاوت منتقل شوند، مقایسهٔ عدد نهایی پیشنهادها معنای روشنی ندارد."
+          ],
+          "en": [
+            "“I need a professional website” leaves room for very different interpretations. A hypothetical service business can be more precise: visitors should find the right service, understand the process and submit an enquiry with useful information. That gives design and pricing a clearer basis.",
+            "Write a short brief covering the audience, the task they need to complete, available information and the future site manager. Give the same brief to every candidate. Comparing prices is difficult when suppliers have received different requirements."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "نمونه‌کار مرتبط را باز کنید و کار واقعی انجام دهید",
+          "en": "Use a relevant portfolio example, not just its screenshot"
+        },
+        "paragraphs": {
+          "fa": [
+            "از تیم بخواهید نقشش در هر نمونه را توضیح دهد: طراحی رابط، توسعه، محتوا یا پشتیبانی؟ یک تصویر ارائه‌شده ممکن است طرح مفهومی باشد و هنوز سایت فعالی پشت آن نباشد. طرح مفهومی می‌تواند توان بصری را نشان دهد، اما شواهد اجرای پرداخت یا مدیریت سفارش محسوب نمی‌شود.",
+            "نمونهٔ مرتبط را روی گوشی باز کنید. برای سایت خدماتی، یک خدمت و راه تماس را پیدا کنید؛ برای فروشگاه، یک کالا را تا سبد خرید ببرید. اگر امکان دیدن پنل وجود دارد، از تیم بخواهید محیط نمایشی با دادهٔ ساختگی نشان دهد، نه اطلاعات خصوصی مشتریان قبلی."
+          ],
+          "en": [
+            "Ask what the team did in each example: interface design, development, content or support? A portfolio image may be a concept rather than a working site. Concept work can demonstrate visual ability, but does not establish that payments or order management were implemented.",
+            "Open a relevant example on your phone. Find a service and contact route, or take a product to the basket. Where administration matters, request a demonstration with synthetic data rather than access to another client’s private information."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "از پیشنهاد فنی، خروجی قابل تحویل بخواهید",
+          "en": "Ask the proposal to define concrete deliverables"
+        },
+        "paragraphs": {
+          "fa": [
+            "عبارت‌هایی مثل «طراحی اختصاصی»، «سئوی کامل» و «امنیت بالا» تا وقتی جزئیات ندارند، قابل مقایسه نیستند. بپرسید طراحی شامل کدام صفحات و حالت‌هاست، چه چیزی آماده استفاده می‌شود و چه چیزی برای شما ساخته می‌شود. مسئول نوشتن متن، خرید عکس و ورود اطلاعات هم باید مشخص باشد.",
+            "برای هر بخش یک معیار پذیرش پیشنهاد کنید. مثلاً درخواست تماس باید یک‌بار ثبت شود، بعد از ارسال پیام روشن نشان بدهد و مدیر بتواند آن را پیدا کند. تعداد صفحه به‌تنهایی پیچیدگی فرم، اتصال‌ها و پنل مدیریت را توصیف نمی‌کند."
+          ],
+          "en": [
+            "Terms such as “custom design”, “complete SEO” and “high security” are hard to compare without detail. Ask which pages and states are included, which components are prebuilt and which will be created for you. Assign copywriting, image licensing and data entry explicitly.",
+            "Suggest an acceptance criterion for each feature. For example, an enquiry should be stored once, show a clear confirmation and be retrievable by the manager. Page count alone does not describe the complexity of forms, integrations or administration."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "فهرست صفحه‌ها و حالت‌های خطا و خالی",
+            "قابلیت‌های پنل و اتصال به سرویس‌های دیگر",
+            "وظیفهٔ تهیه و ورود محتوا",
+            "تعداد و محدودهٔ دورهای بازبینی",
+            "آزمون و معیار پذیرش هر قابلیت"
+          ],
+          "en": [
+            "Pages and their empty and error states",
+            "Administration features and integrations",
+            "Content preparation and entry responsibilities",
+            "Included review rounds and their scope",
+            "Acceptance checks for each feature"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "روش ساخت باید با نیاز و نگهداری شما توضیح داده شود",
+          "en": "The implementation should fit both use and maintenance"
+        },
+        "paragraphs": {
+          "fa": [
+            "از تیم نخواهید فقط یک نام فناوری بگوید؛ بپرسید انتخابش چه اثری روی کار روزانهٔ شما دارد. چه کسی متن را تغییر می‌دهد؟ افزودن خدمت تازه چطور انجام می‌شود؟ اگر اتصال بیرونی قطع شود چه دیده می‌شود؟ پاسخ باید با نیاز شما و یک نمونهٔ قابل فهم ارتباط داشته باشد.",
+            "اگر نیاز دشوار یا نامطمئنی دارید، مثل اتصال نرم‌افزار قدیمی انبار به سایت، آن را به انتهای پروژه موکول نکنید. پیشنهاد ما بررسی محدود همان اتصال پیش از تعهد به کل پیاده‌سازی است. نتیجهٔ بررسی باید محدودیت‌ها و کار باقی‌مانده را روشن کند، نه فقط یک نمایش ظاهری باشد."
+          ],
+          "en": [
+            "Ask what the technology choice means for daily operations. Who changes text? How is a new service added? What happens when an external integration is unavailable? The explanation should connect to your requirements and a demonstration you can understand.",
+            "Investigate difficult or uncertain requirements early, such as connecting a legacy inventory system. Our recommendation is a bounded investigation before committing to the entire implementation. Its output should identify limitations and remaining work, beyond a visual demonstration."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "کیفیت را با آزمون کوچک و روشن بسنجید",
+          "en": "Evaluate quality through small, explicit checks"
+        },
+        "paragraphs": {
+          "fa": [
+            "در جلسهٔ ارائه، فقط به حرکت‌ها و رنگ‌ها نگاه نکنید. یک فرم را ناقص بفرستید، با صفحه‌کلید حرکت کنید و اندازهٔ صفحه را کوچک کنید. راهنمای W3C برای فرم‌ها، برچسب، دستورالعمل و پیام خطای قابل فهم را بخشی از تجربهٔ قابل استفاده معرفی می‌کند. این موارد را در نمونه و معیار تحویل پروژه بررسی کنید.",
+            "از تیم بخواهید توضیح دهد عملکرد را روی چه صفحه و دستگاهی بررسی کرده و چه چیزی در گزارش اندازه‌گیری شده است. یک امتیاز بدون نام صفحه، شرایط بررسی و تاریخ، شواهد کاملی نیست. آزمون‌ها باید صفحهٔ محصول، فرم یا مسیر اصلی کسب‌وکار شما را هم پوشش دهند."
+          ],
+          "en": [
+            "Look beyond colour and animation during a presentation. Submit an incomplete form, navigate with a keyboard and reduce the viewport. W3C’s forms guidance covers labels, instructions and understandable feedback. Include these in your review and acceptance requirements.",
+            "Ask which page and device were used for performance checks and what the report measures. A score without a page, conditions and date provides incomplete evidence. Checks should also cover the product page, form or journey that matters to your business."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "هزینهٔ ساخت و ادارهٔ سایت را جداگانه بشناسید",
+          "en": "Separate build costs from operating costs"
+        },
+        "paragraphs": {
+          "fa": [
+            "دو پیشنهاد با رقم اولیهٔ متفاوت ممکن است خدمات متفاوتی داشته باشند. یکی فقط اجرا را شامل می‌شود و دیگری ورود محتوا، آموزش و دوره‌ای از پشتیبانی را هم در نظر گرفته است. هزینهٔ دامنه، میزبانی، مجوز ابزارها و تغییرهای بعدی را کنار هزینهٔ ساخت ببینید؛ لازم نیست همه در یک بسته باشند، اما باید روشن باشند.",
+            "برای مقایسه، از هر تیم بخواهید اقلام یکسان را مشخص کند و موارد خارج از محدوده را بنویسد. دربارهٔ شیوهٔ محاسبهٔ تغییرات و هزینهٔ تمدید سؤال کنید. برآورد دقیق بدون شناخت امکانات و اتصال‌ها ممکن نیست و انتخاب صرفاً بر اساس کمترین عدد می‌تواند بخش‌های مهمی را نادیده بگذارد."
+          ],
+          "en": [
+            "Different initial prices may cover different services. One proposal may include implementation only, while another includes content entry, training and a support period. Review domain, hosting, software licences and later changes alongside the build. They can be billed separately, but should be visible.",
+            "Ask each team to identify the same items and list exclusions. Discuss how changes and renewals are priced. Reliable estimation needs defined features and integrations; choosing solely by the smallest headline figure can overlook necessary work."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "زمان‌بندی باید به ورودی‌ها و تأییدها وصل باشد",
+          "en": "Connect the schedule to inputs and approvals"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک تاریخ پایان بدون روشن‌بودن محتوا و مسئول تأیید، تصویر کاملی از زمان‌بندی نمی‌دهد. مشخص کنید لوگو، متن، عکس و اطلاعات محصول چه زمانی آماده می‌شود و چه کسی دربارهٔ طرح تصمیم می‌گیرد. اگر چند نفر باید نظر بدهند، یک مسئول جمع‌بندی بازخورد تعیین کنید.",
+            "مراحل قابل مشاهده بخواهید: تأیید ساختار، دیدن نمونهٔ صفحه، بررسی نسخهٔ قابل استفاده و رفع خطاهای پذیرش. بعد از هر مرحله معلوم باشد چه چیزی تأیید شده و چه چیزی هنوز قابل تغییر است. تغییر نیاز طبیعی است؛ اثر آن بر زمان و هزینه باید پیش از اجرا روشن شود."
+          ],
+          "en": [
+            "An end date is incomplete without content and approval responsibilities. Agree when the logo, text, photographs and product information will arrive, and who makes design decisions. Where several people review the work, appoint one person to consolidate feedback.",
+            "Request visible milestones: structure approval, a sample page, a usable version and acceptance fixes. Record what has been agreed at each stage and what remains open. Requirements can change, but their effect on time and cost should be clear before implementation."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "تحویل سایت را به تحویل دسترسی و آموزش وصل کنید",
+          "en": "Make access and training part of handover"
+        },
+        "paragraphs": {
+          "fa": [
+            "قبل از شروع بپرسید در پایان دقیقاً چه چیزهایی تحویل می‌گیرید. دامنه و حساب‌ها، فایل‌های طراحی در صورت توافق، کد یا خروجی قابل انتقال، راهنمای مدیریت و روش بازیابی باید متناسب با مدل همکاری مشخص باشند. در سرویس‌های آماده ممکن است انتقال کد ممکن نباشد؛ در آن صورت خروجی داده و محدودیت جابه‌جایی را از ابتدا بدانید.",
+            "یک جلسهٔ آموزش با کارهای واقعی خودتان بخواهید: تغییر شمارهٔ تماس، افزودن محصول یا پیدا کردن پیام جدید. دسترسی مدیر را با یک حساب شخصی و قابل لغو دریافت کنید و دربارهٔ نگهداری امن دسترسی‌ها توافق کنید. تحویل نباید به ارسال یک لینک خلاصه شود."
+          ],
+          "en": [
+            "Before starting, ask exactly what handover includes. Define ownership and transfer arrangements for accounts, agreed design files, source or exportable output, administration instructions and recovery procedures. Hosted platforms may not offer source transfer; understand data export and migration limits upfront.",
+            "Request training built around your tasks: editing contact details, adding a product or finding a new message. Use individually assigned, revocable administrative access and agree secure credential handling. Handover should provide the means to operate the site."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "پشتیبانی و تغییر جدید را از هم قابل تشخیص کنید",
+          "en": "Clarify support, defect fixes and new work"
+        },
+        "paragraphs": {
+          "fa": [
+            "عبارت «پشتیبانی داریم» را با چند سؤال باز کنید: مسیر ثبت درخواست چیست، چه ساعت‌هایی بررسی می‌شود، خطا چگونه اولویت می‌گیرد و چه کاری هزینهٔ جدا دارد؟ زمان پاسخ با زمان رفع مشکل یکسان نیست. خرابی درگاه بیرونی هم ممکن است به همکاری سرویس دیگری نیاز داشته باشد.",
+            "یک نمونهٔ روشن بنویسید: فرم مطابق توافق کار نمی‌کند، پس باید در فرایند رفع خطا بررسی شود؛ افزودن فرم تازه با منطق متفاوت، درخواست جدید است. نحوهٔ تشخیص و بررسی اختلاف را پیشاپیش مشخص کنید تا پشتیبانی به برداشت شخصی وابسته نباشد."
+          ],
+          "en": [
+            "Unpack the promise of support: how are requests submitted, when are they reviewed, how are incidents prioritised and what incurs a separate charge? Response time and resolution time are different. An external payment outage may also require another provider’s involvement.",
+            "Agree concrete examples. A form failing its accepted requirements belongs in the defect review process; adding a different form with new rules is new work. Define how disagreements will be reviewed so the distinction does not depend on assumptions."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "چک‌لیست کوتاه جلسهٔ انتخاب تیم",
+          "en": "A short checklist for the selection meeting"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیشنهاد ما این است که بعد از جلسه، کنار هر سؤال «پاسخ روشن»، «نیازمند بررسی» یا «نامشخص» بنویسید. برای هر ادعا مدرک مرتبط بخواهید، اما درخواست اطلاعات محرمانهٔ دیگر مشتری‌ها نکنید. اگر پاسخ مهمی نامشخص است، همان مورد را پیش از تصمیم بعدی روشن کنید.",
+            "برای صحبت با سوشو، شرح کوتاه کسب‌وکار، مسیر اصلی مشتری و امکانات ضروری را آماده کنید. صفحهٔ خدمات طراحی سایت و «برآورد هوشمند» نقطهٔ شروع هستند. پیشنهاد نهایی باید بر اساس همان نیازها بررسی شود؛ نام استودیو جای معیار روشن و خروجی قابل تحویل را نمی‌گیرد."
+          ],
+          "en": [
+            "After the meeting, mark each question as answered, needing investigation or unclear. Request relevant evidence without asking for other clients’ confidential information. Resolve important unknowns before moving to the next commitment.",
+            "For a discussion with SoSho, bring a business brief, the main customer journey and essential features. The website design service page and project estimate offer starting points. Evaluate the final proposal against those requirements and concrete deliverables."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "نقش تیم در نمونه‌کار مشابه چه بوده است؟",
+            "کدام خروجی‌ها و آزمون‌ها در پیشنهاد نوشته شده‌اند؟",
+            "هزینهٔ دوره‌ای و کار خارج از محدوده چیست؟",
+            "مالک حساب‌ها و مسئول تمدید و بکاپ چه کسی است؟",
+            "تحویل، آموزش و پشتیبانی چگونه انجام می‌شود؟"
+          ],
+          "en": [
+            "What was the team’s role in comparable work?",
+            "Which deliverables and checks are written into the proposal?",
+            "What are the recurring costs and exclusions?",
+            "Who owns accounts and handles renewals and backups?",
+            "How do handover, training and support work?"
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "شرکت بزرگ بهتر است یا تیم کوچک؟",
+          "en": "Is a large company better than a small team?"
+        },
+        "answer": {
+          "fa": "اندازه به‌تنهایی کیفیت یا تناسب را نشان نمی‌دهد. نقش‌ها، نمونهٔ مرتبط، ظرفیت رسیدگی و مسئول پاسخ‌گویی را با نیاز پروژه مقایسه کنید.",
+          "en": "Size alone does not establish quality or fit. Compare roles, relevant work, delivery capacity and accountability against your project needs."
+        }
+      },
+      {
+        "question": {
+          "fa": "چند پیشنهاد قیمت بگیریم؟",
+          "en": "How many proposals should I request?"
+        },
+        "answer": {
+          "fa": "تعداد ثابتی لازم نیست. گزینه‌هایی را بررسی کنید که می‌توانند به یک شرح نیاز یکسان پاسخ مشخص بدهند؛ پیشنهادهای مبهم با تعداد بیشتر قابل مقایسه نمی‌شوند.",
+          "en": "There is no fixed number. Focus on candidates who can answer the same brief clearly. More vague proposals do not make comparison easier."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا نمونه‌کار زیبا برای تصمیم کافی است؟",
+          "en": "Is an attractive portfolio enough?"
+        },
+        "answer": {
+          "fa": "خیر. نقش واقعی تیم، کارکرد مسیر اصلی، تجربهٔ موبایل، مدیریت محتوا و شرایط تحویل را هم بررسی کنید. طرح مفهومی را با سایت اجراشده یکسان نگیرید.",
+          "en": "No. Check the team’s actual contribution, the main journey, mobile use, administration and handover. Distinguish concept designs from implemented sites."
+        }
+      },
+      {
+        "question": {
+          "fa": "اگر بودجه محدود باشد، از چه چیزی کم کنیم؟",
+          "en": "What should I reduce when the budget is limited?"
+        },
+        "answer": {
+          "fa": "پیشنهاد ما کوچک‌کردن دامنهٔ نسخهٔ اول و حذف امکانات غیرضروری است. مسیر اصلی مشتری، مدیریت قابل استفاده و مسئولیت نگهداری را روشن نگه دارید.",
+          "en": "Our recommendation is a smaller initial scope with fewer optional features. Keep the main customer journey, usable administration and maintenance responsibilities clearly defined."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "راهنمای W3C برای فرم‌های قابل استفاده و دسترس‌پذیر",
+          "en": "W3C guidance on accessible forms"
+        },
+        "url": "https://www.w3.org/WAI/tutorials/forms/"
+      }
+    ]
+  },
+  {
+    "slug": "react-native-mobile-app-business-benefits",
+    "title": {
+      "fa": "اپلیکیشن با React Native؛ چه کمکی به کسب‌وکار شما می‌کند؟",
+      "en": "React Native Apps: Practical Benefits for Your Business"
+    },
+    "seoTitle": {
+      "fa": "مزایای React Native برای اپلیکیشن کسب‌وکار",
+      "en": "React Native App Benefits for Small Businesses"
+    },
+    "excerpt": {
+      "fa": "با زبان ساده بخوانید React Native چیست، برای چه کسب‌وکاری مناسب است و پیش از سفارش اپلیکیشن اندروید و آیفون باید چه چیزهایی را مشخص کنید.",
+      "en": "Learn what React Native does, when a business app is useful, and what to agree before commissioning Android and iPhone versions."
+    },
+    "tags": [
+      "React Native",
+      "Mobile",
+      "Strategy"
+    ],
+    "publishedAt": "2026-11-04",
+    "coverImage": "/blog/react-native-mobile-app-business-benefits-editorial-20261104.jpg",
+    "coverImageAlt": {
+      "fa": "دست‌های یک توسعه‌دهنده هنگام بررسی برنامهٔ نوبت‌دهی روی دو گوشی در نور طبیعی",
+      "en": "A developer testing a booking app on two phones in natural daylight"
+    },
+    "directAnswer": {
+      "fa": "React Native ابزاری برای ساخت اپلیکیشن اندروید و آیفون است. تیم سازنده می‌تواند بخشی از کار را بین دو نسخه مشترک انجام دهد. برای کسب‌وکاری که مشتری مرتب به آن برمی‌گردد، مثل فروشگاه یا مرکز نوبت‌دهی، این روش ارزش بررسی دارد. مناسب‌بودن و هزینهٔ آن به امکانات، کیفیت اجرا و نگهداری بستگی دارد.",
+      "en": "React Native helps teams build Android and iPhone apps while sharing parts of their work. It is worth considering when customers return regularly, such as repeat shopping or booking appointments. Its suitability and cost depend on the features, implementation and ongoing maintenance."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "React Native چیست؟ با یک مثال ساده",
+          "en": "What is React Native? A simple explanation"
+        },
+        "paragraphs": {
+          "fa": [
+            "فرض کنید برای یک مجموعهٔ خدماتی برنامه می‌خواهید. مشتری باید زمان‌های خالی را ببیند، نوبت بگیرد و بعداً نوبتش را پیدا کند. React Native یکی از ابزارهایی است که برنامه‌نویس با آن چنین برنامه‌ای را می‌سازد؛ خودِ آن یک اپلیکیشن آماده برای فروش نیست.",
+            "این ابزار از اجزای واقعی رابط گوشی استفاده می‌کند؛ مانند دکمه، تصویر و کادر نوشتن. نسخهٔ اندروید و آیفون می‌توانند بخش‌های مشترکی داشته باشند، اما تفاوت‌های دو گوشی همچنان باید در طراحی و آزمایش در نظر گرفته شوند."
+          ],
+          "en": [
+            "Imagine an appointment business. Customers need to see available times, book a slot and find their booking later. React Native is one tool a developer can use to build that experience. It is not a ready-made business app that already contains your booking rules.",
+            "It uses native interface components, including controls, images and text fields. Android and iPhone versions can share parts of their implementation, while their differences still need design work and testing."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "چه زمانی داشتن اپلیکیشن به درد می‌خورد؟",
+          "en": "When does an app serve a real need?"
+        },
+        "paragraphs": {
+          "fa": [
+            "به مشتری فکر کنید، نه فقط به ظاهر برنامه. اگر او هر هفته خرید می‌کند، وضعیت سفارش را می‌بیند یا نوبت تازه می‌گیرد، داشتن برنامه ممکن است مسیرش را کوتاه‌تر کند. اگر فقط یک‌بار آدرس یا شمارهٔ شما را می‌خواهد، نصب برنامه احتمالاً کار اضافه‌ای است.",
+            "این‌ها مثال‌های پیشنهادی برای بررسی نیاز هستند، نه وعدهٔ افزایش فروش. پیش از سفارش، از چند مشتری بپرسید کدام کار تکراری برایشان سخت است و همان کار را در نسخهٔ اول ساده کنید."
+          ],
+          "en": [
+            "Start with the customer’s task. A weekly shopper, someone tracking orders or a person making repeat bookings may benefit from a shorter route. Someone who only needs your address once may see installing an app as extra work.",
+            "These are suggested situations to investigate, not sales forecasts. Ask customers which repeated task is difficult and make that task easier in the first release."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "سفارش دوبارهٔ کالای قبلی",
+            "مشاهدهٔ نوبت‌ها و سوابق شخصی",
+            "پیگیری سفارش بدون تماس تلفنی"
+          ],
+          "en": [
+            "Reordering a previous purchase",
+            "Finding personal bookings and records",
+            "Checking an order without calling"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "مزیت اصلی: کار مشترک برای دو نوع گوشی",
+          "en": "The main benefit: shared work across two platforms"
+        },
+        "paragraphs": {
+          "fa": [
+            "وقتی بخشی از برنامه مشترک باشد، تیم می‌تواند بعضی تغییرها را در یک مسیر انجام دهد. برای نمونه، قانون نمایش زمان‌های نوبت می‌تواند بین نسخه‌ها مشترک باشد. این امکان به هماهنگی توسعه و نگهداری کمک می‌کند، اما به معنی نصف‌شدن قطعی هزینه نیست.",
+            "دوربین، پرداخت، نقشه یا ابزارهای خاص ممکن است تنظیم جداگانه بخواهند. از سازنده بخواهید روشن کند چه چیزهایی مشترک است، کدام بخش جدا ساخته می‌شود و مسئول آزمایش هر نسخه چه کسی است."
+          ],
+          "en": [
+            "Shared implementation can let a team make some changes in one place. Appointment availability rules, for example, may be shared between versions. This can help coordinate development and maintenance, but it does not establish a fixed saving or automatically halve the price.",
+            "Camera access, payments, maps or specialist integrations may need separate configuration. Ask which parts are shared, which require platform-specific work and who tests each version."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "امکانات گوشی خودبه‌خود آماده نمی‌شوند",
+          "en": "Phone features still need to be implemented"
+        },
+        "paragraphs": {
+          "fa": [
+            "ارسال اعلان، استفاده از دوربین یا کارکردن بعضی بخش‌ها بدون اینترنت، باید مشخصاً طراحی و پیاده‌سازی شود. صرف اینکه برنامه با React Native ساخته شده، وجود این امکانات را ثابت نمی‌کند. برای هرکدام یک نمونهٔ قابل آزمایش بخواهید.",
+            "مثلاً در برنامهٔ نوبت‌دهی روشن کنید هنگام قطع اینترنت چه دیده می‌شود و آیا کاربر ممکن است اشتباهی یک نوبت را دوبار ثبت کند. برای اطلاعات شخصی نیز دسترسی‌ها، حذف حساب و روش نگهداری داده را از ابتدا بپرسید."
+          ],
+          "en": [
+            "Notifications, camera access and partial offline behaviour need explicit implementation. Choosing React Native does not mean those features already exist. Request a testable example of each feature you actually need.",
+            "For bookings, agree what happens when the connection drops and how duplicate submissions are handled. Also discuss personal-data access, account deletion and data storage before the build starts."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "چه چیزهایی را پیش از قرارداد بنویسید؟",
+          "en": "What should be agreed before a contract?"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیشنهاد ما این است که نسخهٔ اول را کوچک و قابل استفاده نگه دارید. به جای فهرست طولانی قابلیت‌ها، یک مسیر کامل بنویسید: مشتری وارد می‌شود، کار اصلی را انجام می‌دهد و نتیجهٔ روشن می‌گیرد.",
+            "انتشار برنامه، حساب‌های فروشگاه‌های برنامه، پشتیبانی و تغییرهای بعدی را هم جداگانه مشخص کنید. برای پروژه‌هایی با پردازش سنگین یا اتصال خاص به دستگاه، پیش از تصمیم نهایی یک نمونه روی گوشی واقعی آزمایش شود."
+          ],
+          "en": [
+            "Our recommendation is to keep the first release small and usable. Instead of a long feature list, describe one complete journey: the customer enters, completes the main task and receives a clear result.",
+            "Agree separately on distribution, app-store accounts, support and later changes. If the product relies on demanding processing or unusual hardware, test a prototype on real devices before committing to the approach."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "فهرست امکانات ضروری و کارهای خارج از قرارداد",
+            "مالکیت کد، حساب‌ها و دسترسی‌ها",
+            "آزمایش روی اندروید و آیفون واقعی",
+            "مسئول رفع خطا و به‌روزرسانی پس از انتشار"
+          ],
+          "en": [
+            "Essential features and excluded work",
+            "Ownership of source code, accounts and access",
+            "Tests on real Android and iPhone devices",
+            "Responsibility for fixes and updates after release"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "از یک مشکل واقعی شروع کنید",
+          "en": "Start with one real problem"
+        },
+        "paragraphs": {
+          "fa": [
+            "به جای اینکه بگویید «یک اپلیکیشن مثل فلان برند می‌خواهم»، این‌طور توضیح دهید: «مشتری برای پیدا کردن سفارش قبلی مجبور است تماس بگیرد؛ می‌خواهم خودش آن را ببیند.» این توضیح، طراحی، برآورد و بررسی نتیجه را ساده‌تر می‌کند.",
+            "اگر هنوز مشتری تکراری یا نیاز روشن ندارید، شاید تکمیل سایت موبایلی قدم اول بهتری باشد. React Native یک راه ساخت است؛ دلیل ساخت برنامه باید از نیاز کسب‌وکار شما بیاید."
+          ],
+          "en": [
+            "Rather than asking for an app like a famous brand, describe the problem: “Customers call to find previous orders; I want them to see those orders themselves.” That gives design, estimation and acceptance checks a clearer purpose.",
+            "If you do not yet have repeat users or a defined need, improving the mobile website may be the better first step. React Native is a way to build an app; the reason to build one should come from your business."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا یک نسخه برای همهٔ گوشی‌ها کافی است؟",
+          "en": "Is one version enough for every phone?"
+        },
+        "answer": {
+          "fa": "بخشی از کار مشترک است، اما نسخه‌های اندروید و آیفون باید جداگانه بررسی و آزمایش شوند. اندازهٔ صفحه، مجوزها و بعضی امکانات متفاوت‌اند.",
+          "en": "Parts can be shared, but Android and iPhone releases still need separate checks. Screen sizes, permissions and some features differ."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا اپلیکیشن حتماً بدون اینترنت کار می‌کند؟",
+          "en": "Will the app automatically work offline?"
+        },
+        "answer": {
+          "fa": "خیر. باید مشخص شود کدام اطلاعات روی گوشی بماند و کدام کار بدون اتصال مجاز است. ثبت سفارش یا نوبت نهایی معمولاً به ارتباط با سامانه نیاز دارد.",
+          "en": "No. Decide what data stays on the device and which actions are allowed without a connection. Final order or booking confirmation generally needs the backend."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا سایت را می‌توان همان‌طور به اپ تبدیل کرد؟",
+          "en": "Can a website simply become the same app?"
+        },
+        "answer": {
+          "fa": "نمایش سایت داخل یک قاب با ساخت تجربهٔ مناسب اپلیکیشن یکی نیست. مسیر ورود، دسترسی‌ها، پرداخت و کار اصلی مشتری باید برای گوشی بررسی شود.",
+          "en": "Putting a site inside an app wrapper is different from designing a useful app experience. Login, permissions, payment and the main customer task need review."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "معرفی رسمی React Native",
+          "en": "React Native overview"
+        },
+        "url": "https://reactnative.dev/"
+      },
+      {
+        "title": {
+          "fa": "اجزای اصلی و بومی برنامه",
+          "en": "Core and native components"
+        },
+        "url": "https://reactnative.dev/docs/intro-react-native-components"
+      },
+      {
+        "title": {
+          "fa": "کد مخصوص اندروید و آیفون",
+          "en": "Platform-specific code"
+        },
+        "url": "https://reactnative.dev/docs/platform-specific-code"
+      }
+    ]
+  },
+  {
+    "slug": "wordpress-low-cost-business-website",
+    "title": {
+      "fa": "شروع کم‌هزینه با وردپرس؛ سایت اول کسب‌وکارتان را ساده بسازید",
+      "en": "Starting on a Budget: A Practical First WordPress Website"
+    },
+    "seoTitle": {
+      "fa": "سایت وردپرسی کم‌هزینه برای شروع کسب‌وکار",
+      "en": "A Low-Cost WordPress Website for a New Business"
+    },
+    "excerpt": {
+      "fa": "وردپرس می‌تواند راهی اقتصادی برای شروع سایت باشد. ببینید چه امکاناتی لازم دارید، چه هزینه‌هایی تکرار می‌شوند و کجا نباید صرفه‌جویی کنید.",
+      "en": "WordPress can be an economical starting point. Learn which features matter, which costs recur, and where cutting corners creates extra work."
+    },
+    "tags": [
+      "WordPress",
+      "Website",
+      "Strategy"
+    ],
+    "publishedAt": "2026-11-04",
+    "coverImage": "/blog/wordpress-low-cost-business-website-editorial-20261104.jpg",
+    "coverImageAlt": {
+      "fa": "لپ‌تاپ با سایت یک فروشگاه کوچک سفال کنار لیوان دست‌ساز و بستهٔ سفارش در نور گرم",
+      "en": "A simple pottery-shop website on a laptop beside handmade mugs and an order parcel"
+    },
+    "directAnswer": {
+      "fa": "وردپرس برای بسیاری از کسب‌وکارهای تازه، یکی از راه‌های اقتصادی ساخت سایت است؛ چون ابزار انتشار محتوا و امکانات آماده دارد. خود نرم‌افزار رایگان است، اما دامنه، میزبانی، اجرا و نگهداری هزینه دارند. ارزان‌ترین انتخاب برای همه نیست؛ سایتی کم‌هزینه است که نیاز واقعی شما را بدون کار اضافه برطرف کند.",
+      "en": "WordPress can be an economical first website because it includes publishing tools and has ready-made extensions. The software is free, while the domain, hosting, implementation and maintenance still cost money. It is not the cheapest option in every situation: a low-cost site meets the real need without unnecessary work."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "چرا وردپرس می‌تواند هزینهٔ شروع را کمتر کند؟",
+          "en": "Why can WordPress reduce the starting cost?"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای معرفی یک کارگاه، نمایش خدمات یا انتشار مقاله، لازم نیست همهٔ ابزارها از صفر ساخته شوند. وردپرس بخش مدیریت نوشته، تصویر و صفحه را از قبل دارد. قالب و افزونه هم می‌توانند بعضی امکانات متداول را اضافه کنند.",
+            "صرفه‌جویی زمانی اتفاق می‌افتد که نیاز شما با همین امکانات سازگار باشد. اگر از همان روز اول گردش کار بسیار خاص، اتصال‌های متعدد یا تغییر عمیق قالب می‌خواهید، کار آماده ممکن است به پروژه‌ای پیچیده تبدیل شود."
+          ],
+          "en": [
+            "A workshop website, service page or blog does not need every publishing tool built from scratch. WordPress already provides an interface for pages, posts and images. Themes and plugins can add established features.",
+            "The practical saving depends on a good fit. Highly unusual workflows, numerous integrations or extensive theme changes can turn an apparently simple starting point into a complex project."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "برای سایت اول، چه چیزهایی واقعاً لازم است؟",
+          "en": "What does a first website actually need?"
+        },
+        "paragraphs": {
+          "fa": [
+            "فرض کنید کارگاه سفال دارید. مشتری اول باید نمونهٔ محصول را ببیند، قیمت یا روش استعلام را بفهمد و بداند چطور سفارش بدهد. صفحهٔ شلوغ با چند اسلایدر و پنجرهٔ بازشو این مسیر را لزوماً بهتر نمی‌کند.",
+            "پیشنهاد ما یک شروع جمع‌وجور است: معرفی روشن، محصول یا خدمت اصلی، پاسخ به سؤال‌های خرید و راه تماس. هر قابلیتی که در تصمیم مشتری نقشی ندارد، می‌تواند برای مرحلهٔ بعد بماند."
+          ],
+          "en": [
+            "Consider a pottery workshop. A visitor first needs to see the products, understand the price or inquiry process and know how to order. More sliders and pop-ups do not necessarily make that journey better.",
+            "We suggest a focused starting point: a clear introduction, the main products or services, answers to buying questions and a contact route. Features that do not help that decision can wait."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "صفحهٔ معرفی و اطلاعات تماس درست",
+            "عکس و توضیح واقعی محصول یا خدمت",
+            "فرم یا مسیر روشن سفارش",
+            "نمای مناسب موبایل و صفحهٔ حریم خصوصی متناسب با کار سایت"
+          ],
+          "en": [
+            "Accurate introduction and contact information",
+            "Real product or service photos and descriptions",
+            "A clear order or inquiry route",
+            "A usable mobile layout and appropriate privacy information"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "رایگان‌بودن وردپرس یعنی سایت رایگان است؟",
+          "en": "Does free software mean a free website?"
+        },
+        "paragraphs": {
+          "fa": [
+            "خیر. نام دامنه یعنی آدرس سایت شما و میزبانی یعنی جایی که فایل‌های سایت نگهداری می‌شوند. این‌ها را باید جدا از طراحی در نظر بگیرید. بعضی قالب‌ها، افزونه‌ها و خدمات نیز ممکن است پرداخت دوره‌ای داشته باشند.",
+            "قیمت پیشنهادی را فقط با مبلغ روز اول مقایسه نکنید. از اجراکننده بخواهید هزینهٔ تمدید، پشتیبانی، تغییر محتوا و انتقال سایت را جدا بنویسد. در این مقاله عدد ثابت نمی‌دهیم؛ نیاز و قیمت خدمات هر پروژه متفاوت است."
+          ],
+          "en": [
+            "No. The domain is the website address, while hosting is where its files run. Both are separate from the design work. Some themes, extensions and services may also involve recurring payments.",
+            "Compare more than the first invoice. Ask for separate explanations of renewals, support, content changes and moving the site. This guide gives no fixed price because project requirements and service prices vary."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "کجا صرفه‌جویی نکنید؟",
+          "en": "Where should you avoid cutting corners?"
+        },
+        "paragraphs": {
+          "fa": [
+            "میزبانی مناسب، نسخهٔ پشتیبان و دسترسی به حساب‌های خودتان را جدی بگیرید. نسخهٔ پشتیبان باید اطلاعات و فایل‌های لازم را پوشش دهد و راه برگرداندن آن مشخص باشد؛ داشتن نام یک افزونه به معنی آماده‌بودن بازیابی نیست.",
+            "با گوشی خودتان فرم تماس را ارسال کنید. اگر فروشگاه دارید، یک خرید آزمایشی با روش مجاز انجام دهید و نتیجهٔ پرداخت، موجودی و پیام سفارش را بررسی کنید. این آزمون ساده از خرید جلوه‌های تصویری اضافی مهم‌تر است."
+          ],
+          "en": [
+            "Prioritise suitable hosting, backups and ownership of your accounts. Backups need to cover the required files and data, with a known restoration process. Having a backup plugin installed is not the same as demonstrating recovery.",
+            "Send the contact form from your own phone. For a shop, perform an authorised test purchase and check payment handling, stock and confirmation. That practical acceptance check matters more than buying another visual effect."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "سه راه برای جلوگیری از خرج اضافه",
+          "en": "Three ways to avoid unnecessary work"
+        },
+        "paragraphs": {
+          "fa": [
+            "قبل از شروع، متن‌ها و عکس‌ها را آماده کنید. وقتی وسط طراحی هنوز معلوم نیست چه می‌فروشید یا چه خدمتی دارید، تغییرها بیشتر می‌شوند. برای کار اصلی مشتری یک مسیر روشن بنویسید و همان را مبنای تحویل قرار دهید.",
+            "برای هر افزونه بپرسید دقیقاً چه نیازی را پاسخ می‌دهد. چند ابزار با کار یکسان یا قابلیت‌هایی که استفاده نمی‌شوند، مدیریت سایت را سخت‌تر می‌کنند. تغییرهای آینده را هم مرحله‌بندی کنید."
+          ],
+          "en": [
+            "Prepare the copy and photos before design begins. If the offer is still unclear halfway through the project, revisions become harder to control. Write down the main customer journey and use it as an acceptance check.",
+            "Ask which specific need each plugin meets. Overlapping tools and unused features make the setup harder to maintain. Put later improvements into separate stages."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "اول امکانات ضروری را تحویل بگیرید.",
+            "برای هر هزینه، یک کاربرد روشن بخواهید.",
+            "تمدیدها و مسئول نگهداری را از ابتدا مشخص کنید."
+          ],
+          "en": [
+            "Deliver the essentials first.",
+            "Match each expense to a clear purpose.",
+            "Agree on renewals and maintenance ownership early."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "وردپرس را با نیازتان بسنجید، نه با برچسب ارزان",
+          "en": "Judge the fit, not the “cheap” label"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای سایت معرفی، محتوا و بسیاری از فروشگاه‌های معمول، وردپرس می‌تواند شروع خوبی باشد. برای فروش آنلاین، WooCommerce یکی از گزینه‌های قابل بررسی است؛ سازگاری پرداخت، ارسال و موجودی باید برای همان فروشگاه آزمایش شود.",
+            "اگر فقط یک صفحه برای معرفی موقت لازم دارید، ممکن است راه ساده‌تری مناسب باشد. اگر محصول شما کارهای اختصاصی زیادی دارد، شاید ساخت سفارشی منطقی‌تر باشد. انتخاب اقتصادی یعنی هزینهٔ شروع و ادامهٔ کار را با هم ببینید."
+          ],
+          "en": [
+            "WordPress can be a practical start for publishing, company sites and many conventional shops. WooCommerce is one option for online selling; payment, delivery and inventory compatibility need checks for the particular store.",
+            "A temporary one-page introduction may have a simpler solution. A product with extensive custom workflows may justify bespoke development. An economical choice considers both the launch and the ongoing work."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا وردپرس همیشه ارزان‌ترین راه است؟",
+          "en": "Is WordPress always the cheapest choice?"
+        },
+        "answer": {
+          "fa": "خیر. نیاز، میزبانی، امکانات و نگهداری تعیین‌کننده‌اند. وردپرس برای نیازهای متداول می‌تواند اقتصادی باشد، اما یک کار بسیار کوچک یا کاملاً اختصاصی ممکن است مسیر بهتری داشته باشد.",
+          "en": "No. Requirements, hosting, features and maintenance determine the fit. WordPress can be economical for established needs, while very small or highly bespoke projects may have better alternatives."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا خودم می‌توانم متن و عکس را عوض کنم؟",
+          "en": "Can I change text and photos myself?"
+        },
+        "answer": {
+          "fa": "وردپرس ابزار مدیریت محتوا دارد. هنگام تحویل، آموزش تغییر صفحه‌های واقعی سایت و سطح دسترسی مناسب بخواهید؛ بعضی بخش‌های سفارشی ممکن است روش متفاوتی داشته باشند.",
+          "en": "WordPress includes editing tools. Ask for training on your actual pages and an appropriate account; custom sections may have different editing workflows."
+        }
+      },
+      {
+        "question": {
+          "fa": "چه چیزی را قبل از پرداخت نهایی تحویل بگیرم؟",
+          "en": "What should I receive before final acceptance?"
+        },
+        "answer": {
+          "fa": "پیشنهاد ما دسترسی حساب‌های متعلق به شما، آموزش کوتاه، فهرست تمدیدها، روش پشتیبان‌گیری و نتیجهٔ آزمایش فرم یا خرید است. جزئیات تحویل باید در قرارداد خودتان روشن باشد.",
+          "en": "We suggest receiving your account access, basic training, renewal list, backup process and form or purchase test results. Define the exact handover in your agreement."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "ویژگی‌های وردپرس",
+          "en": "WordPress features"
+        },
+        "url": "https://wordpress.org/about/features/"
+      },
+      {
+        "title": {
+          "fa": "نیازهای میزبانی وردپرس",
+          "en": "WordPress hosting requirements"
+        },
+        "url": "https://wordpress.org/about/requirements/"
+      },
+      {
+        "title": {
+          "fa": "راهنمای نسخهٔ پشتیبان",
+          "en": "WordPress backup guidance"
+        },
+        "url": "https://developer.wordpress.org/advanced-administration/security/backup/"
+      },
+      {
+        "title": {
+          "fa": "معرفی WooCommerce",
+          "en": "WooCommerce overview"
+        },
+        "url": "https://woocommerce.com/"
+      }
+    ]
+  },
+  {
+    "slug": "nextjs-ecommerce-service-website-seo",
+    "title": {
+      "fa": "فروشگاه و سایت خدماتی با Next.js؛ چه مزیتی برای سئو دارد؟",
+      "en": "Next.js for Shops and Service Websites: What Helps SEO?"
+    },
+    "seoTitle": {
+      "fa": "مزایای Next.js برای فروشگاه و سئوی سایت",
+      "en": "Next.js for Ecommerce, Service Websites and SEO"
+    },
+    "excerpt": {
+      "fa": "Next.js چگونه به ساخت سایت سریع و قابل‌فهم برای گوگل کمک می‌کند؟ مزایا، محدودیت‌ها و نکاتی که باید از سازندهٔ فروشگاه یا سایت خدماتی بخواهید.",
+      "en": "See how Next.js can support a fast, search-friendly shop or service website, what still needs implementation, and what to check before launch."
+    },
+    "tags": [
+      "Next.js",
+      "SEO",
+      "Website"
+    ],
+    "publishedAt": "2026-11-04",
+    "coverImage": "/blog/nextjs-ecommerce-service-website-seo-editorial-20261104.jpg",
+    "coverImageAlt": {
+      "fa": "نمایشگر فروشگاه اینترنتی لوازم خانه روی پیشخوان واقعی کنار بستهٔ سفارش و بارکدخوان",
+      "en": "An online homewares shop on a desktop monitor beside a real order parcel and barcode reader"
+    },
+    "directAnswer": {
+      "fa": "Next.js برای فروشگاه و سایت خدماتی با طراحی یا امکانات اختصاصی، انتخاب قدرتمندی است. می‌توان متن و اطلاعات اصلی صفحه را پیش از نمایش در مرورگر آماده کرد و برای عنوان، تصویر و آدرس هر صفحه کنترل داشت. این‌ها به اجرای درست سئو کمک می‌کنند؛ اما خودِ Next.js امتیاز ویژه یا رتبهٔ تضمینی از گوگل نمی‌گیرد.",
+      "en": "Next.js is a strong option for shops and service sites needing custom design or features. It can prepare key page content before the browser displays it and gives developers control over page titles, images and URLs. Those capabilities support good SEO implementation, but the framework itself receives no special Google score or guaranteed ranking."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "Next.js را مثل زیرساخت یک فروشگاه ببینید",
+          "en": "Think of Next.js as infrastructure for the shop"
+        },
+        "paragraphs": {
+          "fa": [
+            "مشتری به نام ابزار ساخت سایت کاری ندارد. می‌خواهد محصول را پیدا کند، قیمت و شرایط را ببیند و راحت خرید کند. در سایت خدماتی هم می‌خواهد بفهمد چه کاری انجام می‌دهید و چطور درخواست بدهد. Next.js ابزاری برای ساخت این تجربه است، نه یک فروشگاه آماده با همهٔ امکانات.",
+            "برای مثال، فروشگاه لوازم خانه شاید انتخاب رنگ، موجودی شعبه و هماهنگی ارسال بخواهد. اگر این نیازها واقعاً اختصاصی باشند، تیم توسعه می‌تواند مسیر مناسب را طراحی کند. هزینه و زمان این کار باید با نیاز فروشگاه سنجیده شود."
+          ],
+          "en": [
+            "Customers do not shop for a framework. They want to find an item, understand the price and terms, and buy easily. Service customers want to understand the offer and send a request. Next.js helps developers build that experience; it is not a ready-made shop with every feature included.",
+            "A homewares shop might need colour choices, branch availability and delivery coordination. When those requirements are genuinely bespoke, a development team can design the appropriate journey. Evaluate the work against the actual business need."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "آماده‌بودن متن صفحه چه فایده‌ای دارد؟",
+          "en": "Why does preparing the page content matter?"
+        },
+        "paragraphs": {
+          "fa": [
+            "در Next.js می‌توان بخش‌های زیادی از صفحه را در سرور یا هنگام ساخت سایت آماده کرد. به زبان ساده، توضیح محصول لازم نیست همیشه منتظر اجرای کارهای زیادی در گوشی مشتری بماند. این شیوه می‌تواند کار مرورگر را سبک‌تر کند، اگر درست اجرا شده باشد.",
+            "برای صفحهٔ عمومی محصول یا خدمت، از سازنده بخواهید متن اصلی، عنوان و لینک‌ها در خروجی اولیه وجود داشته باشند. دکمه‌های تعاملی، سبد خرید و بخش شخصی کاربر می‌توانند رفتار جداگانه داشته باشند. اطلاعات حساب و سبد هر مشتری هم باید مخصوص خودش بماند."
+          ],
+          "en": [
+            "Next.js can prepare substantial parts of a page on the server or during the site build. Put simply, product information need not always wait for extensive work on the customer’s phone. Implemented well, this can reduce what the browser has to do.",
+            "For public product and service pages, ask for meaningful initial content, headings and links. Interactive controls, carts and personal accounts can have separate behaviour. Each customer’s private information must remain specific to that customer."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "امکانات سئو چه چیزهایی هستند؟",
+          "en": "Which SEO capabilities should be implemented?"
+        },
+        "paragraphs": {
+          "fa": [
+            "سازنده می‌تواند برای هر صفحه عنوان و توضیح جدا بگذارد و تصویر مناسب اشتراک‌گذاری تعریف کند. این امکان زمانی ارزش دارد که اطلاعات هر محصول یا خدمت واقعاً درست و متفاوت نوشته شود؛ تکرار یک متن عمومی برای همهٔ صفحه‌ها کافی نیست.",
+            "برای فروشگاه، اطلاعات ساختاریافتهٔ محصول هم قابل بررسی است؛ یعنی داده‌ای مشخص دربارهٔ کالا که موتور جست‌وجو بتواند بخواند. قیمت، موجودی و نظرها باید واقعی و مطابق صفحه باشند. اضافه‌کردن این داده به‌تنهایی نمایش ستاره یا نتیجهٔ ویژه را تضمین نمی‌کند."
+          ],
+          "en": [
+            "Developers can assign individual titles, descriptions and share images to pages. This matters when each product or service has accurate, useful information. Repeating the same generic description across the catalogue wastes that control.",
+            "Product structured data is also worth considering: information in a defined format for search engines. Prices, availability and reviews must be genuine and match the visible page. Adding markup alone does not guarantee stars or an enhanced search result."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "آدرس روشن و ثابت برای هر محصول یا خدمت",
+            "عنوان و توضیح مخصوص همان صفحه",
+            "تصویر کم‌حجم و توضیح مناسب عکس",
+            "نقشهٔ سایت و لینک‌های داخلی قابل بررسی"
+          ],
+          "en": [
+            "Clear, stable product or service URLs",
+            "Page-specific titles and descriptions",
+            "Efficient images with useful image descriptions",
+            "A sitemap and usable internal links"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "آیا گوگل به Next.js امتیاز بیشتری می‌دهد؟",
+          "en": "Does Google award extra points for Next.js?"
+        },
+        "paragraphs": {
+          "fa": [
+            "نام ابزار ساخت، تضمین رتبه نیست. حتی یک سایت با نمرهٔ خوب سرعت، ممکن است پاسخ خوبی به سؤال مشتری ندهد. راهنمای گوگل تأکید می‌کند که تجربهٔ صفحه تنها عامل موفقیت نیست و نمرهٔ خوب به معنی بالاترین رتبه نیست.",
+            "فرق مهمی بین «سایت با زیرساخت مناسب» و «سایت آمادهٔ جذب مشتری» وجود دارد. دومی علاوه بر اجرا، به محصول روشن، محتوای مفید، اطلاعات درست و پیگیری نیاز دارد. از وعدهٔ «فقط با تغییر فناوری، رتبه یک می‌شوید» مبنای تصمیم نسازید."
+          ],
+          "en": [
+            "A framework name is not a ranking guarantee. A technically fast page may still fail to answer the customer’s question. Google explains that page experience is only part of search success and that good performance scores do not guarantee top rankings.",
+            "There is a difference between suitable infrastructure and a site ready to attract customers. The latter also needs a clear offer, useful information and ongoing work. A promise of first place solely from changing technology is not a sound acceptance criterion."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "در فروشگاه، تازه‌بودن اطلاعات حیاتی است",
+          "en": "Fresh information matters in a shop"
+        },
+        "paragraphs": {
+          "fa": [
+            "فرض کنید عکس و توضیح کالا سریع باز می‌شود، اما قیمت قدیمی است. این سایت هنوز کار درست را انجام نداده است. در قرارداد روشن کنید قیمت و موجودی از کجا می‌آیند و بعد از تغییر چه زمانی در سایت دیده می‌شوند.",
+            "برای خدمات نیز فرم درخواست باید واقعاً به مقصد برسد و پیام موفقیت دقیق باشد. پیش از تحویل، مسیر خرید یا درخواست را با گوشی، در حالت خطا و با یک نمونهٔ آزمایشی کامل بررسی کنید."
+          ],
+          "en": [
+            "A product page that opens quickly but shows yesterday’s price is still wrong. Agree where prices and stock come from and how changes reach the website. Speed is useful only alongside correct business information.",
+            "A service inquiry must actually arrive at its destination, with an accurate success message. Before acceptance, walk through buying or requesting a service on a phone, including a realistic failure case and an authorised test transaction."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "چه زمانی Next.js را انتخاب کنیم؟",
+          "en": "When is Next.js a sensible choice?"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیشنهاد ما این است که برای رابط اختصاصی، اتصال به سامانه‌های دیگر یا روندهای خاص، Next.js را جدی بررسی کنید. اگر کار اصلی فقط انتشار محتوا یا یک فروشگاه معمول با بودجهٔ محدود است، وردپرس هم باید در مقایسه بماند.",
+            "پیش از شروع، تکلیف ویرایش محتوا، آموزش، پشتیبانی و توسعهٔ بعدی را روشن کنید. بهترین انتخاب برای شما، ابزاری است که تیم بتواند با آن نیاز واقعی را درست اجرا و نگهداری کند؛ نه نامی که فقط در پیشنهاد فروش جذاب به نظر برسد."
+          ],
+          "en": [
+            "Our recommendation is to consider Next.js seriously for custom interfaces, integrations and workflows. For a conventional publishing site or standard shop on a limited budget, keep WordPress in the comparison.",
+            "Agree on content editing, training, support and later development. The best choice is one your team can implement and maintain around the real requirement, rather than the name that sounds most impressive in a proposal."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا هر سایت Next.js سریع است؟",
+          "en": "Is every Next.js website fast?"
+        },
+        "answer": {
+          "fa": "خیر. عکس‌های سنگین، کد اضافی، سرویس کند یا اجرای نامناسب می‌توانند هر سایتی را کند کنند. نتیجه را با صفحه‌های واقعی و موبایل بررسی کنید.",
+          "en": "No. Heavy images, unnecessary code, slow services or poor implementation can slow any website. Check real pages and mobile use."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا برای تغییر قیمت باید برنامه‌نویس داشته باشم؟",
+          "en": "Will I need a developer to change prices?"
+        },
+        "answer": {
+          "fa": "به ابزار مدیریت فروشگاه بستگی دارد. پنل تغییر قیمت و موجودی را پیش از قرارداد مشخص و هنگام تحویل با محصول واقعی آزمایش کنید.",
+          "en": "That depends on the store-management system. Define the price and stock editor before contracting, then test it on an actual product."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا برای بهترشدن سئو حتماً باید سایت فعلی را عوض کنم؟",
+          "en": "Must I rebuild the site to improve SEO?"
+        },
+        "answer": {
+          "fa": "خیر. اول مشکل‌های فعلی را پیدا کنید. شاید اصلاح محتوا، عنوان‌ها، عکس‌ها یا خطاهای فنی کافی باشد؛ تغییر کامل سایت باید دلیل روشن داشته باشد.",
+          "en": "No. Investigate the current problems first. Content, titles, images or technical fixes may be enough; a rebuild needs a clear reason."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "اجزای سرور و مرورگر در Next.js",
+          "en": "Next.js server and client components"
+        },
+        "url": "https://nextjs.org/docs/app/getting-started/server-and-client-components"
+      },
+      {
+        "title": {
+          "fa": "عنوان‌ها و تصاویر اشتراک‌گذاری در Next.js",
+          "en": "Next.js metadata and share images"
+        },
+        "url": "https://nextjs.org/docs/app/getting-started/metadata-and-og-images"
+      },
+      {
+        "title": {
+          "fa": "تجربهٔ صفحه و رتبه‌بندی گوگل",
+          "en": "Google page experience guidance"
+        },
+        "url": "https://developers.google.com/search/docs/appearance/page-experience"
+      },
+      {
+        "title": {
+          "fa": "اطلاعات ساختاریافتهٔ محصول",
+          "en": "Google product structured data"
+        },
+        "url": "https://developers.google.com/search/docs/appearance/structured-data/product"
+      }
+    ]
+  },
+  {
+    "slug": "seo-tasks-for-business-owners",
+    "title": {
+      "fa": "برای سئوی سایت چه کار کنم؟ راهنمای سادهٔ صاحب کسب‌وکار",
+      "en": "What Can a Business Owner Do to Improve Website SEO?"
+    },
+    "seoTitle": {
+      "fa": "کارهای سادهٔ صاحب کسب‌وکار برای سئوی سایت",
+      "en": "Practical SEO Tasks for Business Owners"
+    },
+    "excerpt": {
+      "fa": "برای بهترشدن سئوی سایت از کجا شروع کنیم؟ کارهای سادهٔ صاحب کسب‌وکار، از پاسخ به سؤال مشتری و عکس محصول تا بررسی ورودی گوگل و خطاهای سایت.",
+      "en": "A plain-language SEO plan for owners: answer customer questions, improve product information, check Google traffic and follow up on technical problems."
+    },
+    "tags": [
+      "SEO",
+      "Google",
+      "Strategy"
+    ],
+    "publishedAt": "2026-11-04",
+    "coverImage": "/blog/seo-tasks-for-business-owners-editorial-20261104.jpg",
+    "coverImageAlt": {
+      "fa": "دست صاحب کسب‌وکار کنار دفتر کارهای سایت، گوشی و گزارش بازدید روی لپ‌تاپ",
+      "en": "A business owner reviewing a website checklist, phone and traffic report at a working desk"
+    },
+    "directAnswer": {
+      "fa": "برای بهترشدن سئو، اول صفحه‌های مهم سایت را کامل و روشن کنید: چه می‌فروشید، برای چه کسی مناسب است و مشتری چطور اقدام کند. بعد عکس‌ها و اطلاعات را مرتب نگه دارید، سؤال‌های واقعی مشتری را پاسخ دهید و گزارش گوگل را بررسی کنید. کار فنی را به متخصص بسپارید، اما کیفیت اطلاعات و پیگیری نتیجه را خودتان هم مدیریت کنید.",
+      "en": "Start by making important pages clear and complete: what you offer, who it serves and how the customer can act. Keep photos and information current, answer genuine customer questions and review search reports. A specialist can handle technical work, while you remain involved in the accuracy of the offer and the business outcome."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "سئو به زبان ساده یعنی چه؟",
+          "en": "What does SEO mean in plain language?"
+        },
+        "paragraphs": {
+          "fa": [
+            "سئو یعنی کمک کنید آدم مناسب، صفحهٔ مناسب سایت شما را در جست‌وجو پیدا کند. هدف فقط زیادشدن عدد بازدید نیست. اگر تعمیر کولر انجام می‌دهید، بازدید کسی که در شهر شما به تعمیرکار نیاز دارد، از بازدید نامرتبط باارزش‌تر است.",
+            "صاحب کسب‌وکار لازم نیست برنامه‌نویس باشد. اطلاعاتی که دربارهٔ کار، محصول، مشتری و سؤال‌های رایج دارید، بخش مهمی از کار است. تیم سئو بدون این اطلاعات ممکن است صفحه‌ای زیبا بسازد که جواب واقعی مشتری را ندارد."
+          ],
+          "en": [
+            "SEO helps the right person find the right page through search. More visits alone are not the goal. For a local air-conditioning repair business, a person in the service area needing a repair is more relevant than unrelated traffic.",
+            "You do not need to become a developer. Your knowledge of the products, service and customers is an important contribution. Without it, a specialist may produce an attractive page that misses the customer’s real question."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "اول صفحه‌های فروش و خدمات را کامل کنید",
+          "en": "Complete the pages customers need to decide"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک صفحهٔ اصلی را انتخاب کنید و مانند مشتری بخوانید. آیا معلوم است دقیقاً چه خدمتی ارائه می‌دهید؟ محدودهٔ کار، روش سفارش، شرایط مهم و راه تماس روشن است؟ برای کالا هم مشخصات، عکس، موجودی و اطلاعات ارسال را با واقعیت تطبیق دهید.",
+            "مثلاً عبارت «بهترین خدمات با بالاترین کیفیت» توضیح کافی نیست. «تعمیر کولر گازی در محل، با بررسی ایراد و اعلام هزینه پیش از شروع کار» اطلاعات روشن‌تری می‌دهد؛ البته فقط چیزی را بنویسید که واقعاً در کسب‌وکارتان انجام می‌شود."
+          ],
+          "en": [
+            "Choose one important page and read it as a customer. Does it explain the exact service, coverage, order process, important conditions and contact route? For products, check specifications, photos, availability and delivery information against reality.",
+            "“The best service with the highest quality” tells a reader little. A concrete explanation of the task and process is more useful. Only describe procedures and commitments that your business actually follows."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "عنوان صفحه را روشن و مخصوص همان خدمت بنویسید.",
+            "به سؤال قبل از خرید جواب بدهید.",
+            "از صفحه‌های مرتبط به هم لینک بدهید.",
+            "شماره، آدرس و شرایط قدیمی را اصلاح کنید."
+          ],
+          "en": [
+            "Use a clear title specific to the offer.",
+            "Answer questions people ask before buying.",
+            "Connect genuinely related pages with links.",
+            "Correct old contact details and conditions."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "از سؤال‌های مشتری برای محتوا استفاده کنید",
+          "en": "Use customer questions to plan useful content"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک هفته سؤال‌های تماس‌ها و پیام‌ها را یادداشت کنید. «چه اندازه‌ای مناسب من است؟»، «چه زمانی نیاز به سرویس دارد؟» یا «چه چیزهایی داخل این بسته است؟» می‌توانند موضوع‌های خوبی باشند. هر مطلب باید یک مسئلهٔ مشخص را حل کند، نه اینکه فقط عبارت جست‌وجو را بارها تکرار کند.",
+            "گوگل محتوای مفید برای مردم را توصیه می‌کند. پیشنهاد اجرایی ما این است که تجربه و توضیح خودتان را اضافه کنید: عکس مرحلهٔ کار، پاسخ دقیق به یک اشتباه رایج یا نمونه‌ای که روشن کند مشتری باید چه تصمیمی بگیرد. مثال ساختگی را به عنوان تجربهٔ واقعی معرفی نکنید."
+          ],
+          "en": [
+            "Record questions from calls and messages for a week. Which size should someone buy? When does the equipment need servicing? What is included? Each article should solve a defined problem rather than repeatedly inserting a search phrase.",
+            "Google recommends helpful, people-first content. Our practical suggestion is to contribute your own explanation: process photos, an answer to a common mistake or a clearly described decision. Do not present an invented example as a real customer case."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "عکس خوب و توضیح کوتاه را جدی بگیرید",
+          "en": "Treat useful photos and image descriptions as real work"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای محصول واقعی از عکس همان کالا استفاده کنید. رنگ، بسته‌بندی و جزئیات را طوری نشان دهید که مشتری بتواند تصمیم بگیرد. عکس خیلی سنگین را پیش از بارگذاری کوچک و بهینه کنید؛ از تیم سایت بخواهید روش درست این کار را به شما یاد بدهد.",
+            "برای تصویر مهم، یک توضیح کوتاه بنویسید تا کسی که عکس را نمی‌بیند موضوعش را بفهمد. به این توضیح «متن جایگزین» یا alt می‌گویند. مثلاً «چراغ رومیزی سفید با پایهٔ چوبی» مفیدتر از فهرست طولانی کلمه‌های تبلیغاتی است."
+          ],
+          "en": [
+            "For an actual product, use photos of that product. Show the colour, packaging and details a buyer needs. Resize and optimise oversized uploads; ask the site team to demonstrate the correct process for your setup.",
+            "Important images need a short description for people who cannot see them. This is called alternative text, or alt text. Describing the pictured object is more useful than filling the field with promotional keywords."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "گزارش گوگل را با نتیجهٔ کسب‌وکار کنار هم ببینید",
+          "en": "Read search reports alongside business results"
+        },
+        "paragraphs": {
+          "fa": [
+            "Search Console ابزار گوگل برای بررسی حضور سایت در جست‌وجو است. در گزارش عملکرد می‌توانید عبارت‌ها، صفحه‌ها، نمایش‌ها و کلیک‌ها را ببینید. «نمایش» یعنی نتیجهٔ سایت نشان داده شده و «کلیک» یعنی کسی آن را باز کرده است.",
+            "پیشنهاد ما بررسی یک بازهٔ ثابت، مثلاً هر ماه، و یادداشت تغییرهاست. اگر یک صفحه نمایش دارد ولی مشتری وارد نمی‌شود، عنوان و تناسب آن با نیاز مخاطب را بررسی کنید. اگر ورودی هست ولی تماس یا خرید نیست، روش سفارش و خودِ پیشنهاد را هم بازبینی کنید؛ همهٔ مشکل‌ها سئو نیستند."
+          ],
+          "en": [
+            "Search Console is Google’s tool for reviewing a site’s search presence. Its performance reports show queries, pages, impressions and clicks. An impression records a result being shown; a click records someone opening it.",
+            "We suggest using a consistent review period, such as monthly, and recording changes. For impressions without useful visits, investigate the title and audience fit. If visits produce no inquiries or sales, examine the offer and ordering journey too; not every problem is an SEO problem."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "یک برنامهٔ ساده برای ماه اول",
+          "en": "A manageable first-month plan"
+        },
+        "paragraphs": {
+          "fa": [
+            "این برنامه پیشنهاد کاری ماست، نه قول نتیجه در یک ماه: ابتدا صفحه‌های مهم را انتخاب کنید؛ بعد اطلاعات و عکس‌هایشان را کامل کنید؛ سپس یک سؤال واقعی مشتری را پاسخ دهید و در پایان گزارش اولیه را ثبت کنید.",
+            "از مسئول فنی هم بخواهید بازشدن صفحه در موبایل، درست‌بودن لینک‌ها و امکان بررسی صفحه‌های عمومی توسط موتور جست‌وجو را کنترل کند. اگر لازم است تنظیمی عوض شود، علت و نتیجهٔ آن را روشن بخواهید. تغییرهای پی‌درپی بدون ثبت کارها، تشخیص نتیجه را سخت می‌کند."
+          ],
+          "en": [
+            "This is our suggested work plan, not a promise of results within a month: select important pages, complete their information and photos, answer one genuine customer question, and record an initial report.",
+            "Ask the technical owner to check mobile use, links and whether public pages can be inspected by search engines. Request a clear explanation of proposed technical changes. Repeated unrecorded changes make it harder to understand what helped."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "هفتهٔ اول: مشخص‌کردن محصول یا خدمت اولویت‌دار",
+            "هفتهٔ دوم: تکمیل اطلاعات و امتحان فرم یا خرید",
+            "هفتهٔ سوم: نوشتن پاسخ یک سؤال واقعی",
+            "هفتهٔ چهارم: ثبت وضعیت و تعیین کار بعدی"
+          ],
+          "en": [
+            "Week one: choose the priority product or service.",
+            "Week two: complete its information and test the inquiry or order.",
+            "Week three: answer one real customer question.",
+            "Week four: record the position and decide the next task."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا باید هر روز مقاله منتشر کنم؟",
+          "en": "Must I publish an article every day?"
+        },
+        "answer": {
+          "fa": "خیر. تعداد ثابت روزانه لازم نیست. اول صفحه‌های مهم را کامل کنید و بعد مطالبی منتشر کنید که به سؤال واقعی مخاطب پاسخ می‌دهند.",
+          "en": "No daily quota is required. Improve important pages first, then publish material that answers genuine audience questions."
+        }
+      },
+      {
+        "question": {
+          "fa": "از کجا بفهمم سئو نتیجه داده است؟",
+          "en": "How can I tell whether SEO work is helping?"
+        },
+        "answer": {
+          "fa": "گزارش نمایش و کلیک را با تماس، درخواست یا خرید مقایسه کنید. تغییرهای انجام‌شده را ثبت کنید و فقط به بالا و پایین‌شدن یک کلمه در یک روز تکیه نکنید.",
+          "en": "Compare search reports with inquiries and purchases. Record the changes made, rather than relying on one day’s movement for a single query."
+        }
+      },
+      {
+        "question": {
+          "fa": "چه زمانی نتیجه می‌گیرم؟",
+          "en": "When should I expect results?"
+        },
+        "answer": {
+          "fa": "زمان ثابت و تضمینی وجود ندارد. وضعیت قبلی سایت، نوع تغییر، رقابت و بررسی دوبارهٔ صفحه‌ها اثر دارند. برنامهٔ ماه اول برای نظم کار است، نه تضمین رتبه.",
+          "en": "There is no fixed guaranteed period. The starting site, changes, competition and recrawling all matter. The first-month plan organises the work; it does not promise rankings."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "راهنمای شروع سئو از گوگل",
+          "en": "Google SEO starter guide"
+        },
+        "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+      },
+      {
+        "title": {
+          "fa": "محتوای مفید برای مردم",
+          "en": "Helpful, people-first content"
+        },
+        "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+      },
+      {
+        "title": {
+          "fa": "راهنمای تصاویر و متن جایگزین",
+          "en": "Google image SEO guidance"
+        },
+        "url": "https://developers.google.com/search/docs/appearance/google-images"
+      },
+      {
+        "title": {
+          "fa": "شروع کار با Search Console",
+          "en": "Getting started with Search Console"
+        },
+        "url": "https://developers.google.com/search/docs/monitor-debug/search-console-start"
+      }
+    ]
+  },
+  {
+    "slug": "reduce-website-build-maintenance-costs",
+    "title": {
+      "fa": "چطور هزینهٔ ساخت و نگهداری سایت را کمتر کنیم؟",
+      "en": "How to Reduce Website Development and Maintenance Costs"
+    },
+    "seoTitle": {
+      "fa": "کاهش هزینهٔ ساخت و نگهداری سایت؛ راهنمای ساده",
+      "en": "Reduce Website Build and Maintenance Costs"
+    },
+    "excerpt": {
+      "fa": "با نیازنامهٔ روشن، اجرای مرحله‌ای، آماده‌کردن محتوا و برنامهٔ نگهداری، خرج اضافهٔ سایت را کمتر کنید؛ بدون حذف پشتیبان‌گیری و کارهای ضروری.",
+      "en": "Reduce avoidable website costs with a clear brief, phased delivery, prepared content and a maintenance plan, while keeping essential safeguards."
+    },
+    "tags": [
+      "Website",
+      "Strategy",
+      "WordPress"
+    ],
+    "publishedAt": "2026-11-04",
+    "coverImage": "/blog/reduce-website-build-maintenance-costs-editorial-20261104.jpg",
+    "coverImageAlt": {
+      "fa": "دو نفر در حال بررسی طرح‌های کاغذی سایت و فهرست نیازها کنار ماشین‌حساب روی میز",
+      "en": "Two people reviewing website sketches and a requirements checklist beside a calculator"
+    },
+    "directAnswer": {
+      "fa": "برای کمترشدن هزینهٔ سایت، اول کار ضروری مشتری را مشخص کنید، امکانات اضافه را به مرحلهٔ بعد ببرید و متن و عکس را پیش از طراحی آماده کنید. هزینهٔ تمدید و نگهداری را هم از ابتدا جدا بخواهید. حذف نسخهٔ پشتیبان، آزمایش یا دسترسی‌های خودتان راه خوبی برای صرفه‌جویی نیست؛ ممکن است بعداً دوباره‌کاری بسازد.",
+      "en": "Define the essential customer task, move optional features to later stages and prepare content before design begins. Ask separately about renewals and maintenance. Cutting backups, acceptance checks or ownership of your accounts is not a sound saving; it can create avoidable work later."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "اول بنویسید سایت باید چه کاری انجام دهد",
+          "en": "Write down what the website needs to do"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیشنهاد ما این است که قبل از درخواست قیمت، یک برگهٔ کوتاه بنویسید. چه می‌فروشید؟ مشتری چه کسی است؟ قرار است خرید کند، وقت بگیرد یا فقط درخواست بفرستد؟ همین سؤال‌های ساده جلوی بسیاری از برداشت‌های متفاوت را می‌گیرند.",
+            "مثلاً «یک سایت حرفه‌ای می‌خواهم» قابل اندازه‌گیری نیست. «مشتری سه نوع خدمت را ببیند، نمونه‌کار مرتبط را پیدا کند و فرم درخواست بفرستد» روشن‌تر است. این مثال، راهنمای نوشتن نیاز است؛ نه فهرست آمادهٔ امکانات همهٔ سایت‌ها."
+          ],
+          "en": [
+            "Our first suggestion is a short written brief before asking for prices. What do you sell, who is the customer, and should the visitor buy, book or submit an inquiry? These basic questions help avoid differing assumptions.",
+            "“I need a professional website” is difficult to check. “Visitors should compare three services, see relevant work and submit an inquiry” is more concrete. That example illustrates a brief, rather than a universal feature list."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "همهٔ ایده‌ها را در نسخهٔ اول نسازید",
+          "en": "Do not build every idea into the first release"
+        },
+        "paragraphs": {
+          "fa": [
+            "امکانات را به دو گروه تقسیم کنید: بدون این قابلیت سایت قابل استفاده نیست؛ این قابلیت خوب است ولی می‌تواند صبر کند. فروشگاه شاید به خرید و پیگیری سفارش نیاز داشته باشد، اما باشگاه مشتریان پیچیده بتواند بعداً اضافه شود.",
+            "اجرای مرحله‌ای باید برنامه داشته باشد. پیش از حذف یک قابلیت، بپرسید اضافه‌کردنش در آینده چه پیش‌نیازی دارد. اگر مرحلهٔ بعد نیازمند تخریب کار امروز باشد، صرفاً هزینه را به زمان دیگری منتقل کرده‌اید."
+          ],
+          "en": [
+            "Separate essential features from useful additions that can wait. A shop may need a dependable order journey immediately, while a complicated loyalty programme can be evaluated later.",
+            "Phasing still needs a plan. Ask what a postponed feature will require when added. If it would mean discarding today’s work, the apparent saving may just be work moved to a later date."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "متن، عکس و تصمیم‌گیرنده را زود آماده کنید",
+          "en": "Prepare content and agree who makes decisions"
+        },
+        "paragraphs": {
+          "fa": [
+            "تغییر پیاپی متن‌ها، جابه‌جایی دسته‌بندی‌ها و نظرهای متناقض، رفت‌وبرگشت ایجاد می‌کند. پیش از طراحی، معرفی کسب‌وکار، توضیح خدمات، عکس‌ها و راه تماس را جمع کنید. معلوم باشد چه کسی نظر نهایی را تأیید می‌کند.",
+            "بازخورد را یک‌جا و مشخص بدهید. به جای «این صفحه را دوست ندارم»، بگویید «مشتری روش سفارش را پیدا نمی‌کند؛ دکمهٔ درخواست باید کنار توضیح خدمت باشد». این روش پیشنهادی، بحث را به نیاز کاربر وصل می‌کند و اصلاح را روشن‌تر می‌سازد."
+          ],
+          "en": [
+            "Repeated copy changes, shifting categories and contradictory feedback create more review cycles. Gather the introduction, service details, images and contact information early. Agree who gives the final decision.",
+            "Collect feedback and make it specific. Instead of “I dislike this page,” explain that customers cannot find the inquiry action beside the service description. This keeps the discussion connected to a user task."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "هزینهٔ شروع را از هزینهٔ ادامه جدا کنید",
+          "en": "Separate launch costs from ongoing costs"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک پیشنهاد ارزان ممکن است دربارهٔ تمدیدها چیزی نگفته باشد. از سازنده بخواهید هزینه‌های تکرارشونده، امکانات پولی و کارهایی را که در پشتیبانی نیستند بنویسد. برای هر مورد، مسئول پرداخت و زمان پیگیری مشخص باشد.",
+            "فهرست زیر، چک‌لیست پیشنهادی ما برای مقایسه است. همهٔ سایت‌ها همهٔ این هزینه‌ها را ندارند و مبلغ‌ها به خدمات انتخابی بستگی دارد. هدف این است که چیزی پشت یک عدد کلی پنهان نماند."
+          ],
+          "en": [
+            "A low opening quote may say little about renewals. Request a list of recurring services, paid features and work excluded from support. Give each item a responsible owner and a review date.",
+            "The following is our suggested comparison checklist. Not every site incurs every item, and amounts depend on the chosen services. The purpose is to make the scope visible instead of hiding it behind one total."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "دامنه و میزبانی",
+            "مجوز یا اشتراک ابزارهای موردنیاز",
+            "پشتیبانی، به‌روزرسانی و پشتیبان‌گیری",
+            "تغییر محتوا و افزودن امکانات",
+            "خدمات بیرونی مانند پیامک، در صورت نیاز"
+          ],
+          "en": [
+            "Domain and hosting",
+            "Required tool licences or subscriptions",
+            "Support, updates and backups",
+            "Content changes and additional features",
+            "External services such as messaging, when needed"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "نگهداری را حذف نکنید؛ آن را روشن کنید",
+          "en": "Make maintenance clear instead of removing it"
+        },
+        "paragraphs": {
+          "fa": [
+            "در سایت وردپرسی، به‌روزرسانی و نسخهٔ پشتیبان جزو موضوع‌های اصلی نگهداری‌اند. در سایت اختصاصی هم باید معلوم باشد چه کسی سلامت کارهای مهم را بررسی و خطاها را پیگیری می‌کند. معنی «پشتیبانی» را با مثال روشن کنید.",
+            "مثلاً بپرسید اگر فرم درخواست کار نکرد، چه کسی مسئول بررسی است؟ اگر سایت جابه‌جا شد، دسترسی فایل‌ها و اطلاعات دست چه کسی است؟ برنامهٔ نگهداریِ مشخص، از ابهام بهتر است؛ اما صرف داشتن قرارداد، نبودن خطا را تضمین نمی‌کند."
+          ],
+          "en": [
+            "For WordPress, updates and backups are central maintenance topics. Custom sites also need someone responsible for checking important journeys and investigating failures. Define “support” through concrete examples.",
+            "Ask who investigates a broken inquiry form and who holds the files and data needed for a move. A defined maintenance arrangement is better than ambiguity, but having a contract does not guarantee that failures will never occur."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "قیمت‌ها را با یک فهرست یکسان مقایسه کنید",
+          "en": "Compare proposals against the same brief"
+        },
+        "paragraphs": {
+          "fa": [
+            "دو قیمت وقتی قابل مقایسه‌اند که کارِ تحویلی روشن باشد. آیا هر دو شامل ورود محتوا، موبایل، آموزش، راه‌اندازی و آزمایش هستند؟ آیا تعداد بازبینی‌ها و کارهای خارج از محدوده مشخص است؟ پیشنهادها را کنار همان نیازنامهٔ اولیه بگذارید.",
+            "پیش از ساخت دوبارهٔ سایت فعلی هم مشکل را بررسی کنید. گاهی اصلاح چند صفحه، حذف ابزار اضافی یا مرتب‌کردن مسیر درخواست کافی است. خرج کمتر همیشه از انتخاب ارزان‌ترین ابزار نمی‌آید؛ گاهی از نساختن کاری می‌آید که هنوز لازم نیست."
+          ],
+          "en": [
+            "Two prices become comparable when the deliverables are clear. Do both include content entry, mobile layouts, training, launch and acceptance checks? Are revision rounds and exclusions defined? Compare them against the same initial brief.",
+            "Investigate before replacing an existing site. A few page fixes, removing an unnecessary tool or improving the inquiry journey may be sufficient. Saving is not always about the cheapest technology; sometimes it comes from postponing work that is not needed yet."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا با قالب آماده هزینه کمتر می‌شود؟",
+          "en": "Can a ready-made theme reduce the work?"
+        },
+        "answer": {
+          "fa": "اگر با نیاز شما سازگار باشد، ممکن است کار شروع را کمتر کند. تغییر عمیق قالب یا اضافه‌کردن امکانات ناسازگار می‌تواند این مزیت را از بین ببرد.",
+          "en": "It may reduce initial work when it fits the requirement. Extensive changes or incompatible additions can remove that advantage."
+        }
+      },
+      {
+        "question": {
+          "fa": "برای کم‌کردن هزینه، پشتیبانی را حذف کنم؟",
+          "en": "Should I remove support to save money?"
+        },
+        "answer": {
+          "fa": "بهتر است اول محدودهٔ پشتیبانی را روشن کنید و مسئول کارهای ضروری را بشناسید. حذف کامل نگهداری بدون جایگزین، راه مطمئنی برای کنترل هزینه نیست.",
+          "en": "First define the support scope and responsibility for essential work. Removing maintenance without an alternative is not a dependable cost-control plan."
+        }
+      },
+      {
+        "question": {
+          "fa": "چطور از دوباره‌کاری جلوگیری کنم؟",
+          "en": "How can I avoid avoidable rework?"
+        },
+        "answer": {
+          "fa": "نیازها و محتوای اولیه را آماده کنید، یک تأییدکنندهٔ نهایی داشته باشید، تغییرها را ثبت کنید و کارهای تحویلی را مرحله‌به‌مرحله آزمایش کنید.",
+          "en": "Prepare the brief and content, agree on a final decision-maker, record changes and check deliverables at each stage."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "برنامه‌ریزی برای سایت؛ راهنمای MDN",
+          "en": "MDN website planning guidance"
+        },
+        "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Design_and_accessibility/Thinking_before_coding"
+      },
+      {
+        "title": {
+          "fa": "به‌روزرسانی وردپرس",
+          "en": "Updating WordPress"
+        },
+        "url": "https://wordpress.org/documentation/article/updating-wordpress/"
+      },
+      {
+        "title": {
+          "fa": "پشتیبان‌گیری وردپرس",
+          "en": "WordPress backups"
+        },
+        "url": "https://developer.wordpress.org/advanced-administration/security/backup/"
+      }
+    ]
+  },
+  {
     "slug": "wordpress-vs-nextjs-which-website",
     "title": {
       "fa": "وردپرس یا Next.js؟ هرکدام برای چه سایتی مناسب‌اند؟",

@@ -49,40 +49,136 @@ export default function HomeMotion() {
       const button = root.querySelector<HTMLElement>(".sh-cta");
       const pointer = window.matchMedia("(hover: hover) and (pointer: fine)");
       const eyes = [...root.querySelectorAll<SVGGElement>("[data-eye-pupil]")];
+      // Touch screens have no hover position, so the active pupils glance around
+      // on their own and look at the last touch for a moment.
+      const gaze = new Map<SVGGElement, { x: number; y: number; goalX: number; goalY: number }>();
       let eyeFrame = 0;
+      let touchFrame = 0;
+      let touchTimer = 0;
+      let focusUntil = 0;
+      let nextGlance = 0;
+      let centered = true;
       let heroVisible = true;
       let cursorX = 0;
       let cursorY = 0;
+      const activePortrait = () => portraits.find(({ choice }) => choice?.checked);
+      const lookAt = (eye: SVGGElement, rect: DOMRect, x: number, y: number, reach = Math.max(240, rect.width)) => {
+        const dx = x - (rect.left + Number(eye.dataset.eyeX) / 1000 * rect.width);
+        const dy = y - (rect.top + Number(eye.dataset.eyeY) / 1000 * rect.height);
+        const angle = Math.atan2(dy, dx);
+        const distance = Math.min(1, Math.hypot(dx, dy) / reach);
+        return [Math.cos(angle) * distance * Number(eye.dataset.eyeRangeX || 12), Math.sin(angle) * distance * Number(eye.dataset.eyeRangeY || 7)];
+      };
+      const place = (eye: SVGGElement, x: number, y: number) => eye.setAttribute("transform", `translate(${x.toFixed(2)}, ${y.toFixed(2)})`);
       const updateEyes = () => {
         eyeFrame = 0;
         if (!heroVisible) return;
-        const active = portraits.find(({ choice }) => choice?.checked);
+        const active = activePortrait();
         if (!active?.portrait) return;
         const rect = active.portrait.getBoundingClientRect();
         active.eyes.forEach((eye) => {
-          const centerX = rect.left + Number(eye.dataset.eyeX) / 1000 * rect.width;
-          const centerY = rect.top + Number(eye.dataset.eyeY) / 1000 * rect.height;
-          const dx = cursorX - centerX;
-          const dy = cursorY - centerY;
-          const angle = Math.atan2(dy, dx);
-          const distance = Math.min(1, Math.hypot(dx, dy) / Math.max(240, rect.width));
-          eye.setAttribute("transform", `translate(${(Math.cos(angle) * distance * Number(eye.dataset.eyeRangeX || 12)).toFixed(2)}, ${(Math.sin(angle) * distance * Number(eye.dataset.eyeRangeY || 7)).toFixed(2)})`);
+          const [x, y] = lookAt(eye, rect, cursorX, cursorY);
+          place(eye, x, y);
         });
       };
+      const wakeTouch = () => {
+        clearTimeout(touchTimer);
+        touchTimer = 0;
+        if (!touchFrame && heroVisible && !pointer.matches) touchFrame = requestAnimationFrame(stepTouch);
+      };
+      const stepTouch = (now: number) => {
+        touchFrame = 0;
+        if (!heroVisible || pointer.matches) return;
+        const active = activePortrait();
+        if (!active) return;
+        if (now >= focusUntil && now >= nextGlance) {
+          // A new idle glance; now and then (never twice in a row, never first)
+          // the eyes look straight ahead again.
+          const angle = Math.random() * Math.PI * 2;
+          const distance = !centered && Math.random() < 0.2 ? 0 : 0.55 + Math.random() * 0.45;
+          centered = distance === 0;
+          active.eyes.forEach((eye) => {
+            const state = gaze.get(eye) ?? { x: 0, y: 0, goalX: 0, goalY: 0 };
+            state.goalX = Math.cos(angle) * distance * Number(eye.dataset.eyeRangeX || 12);
+            state.goalY = Math.sin(angle) * distance * Number(eye.dataset.eyeRangeY || 7);
+            gaze.set(eye, state);
+          });
+          nextGlance = now + 1400 + Math.random() * 1800;
+        }
+        let moving = false;
+        active.eyes.forEach((eye) => {
+          const state = gaze.get(eye);
+          if (!state) return;
+          state.x += (state.goalX - state.x) * 0.18;
+          state.y += (state.goalY - state.y) * 0.18;
+          if (Math.abs(state.goalX - state.x) + Math.abs(state.goalY - state.y) > 0.05) moving = true;
+          else {
+            state.x = state.goalX;
+            state.y = state.goalY;
+          }
+          place(eye, state.x, state.y);
+        });
+        // Sleep between glances instead of running a frame loop while the eyes rest.
+        if (moving) touchFrame = requestAnimationFrame(stepTouch);
+        else touchTimer = window.setTimeout(wakeTouch, Math.max(focusUntil, nextGlance) - now);
+      };
+      const focusTouch = (x: number, y: number) => {
+        const active = activePortrait();
+        if (!active?.portrait) return;
+        const rect = active.portrait.getBoundingClientRect();
+        active.eyes.forEach((eye) => {
+          // A touch is a deliberate target, so the pupils turn fully at half the cursor distance.
+          const [goalX, goalY] = lookAt(eye, rect, x, y, Math.max(120, rect.width / 2));
+          const state = gaze.get(eye) ?? { x: 0, y: 0, goalX, goalY };
+          state.goalX = goalX;
+          state.goalY = goalY;
+          gaze.set(eye, state);
+        });
+        focusUntil = performance.now() + 2600;
+        nextGlance = focusUntil;
+        wakeTouch();
+      };
       const move = (event: PointerEvent) => {
-        if (!heroVisible || !pointer.matches || event.pointerType === "touch") return;
+        if (!heroVisible) return;
+        if (!pointer.matches) {
+          // A finger only reports moves while it touches the screen; follow that drag.
+          if (event.pointerType !== "mouse") focusTouch(event.clientX, event.clientY);
+          return;
+        }
+        if (event.pointerType === "touch") return;
         cursorX = event.clientX;
         cursorY = event.clientY;
         if (!eyeFrame) eyeFrame = requestAnimationFrame(updateEyes);
       };
+      const touch = (event: PointerEvent) => {
+        if (heroVisible && !pointer.matches) focusTouch(event.clientX, event.clientY);
+      };
       const reset = () => {
         cancelAnimationFrame(eyeFrame);
         eyeFrame = 0;
+        cancelAnimationFrame(touchFrame);
+        touchFrame = 0;
+        clearTimeout(touchTimer);
+        touchTimer = 0;
+        gaze.clear();
+        focusUntil = 0;
+        centered = true;
         eyes.forEach((eye) => eye.removeAttribute("transform"));
+      };
+      // Back to centered pupils; on touch screens the first glance follows shortly.
+      const restart = () => {
+        reset();
+        nextGlance = performance.now() + 600;
+        wakeTouch();
+      };
+      // Touch pointers "leave" the page after every lift, which must not cancel the glance.
+      const leave = (event: PointerEvent) => {
+        if (event.pointerType !== "touch") reset();
       };
       const heroObserver = new IntersectionObserver(([entry]) => {
         heroVisible = entry.isIntersecting;
-        if (!heroVisible) reset();
+        if (heroVisible) restart();
+        else reset();
       });
       if (hero) heroObserver.observe(hero);
       const magnet = (event: PointerEvent) => {
@@ -91,11 +187,13 @@ export default function HomeMotion() {
         button.style.transform = `translate(${(event.clientX - rect.left - rect.width / 2) / 10}px, ${(event.clientY - rect.top - rect.height / 2) / 8}px)`;
       };
       const resetButton = () => button?.style.removeProperty("transform");
-      root.addEventListener("teamchange", reset);
+      root.addEventListener("teamchange", restart);
       window.addEventListener("pointermove", move, { passive: true });
-      document.documentElement.addEventListener("pointerleave", reset);
+      window.addEventListener("pointerdown", touch, { passive: true });
+      document.documentElement.addEventListener("pointerleave", leave);
       window.addEventListener("blur", reset);
-      pointer.addEventListener("change", reset);
+      window.addEventListener("focus", restart);
+      pointer.addEventListener("change", restart);
       button?.addEventListener("pointermove", magnet);
       button?.addEventListener("pointerleave", resetButton);
 
@@ -112,11 +210,13 @@ export default function HomeMotion() {
         galleryObserver.disconnect();
         heroObserver.disconnect();
         animations.forEach((animation) => animation.cancel());
-        root.removeEventListener("teamchange", reset);
+        root.removeEventListener("teamchange", restart);
         window.removeEventListener("pointermove", move);
-        document.documentElement.removeEventListener("pointerleave", reset);
+        window.removeEventListener("pointerdown", touch);
+        document.documentElement.removeEventListener("pointerleave", leave);
         window.removeEventListener("blur", reset);
-        pointer.removeEventListener("change", reset);
+        window.removeEventListener("focus", restart);
+        pointer.removeEventListener("change", restart);
         button?.removeEventListener("pointermove", magnet);
         button?.removeEventListener("pointerleave", resetButton);
         reset();

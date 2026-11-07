@@ -333,6 +333,15 @@ async function assertActivePupils(page, member) {
   }, member);
 }
 
+// Touch screens: the pupils turn toward a tap (negative x = left, positive x = right).
+async function assertTouchFocus(page, member, x, y, sign) {
+  await page.touchscreen.tap(x, y);
+  await eventually(async () => (await pupils(page, member)).every((value) => {
+    const match = /^translate\((-?[\d.]+),/.exec(value || "");
+    return match && Math.sign(Number(match[1])) === sign && Math.abs(Number(match[1])) > 1;
+  }), `${member} pupils must look toward a touch`);
+}
+
 async function portraitPosition(portrait) {
   return portrait.evaluate((element) => {
     const box = element.getBoundingClientRect();
@@ -570,7 +579,13 @@ try {
       await touchDrag(context, page, { x: 290, y }, { x: 100, y: y + 4 });
       const swipeIndex = locale === "fa" ? 2 : 1;
       await assertMember(page, swipeIndex);
-      await assertNeutral(page);
+      // Without a hover pointer the active pupils glance around on their own.
+      await assertActivePupils(page, members[swipeIndex]);
+      const portraitBox = await page.locator(".sh-team-slide:visible .sh-portrait").boundingBox();
+      const focusY = portraitBox.y + portraitBox.height / 2;
+      await assertTouchFocus(page, members[swipeIndex], 6, focusY, -1);
+      await assertTouchFocus(page, members[swipeIndex], 384, focusY, 1);
+      assert.equal(await selected(page), swipeIndex, "A tap must not switch members");
       const touchAction = await page.locator(".sh-team-slide:visible .sh-team-visual").evaluate((element) => getComputedStyle(element).touchAction);
       assert(touchAction.includes("pan-y") && touchAction.includes("pinch-zoom"), "Swipe region preserves vertical panning and pinch zoom");
       await page.locator(".sh-team-slide:visible .sh-team-visual").scrollIntoViewIfNeeded();
@@ -590,11 +605,11 @@ try {
       for (let index = 0; index < members.length; index += 1) {
         if (index) await clickStep(page, 1, true, () => transitionOverflow(page));
         await assertMember(page, index);
-        await assertNeutral(page);
+        await assertActivePupils(page, members[index]);
         assertLayout(await layout(page), mobile320);
         await screenshot(page, `${locale}-touch-320-${members[index]}`);
       }
-      return { locale, horizontalSwipe: true, verticalScrollPreserved: true, pinchZoomAllowed: true, touchPupilsNeutral: true, mobile320 };
+      return { locale, horizontalSwipe: true, verticalScrollPreserved: true, pinchZoomAllowed: true, touchPupilsGlance: true, touchFocus: true, mobile320 };
     });
   }
 } catch (error) {

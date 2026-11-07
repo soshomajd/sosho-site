@@ -292,7 +292,100 @@
       "prompt": "Use case: stylized-concept. Asset type: original editorial cover for SoSho Studio bilingual technology journal. Premium tactile 3D editorial illustration, frosted glass and brushed silver, midnight navy background, restrained electric cyan and violet light with a tiny copper accent. Calm cinematic studio illumination, precise silhouettes, polished coherent materials. Landscape 1.905:1 composition, intended as 1200x630 cover. Keep all important objects in the central 65% to survive 21:9 cropping; dark breathing room around them. No text, no letters, no numbers, no logos, no watermark, no fake chart data. Finished raster illustration, not a website screenshot. Website project scope and estimation: an elegant architectural arrangement of browser page models on a designer's desk. One ordered small stack of matching simple pages sharing an identical layout, alongside a more intricate browser model with connected form controls, layered interface modules and branching workflow paths. A small brushed-metal measuring caliper and abstract blank specification tiles suggest careful scope estimation. Make reusable pages versus complex functionality clearly readable. No coins, no currency, no price figures, no calculator text.",
       "generatedAt": "2026-11-02",
       "provider": "Built-in ImageGen"
+    },
+    {
+      "slug": "react-native-mobile-app-business-benefits",
+      "output": "public/blog/react-native-mobile-app-business-benefits-editorial-20261104.jpg",
+      "subject": "Close-up documentary photograph of a real mobile app test on a daylight wooden workbench. A developer's natural hands hold one black Android-style phone beside a second unbranded iPhone-style handset. Both screens show the same restrained appointment-booking interface with date tiles, a simple calendar and a rounded booking action, believable native app layouts with no readable words or logos. The devices have subtly different proportions, realistic screen reflections, glass smudges and physical shadows. A notebook and pencil are softly blurred behind. Cool morning window light, soft sage and pale sky-blue accents, honest tactile detail, 50mm lens. Central two phones are the unmistakable main subject. No floating objects.",
+      "alt": {
+        "fa": "دست‌های یک توسعه‌دهنده هنگام بررسی برنامهٔ نوبت‌دهی روی دو گوشی در نور طبیعی",
+        "en": "A developer testing a booking app on two phones in natural daylight"
+      },
+      "generatedAt": "2026-11-04",
+      "provider": "Built-in ImageGen",
+      "style": "photorealistic-natural",
+      "prompt": "Use case: photorealistic-natural. Asset: original blog editorial photograph, wide landscape 1200x630 composition (1.905:1). Make it look like a photograph shot in a real place with ordinary physical objects, natural lighting, restrained color grading and imperfect believable materials. The entire important subject must fit inside the central 70% and the middle 60% vertically so it survives a wide crop. No overlaid text, no watermarks, no real company logos, no legible letters or numbers, no 3D illustration, no glass sculptures, no floating interfaces, no glowing circuits. Do not copy the website's dark navy/violet editorial illustration palette. Close-up documentary photograph of a real mobile app test on a daylight wooden workbench. A developer's natural hands hold one black Android-style phone beside a second unbranded iPhone-style handset. Both screens show the same restrained appointment-booking interface with date tiles, a simple calendar and a rounded booking action, believable native app layouts with no readable words or logos. The devices have subtly different proportions, realistic screen reflections, glass smudges and physical shadows. A notebook and pencil are softly blurred behind. Cool morning window light, soft sage and pale sky-blue accents, honest tactile detail, 50mm lens. Central two phones are the unmistakable main subject. No floating objects."
+    },
+    {
+      "slug": "wordpress-low-cost-business-website",
+      "output": "public/blog/wordpress-low-cost-business-website-editorial-20261104.jpg",
+      "subject": "Candid environmental editorial photograph inside a small independent ceramics shop, warm late-afternoon natural daylight. At the wooden checkout counter a modest open laptop displays an unbranded simple pottery shop website with three photographic product tiles and a calm white layout; beside it are handmade mugs, recycled packing paper, a small parcel and a real vase. The shop owner is visible only as naturally proportioned hands wrapping a mug at the side. Cozy terracotta and cream colors, real imperfect timber, sunlit shelves blurred in the background, 35mm lens, affordable practical small-business atmosphere. The laptop and parcel occupy the central safe area. No big studio, no luxury fantasy.",
+      "alt": {
+        "fa": "لپ‌تاپ با سایت یک فروشگاه کوچک سفال کنار لیوان دست‌ساز و بستهٔ سفارش در نور گرم",
+        "en": "A simple pottery-shop website on a laptop beside handmade mugs and an order parcel"
+      },
+      "generatedAt": "2026-11-04",
+      "provider": "Built-in ImageGen",
+      "style": "photorealistic-natural",
+      "prompt": "Use case: photorealistic-natural. Asset: original blog editorial photograph, wide landscape 1200x630 composition (1.905:1). Make it look like a photograph shot in a real place with ordinary physical objects, natural lighting, restrained color grading and imperfect believable materials. The entire important subject must fit inside the central 70% and the middle 60% vertically so it survives a wide crop. No overlaid text, no watermarks, no real company logos, no legible letters or numbers, no 3D illustration, no glass sculptures, no floating interfaces, no glowing circuits. Do not copy the website's dark navy/violet editorial illustration palette. Candid environmental editorial photograph inside a small independent ceramics shop, warm late-afternoon natural daylight. At the wooden checkout counter a modest open laptop displays an unbranded simple pottery shop website with three photographic product tiles and a calm white layout; beside it are handmade mugs, recycled packing paper, a small parcel and a real vase. The shop owner is visible only as naturally proportioned hands wrapping a mug at the side. Cozy terracotta and cream colors, real imperfect timber, sunlit shelves blurred in the background, 35mm lens, affordable practical small-business atmosphere. The laptop and parcel occupy the central safe area. No big studio, no luxury fantasy."
+    },
+    {
+      "slug": "nextjs-ecommerce-service-website-seo",
+      "output": "public/blog/nextjs-ecommerce-service-website-seo-editorial-20261104.jpg",
+      "subject": "Realistic editorial photograph in a bright contemporary homewares stockroom and showroom. A physically plausible unbranded widescreen desktop monitor on an uncluttered counter shows a polished pale ecommerce website with product photographs of lamps and chairs, simple navigation, one subtle product-search field and an ordinary shopping cart icon, without readable copy. An unbranded barcode reader and a taped cardboard order parcel sit nearby, a small shelving system with home goods softly blurred behind. White daylight, natural olive-gray and amber details, crisp real hardware and cables, subtle reflections, 28mm architectural photography. Convey an actual working online shop with fast organized service, never a holographic UI. No people as the main subject.",
+      "alt": {
+        "fa": "نمایشگر فروشگاه اینترنتی لوازم خانه روی پیشخوان واقعی کنار بستهٔ سفارش و بارکدخوان",
+        "en": "An online homewares shop on a desktop monitor beside a real order parcel and barcode reader"
+      },
+      "generatedAt": "2026-11-04",
+      "provider": "Built-in ImageGen",
+      "style": "photorealistic-natural",
+      "prompt": "Use case: photorealistic-natural. Asset: original blog editorial photograph, wide landscape 1200x630 composition (1.905:1). Make it look like a photograph shot in a real place with ordinary physical objects, natural lighting, restrained color grading and imperfect believable materials. The entire important subject must fit inside the central 70% and the middle 60% vertically so it survives a wide crop. No overlaid text, no watermarks, no real company logos, no legible letters or numbers, no 3D illustration, no glass sculptures, no floating interfaces, no glowing circuits. Do not copy the website's dark navy/violet editorial illustration palette. Realistic editorial photograph in a bright contemporary homewares stockroom and showroom. A physically plausible unbranded widescreen desktop monitor on an uncluttered counter shows a polished pale ecommerce website with product photographs of lamps and chairs, simple navigation, one subtle product-search field and an ordinary shopping cart icon, without readable copy. An unbranded barcode reader and a taped cardboard order parcel sit nearby, a small shelving system with home goods softly blurred behind. White daylight, natural olive-gray and amber details, crisp real hardware and cables, subtle reflections, 28mm architectural photography. Convey an actual working online shop with fast organized service, never a holographic UI. No people as the main subject."
+    },
+    {
+      "slug": "seo-tasks-for-business-owners",
+      "output": "public/blog/seo-tasks-for-business-owners-editorial-20261104.jpg",
+      "subject": "Natural overhead editorial photograph of a real small-business owner's working table. A laptop corner shows a restrained anonymous website performance report with a modest non-monotonic line chart and a small list of page rows, no readable words or invented ranking badges. The main focus is an open paper planner with blank ruled rows, a person's hand using an ordinary pencil to tick a short handwritten checklist made only of simple marks, and a phone showing a real-looking product photo in an unbranded browser. Off-white desk, morning sunlight and realistic soft window shadows, muted mustard and natural forest-green stationery. Lived-in honest desk, photographic textures, no neon or sci-fi graphics, no promise of rank one.",
+      "alt": {
+        "fa": "دست صاحب کسب‌وکار کنار دفتر کارهای سایت، گوشی و گزارش بازدید روی لپ‌تاپ",
+        "en": "A business owner reviewing a website checklist, phone and traffic report at a working desk"
+      },
+      "generatedAt": "2026-11-04",
+      "provider": "Built-in ImageGen",
+      "style": "photorealistic-natural",
+      "prompt": "Use case: photorealistic-natural. Asset: original blog editorial photograph, wide landscape 1200x630 composition (1.905:1). Make it look like a photograph shot in a real place with ordinary physical objects, natural lighting, restrained color grading and imperfect believable materials. The entire important subject must fit inside the central 70% and the middle 60% vertically so it survives a wide crop. No overlaid text, no watermarks, no real company logos, no legible letters or numbers, no 3D illustration, no glass sculptures, no floating interfaces, no glowing circuits. Do not copy the website's dark navy/violet editorial illustration palette. Natural overhead editorial photograph of a real small-business owner's working table. A laptop corner shows a restrained anonymous website performance report with a modest non-monotonic line chart and a small list of page rows, no readable words or invented ranking badges. The main focus is an open paper planner with blank ruled rows, a person's hand using an ordinary pencil to tick a short handwritten checklist made only of simple marks, and a phone showing a real-looking product photo in an unbranded browser. Off-white desk, morning sunlight and realistic soft window shadows, muted mustard and natural forest-green stationery. Lived-in honest desk, photographic textures, no neon or sci-fi graphics, no promise of rank one."
+    },
+    {
+      "slug": "reduce-website-build-maintenance-costs",
+      "output": "public/blog/reduce-website-build-maintenance-costs-editorial-20261104.jpg",
+      "subject": "Real small-business website budget planning meeting",
+      "alt": {
+        "fa": "دو نفر در حال بررسی طرح‌های کاغذی سایت و فهرست نیازها کنار ماشین‌حساب روی میز",
+        "en": "Two people reviewing website sketches and a requirements checklist beside a calculator"
+      },
+      "generatedAt": "2026-11-04",
+      "provider": "Built-in ImageGen",
+      "style": "photorealistic-natural",
+      "prompt": "Use case: photorealistic-natural. Asset: original realistic editorial photograph for an article about reducing website development and maintenance costs. Wide landscape 1200x630 composition, 1.905:1. Side-angle candid documentary photo of a modest small-business planning meeting at an ordinary light oak table: two people's natural hands sorting three printed website wireframe sheets, one hand pointing with a pencil to a short checklist, a basic physical calculator, a closed thin unbranded laptop at the far side and a labeled-color folder with NO text. The printed sheets show simple black rectangular page blocks and empty checkbox outlines, not legible words or numbers. Their faces are outside the frame. Ordinary sleeves, real paper fibers, believable hands and soft daylight, a faint plant shadow on the white wall, warm beige and muted teal palette, 35mm lens, clean but lived-in, no luxury boardroom. Convey sensible prioritization and a practical maintenance plan rather than a bargain-sales advertisement. Keep important papers, hands and calculator in central 70% and middle 60% vertically so a wide crop keeps the story. No readable text, no logos, no watermark, no price tags, no charts claiming savings, no fantasy, no glass sculpture, no floating screens, no neon midnight blue/violet."
+    },
+    {
+      "slug": "ecommerce-website-launch-guide",
+      "output": "public/blog/ecommerce-website-launch-guide-editorial-20261107.jpg",
+      "generatedAt": "2026-11-07",
+      "provider": "Built-in ImageGen",
+      "width": 1200,
+      "height": 630,
+      "subject": "A miniature ecommerce storefront with mobile shopping and a copper checkout path",
+      "prompt": "Use case: stylized-concept. Create one original, premium editorial blog cover about launching an online shop for SoSho Studio. Wide landscape 1.905:1 aspect ratio, high-resolution finished bitmap. Art-directed tactile 3D product photography: a beautifully detailed miniature ecommerce storefront emerging from a slim upright browser frame, with tiny warm-white ceramic shelves holding a sage vase and amber objects, one elegant shopping bag and a secure copper checkout token, a matching small phone showing simple product tiles. A single flowing brushed-metal path connects product discovery, basket and confirmation; three restrained objects, not a busy diagram. Deep midnight navy studio environment, steel-blue architectural surfaces, soft sage, warm copper edges, realistic frosted glass and porcelain, cinematic softbox lighting with delicate warm highlights and crisp contact shadows. Sophisticated realistic physical materials, subtle depth of field, balanced editorial composition with all important objects inside central 72% width and central 65% height to survive a 21:9 crop. Visually compelling at thumbnail size. No people, no readable text, no letters, no numerals, no logos, no watermark, no generic glowing circuits. This is an original conceptual illustration, not a real client project.",
+      "alt": {
+        "fa": "ماکت سه‌بعدی فروشگاه در قاب مرورگر، گوشی و سبد خرید با جزئیات مسی و سبز سیج",
+        "en": "A miniature shop inside a browser frame with a phone, shopping basket and copper and sage details"
+      }
+    },
+    {
+      "slug": "choose-website-design-team",
+      "output": "public/blog/choose-website-design-team-editorial-20261107.jpg",
+      "generatedAt": "2026-11-07",
+      "provider": "Built-in ImageGen",
+      "width": 1200,
+      "height": 630,
+      "subject": "Website and mobile design prototypes being evaluated with a copper caliper",
+      "prompt": "Use case: stylized-concept. Create one original, exceptionally polished editorial blog cover about selecting a professional website design team, for SoSho Studio. Wide landscape 1.905:1 composition, high-resolution finished bitmap. A sophisticated architectural review table with a large upright translucent browser prototype and a smaller mobile prototype, refined physical web interface cards with image rectangles and typographic-like abstract bars but absolutely no readable text, a small copper precision caliper measuring the main page and three porcelain evaluation tiles bearing a check, a simple key shape and a circular progress ring. The composition conveys careful comparison, usability and ownership. Hero browser slightly rotated, coherent perspective, physically grounded on a slate-blue platform; no floating clutter. Deep navy studio background, brushed silver, frosted glass, warm bone porcelain, sage and copper details; refined soft cinematic rim lights, convincing refraction and crisp shadows, richly textured tactile high-end 3D editorial art. All key objects inside central 70% width and central 65% height for safe 21:9 article cropping. Different silhouette from an online store cover, visually clear at thumbnail scale. No people, no company marks, no logos, no watermarks, no letters or numerals, no stars or invented ratings, no glowing circuits. Original conceptual art, not a real project screenshot.",
+      "alt": {
+        "fa": "ماکت سه‌بعدی رابط وب و موبایل روی میز بررسی با کولیس مسی و نشانه‌های ارزیابی",
+        "en": "Three-dimensional web and mobile prototypes on a review table with a copper caliper and evaluation tiles"
+      }
     }
   ],
-  "updatedAt": "2026-11-02"
+  "updatedAt": "2026-11-04"
 }
