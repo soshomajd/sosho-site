@@ -61,8 +61,8 @@ const LEVEL: Record<string, string> = { low: "پایین/ساده", medium: "م�
 
 function Card({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="rounded-2xl border border-white/10 bg-surface p-5">
-      <h2 className="text-base font-bold text-white">{title}</h2>
+    <section className="rounded-2xl border border-foreground/10 bg-surface p-5">
+      <h2 className="text-base font-bold text-foreground">{title}</h2>
       <div className="mt-3 text-sm leading-7 text-foreground">{children}</div>
     </section>
   );
@@ -104,7 +104,7 @@ export default function ConsultantDetailClient() {
             type="button"
             disabled={!csrfToken || pending}
             onClick={() => void setStatus(status)}
-            className="rounded-lg border border-white/15 px-3 py-1.5 text-xs text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-40"
+            className="rounded-lg border border-foreground/15 px-3 py-1.5 text-xs text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-40"
           >
             {STATUS_LABELS[status]}
           </button>

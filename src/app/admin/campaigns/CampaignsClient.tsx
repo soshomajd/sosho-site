@@ -65,7 +65,7 @@ export default function CampaignsClient() {
   return (
     <>
       <PageHeading title="کمپین‌ها" description="مشاهده وضعیت تولید، تأیید تلگرام و رسانه هر کمپین بدون امکان ویرایش." />
-      <div className="mb-6 flex flex-wrap gap-4 rounded-2xl border border-white/10 bg-surface/60 p-4">
+      <div className="mb-6 flex flex-wrap gap-4 rounded-2xl border border-foreground/10 bg-surface/60 p-4">
         <FilterField
           id="campaign-status"
           label="فیلتر وضعیت"
@@ -94,10 +94,10 @@ export default function CampaignsClient() {
         <>
           <div className="grid gap-4 lg:grid-cols-2">
             {resource.data.items.map((campaign) => (
-              <article key={campaign.id} className="rounded-2xl border border-white/10 bg-surface p-5">
+              <article key={campaign.id} className="rounded-2xl border border-foreground/10 bg-surface p-5">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h2 className="break-words text-lg font-semibold text-white">{campaign.title || "بدون عنوان"}</h2>
+                    <h2 className="break-words text-lg font-semibold text-foreground">{campaign.title || "بدون عنوان"}</h2>
                     <p className="mt-1 break-words text-sm leading-6 text-muted">{campaign.topic}</p>
                   </div>
                   <StatusBadge label={statusLabels[campaign.status] || campaign.status} tone={campaign.status === "failed" ? "danger" : campaign.status === "generated" ? "success" : "neutral"} />
@@ -111,11 +111,11 @@ export default function CampaignsClient() {
                   <div><dt className="text-muted">آخرین تغییر</dt><dd className="mt-1 text-foreground">{formatDate(campaign.updatedAt)}</dd></div>
                   <div className="sm:col-span-2"><dt className="text-muted">رسانه</dt><dd className="mt-1 text-foreground">{resource.data?.mediaCapability === "activation_required" ? "فعال‌سازی ذخیره‌سازی رسانه لازم است" : campaign.media ? (statusLabels[campaign.media.status] || campaign.media.status) : "رسانه‌ای ثبت نشده"}</dd></div>
                 </dl>
-                <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-foreground/10 pt-4">
                   <p className="break-all text-xs text-muted" dir="ltr">{campaign.id}</p>
                   <Link
                     href={`/admin/campaigns/detail?id=${encodeURIComponent(campaign.id)}`}
-                    className="rounded-xl border border-white/15 px-4 py-2 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="rounded-xl border border-foreground/15 px-4 py-2 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     مشاهده جزئیات و عملیات
                   </Link>

@@ -14,7 +14,7 @@
 .sh-portrait { position: relative; width: 100%; aspect-ratio: 1; pointer-events: none; }
 .sh-character { display: block; width: 100%; height: auto; }
 .sh-eye-layer { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.sh-team-brand { position: absolute; inset-inline-end: 8%; bottom: 6%; display: grid; place-items: center; width: clamp(52px, 5vw, 70px); aspect-ratio: 1; border: 1px solid rgb(236 238 233 / 20%); border-radius: 22px; background: var(--color-surface); box-shadow: 0 8px 28px rgb(0 0 0 / 22%); }
+.sh-team-brand { position: absolute; inset-inline-end: 8%; bottom: 6%; display: grid; place-items: center; width: clamp(52px, 5vw, 70px); aspect-ratio: 1; border: 1px solid color-mix(in srgb, var(--color-foreground) 20%, transparent); border-radius: 22px; background: var(--color-surface); box-shadow: 0 8px 28px rgb(0 0 0 / 22%); }
 .sh-team-brand svg { width: 52%; height: 52%; }
 .sh-team-brand-claude { color: var(--color-accent); }
 .sh-team-brand-codex { color: var(--color-foreground); }
@@ -24,7 +24,7 @@
 .sh-team-role { color: var(--color-foreground); font-size: 13px; line-height: 1.8; font-weight: 600; }
 .sh-team-bio { max-width: 320px; margin-top: 7px; color: var(--color-muted); font-size: 12px; line-height: 1.9; text-wrap: balance; }
 .sh-team-nav { display: grid; grid-template-columns: 48px auto 48px; justify-content: center; align-items: center; gap: 12px; margin-top: 8px; }
-.sh-team-arrow { grid-row: 1; display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid rgb(141 175 197 / 30%); border-radius: 50%; background: var(--color-surface); color: var(--color-foreground); cursor: pointer; transition: background 180ms ease, border-color 180ms ease; }
+.sh-team-arrow { grid-row: 1; display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent); border-radius: 50%; background: var(--color-surface); color: var(--color-foreground); cursor: pointer; transition: background 180ms ease, border-color 180ms ease; }
 .sh-team-arrow svg { width: 19px; height: 19px; }
 .sh-team-arrow:hover { border-color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 16%, var(--color-surface)); }
 .sh-team-arrow:active { background: color-mix(in srgb, var(--color-primary) 26%, var(--color-surface)); }
@@ -44,7 +44,7 @@
 .sh-title { font-size: clamp(23px, 2.15vw, 34px); font-weight: 800; line-height: 1.7; text-wrap: balance; }
 .sh-sub { margin-top: 16px; color: var(--color-muted); font-size: 13px; line-height: 2; max-width: 380px; }
 .sh-actions { position: relative; z-index: 1; grid-column: 3; grid-row: 2; justify-self: end; display: flex; align-items: center; flex-direction: column; gap: 18px; padding-bottom: 22px; }
-.sh-cta { display: inline-flex; min-height: 56px; align-items: center; justify-content: center; gap: 20px; border-radius: 999px; padding: 14px 28px; background: var(--color-primary); color: var(--color-background); font-size: 14px; font-weight: 800; box-shadow: 0 8px 36px rgb(141 175 197 / 12%); transition: transform 250ms ease, background 250ms ease; }
+.sh-cta { display: inline-flex; min-height: 56px; align-items: center; justify-content: center; gap: 20px; border-radius: 999px; padding: 14px 28px; background: var(--color-primary); color: var(--color-background); font-size: 14px; font-weight: 800; box-shadow: 0 8px 36px color-mix(in srgb, var(--color-primary) 12%, transparent); transition: transform 250ms ease, background 250ms ease; }
 .sh-cta:hover { background: var(--color-foreground); }
 .sh-cta svg { width: 20px; height: 20px; }
 .sh-secondary { position: relative; font-size: 13px; color: var(--color-muted); text-underline-offset: 6px; }
@@ -53,7 +53,7 @@
 .sh-secondary:hover { color: var(--color-foreground); text-decoration: underline; }
 .sh-estimate { display: inline-flex; align-items: center; gap: 8px; color: var(--color-primary); font-weight: 700; cursor: pointer; }
 .sh-cta:focus-visible, .sh-secondary:focus-visible, .sh-scroll:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 6px; }
-.sh-bottom { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 24px; border-top: 1px solid rgb(236 238 233 / 12%); padding-block: 24px; }
+.sh-bottom { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 24px; border-top: 1px solid color-mix(in srgb, var(--color-foreground) 12%, transparent); padding-block: 24px; }
 .sh-feats { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; color: var(--color-muted); font-size: 12px; }
 .sh-feats li { display: flex; align-items: center; gap: 10px; }
 .sh-feats li::before { content: ""; height: 4px; width: 4px; border-radius: 50%; background: var(--color-accent); }

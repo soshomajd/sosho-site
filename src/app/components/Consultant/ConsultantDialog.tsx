@@ -573,16 +573,16 @@ export default function ConsultantDialog({ locale, open, onClose }: { locale: Lo
         tabIndex={-1}
         aria-labelledby="consultant-step-title"
         dir={isFa ? "rtl" : "ltr"}
-        className="consultant-panel relative flex max-h-dvh w-full flex-col overflow-clip outline-none rounded-t-[1.75rem] border border-white/10 bg-background shadow-[0_30px_100px_rgba(0,0,0,0.55)] sm:max-h-[90dvh] sm:max-w-2xl sm:rounded-[1.75rem]"
+        className="consultant-panel relative flex max-h-dvh w-full flex-col overflow-clip outline-none rounded-t-[1.75rem] border border-foreground/10 bg-background shadow-[0_30px_100px_rgba(0,0,0,0.55)] sm:max-h-[90dvh] sm:max-w-2xl sm:rounded-[1.75rem]"
       >
-        <header className="relative shrink-0 overflow-hidden border-b border-white/10 px-5 py-4">
+        <header className="relative shrink-0 overflow-hidden border-b border-foreground/10 px-5 py-4">
           <div className="pointer-events-none absolute -end-10 -top-14 h-36 w-36 rounded-full bg-primary/25 blur-3xl" />
           <div className="relative flex items-center gap-3">
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-linear-to-br from-primary to-accent text-background">
               <LuSparkles className="h-5 w-5" aria-hidden="true" />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-extrabold text-white">{copy.title}</p>
+              <p className="text-sm font-extrabold text-foreground">{copy.title}</p>
               <p className="mt-0.5 truncate text-xs text-muted">
                 {isQuestion ? (step === "content" ? copy.followUp : copy.questionOf(mainIndex + 1, MAIN_STEPS.length)) : copy.subtitle}
               </p>
@@ -590,14 +590,14 @@ export default function ConsultantDialog({ locale, open, onClose }: { locale: Lo
             <button
               type="button"
               onClick={onClose}
-              className="grid h-9 w-9 place-items-center rounded-full text-muted hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="grid h-9 w-9 place-items-center rounded-full text-muted hover:bg-foreground/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               aria-label={copy.close}
             >
               <FiX className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>
           {isQuestion ? (
-            <div className="relative mt-4 h-1 overflow-hidden rounded-full bg-white/10" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label={copy.questionOf(mainIndex + 1, MAIN_STEPS.length)}>
+            <div className="relative mt-4 h-1 overflow-hidden rounded-full bg-foreground/10" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label={copy.questionOf(mainIndex + 1, MAIN_STEPS.length)}>
               <div className="h-full rounded-full bg-primary transition-[width] duration-300 motion-reduce:transition-none" style={{ width: `${Math.max(8, progress)}%` }} />
             </div>
           ) : null}
@@ -629,12 +629,12 @@ export default function ConsultantDialog({ locale, open, onClose }: { locale: Lo
         </div>
 
         {config && (isQuestion || step === "review" || step === "contact") ? (
-          <footer className="flex shrink-0 items-center justify-between gap-3 border-t border-white/10 px-5 py-3">
+          <footer className="flex shrink-0 items-center justify-between gap-3 border-t border-foreground/10 px-5 py-3">
             {step !== "projectType" ? (
               <button
                 type="button"
                 onClick={back}
-                className="inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm font-bold text-muted hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm font-bold text-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 <BackIcon className="h-4 w-4" aria-hidden="true" />
                 {copy.back}

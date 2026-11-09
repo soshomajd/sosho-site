@@ -12,6 +12,7 @@ import { FiMail, FiPhone } from "react-icons/fi";
 import { CONTACT_INFO } from "@/app/contact-info";
 import { SERVICES, getServiceHref } from "@/app/components/Services/data";
 import ConsultantButton from "@/app/components/Consultant/ConsultantButton";
+import { LOGO } from "@/app/theme/tokens";
 
 const SOCIAL_LINKS = [
     {
@@ -124,10 +125,10 @@ export default function Footer({ locale }: { locale: Locale }) {
                             aria-label={isFa ? "صفحه اصلی سوشو استودیو" : "Sosho Studio home"}
                         >
                             <Image
-                                src="/brand/logo-full-light.webp"
+                                src={LOGO.full.src}
                                 alt={isFa ? "لوگوی سوشو استودیو" : "Sosho Studio logo"}
-                                width={824}
-                                height={640}
+                                width={LOGO.full.width}
+                                height={LOGO.full.height}
                                 className="h-auto w-28"
                             />
                         </Link>

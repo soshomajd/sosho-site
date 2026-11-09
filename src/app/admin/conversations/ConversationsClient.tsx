@@ -69,7 +69,7 @@ export default function ConversationsClient() {
   return (
     <>
       <PageHeading title="گفتگوها" description="وضعیت AI، دخالت انسان و تعداد پیام‌های هر گفتگو به‌صورت فقط خواندنی." />
-      <div className="mb-6 flex flex-wrap gap-4 rounded-2xl border border-white/10 bg-surface/60 p-4">
+      <div className="mb-6 flex flex-wrap gap-4 rounded-2xl border border-foreground/10 bg-surface/60 p-4">
         <FilterField id="conversation-status" label="وضعیت گفتگو" value={status} onChange={(value) => updateFilter(setStatus, value)} options={[
           { value: "", label: "همه وضعیت‌ها" }, { value: "active", label: "فعال" }, { value: "closed", label: "بسته" },
         ]} />
@@ -87,10 +87,10 @@ export default function ConversationsClient() {
         <>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {resource.data.items.map((conversation) => (
-              <article key={conversation.id} className="rounded-2xl border border-white/10 bg-surface p-5">
+              <article key={conversation.id} className="rounded-2xl border border-foreground/10 bg-surface p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h2 className="font-semibold text-white">گفتگو {conversation.safeIdentifier}</h2>
+                    <h2 className="font-semibold text-foreground">گفتگو {conversation.safeIdentifier}</h2>
                     <p className="mt-1 text-sm text-muted">{labels[conversation.channel] || conversation.channel}</p>
                   </div>
                   <StatusBadge label={labels[conversation.status] || conversation.status} tone={conversation.status === "active" ? "success" : "neutral"} />
@@ -100,7 +100,7 @@ export default function ConversationsClient() {
                   <div className="flex justify-between gap-3"><dt className="text-muted">مرحله رسیدگی</dt><dd><StatusBadge label={conversation.needsAttention ? "نیازمند رسیدگی" : (labels[conversation.handoffState] || conversation.handoffState)} tone={conversation.needsAttention ? "warning" : "neutral"} /></dd></div>
                   <div className="flex justify-between gap-3"><dt className="text-muted">دخالت انسان</dt><dd><StatusBadge label={conversation.humanHandoff ? "لازم است" : "لازم نیست"} tone={conversation.humanHandoff ? "warning" : "neutral"} /></dd></div>
                   <div className="flex justify-between gap-3"><dt className="text-muted">تعداد پیام</dt><dd className="text-foreground">{conversation.messageCount.toLocaleString("fa-IR")}</dd></div>
-                  <div className="border-t border-white/10 pt-3"><dt className="text-muted">آخرین پیام</dt><dd className="mt-1 text-foreground">{formatDate(conversation.lastMessageAt)}</dd></div>
+                  <div className="border-t border-foreground/10 pt-3"><dt className="text-muted">آخرین پیام</dt><dd className="mt-1 text-foreground">{formatDate(conversation.lastMessageAt)}</dd></div>
                 </dl>
                 <Link
                   href={`/admin/conversations/detail?id=${encodeURIComponent(conversation.id)}`}

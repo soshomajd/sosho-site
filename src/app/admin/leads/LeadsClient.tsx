@@ -61,7 +61,7 @@ export default function LeadsClient() {
   return (
     <>
       <PageHeading title="سرنخ‌ها" description="فقط اطلاعات ضروری و غیرحساس سرنخ‌های ثبت‌شده نمایش داده می‌شود." />
-      <div className="mb-6 flex flex-wrap gap-4 rounded-2xl border border-white/10 bg-surface/60 p-4">
+      <div className="mb-6 flex flex-wrap gap-4 rounded-2xl border border-foreground/10 bg-surface/60 p-4">
         <FilterField id="lead-status" label="وضعیت سرنخ" value={status} onChange={(value) => updateFilter(setStatus, value)} options={[
           { value: "", label: "همه وضعیت‌ها" },
           { value: "discovery", label: "شناخت اولیه" },
@@ -82,10 +82,10 @@ export default function LeadsClient() {
         <>
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {resource.data.items.map((lead) => (
-              <article key={lead.id} className="rounded-2xl border border-white/10 bg-surface p-5">
+              <article key={lead.id} className="rounded-2xl border border-foreground/10 bg-surface p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h2 className="font-semibold text-white">{lead.displayName || `سرنخ ${lead.safeIdentifier}`}</h2>
+                    <h2 className="font-semibold text-foreground">{lead.displayName || `سرنخ ${lead.safeIdentifier}`}</h2>
                     <p className="mt-1 text-xs text-muted">شناسه امن: <span dir="ltr">{lead.safeIdentifier}</span></p>
                   </div>
                   <StatusBadge label={statusLabels[lead.status] || lead.status} tone={lead.status === "handoff" ? "warning" : "neutral"} />
@@ -94,7 +94,7 @@ export default function LeadsClient() {
                   <div className="flex justify-between gap-3"><dt className="text-muted">کانال ورود</dt><dd className="text-foreground">{sourceLabels[lead.source] || lead.source}</dd></div>
                   <div className="flex justify-between gap-3"><dt className="text-muted">نوع نیاز</dt><dd className="text-left text-foreground">{lead.projectType || "ثبت نشده"}</dd></div>
                   <div className="flex justify-between gap-3"><dt className="text-muted">سطح بودجه</dt><dd className="text-left text-foreground">{lead.budget || "ثبت نشده"}</dd></div>
-                  <div className="border-t border-white/10 pt-3"><dt className="text-muted">آخرین فعالیت</dt><dd className="mt-1 text-foreground">{formatDate(lead.updatedAt)}</dd></div>
+                  <div className="border-t border-foreground/10 pt-3"><dt className="text-muted">آخرین فعالیت</dt><dd className="mt-1 text-foreground">{formatDate(lead.updatedAt)}</dd></div>
                 </dl>
               </article>
             ))}

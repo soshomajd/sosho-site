@@ -96,7 +96,7 @@ const actionLabels: Record<ActionName, string> = {
 
 function TextBlock({ label, value }: Readonly<{ label: string; value: string | null | undefined }>) {
   return (
-    <div className="rounded-xl border border-white/10 bg-black/15 p-4">
+    <div className="rounded-xl border border-foreground/10 bg-background/70 p-4">
       <dt className="text-xs font-medium text-muted">{label}</dt>
       <dd className="mt-2 whitespace-pre-wrap break-words text-sm leading-7 text-foreground"><bdi>{value || "ثبت نشده"}</bdi></dd>
     </div>
@@ -196,10 +196,10 @@ export default function CampaignDetailClient() {
       {resource.error ? <ErrorState message={resource.error} retry={resource.retry} /> : null}
       {detail ? (
         <div className="space-y-6">
-          <section className="rounded-2xl border border-white/10 bg-surface p-5" aria-labelledby="campaign-summary">
+          <section className="rounded-2xl border border-foreground/10 bg-surface p-5" aria-labelledby="campaign-summary">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div className="min-w-0">
-                <h2 id="campaign-summary" className="break-words text-xl font-semibold text-white">{bundle?.campaignTitle || detail.campaign.topic}</h2>
+                <h2 id="campaign-summary" className="break-words text-xl font-semibold text-foreground">{bundle?.campaignTitle || detail.campaign.topic}</h2>
                 <p className="mt-2 break-all text-xs text-muted" dir="ltr">{detail.campaign.id}</p>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -220,8 +220,8 @@ export default function CampaignDetailClient() {
             </dl>
           </section>
 
-          <section className="rounded-2xl border border-white/10 bg-surface p-5" aria-labelledby="campaign-actions">
-            <h2 id="campaign-actions" className="text-lg font-semibold text-white">عملیات مدیریت محتوا</h2>
+          <section className="rounded-2xl border border-foreground/10 bg-surface p-5" aria-labelledby="campaign-actions">
+            <h2 id="campaign-actions" className="text-lg font-semibold text-foreground">عملیات مدیریت محتوا</h2>
             <p className="mt-2 text-sm leading-7 text-muted">هر عملیات در سمت سرور اعتبارسنجی و برای جلوگیری از اجرای تکراری ثبت می‌شود.</p>
             <div className="mt-5 flex flex-wrap gap-3">
               {(["approve", "reject", "regenerate"] as ActionName[]).map((action) => (
@@ -239,8 +239,8 @@ export default function CampaignDetailClient() {
             {message ? <p className="mt-4 text-sm leading-6 text-warning" role="status">{message}</p> : null}
           </section>
 
-          <section className="rounded-2xl border border-white/10 bg-surface p-5" aria-labelledby="media-status">
-            <h2 id="media-status" className="text-lg font-semibold text-white">وضعیت رسانه</h2>
+          <section className="rounded-2xl border border-foreground/10 bg-surface p-5" aria-labelledby="media-status">
+            <h2 id="media-status" className="text-lg font-semibold text-foreground">وضعیت رسانه</h2>
             <p className="mt-3 text-sm leading-7 text-foreground">
               {detail.mediaCapability === "activation_required"
                 ? "فعال‌سازی ذخیره‌سازی رسانه لازم است"
@@ -254,8 +254,8 @@ export default function CampaignDetailClient() {
           </section>
 
           <section aria-labelledby="content-bundle">
-            <h2 id="content-bundle" className="mb-4 text-lg font-semibold text-white">Content Bundle</h2>
-            {!bundle ? <p className="rounded-2xl border border-dashed border-white/15 p-6 text-sm text-muted">محتوای معتبر برای این کمپین ثبت نشده است.</p> : (
+            <h2 id="content-bundle" className="mb-4 text-lg font-semibold text-foreground">Content Bundle</h2>
+            {!bundle ? <p className="rounded-2xl border border-dashed border-foreground/15 p-6 text-sm text-muted">محتوای معتبر برای این کمپین ثبت نشده است.</p> : (
               <div className="space-y-5">
                 <dl className="grid gap-4 md:grid-cols-2">
                   <TextBlock label="عنوان کمپین" value={bundle.campaignTitle} />
@@ -276,21 +276,21 @@ export default function CampaignDetailClient() {
                   <TextBlock label="هشتگ‌ها" value={bundle.hashtags.join(" ")} />
                 </dl>
                 <div className="grid gap-5 lg:grid-cols-3">
-                  <div className="rounded-2xl border border-white/10 bg-surface p-5">
-                    <h3 className="font-semibold text-white">سناریوی Reel · {bundle.reelScript.durationSeconds.toLocaleString("fa-IR")} ثانیه</h3>
+                  <div className="rounded-2xl border border-foreground/10 bg-surface p-5">
+                    <h3 className="font-semibold text-foreground">سناریوی Reel · {bundle.reelScript.durationSeconds.toLocaleString("fa-IR")} ثانیه</h3>
                     <ol className="mt-4 space-y-3">{bundle.reelScript.scenes.map((scene, index) => <li key={index} className="text-sm leading-7 text-foreground"><strong>صحنه {index + 1}:</strong> {scene.visual}<br />{scene.dialogue}</li>)}</ol>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-surface p-5">
-                    <h3 className="font-semibold text-white">فریم‌های Story</h3>
+                  <div className="rounded-2xl border border-foreground/10 bg-surface p-5">
+                    <h3 className="font-semibold text-foreground">فریم‌های Story</h3>
                     <ol className="mt-4 space-y-3">{bundle.storyFrames.map((frame, index) => <li key={index} className="text-sm leading-7 text-foreground"><strong>{frame.headline}</strong><br />{frame.body}<br /><span className="text-muted">{frame.visual}</span></li>)}</ol>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-surface p-5">
-                    <h3 className="font-semibold text-white">اسلایدهای Carousel</h3>
+                  <div className="rounded-2xl border border-foreground/10 bg-surface p-5">
+                    <h3 className="font-semibold text-foreground">اسلایدهای Carousel</h3>
                     <ol className="mt-4 space-y-3">{bundle.carouselSlides.map((slide, index) => <li key={index} className="text-sm leading-7 text-foreground"><strong>{slide.headline}</strong><br />{slide.body}<br /><span className="text-muted">{slide.visual}</span></li>)}</ol>
                   </div>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-surface p-5">
-                  <h3 className="font-semibold text-white">زیرنویس‌ها</h3>
+                <div className="rounded-2xl border border-foreground/10 bg-surface p-5">
+                  <h3 className="font-semibold text-foreground">زیرنویس‌ها</h3>
                   <ol className="mt-4 space-y-2">{bundle.subtitles.map((subtitle, index) => <li key={index} className="text-sm leading-7 text-foreground"><span dir="ltr">{subtitle.startSecond}–{subtitle.endSecond}s</span> · {subtitle.text}</li>)}</ol>
                 </div>
               </div>
@@ -301,8 +301,8 @@ export default function CampaignDetailClient() {
 
       {confirmation ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4" role="presentation">
-          <section className="w-full max-w-lg rounded-2xl border border-white/15 bg-surface p-6 shadow-2xl" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-description">
-            <h2 id="confirm-title" className="text-lg font-semibold text-white">تأیید عملیات {actionLabels[confirmation.action]}</h2>
+          <section className="w-full max-w-lg rounded-2xl border border-foreground/15 bg-surface p-6 shadow-2xl" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-description">
+            <h2 id="confirm-title" className="text-lg font-semibold text-foreground">تأیید عملیات {actionLabels[confirmation.action]}</h2>
             <p id="confirm-description" className="mt-3 text-sm leading-7 text-muted">پس از تأیید، وضعیت در Dashboard و Telegram یکسان خواهد بود.</p>
             {confirmation.action === "reject" ? (
               <div className="mt-5">
@@ -315,12 +315,12 @@ export default function CampaignDetailClient() {
                   autoFocus
                   value={rejectReason}
                   onChange={(event) => setRejectReason(event.target.value)}
-                  className="mt-2 min-h-28 w-full rounded-xl border border-white/15 bg-black/30 p-3 text-foreground outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
+                  className="mt-2 min-h-28 w-full rounded-xl border border-foreground/15 bg-background/70 p-3 text-foreground outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
                 />
               </div>
             ) : null}
             <div className="mt-6 flex flex-wrap justify-end gap-3">
-              <button type="button" disabled={pending} onClick={() => setConfirmation(null)} className="rounded-xl border border-white/15 px-4 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-40">انصراف</button>
+              <button type="button" disabled={pending} onClick={() => setConfirmation(null)} className="rounded-xl border border-foreground/15 px-4 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-40">انصراف</button>
               <button type="button" disabled={pending || (confirmation.action === "reject" && rejectReason.trim().length < 3)} onClick={() => void submitAction()} className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-background focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40">{pending ? "در حال انجام…" : "تأیید نهایی"}</button>
             </div>
           </section>

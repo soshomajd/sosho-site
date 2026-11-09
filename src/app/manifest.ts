@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { THEME } from "./theme/tokens";
 
 export const dynamic = "force-static";
 
@@ -13,8 +14,8 @@ export default function manifest(): MetadataRoute.Manifest {
     display: "standalone",
     lang: "fa",
     dir: "rtl",
-    background_color: "#111820",
-    theme_color: "#111820",
+    background_color: THEME.background,
+    theme_color: THEME.background,
     icons: [
       {
         src: "/favicon.ico",

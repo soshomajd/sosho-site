@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
+import { THEME, THEME_CSS, THEME_MODE } from "./theme/tokens";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const ogImageUrl = new URL("/og.jpg", siteUrl).toString();
@@ -81,12 +82,12 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: siteName,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: THEME_MODE === "light" ? "default" : "black-translucent",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#111820" }],
+  themeColor: THEME.background,
 };
 
 export default function RootLayout({
@@ -97,6 +98,8 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl" suppressHydrationWarning>
       <head>
+        {/* Theme colours from src/app/theme/palette.ts; unlayered, so they override the @theme defaults. */}
+        <style id="site-theme" dangerouslySetInnerHTML={{ __html: THEME_CSS }} />
         <link
           rel="preload"
           href="/fonts/iranyekan/iranyekan-regular.woff2"

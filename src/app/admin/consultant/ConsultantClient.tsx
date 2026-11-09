@@ -52,7 +52,7 @@ export default function ConsultantClient() {
         title="درخواست‌های برآورد هوشمند"
         description="هر درخواستی که مشتری با رضایت ثبت کرده است: پاسخ‌ها، دو نسخه پیشنهادی، بازه قیمت از موتور تعرفه و وضعیت پیگیری. اطلاعات تماس فقط پس از ورود دیده می‌شود."
       />
-      <div className="mb-6 flex flex-wrap items-end gap-4 rounded-2xl border border-white/10 bg-surface/60 p-4">
+      <div className="mb-6 flex flex-wrap items-end gap-4 rounded-2xl border border-foreground/10 bg-surface/60 p-4">
         <FilterField
           id="consultant-status"
           label="وضعیت"
@@ -65,10 +65,10 @@ export default function ConsultantClient() {
         />
         {resource.data ? (
           <p className="pb-2 text-sm text-muted">
-            درخواست باز: <span className="font-semibold text-white">{resource.data.openTotal.toLocaleString("fa-IR")}</span>
+            درخواست باز: <span className="font-semibold text-foreground">{resource.data.openTotal.toLocaleString("fa-IR")}</span>
           </p>
         ) : null}
-        <Link href="/admin/tariffs" className="ms-auto rounded-xl border border-white/15 px-4 py-2 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent">
+        <Link href="/admin/tariffs" className="ms-auto rounded-xl border border-foreground/15 px-4 py-2 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent">
           تنظیم تعرفه‌ها
         </Link>
       </div>
@@ -79,10 +79,10 @@ export default function ConsultantClient() {
         <>
           <div className="grid gap-4 lg:grid-cols-2">
             {resource.data.items.map((item) => (
-              <article key={item.id} className="rounded-2xl border border-white/10 bg-surface p-5">
+              <article key={item.id} className="rounded-2xl border border-foreground/10 bg-surface p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h2 className="font-semibold text-white">
+                    <h2 className="font-semibold text-foreground">
                       <Link href={`/admin/consultant/detail?id=${encodeURIComponent(item.id)}`} className="hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent">
                         {item.publicRef} · {item.projectType}
                       </Link>

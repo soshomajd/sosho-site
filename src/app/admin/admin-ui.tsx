@@ -87,7 +87,7 @@ export function formatDate(value: string | null | undefined) {
 export function PageHeading({ title, description }: Readonly<{ title: string; description: string }>) {
   return (
     <div className="mb-7">
-      <h1 className="text-2xl font-bold text-white sm:text-3xl">{title}</h1>
+      <h1 className="text-2xl font-bold text-foreground sm:text-3xl">{title}</h1>
       <p className="mt-2 max-w-3xl text-sm leading-7 text-muted">{description}</p>
     </div>
   );
@@ -95,7 +95,7 @@ export function PageHeading({ title, description }: Readonly<{ title: string; de
 
 export function LoadingState() {
   return (
-    <div className="rounded-2xl border border-white/10 bg-surface p-6 text-sm text-muted" role="status">
+    <div className="rounded-2xl border border-foreground/10 bg-surface p-6 text-sm text-muted" role="status">
       در حال دریافت اطلاعات واقعی سیستم…
     </div>
   );
@@ -103,7 +103,7 @@ export function LoadingState() {
 
 export function EmptyState({ message }: Readonly<{ message: string }>) {
   return (
-    <div className="rounded-2xl border border-dashed border-white/15 bg-surface/60 p-8 text-center text-sm leading-7 text-muted">
+    <div className="rounded-2xl border border-dashed border-foreground/15 bg-surface/60 p-8 text-center text-sm leading-7 text-muted">
       {message}
     </div>
   );
@@ -144,7 +144,7 @@ export function FilterField({
         id={id}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="rounded-xl border border-white/15 bg-surface px-3 py-2.5 text-foreground outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
+        className="rounded-xl border border-foreground/15 bg-surface px-3 py-2.5 text-foreground outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
       >
         {options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
       </select>
@@ -167,7 +167,7 @@ export function PaginationControls({
           type="button"
           disabled={!pagination.hasPrevious}
           onClick={() => onPageChange(pagination.page - 1)}
-          className="rounded-xl border border-white/15 px-4 py-2 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-xl border border-foreground/15 px-4 py-2 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40"
         >
           صفحه قبل
         </button>
@@ -175,7 +175,7 @@ export function PaginationControls({
           type="button"
           disabled={!pagination.hasNext}
           onClick={() => onPageChange(pagination.page + 1)}
-          className="rounded-xl border border-white/15 px-4 py-2 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-xl border border-foreground/15 px-4 py-2 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40"
         >
           صفحه بعد
         </button>
@@ -189,7 +189,7 @@ export function StatusBadge({ label, tone = "neutral" }: Readonly<{
   tone?: "neutral" | "success" | "warning" | "danger";
 }>) {
   const tones = {
-    neutral: "border-white/10 bg-white/5 text-foreground",
+    neutral: "border-foreground/10 bg-foreground/5 text-foreground",
     success: "border-success/25 bg-success/10 text-success",
     warning: "border-warning/25 bg-warning/10 text-warning",
     danger: "border-danger/25 bg-danger/10 text-danger",

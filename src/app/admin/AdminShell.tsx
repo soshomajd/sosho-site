@@ -135,14 +135,14 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
   if (authState !== "authenticated") {
     return (
       <main className="min-h-screen bg-background px-4 py-12" dir="rtl">
-        <section className="mx-auto mt-[8vh] w-full max-w-md rounded-3xl border border-white/10 bg-surface p-6 shadow-2xl shadow-black/30 sm:p-8">
+        <section className="mx-auto mt-[8vh] w-full max-w-md rounded-3xl border border-foreground/10 bg-surface p-6 shadow-2xl shadow-black/30 sm:p-8">
           <p className="text-sm font-semibold text-accent">SoSho Studio</p>
-          <h1 className="mt-3 text-2xl font-bold text-white">ورود به داشبورد مدیریت</h1>
+          <h1 className="mt-3 text-2xl font-bold text-foreground">ورود به داشبورد مدیریت</h1>
           <p className="mt-3 text-sm leading-7 text-muted">
             این بخش فقط برای مدیر سیستم است. توکن پس از ورود در مرورگر ذخیره نمی‌شود.
           </p>
           {authState === "checking" ? (
-            <p className="mt-8 rounded-2xl border border-white/10 bg-black/20 p-4 text-sm text-muted" role="status">
+            <p className="mt-8 rounded-2xl border border-foreground/10 bg-background/70 p-4 text-sm text-muted" role="status">
               در حال بررسی نشست امن…
             </p>
           ) : (
@@ -158,7 +158,7 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
                 required
                 value={token}
                 onChange={(event) => setToken(event.target.value)}
-                className="w-full rounded-xl border border-white/15 bg-black/30 px-4 py-3 text-left text-white outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
+                className="w-full rounded-xl border border-foreground/15 bg-background/70 px-4 py-3 text-left text-foreground outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
                 dir="ltr"
               />
               <button
@@ -175,7 +175,7 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
             <button
               type="button"
               onClick={() => void checkSession()}
-              className="mt-5 rounded-xl border border-white/15 px-4 py-2 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent"
+              className="mt-5 rounded-xl border border-foreground/15 px-4 py-2 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent"
             >
               تلاش دوباره
             </button>
@@ -191,17 +191,17 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
   return (
     <AdminSessionProvider value={{ csrfToken }}>
     <div className="min-h-screen bg-background" dir="rtl">
-      <header className="border-b border-white/10 bg-surface/95">
+      <header className="border-b border-foreground/10 bg-surface/95">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-accent">SoSho Studio</p>
-              <p className="mt-1 text-lg font-bold text-white">داشبورد مدیریت</p>
+              <p className="mt-1 text-lg font-bold text-foreground">داشبورد مدیریت</p>
             </div>
             <button
               type="button"
               onClick={() => void handleLogout()}
-              className="rounded-xl border border-white/15 px-4 py-2 text-sm text-foreground hover:border-danger hover:text-danger focus:outline-none focus:ring-2 focus:ring-accent"
+              className="rounded-xl border border-foreground/15 px-4 py-2 text-sm text-foreground hover:border-danger hover:text-danger focus:outline-none focus:ring-2 focus:ring-accent"
             >
               خروج
             </button>
@@ -216,7 +216,7 @@ export default function AdminShell({ children }: Readonly<{ children: ReactNode 
                       href={item.href}
                       aria-current={current ? "page" : undefined}
                       className={`block rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent ${
-                        current ? "bg-primary text-background" : "bg-black/20 text-muted hover:text-white"
+                        current ? "bg-primary text-background" : "bg-background/70 text-muted hover:text-foreground"
                       }`}
                     >
                       {item.label}

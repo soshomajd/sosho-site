@@ -121,9 +121,9 @@ export default function ConversationDetailClient() {
       {resource.error ? <ErrorState message={resource.error} retry={resource.retry} /> : null}
       {resource.data ? (
         <div className="space-y-6">
-          <section className="rounded-2xl border border-white/10 bg-surface p-5" aria-labelledby="conversation-summary">
+          <section className="rounded-2xl border border-foreground/10 bg-surface p-5" aria-labelledby="conversation-summary">
             <div className="flex flex-wrap items-start justify-between gap-4">
-              <div><h2 id="conversation-summary" className="text-lg font-semibold text-white">گفتگو {resource.data.conversation.safeIdentifier}</h2><p className="mt-1 text-sm text-muted">{resource.data.conversation.channel}</p></div>
+              <div><h2 id="conversation-summary" className="text-lg font-semibold text-foreground">گفتگو {resource.data.conversation.safeIdentifier}</h2><p className="mt-1 text-sm text-muted">{resource.data.conversation.channel}</p></div>
               <StatusBadge label={resource.data.conversation.humanHandoff ? "نیازمند دخالت انسان" : "پاسخ خودکار"} tone={resource.data.conversation.humanHandoff ? "warning" : "neutral"} />
             </div>
             <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-4">
@@ -134,8 +134,8 @@ export default function ConversationDetailClient() {
               <div><dt className="text-muted">آخرین تغییر</dt><dd className="mt-1 text-foreground">{formatDate(resource.data.conversation.updatedAt)}</dd></div>
             </dl>
           </section>
-          <section className="rounded-2xl border border-white/10 bg-surface p-5" aria-labelledby="handoff-actions">
-            <h2 id="handoff-actions" className="text-lg font-semibold text-white">تحویل گفتگو</h2>
+          <section className="rounded-2xl border border-foreground/10 bg-surface p-5" aria-labelledby="handoff-actions">
+            <h2 id="handoff-actions" className="text-lg font-semibold text-foreground">تحویل گفتگو</h2>
             <p className="mt-2 text-sm leading-7 text-muted">با تحویل گرفتن، وضعیت گفتگو به حالت مدیریت انسانی می‌رود و AI همچنان متوقف می‌ماند.</p>
             <button
               type="button"
@@ -148,12 +148,12 @@ export default function ConversationDetailClient() {
             {actionMessage ? <p className="mt-4 text-sm leading-6 text-warning" role="status">{actionMessage}</p> : null}
           </section>
           <section aria-labelledby="conversation-messages">
-            <h2 id="conversation-messages" className="mb-4 text-lg font-semibold text-white">آخرین پیام‌ها</h2>
+            <h2 id="conversation-messages" className="mb-4 text-lg font-semibold text-foreground">آخرین پیام‌ها</h2>
             {resource.data.messagesTruncated ? <p className="mb-4 text-sm text-warning">فقط ۵۰ پیام آخر نمایش داده می‌شود.</p> : null}
             {resource.data.messages.length === 0 ? <EmptyState message="پیامی برای این گفتگو ثبت نشده است." /> : (
               <ol className="space-y-3">
                 {resource.data.messages.map((message, index) => (
-                  <li key={`${message.createdAt}-${index}`} className="rounded-2xl border border-white/10 bg-surface p-4">
+                  <li key={`${message.createdAt}-${index}`} className="rounded-2xl border border-foreground/10 bg-surface p-4">
                     <div className="flex flex-wrap justify-between gap-2 text-xs text-muted"><span>{message.role === "assistant" ? "دستیار" : "کاربر"}{message.stage ? ` · ${message.stage}` : ""}</span><time dateTime={message.createdAt}>{formatDate(message.createdAt)}</time></div>
                     <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-7 text-foreground">{message.contentPreview || "بدون متن"}</p>
                   </li>

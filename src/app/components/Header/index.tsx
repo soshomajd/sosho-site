@@ -11,6 +11,7 @@ import {
 } from "react-icons/si";
 import { FiPhone } from "react-icons/fi";
 import { CONTACT_INFO } from "@/app/contact-info";
+import { LOGO } from "@/app/theme/tokens";
 
 
 type HeaderLabels = {
@@ -88,10 +89,10 @@ export default function Header({
                     className="group inline-flex shrink-0 items-center gap-2 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                     <Image
-                        src="/brand/logo-horizontal-light.webp"
+                        src={LOGO.horizontal.src}
                         alt={locale === "fa" ? "لوگوی سوشو استودیو" : "Sosho Studio logo"}
-                        width={694}
-                        height={200}
+                        width={LOGO.horizontal.width}
+                        height={LOGO.horizontal.height}
                         className="h-8 w-auto sm:h-10"
                         preload
                     />

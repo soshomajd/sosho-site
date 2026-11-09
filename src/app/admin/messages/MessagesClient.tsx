@@ -132,7 +132,7 @@ export default function MessagesClient() {
         title="پیام‌های مخاطبان"
         description="پیام‌هایی که بازدیدکنندگان از فرم تماس سایت گذاشته‌اند. پیام‌ها فقط در این بخش و پس از ورود دیده می‌شوند و پس از مدت نگهداری به‌طور خودکار حذف می‌شوند."
       />
-      <div className="mb-6 flex flex-wrap items-end gap-4 rounded-2xl border border-white/10 bg-surface/60 p-4">
+      <div className="mb-6 flex flex-wrap items-end gap-4 rounded-2xl border border-foreground/10 bg-surface/60 p-4">
         <FilterField
           id="message-status"
           label="وضعیت پیام"
@@ -151,7 +151,7 @@ export default function MessagesClient() {
         />
         {resource.data ? (
           <p className="pb-2 text-sm text-muted">
-            پیام جدید: <span className="font-semibold text-white">{resource.data.newTotal.toLocaleString("fa-IR")}</span>
+            پیام جدید: <span className="font-semibold text-foreground">{resource.data.newTotal.toLocaleString("fa-IR")}</span>
           </p>
         ) : null}
       </div>
@@ -167,10 +167,10 @@ export default function MessagesClient() {
         <>
           <div className="grid gap-4 lg:grid-cols-2">
             {resource.data.items.map((item) => (
-              <article key={item.id} className="rounded-2xl border border-white/10 bg-surface p-5">
+              <article key={item.id} className="rounded-2xl border border-foreground/10 bg-surface p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h2 className="truncate font-semibold text-white">{item.name}</h2>
+                    <h2 className="truncate font-semibold text-foreground">{item.name}</h2>
                     <p className="mt-1 text-xs text-muted">
                       {formatDate(item.createdAt)} · {item.locale === "fa" ? "فارسی" : "English"}
                     </p>
@@ -180,9 +180,9 @@ export default function MessagesClient() {
 
                 <p className="mt-4 whitespace-pre-wrap break-words text-sm leading-7 text-foreground">{item.message}</p>
 
-                <div className="mt-4 rounded-xl border border-white/10 bg-black/20 p-3">
+                <div className="mt-4 rounded-xl border border-foreground/10 bg-background/70 p-3">
                   <p className="text-xs text-muted">راه تماس</p>
-                  <p dir="ltr" className="mt-1 break-all text-start text-sm font-semibold text-white">{item.contact}</p>
+                  <p dir="ltr" className="mt-1 break-all text-start text-sm font-semibold text-foreground">{item.contact}</p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {replyLinks(item.contact).map((link) => (
                       <a
@@ -197,7 +197,7 @@ export default function MessagesClient() {
                   </div>
                 </div>
 
-                <div className="mt-4 flex flex-wrap gap-2 border-t border-white/10 pt-4">
+                <div className="mt-4 flex flex-wrap gap-2 border-t border-foreground/10 pt-4">
                   {(["read", "replied", "archived", "new"] as const)
                     .filter((next) => next !== item.status)
                     .map((next) => (
@@ -206,7 +206,7 @@ export default function MessagesClient() {
                         type="button"
                         disabled={!csrfToken || pendingId !== null}
                         onClick={() => void changeStatus(item, next)}
-                        className="rounded-lg border border-white/15 px-3 py-1.5 text-xs text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40"
+                        className="rounded-lg border border-foreground/15 px-3 py-1.5 text-xs text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         {next === "new" ? "بازگرداندن به جدید" : next === "read" ? "علامت خوانده‌شده" : next === "replied" ? "پاسخ داده شد" : "بایگانی"}
                       </button>

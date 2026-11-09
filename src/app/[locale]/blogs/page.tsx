@@ -144,7 +144,7 @@ export default async function BlogsPage({
                             ) : (
                                 <div
                                     aria-hidden="true"
-                                    className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(141,175,197,0.24),transparent_55%),radial-gradient(circle_at_80%_75%,rgba(158,173,152,0.18),transparent_55%),linear-gradient(180deg,#111820_0%,#1d2935_100%)]"
+                                    className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,color-mix(in_srgb,var(--color-primary)_24%,transparent),transparent_55%),radial-gradient(circle_at_80%_75%,color-mix(in_srgb,var(--color-sage)_18%,transparent),transparent_55%),linear-gradient(180deg,var(--color-background)_0%,var(--color-surface)_100%)]"
                                 />
                             )}
                         </div>

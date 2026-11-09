@@ -1,16 +1,21 @@
 @import "tailwindcss";
 
+/*
+ * Token names for Tailwind. The values are only fallbacks: the real colours are derived
+ * from src/app/theme/palette.ts and injected in <head> by the root layout, which overrides
+ * these. Change the palette there, not here.
+ */
 @theme {
-  --color-background: #111820;
-  --color-surface: #1d2935;
-  --color-primary: #8dafc5;
-  --color-accent: #c98b62;
-  --color-sage: #9ead98;
-  --color-foreground: #eceee9;
-  --color-muted: #a6b2bc;
-  --color-success: #a9bfa3;
-  --color-warning: #d8ae82;
-  --color-danger: #e0a09a;
+  --color-background: #fff4e9;
+  --color-surface: #fee4c8;
+  --color-primary: #6f4e37;
+  --color-accent: #816047;
+  --color-sage: #af8357;
+  --color-foreground: #2c1f16;
+  --color-muted: #856046;
+  --color-success: #3d6b35;
+  --color-warning: #8a5300;
+  --color-danger: #b3261e;
 }
 
 /*
@@ -94,8 +99,8 @@
   }
 
   ::selection {
-    background: rgb(141 175 197 / 30%);
-    color: #eceee9;
+    background: color-mix(in srgb, var(--color-primary) 30%, transparent);
+    color: var(--color-foreground);
   }
 }
 

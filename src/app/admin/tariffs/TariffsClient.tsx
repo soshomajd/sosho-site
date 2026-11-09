@@ -83,7 +83,7 @@ export default function TariffsClient() {
       {resource.data ? (
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="grid gap-4 lg:col-span-2">
-            <p className="rounded-2xl border border-white/10 bg-surface p-4 text-sm text-foreground">
+            <p className="rounded-2xl border border-foreground/10 bg-surface p-4 text-sm text-foreground">
               {resource.data.active
                 ? `نسخه فعال: ${resource.data.active.version.toLocaleString("fa-IR")} · ${formatDate(resource.data.active.createdAt)}${resource.data.active.note ? ` · ${resource.data.active.note}` : ""}`
                 : "هنوز تعرفه‌ای ثبت نشده است. قالب خالی زیر را با اعداد واقعی پر کنید (هیچ عددی از پیش گذاشته نشده است)."}
@@ -97,21 +97,21 @@ export default function TariffsClient() {
                 value={text}
                 onChange={(event) => setDraft(event.target.value)}
                 rows={28}
-                className="mt-2 w-full rounded-2xl border border-white/15 bg-black/30 p-4 font-mono text-xs leading-6 text-foreground outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
+                className="mt-2 w-full rounded-2xl border border-foreground/15 bg-background/70 p-4 font-mono text-xs leading-6 text-foreground outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
               />
             </label>
             <label htmlFor="tariff-note" className="text-sm text-muted">
               یادداشت این نسخه (اختیاری)
-              <input id="tariff-note" value={note} maxLength={200} onChange={(event) => setNote(event.target.value)} className="mt-2 w-full rounded-xl border border-white/15 bg-surface px-3 py-2.5 text-foreground outline-none focus:border-accent" />
+              <input id="tariff-note" value={note} maxLength={200} onChange={(event) => setNote(event.target.value)} className="mt-2 w-full rounded-xl border border-foreground/15 bg-surface px-3 py-2.5 text-foreground outline-none focus:border-accent" />
             </label>
             <div className="flex flex-wrap gap-2">
               <button type="button" disabled={!csrfToken || pending} onClick={() => void save()} className="rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-background focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-40">
                 {pending ? "در حال ذخیره…" : "ذخیره نسخه جدید"}
               </button>
-              <button type="button" onClick={() => setDraft(JSON.stringify(resource.data?.template, null, 2))} className="rounded-xl border border-white/15 px-4 py-2.5 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent">
+              <button type="button" onClick={() => setDraft(JSON.stringify(resource.data?.template, null, 2))} className="rounded-xl border border-foreground/15 px-4 py-2.5 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent">
                 شروع از قالب خالی
               </button>
-              <button type="button" disabled={!csrfToken} onClick={() => void testTelegram()} className="rounded-xl border border-white/15 px-4 py-2.5 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-40">
+              <button type="button" disabled={!csrfToken} onClick={() => void testTelegram()} className="rounded-xl border border-foreground/15 px-4 py-2.5 text-sm text-foreground hover:border-accent focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-40">
                 تست اتصال تلگرام
               </button>
             </div>
@@ -123,8 +123,8 @@ export default function TariffsClient() {
             ) : null}
           </div>
           <aside className="grid content-start gap-4">
-            <section className="rounded-2xl border border-white/10 bg-surface p-4">
-              <h2 className="text-sm font-bold text-white">راهنمای فیلدها</h2>
+            <section className="rounded-2xl border border-foreground/10 bg-surface p-4">
+              <h2 className="text-sm font-bold text-foreground">راهنمای فیلدها</h2>
               <dl className="mt-3 grid gap-3 text-xs leading-6">
                 {HELP.map(([key, help]) => (
                   <div key={key}>
@@ -134,8 +134,8 @@ export default function TariffsClient() {
                 ))}
               </dl>
             </section>
-            <section className="rounded-2xl border border-white/10 bg-surface p-4">
-              <h2 className="text-sm font-bold text-white">تاریخچه نسخه‌ها</h2>
+            <section className="rounded-2xl border border-foreground/10 bg-surface p-4">
+              <h2 className="text-sm font-bold text-foreground">تاریخچه نسخه‌ها</h2>
               {resource.data.history.length ? (
                 <ul className="mt-3 grid gap-2 text-xs text-muted">
                   {resource.data.history.map((row) => (
