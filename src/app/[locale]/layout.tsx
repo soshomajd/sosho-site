@@ -16,6 +16,9 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const ogImageUrl = new URL("/og.jpg", siteUrl).toString();
 const instagramUrl = "https://www.instagram.com/sosho_studio/";
 const founderId = `${baseUrl}/#founder`;
+// Cloudflare Web Analytics (cookie-free page views). The token is public by design and
+// only identifies the site; CSP allows the beacon in public/_headers and PAGE_SECURITY_HEADERS.
+const webAnalyticsBeacon = JSON.stringify({ token: "0bf4dc25a62e44979a9a8908933d03ab" });
 
 export function generateStaticParams() {
     return locales.map((locale) => ({ locale }));
@@ -159,6 +162,9 @@ export default async function LocaleLayout({
             <ConsultantLauncher locale={locale} />
             <FloatingContact locale={locale} />
             <ConsultantHost locale={locale} />
+            {process.env.NODE_ENV === "production" && (
+                <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={webAnalyticsBeacon} />
+            )}
         </>
     );
 }

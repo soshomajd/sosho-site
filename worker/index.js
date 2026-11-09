@@ -2971,7 +2971,7 @@ const CANONICAL_HOST = "sosho-studio.net";
 // Worker re-applies them itself (tests/routing.test.js keeps both in sync).
 export const PAGE_SECURITY_HEADERS = {
   "content-security-policy":
-    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://d2ol7oe51mr4n9.cloudfront.net; font-src 'self' data:; connect-src 'self'; media-src 'self' blob: https://d8j0ntlcm91z4.cloudfront.net; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://d2ol7oe51mr4n9.cloudfront.net; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; media-src 'self' blob: https://d8j0ntlcm91z4.cloudfront.net; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
   "strict-transport-security": "max-age=31536000; includeSubDomains",
   "x-content-type-options": "nosniff",
   "x-frame-options": "DENY",
