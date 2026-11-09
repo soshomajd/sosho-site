@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { Locale } from "@/app/i18n";
 import { getDictionary, isLocale, locales } from "@/app/i18n";
 import { BLOG_POSTS, getBlogPostBySlug, getBlogPostHref } from "@/app/blogs/posts";
-import { relatedPosts, serviceForPost } from "@/app/blogs/related";
+import { POST_SERVICE_FOCUS, relatedPosts, serviceForPost, servicesForPost } from "@/app/blogs/related";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import { getService } from "@/app/components/Services/data";
 import JsonLd from "@/app/components/JsonLd";
@@ -210,6 +210,7 @@ export default async function BlogPostPage({
     const formattedDate = formatDate(post.publishedAt);
     const service = getService(serviceForPost(post));
     const related = relatedPosts(post, 3);
+    const contextualServices = POST_SERVICE_FOCUS[post.slug] ? servicesForPost(post).slice(0, 2).map((slug) => getService(slug)!) : [];
 
     return (
         <main id="main-content" tabIndex={-1} className="container py-10 outline-none">
@@ -295,7 +296,7 @@ export default async function BlogPostPage({
             ) : null}
 
             <div className="mt-8 space-y-8">
-                {post.sections.map((s) => (
+                {post.sections.map((s, sectionIndex) => (
                     <section key={s.heading.en} className="rounded-2xl border border-foreground/10 bg-background/10 p-6">
                         <h2 className="text-lg font-semibold text-foreground">{s.heading[locale]}</h2>
 
@@ -315,6 +316,18 @@ export default async function BlogPostPage({
                                     </li>
                                 ))}
                             </ul>
+                        ) : null}
+                        {sectionIndex === 0 && contextualServices.length > 0 ? (
+                            <p className="mt-5 border-t border-foreground/10 pt-4 text-sm leading-8 text-muted" data-contextual-services>
+                                {isFa ? "برای اجرای این مسیر، امکانات و نمونه‌کارهای خدمات مرتبط را ببینید: " : "To put this into practice, explore the scope and real work for these services: "}
+                                {contextualServices.map((entry, index) => (
+                                    <span key={entry.slug}>
+                                        {index > 0 ? (isFa ? " و " : " and ") : ""}
+                                        <Link href={`/${locale}/services/${entry.slug}`} className="font-semibold text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent">{entry.title[locale]}</Link>
+                                    </span>
+                                ))}
+                                {isFa ? "." : "."}
+                            </p>
                         ) : null}
                     </section>
                 ))}

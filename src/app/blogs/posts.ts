@@ -35,6 +35,561 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    "slug": "website-content-preparation-checklist",
+    "title": {
+      "fa": "قبل از سفارش طراحی سایت چه متن و عکس‌هایی آماده کنیم؟",
+      "en": "What Content Should You Prepare Before Website Design?"
+    },
+    "seoTitle": {
+      "fa": "چک‌لیست متن و عکس پیش از طراحی سایت",
+      "en": "Website Content Preparation Checklist"
+    },
+    "excerpt": {
+      "fa": "لوگو کافی نیست؛ متن خدمات، عکس‌ها، نمونه‌کار و اطلاعات تماس را چگونه به طراح تحویل دهیم؟ یک چک‌لیست عملی همراه نمونهٔ بستهٔ محتوای سایت بخوانید.",
+      "en": "Prepare service copy, photographs, project examples and contact details for your designer with a practical checklist and a sample content handover pack."
+    },
+    "tags": [
+      "Website",
+      "Content",
+      "Strategy"
+    ],
+    "publishedAt": "2026-11-08",
+    "coverImage": "/blog/website-content-preparation-checklist-editorial-20261108.jpg",
+    "coverImageAlt": {
+      "fa": "دستی در حال مرتب‌کردن عکس‌ها و برگه‌های محتوای سایت در پوشهٔ سبزآبی روی میز چوبی",
+      "en": "A hand arranging photographs and website content sheets in a teal folder on a wooden desk"
+    },
+    "directAnswer": {
+      "fa": "پیش از طراحی سایت، توضیح روشن خدمات و مخاطبان، اطلاعات واقعی کسب‌وکار، عکس‌های قابل استفاده، نمونه‌کارهای مجاز و راه‌های تماس را آماده کنید. برای هر صفحه، هدف و قدم بعدی کاربر را بنویسید و مسئول تأیید محتوا را مشخص کنید. یک بستهٔ منظم با وضعیت هر فایل، از فرستادن پراکندهٔ متن و عکس در پیام‌رسان کاربردی‌تر است.",
+      "en": "Before website design, prepare clear service and audience descriptions, accurate business information, usable photographs, authorised project examples and contact details. Give each page a purpose and a next step, and appoint a content approver. A structured pack with the status of each item is easier to work with than scattered messages and attachments."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "یک برگهٔ معرفی بسازید که طراح بتواند با آن تصمیم بگیرد",
+          "en": "Start with a brief the designer can use"
+        },
+        "paragraphs": {
+          "fa": [
+            "فرض کنید یک کارگاه فرضی ساخت مبلمان می‌خواهد سایت سفارش بگیرد. عبارت «سایت شیک و حرفه‌ای» هنوز روشن نمی‌کند مشتری باید محصول آماده بخرد، برای ساخت سفارشی پیام بدهد یا فقط نمونه‌ها را ببیند. همین تفاوت روی صفحه‌ها، عکس‌ها و فرم مورد نیاز اثر می‌گذارد.",
+            "در یک برگه بنویسید چه کاری انجام می‌دهید، برای چه کسی مناسب است و بازدیدکننده بعد از دیدن سایت چه کاری باید بتواند انجام دهد. سه سؤال واقعی مشتری را هم اضافه کنید. این برگه قرار نیست متن نهایی سایت باشد؛ مبنای مشترکی است تا طراح بداند چه اطلاعاتی باید برجسته شود."
+          ],
+          "en": [
+            "Imagine a furniture workshop commissioning a website. Asking for an elegant professional site does not yet establish whether customers will buy ready-made items, enquire about custom work or browse examples. Those differences affect the pages, photographs and forms needed.",
+            "Write one page explaining what you do, the intended customer and the action visitors should be able to complete. Add three genuine customer questions. This is a shared starting brief that helps the designer identify which information needs prominence; it does not need to be final website copy."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "برای هر صفحه، یک پروندهٔ محتوایی کوتاه داشته باشید",
+          "en": "Create a small content record for each page"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک جدول ساده با نام صفحه، هدف، متن موجود، تصویر پیشنهادی و مسئول تأیید بسازید. به‌جای اینکه همهٔ عکس‌ها را در پوشهٔ «جدید» بریزید، مشخص کنید هر تصویر مربوط به کدام خدمت یا پروژه است. اگر بخشی هنوز آماده نیست، آن را با وضعیت «نیازمند تهیه» ثبت کنید.",
+            "برای همان کارگاه فرضی، صفحهٔ «ساخت سفارشی» می‌تواند هدفش دریافت درخواست اولیه باشد؛ متنش روش سفارش را توضیح دهد، عکسش یک نمونهٔ مجاز را نشان دهد و قدم بعدی‌اش فرمی کوتاه باشد. این ارتباط، انتخاب چیدمان را معنادارتر می‌کند و معلوم می‌شود دقیقاً چه چیزی کم است."
+          ],
+          "en": [
+            "Use a simple table for the page name, purpose, available copy, proposed image and approver. Identify which service or project each image belongs to rather than putting every attachment into a folder called “new”. Mark missing material as needing preparation.",
+            "For the workshop, a custom-work page might explain the process, show an authorised example and lead to a short enquiry form. Linking those elements to one purpose gives layout decisions a clearer basis and makes missing content easier to identify."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "نام صفحه و سؤال اصلی مخاطب",
+            "پیام اصلی و اطلاعات لازم برای تصمیم",
+            "تصویر یا مدرک مرتبط",
+            "قدم بعدی کاربر و راه انجام آن",
+            "مسئول تأیید و وضعیت فعلی محتوا"
+          ],
+          "en": [
+            "Page name and the main customer question",
+            "Main message and decision-making information",
+            "Relevant image or evidence",
+            "The next step and how to take it",
+            "Approver and current content status"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "متن خدمت را از سؤال مشتری بنویسید",
+          "en": "Build service copy from customer questions"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای توضیح هر خدمت، محدودهٔ کار، خروجی قابل تحویل و اطلاعات لازم برای شروع را بنویسید. مشتری باید بتواند تشخیص دهد پیشنهاد شما به نیاز او مربوط است یا نه. برای کارگاه مبلمان، نوع سفارش قابل قبول، روش بررسی ابعاد و اطلاعات لازم برای درخواست اولیه، از صفت‌های کلی مفیدترند.",
+            "اگر متن آماده ندارید، یک گفت‌وگوی کوتاه با مسئول فروش یا اجرا را به یادداشت تبدیل کنید. سؤال‌ها می‌توانند این‌ها باشند: مشتری معمولاً چه چیزی را اشتباه می‌فهمد؟ پیش از برآورد چه اطلاعاتی لازم است؟ چه چیزی در این خدمت ارائه نمی‌شود؟ بعد یادداشت‌ها را با زبان ساده و قابل تأیید مرتب کنید."
+          ],
+          "en": [
+            "Describe scope, deliverables and the information needed to begin each service. The customer should be able to judge whether the offer is relevant. For a furniture workshop, accepted commission types, measurement arrangements and initial enquiry requirements are more useful than broad praise.",
+            "If copy is missing, turn a short interview with the sales or delivery lead into notes. Ask what customers misunderstand, what is needed before estimation and what is outside scope. Then organise those notes into plain statements the business can verify."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "اصل عکس‌ها را با توضیح کاربردشان تحویل دهید",
+          "en": "Provide original images and explain their purpose"
+        },
+        "paragraphs": {
+          "fa": [
+            "فایل اصلی عکس را جدا از نسخهٔ ارسال‌شده در پیام‌رسان نگه دارید. کنار هر تصویر، موضوع، صاحب فایل، اجازهٔ استفاده و صفحهٔ پیشنهادی را ثبت کنید. عکس بزرگ اما تار، یا تصویری که بخش مهم آن در قاب موبایل بریده می‌شود، صرفاً با زیادبودن ابعاد مناسب نمی‌شود.",
+            "قبل از انتخاب نهایی، چند برش افقی و عمودی از عکس را با طراح بررسی کنید. راهنمای تصاویر گوگل بر تصویر مرتبط، کیفیت مناسب و قرارگرفتن کنار متن مرتبط تأکید دارد. نسخهٔ نهایی باید برای جای نمایش آماده شود؛ فرستادن فایل بزرگ، به معنی استفاده از همان حجم در سایت نیست."
+          ],
+          "en": [
+            "Keep original image files separately from messaging-app copies. Record the subject, owner, permission and proposed page for each. Large dimensions cannot compensate for blur or for a mobile crop that removes the important subject.",
+            "Review possible landscape and portrait crops with the designer. Google’s image guidance highlights relevance, suitable quality and nearby contextual text. Prepare final assets for their intended placement; handing over a large original does not mean the same file size should be served on the website."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "نقش عکس را توضیح دهید تا alt درست نوشته شود",
+          "en": "Explain the image’s role so its alternative text is useful"
+        },
+        "paragraphs": {
+          "fa": [
+            "کنار فایل بنویسید تصویر چه چیزی را به مخاطب نشان می‌دهد. برای نمونه، «جزئیات اتصال پایهٔ میز در پروژهٔ الف» از عبارت «عکس شمارهٔ سه» اطلاعات بیشتری می‌دهد. این توضیح به انتخاب تصویر، نوشتن زیرنویس و بررسی نسبت آن با متن کمک می‌کند.",
+            "در راهنمای W3C، متن جایگزین بر اساس نقش تصویر انتخاب می‌شود: تصویر اطلاع‌رسان توضیح کوتاه لازم دارد، تصویر تزئینی می‌تواند alt خالی داشته باشد و تصویرِ لینک باید کارکردش را منتقل کند. یک جملهٔ پر از کلمهٔ کلیدی برای تمام تصاویر، این تفاوت‌ها را پوشش نمی‌دهد."
+          ],
+          "en": [
+            "Describe what the image contributes. “Table-leg joint detail in project A” communicates more than “photo three”. That information helps with selection, captions and checking how the image relates to the surrounding copy.",
+            "W3C’s decision tree bases alternative text on the image’s role: informative images need a short description, decorative images may have empty alt text and linked images need to communicate their function. Reusing a keyword-heavy sentence across every image does not address those different roles."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "نمونه‌کار را با نقش و اطلاعات قابل انتشار آماده کنید",
+          "en": "Prepare project examples with a clear contribution"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای هر نمونه‌کار، یک خلاصهٔ کوتاه بنویسید: نیاز اولیه چه بود، شما چه بخشی را انجام دادید و چه خروجی‌ای را می‌توان نشان داد؟ اگر کار گروهی بوده، نقش خودتان را مشخص کنید. قبل از انتشار نام مشتری، تصویر محل یا سند پروژه، اجازهٔ مناسب را بررسی کنید.",
+            "اگر نتیجهٔ عددی قابل اتکا ندارید، دربارهٔ فرایند و خروجی توضیح دهید. عکس قبل و بعد فقط زمانی کاربردی است که زمینهٔ مقایسه روشن باشد. برای طرح تمرینی یا مفهومی هم همان برچسب را همراه فایل تحویل دهید تا در سایت با پروژهٔ واقعی اشتباه معرفی نشود."
+          ],
+          "en": [
+            "For each project, summarise the initial need, your contribution and the output that can be shown. Identify your role in shared work. Check appropriate permission before publishing client names, locations or project documents.",
+            "Where reliable outcome measurements are unavailable, explain the process and deliverable. Before-and-after images need enough context for a fair comparison. Supply explicit labels for practice or concept work so it is presented accurately on the site."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "فایل‌های برند و اطلاعات تماس را یک‌جا تأیید کنید",
+          "en": "Approve brand assets and contact details together"
+        },
+        "paragraphs": {
+          "fa": [
+            "نام فارسی و انگلیسی برند، فایل مناسب لوگو، رنگ‌های مورد استفاده و اطلاعات تماس را در یک مرجع مشخص قرار دهید. اگر نشانی یا شمارهٔ قدیمی در فایل‌های قبلی هست، وضعیت آن را روشن کنید. طراح نباید بین چند امضا، کارت ویزیت و پیام پراکنده حدس بزند کدام نسخه درست است.",
+            "همچنین نام شبکه‌های اجتماعی و لینک دقیق آن‌ها را بررسی کنید. برای سایت دو‌زبانه، مسئول تأیید ترجمه را مشخص کنید و تفاوت واقعی دو نسخه را بنویسید؛ مثلاً اگر یک خدمت فقط در محدودهٔ خاصی ارائه می‌شود. علامت‌زدن «تأییدشده» زمانی معنی دارد که صاحب اطلاعات آن را مرور کرده باشد."
+          ],
+          "en": [
+            "Keep approved Persian and English brand names, suitable logo files, colours and contact details in a single reference. Identify outdated addresses or phone numbers in earlier materials. The designer should not have to guess between business cards, signatures and scattered messages.",
+            "Verify exact social profile links as well. For bilingual sites, appoint a translation approver and describe genuine differences between versions, such as service availability in a particular area. Approval should follow review by the person responsible for the information."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "یک نمونهٔ بستهٔ تحویل محتوا",
+          "en": "An example content handover pack"
+        },
+        "paragraphs": {
+          "fa": [
+            "پیشنهاد ما این است که یک پوشهٔ اصلی با زیرپوشه‌های صفحه‌ها، تصاویر اصلی، فایل‌های برند و تأییدها داشته باشید. نام فایل را به موضوع مربوط کنید؛ برای مثال service-custom-order متن خدمت و project-table-detail تصویر جزئیات نمونه‌کار باشد. روش نام‌گذاری لازم نیست پیچیده باشد، فقط باید برای اعضای پروژه قابل فهم بماند.",
+            "در فایل وضعیت، برای هر مورد یکی از حالت‌های «پیش‌نویس»، «نیازمند اصلاح» یا «تأییدشده» را بنویسید. تغییرهای تازه را با تاریخ و مسئول مشخص کنید. اگر محتوا هنوز ناقص است، برای هر بخش تصمیم بگیرید چه چیزی در نسخهٔ اول می‌آید و چه چیزی به مرحلهٔ بعد منتقل می‌شود."
+          ],
+          "en": [
+            "Our suggestion is a shared folder containing page copy, original images, brand files and approvals. Use names linked to the subject: service-custom-order for service copy or project-table-detail for a project photograph. A simple convention is enough if everyone can understand it.",
+            "Track each item as draft, needing revision or approved, and record the owner and date of changes. Where content remains incomplete, agree what belongs in the first release and what will follow. This keeps the handover actionable even while some work is still underway."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "یک برگهٔ معرفی و هدف سایت",
+            "یک پرونده برای هر صفحهٔ اصلی",
+            "عکس‌های اصلی با توضیح و مجوز استفاده",
+            "فایل‌های برند و اطلاعات تماس تأییدشده",
+            "فهرست موارد ناقص و مسئول پیگیری"
+          ],
+          "en": [
+            "A one-page business and website brief",
+            "A content record for each key page",
+            "Original images with descriptions and permissions",
+            "Approved brand and contact information",
+            "Missing items and their owners"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "قبل از شروع طراحی، یک مرور مشترک انجام دهید",
+          "en": "Review the pack together before design begins"
+        },
+        "paragraphs": {
+          "fa": [
+            "بسته را فقط ارسال نکنید؛ با طراح یک صفحهٔ نمونه را مرور کنید تا معلوم شود متن و عکس چگونه به یک مسیر تبدیل می‌شوند. از او بخواهید اطلاعات مبهم، تصویر نامناسب و بخش‌های نیازمند تولید را مشخص کند. نتیجهٔ جلسه باید فهرستی روشن از تصمیم‌ها و کارهای باقی‌مانده باشد.",
+            "برای شروع همکاری با سوشو می‌توانید همین بستهٔ اولیه را همراه نیازهای پروژه آماده کنید. صفحهٔ خدمات طراحی سایت و «برآورد هوشمند» نقطهٔ شروع هستند. تولید یا ویرایش محتوا، عکاسی و ترجمه را هم در محدودهٔ کار مشخص کنید تا مسئولیت هر بخش روشن باشد."
+          ],
+          "en": [
+            "Review a sample page with the designer so both sides can see how copy and images support a customer journey. Ask them to identify ambiguity, unsuitable assets and missing material. Finish with a clear list of decisions and remaining tasks.",
+            "Bring this initial pack to a discussion with SoSho. The website design service page and project estimate offer starting points. Define responsibilities for content creation, editing, photography and translation alongside the rest of the project scope."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا بدون متن نهایی می‌توان طراحی را شروع کرد؟",
+          "en": "Can design start before the final copy is ready?"
+        },
+        "answer": {
+          "fa": "بله، اگر هدف صفحه‌ها، ساختار اطلاعات و مسئول تهیهٔ محتوا روشن باشد. برای صفحه‌های مهم، متن واقعی یا پیش‌نویس قابل اتکا آماده کنید تا تصمیم‌ها فقط بر اساس متن نمایشی نباشند.",
+          "en": "Yes, when page purposes, information structure and content responsibilities are clear. Use real copy or a reliable draft for key pages so design decisions have a concrete basis."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا عکس موبایل برای سایت مناسب است؟",
+          "en": "Can phone photographs be used on a website?"
+        },
+        "answer": {
+          "fa": "ممکن است مناسب باشد. وضوح، نور، کادر، مجوز استفاده و جای نمایش را بررسی کنید؛ نوع دوربین به‌تنهایی تعیین‌کننده نیست. فایل اصلی را برای بررسی تحویل دهید.",
+          "en": "They may be suitable. Assess clarity, lighting, framing, permission and intended placement. Camera type alone does not decide suitability; provide the original file for review."
+        }
+      },
+      {
+        "question": {
+          "fa": "متن نوشته‌شده با هوش مصنوعی را همان‌طور تحویل بدهیم؟",
+          "en": "Can AI-written copy be handed over unchanged?"
+        },
+        "answer": {
+          "fa": "پیش از تحویل، نام‌ها، خدمات، محدودهٔ کار و هر ادعای نتیجه را با واقعیت کسب‌وکار تطبیق دهید. مسئول نهایی اطلاعات باید متن را بخواند و تأیید کند.",
+          "en": "Verify names, services, scope and outcome claims against the actual business. The person responsible for the information should review and approve the copy."
+        }
+      },
+      {
+        "question": {
+          "fa": "اگر نمونه‌کار قابل انتشار نداریم چه کنیم؟",
+          "en": "What if no client project can be published?"
+        },
+        "answer": {
+          "fa": "روش کار و خروجی قابل ارائه را توضیح دهید. می‌توان از طرح مفهومی با برچسب روشن استفاده کرد؛ نام مشتری یا نتیجهٔ ساختگی اضافه نکنید.",
+          "en": "Explain your process and available deliverables. Clearly labelled concept work is an option; avoid invented clients or results."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "راهنمای گوگل دربارهٔ تصاویر سایت",
+          "en": "Google image guidance"
+        },
+        "url": "https://developers.google.com/search/docs/appearance/google-images"
+      },
+      {
+        "title": {
+          "fa": "راهنمای W3C برای انتخاب متن جایگزین تصویر",
+          "en": "W3C alt text decision tree"
+        },
+        "url": "https://www.w3.org/WAI/tutorials/images/decision-tree/"
+      }
+    ]
+  },
+  {
+    "slug": "website-redesign-seo-url-checklist",
+    "title": {
+      "fa": "بازطراحی سایت و سئو؛ چک‌لیست آدرس‌ها قبل و بعد از انتشار",
+      "en": "Website Redesign and SEO: A URL Checklist Before and After Launch"
+    },
+    "seoTitle": {
+      "fa": "چک‌لیست سئو در بازطراحی و تغییر آدرس سایت",
+      "en": "Website Redesign SEO and URL Checklist"
+    },
+    "excerpt": {
+      "fa": "پیش از بازطراحی سایت، با آدرس‌ها و صفحه‌های قبلی چه کنیم؟ نقشهٔ انتقال، ریدایرکت، canonical و کنترل بعد از انتشار را با مثال عملی مرور کنید.",
+      "en": "Plan old and new page URLs during a website redesign with practical checks for mapping, redirects, canonical links, sitemaps and post-launch monitoring."
+    },
+    "tags": [
+      "Website",
+      "SEO",
+      "Strategy"
+    ],
+    "publishedAt": "2026-11-08",
+    "coverImage": "/blog/website-redesign-seo-url-checklist-editorial-20261108.jpg",
+    "coverImageAlt": {
+      "fa": "دو ماکت کاغذی سایت قدیمی و جدید با اتصال‌های مسی بین صفحه‌های متناظر روی میز روشن",
+      "en": "Two physical old and new website layout boards with copper connections between corresponding pages on a light desk"
+    },
+    "directAnswer": {
+      "fa": "قبل از بازطراحی، آدرس‌های فعلی و صفحه‌های مهم را ثبت کنید. برای هر صفحه تصمیم بگیرید آدرسش حفظ می‌شود، به صفحهٔ مرتبط منتقل می‌شود یا حذف واقعی دارد. سپس ریدایرکت‌ها، لینک‌های داخلی، canonical و sitemap را در نسخهٔ آماده آزمایش کنید و بعد از انتشار، دسترسی و گزارش‌های گوگل را پیگیری کنید. این کارها ریسک خطا را کم می‌کنند و تضمین حفظ رتبه نیستند.",
+      "en": "Inventory existing URLs and important pages before redesigning. Decide which addresses stay, which move to a relevant replacement and which genuinely disappear. Test redirects, internal links, canonicals and the sitemap before release, then monitor access and Google reports after launch. These checks reduce avoidable errors; they do not guarantee unchanged rankings."
+    },
+    "sections": [
+      {
+        "heading": {
+          "fa": "تغییر ظاهر را از تغییر آدرس‌ها جدا کنید",
+          "en": "Separate layout changes from URL changes"
+        },
+        "paragraphs": {
+          "fa": [
+            "عوض‌شدن رنگ، منو یا چیدمان لزوماً نیاز به تغییر آدرس صفحه ندارد. پیش از شروع، از تیم بپرسید کدام URLها قرار است عوض شوند و چرا. اگر هدف فقط خواناترشدن صفحهٔ خدمات است، حفظ آدرس فعلی می‌تواند یکی از گزینه‌های بررسی باشد.",
+            "فرض کنید یک شرکت فرضی خدمات تأسیسات، صفحهٔ /services را به چند صفحهٔ تخصصی تبدیل می‌کند. این تصمیم فقط مسئلهٔ منو نیست؛ باید معلوم شود کسی که لینک قدیمی را دارد به کجا می‌رسد. برای هر تغییر، یک دلیل و یک مسئول تصمیم‌گیری ثبت کنید تا آدرس‌ها در طول طراحی تصادفی تغییر نکنند."
+          ],
+          "en": [
+            "Changing colours, navigation or layout does not automatically require changing a page address. Ask which URLs will change and why. If the goal is a clearer service page, keeping its existing address is an option to assess.",
+            "Consider a hypothetical maintenance company splitting /services into specialist pages. The plan needs to explain what happens to visitors holding the old link. Record a reason and owner for each change so addresses are not revised accidentally throughout design."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "فهرست صفحه‌های فعلی را پیش از اجرا نگه دارید",
+          "en": "Keep an inventory of the current pages"
+        },
+        "paragraphs": {
+          "fa": [
+            "یک فایل شامل آدرس، عنوان، موضوع صفحه و وضعیت پیشنهادی بسازید. آدرس‌های سایت‌مپ، منو، لینک‌های تبلیغاتی و صفحه‌هایی را که در Search Console دیده می‌شوند مرور کنید. برای کسب‌وکار، بعضی صفحه‌ها حتی با بازدید کم مهم‌اند؛ مثلاً صفحه‌ای که در پیشنهادهای فروش لینک شده است.",
+            "از نسخهٔ فعلی، یک مبنای مقایسه نگه دارید: تصویر صفحه، عنوان و توضیح، محتوای ضروری و مسیر تماس یا خرید. این پیشنهاد عملی برای کنترل پروژه است. اگر بعداً کسی بگوید «این بخش قبلاً کار می‌کرد»، به‌جای تکیه بر حافظه، چیزی برای بررسی خواهید داشت."
+          ],
+          "en": [
+            "Create a file containing the address, title, topic and proposed treatment. Review URLs from the sitemap, navigation, promotional links and Search Console. Some low-traffic pages still have business value, such as an address included in sales proposals.",
+            "Keep a baseline of the current page: a screenshot, title and description, essential content and contact or purchase journey. This is a practical project-control recommendation. It provides something concrete to compare when reviewing a reported change later."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "برای هر آدرس قدیمی، مقصد معنادار تعیین کنید",
+          "en": "Give each changed address a relevant destination"
+        },
+        "paragraphs": {
+          "fa": [
+            "در فایل انتقال، آدرس قدیمی و نتیجهٔ مورد انتظار را کنار هم بنویسید. صفحه‌ای که همان خدمت را ارائه می‌دهد، ممکن است آدرسش حفظ شود. اگر دو صفحه ادغام می‌شوند، توضیح دهید محتوای مورد نیاز مخاطب در مقصد چگونه پیدا می‌شود. تصمیم «حذف» را هم از «هنوز برایش صفحه نساخته‌ایم» جدا کنید.",
+            "راهنمای انتقال گوگل بر نگاشت آدرس‌های قدیمی به معادل‌های مناسب تأکید دارد. هدایت بی‌ارتباط همهٔ صفحه‌ها به خانه، جای چنین نقشه‌ای را نمی‌گیرد. برای مثال، لینک قدیمی تعمیر پمپ باید به توضیح مرتبط برسد؛ رسیدن به یک صفحهٔ عمومی بدون راهنمایی، نیاز قبلی کاربر را پاسخ نمی‌دهد."
+          ],
+          "en": [
+            "Pair each old address with its expected outcome. A page providing the same service may retain its URL. When merging pages, identify where readers will find the information they need. Distinguish an intentional removal from a replacement that has not yet been built.",
+            "Google’s site-move guidance calls for mapping old addresses to suitable equivalents. Sending unrelated pages to the homepage is not a substitute. For example, an old pump-repair link should lead to relevant information rather than leaving the visitor to search a general page."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "آدرس و موضوع فعلی",
+            "آدرس مقصد یا تصمیم حذف",
+            "دلیل تغییر و محتوای منتقل‌شده",
+            "مسئول تأیید مقصد",
+            "نتیجهٔ آزمایش لینک قدیمی"
+          ],
+          "en": [
+            "Current address and topic",
+            "Destination or removal decision",
+            "Reason and content being retained",
+            "Destination approver",
+            "Result of testing the old link"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "ریدایرکت را با بازکردن خودِ لینک قدیمی آزمایش کنید",
+          "en": "Test a redirect by opening the old URL"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای انتقال دائمی، گوگل ریدایرکت‌های سروری 301 و 308 را به‌عنوان سیگنال انتقال دائمی توضیح می‌دهد. از تیم بخواهید نوع پاسخ و مقصد نهایی را برای آدرس‌های نقشهٔ انتقال بررسی کند. صرف اینکه منوی جدید باز می‌شود، عملکرد آدرس‌های قبلی را ثابت نمی‌کند.",
+            "آزمون پیشنهادی را با یک لینک قدیمی از ایمیل یا شبکهٔ اجتماعی شروع کنید. نتیجه باید در مرورگر و ابزار بررسی پاسخ سرور قابل مشاهده باشد. اگر آدرس چند بار می‌چرخد، به مقصد نامرتبط می‌رود یا دوباره به خودش برمی‌گردد، همان زنجیره را با مسئول اجرا مرور کنید."
+          ],
+          "en": [
+            "Google describes server-side 301 and 308 redirects as signals of a permanent move. Ask the implementation team to verify response types and final destinations against the URL map. Working navigation on the new site does not demonstrate that old links work.",
+            "Start a test from an old email or social link and inspect the outcome in a browser and response-checking tool. Review chains that take unnecessary hops, end at unrelated content or loop back. Testing the original entry point makes the intended behaviour observable."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "canonical، لینک داخلی و sitemap را با مقصد نهایی هماهنگ کنید",
+          "en": "Align canonicals, internal links and the sitemap"
+        },
+        "paragraphs": {
+          "fa": [
+            "canonical ترجیح سایت دربارهٔ نسخهٔ اصلی صفحه را به گوگل اعلام می‌کند؛ گوگل ممکن است نسخهٔ دیگری انتخاب کند. پس از بازطراحی، از تیم بخواهید بررسی کند این مقدار به نشانی قدیمی، دامنهٔ آزمایشی یا صفحهٔ نامرتبط اشاره نکند. نسخهٔ فارسی و انگلیسی هم باید در ارتباط مناسب با هم باقی بمانند.",
+            "لینک‌های داخل متن، منو و دکمه‌ها را به مقصد نهایی مرتبط به‌روز کنید. طبق راهنمای سایت‌مپ گوگل، URLهایی را در نقشه بگذارید که می‌خواهید در نتایج نمایش داده شوند. در فهرست کنترل، مقصد لینک، canonical و نشانی sitemap را کنار هم ببینید تا تناقض‌ها قابل پیدا کردن باشند."
+          ],
+          "en": [
+            "A canonical indicates the site’s preferred main version; Google may choose a different one. Review it after redesign so it does not point to an old address, staging host or unrelated page. Maintain appropriate relationships between language versions as well.",
+            "Update navigation, body links and actions to relevant final destinations. Google’s sitemap guidance recommends including the URLs you want represented in search results. Review link targets, canonicals and sitemap addresses together to make inconsistencies easier to spot."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "نسخهٔ آزمایشی را با مسیرهای واقعی بررسی کنید",
+          "en": "Review the staging version through real journeys"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای تحویل نسخهٔ آزمایشی، فقط از صفحهٔ اصلی شروع نکنید. یک صفحهٔ خدمت، یک مقالهٔ قدیمی، یک نمونه‌کار و مسیر تماس را از آدرس مستقیم باز کنید. در هرکدام، متن ضروری، تصویر، دکمه‌ها و مقصد لینک‌ها را بررسی کنید. شخصی از سمت کسب‌وکار باید بتواند بگوید اطلاعات مهم منتقل شده است یا نه.",
+            "از تیم یک چک‌لیست جدا برای تنظیمات محیط آزمایشی و محیط اصلی بخواهید. اگر نسخهٔ آزمایشی محدودیت دسترسی یا noindex دارد، وضعیت نسخهٔ اصلی پیش از انتشار باید عمداً بررسی شود. همچنین روش برگشت به نسخهٔ قبلی و مسئول تصمیم دربارهٔ برگشت را مشخص کنید."
+          ],
+          "en": [
+            "Open a service page, an older article, a project and the contact journey directly when reviewing staging. Check essential copy, images, controls and destinations on each. A business representative should confirm whether important information has been retained.",
+            "Request separate environment checklists for staging and production. Where staging uses access restrictions or noindex, deliberately review the intended production settings before launch. Also agree how a rollback would work and who is responsible for deciding to use it."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "لحظهٔ انتشار، یک فهرست کوتاه و قابل اجرا داشته باشید",
+          "en": "Use a short launch checklist"
+        },
+        "paragraphs": {
+          "fa": [
+            "برای روز انتشار، یک نفر مسئول هماهنگی باشد و نتیجهٔ آزمون‌ها در یک فایل ثبت شود. از پیش معلوم کنید چه خطایی مانع انتشار است؛ برای نمونه، بازنشدن خدمت اصلی یا کارنکردن فرم. کارهای ظاهری کم‌اهمیت‌تر را با اولویت جدا ثبت کنید تا بررسی مسیر اصلی عقب نیفتد.",
+            "این فهرست پیشنهادی سوشو برای کنترل عملی انتشار است. نتیجهٔ هر مورد را همراه زمان و آدرس آزمایش‌شده ثبت کنید. اگر چیزی ناموفق بود، مسئول و قدم بعدی‌اش باید روشن باشد؛ فقط علامت‌زدن «بررسی شد» به‌تنهایی نتیجه را نشان نمی‌دهد."
+          ],
+          "en": [
+            "Appoint a launch coordinator and record the checks in a shared file. Agree release-blocking conditions in advance, such as an unavailable core service page or broken enquiry form. Track smaller visual changes separately so the main journey receives attention.",
+            "The following is SoSho’s suggested operational checklist. Record each result with the time and tested address. For unsuccessful checks, identify the owner and next action rather than marking the item as reviewed without an outcome."
+          ]
+        },
+        "bullets": {
+          "fa": [
+            "بازشدن صفحه‌های اصلی از آدرس مستقیم",
+            "رسیدن لینک‌های قدیمی به مقصد مورد انتظار",
+            "هماهنگی لینک‌ها، canonical و سایت‌مپ",
+            "نمایش درست در موبایل و دو زبان در صورت وجود",
+            "کارکرد مسیر تماس یا خرید و پیام نتیجه",
+            "آمادگی نسخهٔ پشتیبان و مسئول پیگیری"
+          ],
+          "en": [
+            "Direct access to key pages",
+            "Old links reaching expected destinations",
+            "Consistent links, canonicals and sitemap",
+            "Mobile and language-version checks where applicable",
+            "Working contact or purchase journey and feedback",
+            "A recovery plan and assigned follow-up owner"
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "بعد از انتشار، یک نمونهٔ ثابت را پیگیری کنید",
+          "en": "Monitor a fixed sample after release"
+        },
+        "paragraphs": {
+          "fa": [
+            "چند آدرس مهم و چند آدرس تغییرکرده را به‌عنوان نمونهٔ ثابت انتخاب کنید. با URL Inspection می‌توان وضعیت ثبت‌شدهٔ یک آدرس و امکان دسترسی زنده را بررسی کرد؛ نتیجهٔ تست زنده به‌تنهایی تأیید ایندکس یا انتخاب canonical نیست. تاریخ بررسی را ثبت کنید تا دادهٔ قبل و بعد با هم اشتباه نشود.",
+            "برای پیگیری پروژه، همان فایل انتقال و نمونهٔ ثابت را نگه دارید. گزارش‌های Search Console، خطاهای بازشدن صفحه و پیام‌های کاربران را در کنار هم مرور کنید. به‌جای تغییر هم‌زمان عنوان، محتوا و آدرس بر اساس یک عدد کم، اول روشن کنید چه چیزی تغییر کرده و چه چیزی واقعاً قابل اندازه‌گیری است."
+          ],
+          "en": [
+            "Choose a stable sample of important and changed addresses. URL Inspection can show indexed information and test live accessibility, but a live test alone does not confirm indexing or Google’s canonical choice. Record the check date to distinguish observations made before and after release.",
+            "Keep using the same URL map and sample during follow-up. Review Search Console alongside access errors and user reports. Before changing titles, content and addresses in response to a small measurement, establish what changed and which outcomes can actually be assessed."
+          ]
+        }
+      },
+      {
+        "heading": {
+          "fa": "برای گفت‌وگو دربارهٔ بازطراحی چه چیزی همراه بیاورید؟",
+          "en": "What to bring to a redesign discussion"
+        },
+        "paragraphs": {
+          "fa": [
+            "آدرس سایت فعلی، مشکلات مشاهده‌شده، صفحه‌های مهم کسب‌وکار و دسترسی یا خروجی قابل اشتراک از گزارش‌ها را آماده کنید. لازم نیست رمز حساب‌ها را در پیام عمومی بفرستید. اگر گزارش ندارید، همان را روشن بگویید تا مرحلهٔ شناخت، بخشی از پروژه باشد.",
+            "در سوشو، بررسی بازطراحی می‌تواند از خدمات طراحی سایت و تعریف اولیهٔ نیاز در «برآورد هوشمند» شروع شود. تغییر URLها، مهاجرت محتوا، آزمون‌ها و پیگیری بعد از انتشار را در محدودهٔ همکاری بنویسید. هدف این چک‌لیست، کنترل خطاهای قابل پیشگیری است؛ دربارهٔ ثابت‌ماندن رتبه یا زمان نتیجه وعده‌ای نمی‌دهد."
+          ],
+          "en": [
+            "Prepare the current website address, observed problems, business-critical pages and shareable reports. Avoid putting account passwords into public messages. Where reporting is unavailable, identify that gap so discovery can be included in the project.",
+            "A discussion with SoSho can begin through website design services and the project estimate. Include URL changes, content migration, testing and follow-up in the scope. This checklist addresses avoidable implementation errors without promising a fixed ranking or result timetable."
+          ]
+        }
+      }
+    ],
+    "faq": [
+      {
+        "question": {
+          "fa": "آیا در هر بازطراحی باید آدرس‌ها عوض شوند؟",
+          "en": "Does every redesign need new URLs?"
+        },
+        "answer": {
+          "fa": "خیر. اگر آدرس فعلی مناسب است، تغییر ظاهر به‌تنهایی دلیل کافی برای عوض‌کردنش نیست. نیاز هر صفحه را پیش از اجرا بررسی کنید.",
+          "en": "No. A visual change alone does not require replacing a suitable existing URL. Review the need for each page before implementation."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا ریدایرکت همهٔ صفحه‌ها به خانه کافی است؟",
+          "en": "Can every old page redirect to the homepage?"
+        },
+        "answer": {
+          "fa": "برای صفحه‌هایی با نیاز مشخص، مقصد مرتبط تعیین کنید. صفحهٔ خانه معمولاً جای توضیح همان خدمت یا مقاله را نمی‌گیرد. تصمیم هر آدرس را در نقشهٔ انتقال ثبت کنید.",
+          "en": "Map pages with a specific purpose to relevant destinations. The homepage generally does not replace a particular service or article. Record each decision in the URL map."
+        }
+      },
+      {
+        "question": {
+          "fa": "آیا این کارها حفظ رتبه را تضمین می‌کنند؟",
+          "en": "Do these checks guarantee unchanged rankings?"
+        },
+        "answer": {
+          "fa": "خیر. بررسی فنی از خطاهای قابل پیشگیری کم می‌کند، اما رتبه به عوامل مختلفی وابسته است و تغییرات سایت باید پیگیری شوند.",
+          "en": "No. Technical checks reduce avoidable errors, while rankings depend on multiple factors and site changes still need monitoring."
+        }
+      },
+      {
+        "question": {
+          "fa": "اگر فقط طراحی عوض شود، باز هم بررسی لازم است؟",
+          "en": "Are checks needed when only the design changes?"
+        },
+        "answer": {
+          "fa": "بله. منو، متن، لینک، canonical یا تنظیمات انتشار ممکن است در پیاده‌سازی تغییر کنند. مسیرهای مهم را پیش و پس از انتشار با نمونهٔ یکسان بررسی کنید.",
+          "en": "Yes. Implementation can still affect navigation, copy, links, canonicals or release settings. Check the same important journeys before and after launch."
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": {
+          "fa": "راهنمای گوگل برای انتقال سایت",
+          "en": "Google site-move guidance"
+        },
+        "url": "https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes"
+      },
+      {
+        "title": {
+          "fa": "ریدایرکت و جست‌وجوی گوگل",
+          "en": "Redirects and Google Search"
+        },
+        "url": "https://developers.google.com/search/docs/crawling-indexing/301-redirects"
+      },
+      {
+        "title": {
+          "fa": "روش تعیین canonical",
+          "en": "Specifying a canonical URL"
+        },
+        "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls"
+      },
+      {
+        "title": {
+          "fa": "ساخت و معرفی sitemap",
+          "en": "Building and submitting a sitemap"
+        },
+        "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap"
+      },
+      {
+        "title": {
+          "fa": "ابزار بررسی URL در Search Console",
+          "en": "Search Console URL Inspection tool"
+        },
+        "url": "https://support.google.com/webmasters/answer/9012289?hl=en"
+      }
+    ]
+  },
+  {
     "slug": "corporate-website-pages-features-guide",
     "title": {
       "fa": "طراحی سایت شرکتی؛ چه صفحه‌ها و امکاناتی واقعاً لازم دارید؟",
@@ -54,6 +609,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "UI/UX"
     ],
     "publishedAt": "2026-11-07",
+    "updatedAt": "2026-11-08",
     "coverImage": "/blog/corporate-website-pages-features-guide-editorial-20261107.jpg",
     "coverImageAlt": {
       "fa": "ماکت معماری سه‌بعدی سایت شرکتی با قاب‌های مرورگر، پنل خدمات و نشانهٔ تماس مسی",
@@ -304,6 +860,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Strategy"
     ],
     "publishedAt": "2026-11-07",
+    "updatedAt": "2026-11-08",
     "coverImage": "/blog/website-or-mobile-app-for-business-editorial-20261107.jpg",
     "coverImageAlt": {
       "fa": "لپ‌تاپ و گوشی با رابط نوبت‌دهی هماهنگ و مسیر منشعب سبز سیج روی سکوی گرافیتی",
@@ -551,6 +1108,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Strategy"
     ],
     "publishedAt": "2026-11-07",
+    "updatedAt": "2026-11-08",
     "coverImage": "/blog/ecommerce-website-launch-guide-editorial-20261107.jpg",
     "coverImageAlt": {
       "fa": "ماکت سه‌بعدی فروشگاه در قاب مرورگر، گوشی و سبد خرید با جزئیات مسی و سبز سیج",
@@ -822,6 +1380,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "UI/UX"
     ],
     "publishedAt": "2026-11-07",
+    "updatedAt": "2026-11-08",
     "coverImage": "/blog/choose-website-design-team-editorial-20261107.jpg",
     "coverImageAlt": {
       "fa": "ماکت سه‌بعدی رابط وب و موبایل روی میز بررسی با کولیس مسی و نشانه‌های ارزیابی",
@@ -1522,6 +2081,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Website"
     ],
     "publishedAt": "2026-11-04",
+    "updatedAt": "2026-11-08",
     "coverImage": "/blog/nextjs-ecommerce-service-website-seo-editorial-20261104.jpg",
     "coverImageAlt": {
       "fa": "نمایشگر فروشگاه اینترنتی لوازم خانه روی پیشخوان واقعی کنار بستهٔ سفارش و بارکدخوان",
@@ -1944,6 +2504,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "WordPress"
     ],
     "publishedAt": "2026-11-04",
+    "updatedAt": "2026-11-08",
     "coverImage": "/blog/reduce-website-build-maintenance-costs-editorial-20261104.jpg",
     "coverImageAlt": {
       "fa": "دو نفر در حال بررسی طرح‌های کاغذی سایت و فهرست نیازها کنار ماشین‌حساب روی میز",
@@ -2144,6 +2705,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Strategy"
     ],
     "publishedAt": "2026-11-02",
+    "updatedAt": "2026-11-08",
     "coverImage": "/blog/wordpress-vs-nextjs-which-website-editorial-20261102.jpg",
     "coverImageAlt": {
       "fa": "دو ماکت شیشه‌ای وب‌سایت؛ بلوک‌های محتوای آماده در کنار رابط و گردش کار اختصاصی",
@@ -2376,6 +2938,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "UI/UX"
     ],
     "publishedAt": "2026-11-02",
+    "updatedAt": "2026-11-08",
     "directAnswer": {
       "fa": "قیمت طراحی سایت به تعداد صفحات، تعداد طراحی‌های یکتا و پیچیدگی امکانات وابسته است. ده صفحه خدمات با ساختار مشترک، کار یکسانی با ده صفحه دارای فرم، فیلتر یا فرایند اختصاصی ندارند. برای برآورد دقیق، فهرست صفحات، رفتار هر صفحه، محتوا، اتصال‌ها و محدوده پشتیبانی باید مشخص باشد.",
       "en": "Website cost depends on page count, unique layouts and functional complexity. Ten service pages sharing a template differ from ten pages with bespoke forms, filters or workflows. An estimate needs a page inventory, required behaviour, content responsibilities, integrations and support scope."
@@ -4262,6 +4825,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Website"
     ],
     "publishedAt": "2026-10-22",
+    "updatedAt": "2026-11-08",
     "directAnswer": {
       "fa": "صفحه خدمات باید روشن بگوید چه خدمتی، برای چه مخاطبی، با چه محدوده‌ای ارائه می‌شود و قدم بعدی چیست. عنوان دقیق، پاسخ کوتاه به مسئله مشتری، فرایند همکاری، شواهد قابل بررسی و فرم ساده، هسته آن هستند. برای SEO و AEO، توضیح واقعی خدمت و پاسخ مستقل به سؤال‌ها از تکرار کلمه کلیدی یا وعده رتبه و فروش قطعی مفیدتر است.",
       "en": "A service page should explain what you provide, who it suits, what is included and how to take the next step. Use a precise heading, a short answer, a clear process, verifiable evidence and a simple enquiry path. Describe the actual service and answer real questions instead of repeating keywords or promising rankings and sales."
@@ -4449,6 +5013,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Website"
     ],
     "publishedAt": "2026-10-22",
+    "updatedAt": "2026-11-08",
     "directAnswer": {
       "fa": "سئوی صفحه محصول از اطلاعات درست و قابل تصمیم‌گیری شروع می‌شود: نام و مدل دقیق، مشخصات قابل مقایسه، کاربرد و محدودیت، تصویر مرتبط، قیمت و موجودی هماهنگ با خرید و پاسخ به سؤال‌های رایج. داده ساختاریافته Product باید با صفحه قابل مشاهده مطابقت داشته باشد. تکرار نام محصول، نظر جعلی یا امتیاز ساختگی جای اطلاعات مفید را نمی‌گیرد.",
       "en": "Product page SEO starts with accurate buying information: a precise name and model, comparable specifications, uses and limitations, relevant images, consistent price and availability, and answers to common questions. Product structured data must match the visible page. Repeated product names, fake reviews and invented ratings cannot replace useful information."

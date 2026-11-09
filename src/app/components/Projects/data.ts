@@ -1,4 +1,5 @@
 import { PROJECT_HERO_VIEWS } from "./hero-views";
+import type { ServiceSlug } from "@/app/components/Services/data";
 
 // Portfolio case studies. Every statement about a site describes what its live pages show;
 // no results, traffic or sales figures are claimed. Screenshots are real captures of the live
@@ -21,6 +22,15 @@ export type Project = {
   host: string;
   seo: { title: Bilingual; description: Bilingual };
   overview: BilingualList;
+  updatedAt: string;
+  relatedServices: ServiceSlug[];
+  relatedArticles: string[];
+  caseStudy: {
+    challenge: Bilingual;
+    decisions: { title: Bilingual; text: Bilingual }[];
+    journey: BilingualList;
+    takeaway: Bilingual;
+  };
   /** What the delivered site contains, taken from its live pages. */
   includes: { title: Bilingual; items: BilingualList };
   images: [ProjectImage, ProjectImage, ProjectImage];
@@ -80,6 +90,70 @@ export const PROJECTS: Project[] = [
         ],
       },
     },
+    "updatedAt": "2026-11-08",
+    "relatedServices": [
+      "ecommerce-website-design",
+      "website-design-development",
+      "care-performance"
+    ],
+    "relatedArticles": [
+      "ecommerce-website-launch-guide",
+      "ecommerce-product-page-seo"
+    ],
+    "caseStudy": {
+      "challenge": {
+        "fa": "در فروشگاه قطعات الکترونیکی، همهٔ مشتری‌ها از یک نقطه شروع نمی‌کنند. یک نفر نام قطعه را می‌داند و جست‌وجو می‌کند؛ دیگری از کاربرد یا دستهٔ محصول به انتخاب می‌رسد. اطلاعات قیمت و موجودی هم باید هنگام بررسی کالا در دسترس باشد. مسئلهٔ طراحی، کنار هم قرارگرفتن این مسیرها در یک فروشگاه قابل فهم است.",
+        "en": "Electronic-component buyers do not all start in the same place. One knows the part name and searches directly; another chooses by category or use. Price and availability also need to be visible during selection. The design problem is to support these journeys within a coherent store."
+      },
+      "decisions": [
+        {
+          "title": {
+            "fa": "جست‌وجو در کنار دسته‌بندی",
+            "en": "Search alongside categories"
+          },
+          "text": {
+            "fa": "جست‌وجوی بالای صفحه مسیر مستقیم پیدا کردن قطعه را فراهم می‌کند. دسته‌بندی کالاها مسیر مرور را نگه می‌دارد تا کاربری که هنوز نام دقیق را نمی‌داند هم نقطهٔ شروع داشته باشد.",
+            "en": "Search at the top of the page provides a direct route to a part. Categories preserve a browsing path for customers who do not yet know the exact name."
+          }
+        },
+        {
+          "title": {
+            "fa": "اطلاعات تصمیم در کارت محصول",
+            "en": "Decision information on product cards"
+          },
+          "text": {
+            "fa": "قیمت، وضعیت موجودی و تخفیف در کارت محصول دیده می‌شوند. این چیدمان اجازه می‌دهد چند گزینه در همان فهرست مقایسه شوند و کاربر برای هر دادهٔ اولیه ناچار به بازکردن صفحهٔ جدا نباشد.",
+            "en": "Cards display price, stock status and discounts. Customers can compare initial information in the listing rather than opening a separate page for every basic detail."
+          }
+        },
+        {
+          "title": {
+            "fa": "راه ارتباط برای انتخاب نامطمئن",
+            "en": "An advice route when the choice is uncertain"
+          },
+          "text": {
+            "fa": "در کنار مسیر خرید، بخش مشاوره و استعلام قطعه وجود دارد. این مسیر برای حالتی است که مشخصات کالا یا انتخاب جایگزین به توضیح فروشنده نیاز دارد.",
+            "en": "Advice and parts enquiries sit alongside the shopping journey, providing a route for questions about specifications or a suitable alternative."
+          }
+        }
+      ],
+      "journey": {
+        "fa": [
+          "جست‌وجوی نام قطعه یا ورود از دسته‌بندی مرتبط",
+          "بررسی کارت‌ها و جزئیات کالای مناسب",
+          "استفاده از مسیر سبد خرید یا مشاوره و استعلام"
+        ],
+        "en": [
+          "Search for the part or enter a relevant category",
+          "Review cards and the appropriate product details",
+          "Continue through the cart or the advice and enquiry route"
+        ]
+      },
+      "takeaway": {
+        "fa": "اگر کالاهای شما نام فنی، گروه‌های متنوع و سؤال پیش از خرید دارند، ساختار اطلاعات و جست‌وجو باید در تعریف پروژه بررسی شوند. این نمونه نشان‌دهندهٔ قابلیت‌های رابط فروشگاه است؛ آمار فروش یا اثر سئو از آن نتیجه‌گیری نمی‌شود.",
+        "en": "For products with technical names, varied groups and pre-purchase questions, information structure and search belong in the project brief. This example demonstrates interface features; it is not evidence of measured sales or SEO outcomes."
+      }
+    },
     images: PROJECT_HERO_VIEWS["tino-electronic"],
   },
   {
@@ -134,6 +208,70 @@ export const PROJECTS: Project[] = [
           "A fixed bottom navigation bar on phones, like an app",
         ],
       },
+    },
+    "updatedAt": "2026-11-08",
+    "relatedServices": [
+      "ecommerce-website-design",
+      "website-design-development",
+      "ui-ux-brand-design"
+    ],
+    "relatedArticles": [
+      "ecommerce-website-launch-guide",
+      "website-content-preparation-checklist"
+    ],
+    "caseStudy": {
+      "challenge": {
+        "fa": "خریدار کاغذ دیواری ممکن است کد دقیق طرح را داشته باشد یا فقط رنگ و حال‌وهوای فضا را بشناسد. در یک فروشگاه چندبرندی، برند، آلبوم و ویژگی بصری هم‌زمان روی انتخاب اثر می‌گذارند. مسئلهٔ تجربه کاربری، ارائهٔ مسیر مناسب برای هرکدام از این شیوه‌های انتخاب است.",
+        "en": "A wallpaper buyer may have an exact design code or only a preferred colour and room style. In a multi-brand catalogue, brand, album and visual attributes all influence the choice. The interface needs entry points suited to each way of choosing."
+      },
+      "decisions": [
+        {
+          "title": {
+            "fa": "ورود از کد یا ویژگی بصری",
+            "en": "Start from a code or a visual attribute"
+          },
+          "text": {
+            "fa": "جست‌وجوی مستقیم کد طرح یا آلبوم در کنار انتخاب بر اساس سبک، رنگ و فضا قرار دارد. مسیر انتخاب فقط به دانستن نام محصول وابسته نیست.",
+            "en": "Direct design-code and album search accompanies browsing by style, colour and room. Choosing does not depend solely on knowing a product name."
+          }
+        },
+        {
+          "title": {
+            "fa": "حفظ رابطهٔ برند و آلبوم",
+            "en": "Preserve brand and album relationships"
+          },
+          "text": {
+            "fa": "صفحهٔ برندها، آلبوم‌ها و مجموعه‌های منتخب، ساختار کاتالوگ را قابل مرور می‌کنند. کاربر می‌تواند از یک برند شروع کند یا مجموعه‌های جدید را ببیند و سپس انتخابش را دقیق‌تر کند.",
+            "en": "Brand pages, albums and selected collections make the catalogue browsable. Visitors can begin with a brand or a new collection and then refine their selection."
+          }
+        },
+        {
+          "title": {
+            "fa": "ادامهٔ مسیر روی موبایل",
+            "en": "Keep the journey available on mobile"
+          },
+          "text": {
+            "fa": "پیمایش ثابت پایین صفحه در نمای موبایل، ورودی بخش‌های اصلی را نزدیک دست نگه می‌دارد. سبد، ورود کاربر و راهنمای ثبت سفارش هم در ساختار فروشگاه دیده می‌شوند.",
+            "en": "Fixed bottom navigation keeps main destinations within reach on phones. The store also exposes the cart, customer login and ordering guidance."
+          }
+        }
+      ],
+      "journey": {
+        "fa": [
+          "ورود از برند، آلبوم یا جست‌وجوی کد طرح",
+          "محدودکردن انتخاب با سبک، رنگ و فضای موردنظر",
+          "بررسی طرح و ادامه از مسیر سفارش یا استعلام"
+        ],
+        "en": [
+          "Enter through a brand, album or design-code search",
+          "Narrow the choice by style, colour and room",
+          "Review the design and continue to ordering or an enquiry"
+        ]
+      },
+      "takeaway": {
+        "fa": "برای کاتالوگ‌های چندبرندی، کیفیت دادهٔ محصول و رابطهٔ میان ویژگی‌ها پیش از طراحی فیلتر مهم است. این نمونه می‌تواند مبنای گفت‌وگو دربارهٔ ساختار فروشگاه شما باشد؛ قابلیت‌های مشابه فقط پس از بررسی داده و محدوده انتخاب می‌شوند.",
+        "en": "In multi-brand catalogues, product data and attribute relationships need attention before filters are designed. This example can inform a discussion about your store; similar features are selected only after reviewing data and scope."
+      }
     },
     images: PROJECT_HERO_VIEWS["wallpaper-consortium"],
   },
@@ -192,6 +330,70 @@ export const PROJECTS: Project[] = [
         ],
       },
     },
+    "updatedAt": "2026-11-08",
+    "relatedServices": [
+      "corporate-website-design",
+      "website-design-development",
+      "ui-ux-brand-design"
+    ],
+    "relatedArticles": [
+      "corporate-website-pages-features-guide",
+      "website-content-preparation-checklist"
+    ],
+    "caseStudy": {
+      "challenge": {
+        "fa": "مخاطب تأمین‌کنندهٔ تجهیزات صنعتی، پیش از تماس می‌خواهد حوزهٔ توانمندی، بازارهای تحت پوشش و راه ارتباط مناسب را بفهمد. اطلاعات شرکت، شبکهٔ تأمین و مدارک معرفی باید به‌گونه‌ای مرتب شوند که مدیر خرید یا مهندس بتواند مرتبط‌بودن پیشنهاد را بررسی کند.",
+        "en": "Before contacting an industrial supplier, a procurement manager or engineer needs to understand capabilities, served markets and the appropriate contact route. Company information, the supply network and supporting credentials need an organised presentation that helps assess relevance."
+      },
+      "decisions": [
+        {
+          "title": {
+            "fa": "جداکردن توانمندی و بازار هدف",
+            "en": "Separate capabilities and target markets"
+          },
+          "text": {
+            "fa": "خدمات تأمین و مشاوره در بخش توانمندی‌ها معرفی می‌شوند و بازارهایی مثل نیروگاه و پتروشیمی مسیر خودشان را دارند. این تفکیک، موضوع فعالیت شرکت را از کاربرد آن برای مخاطب جدا و خواناتر می‌کند.",
+            "en": "Supply and advice appear as capabilities, while markets such as power generation and petrochemicals have their own presentation. This separates what the company does from where those capabilities apply."
+          }
+        },
+        {
+          "title": {
+            "fa": "قرارگرفتن مدارک کنار معرفی شرکت",
+            "en": "Keep supporting material beside the company story"
+          },
+          "text": {
+            "fa": "پروژه‌های شاخص، شبکهٔ تأمین و بخش گواهینامه‌ها در ساختار سایت دیده می‌شوند. این‌ها اطلاعات قابل مشاهدهٔ سایت مشتری‌اند؛ ادعای مستقلی دربارهٔ اعتبارسنجی مدارک یا نتیجهٔ تجاری پروژه مطرح نمی‌کنیم.",
+            "en": "Flagship projects, the supply network and a certificates section are visible within the site. These describe the client’s published presentation; we make no separate claim about credential verification or measured commercial outcomes."
+          }
+        },
+        {
+          "title": {
+            "fa": "تماس در امتداد بررسی خدمت",
+            "en": "Continue from a service to an enquiry"
+          },
+          "text": {
+            "fa": "دکمهٔ درخواست مشاوره در سربرگ و راه‌های تماس تلفنی، پیام‌رسان و ایمیل، ادامهٔ بررسی را مشخص می‌کنند. ظاهر تیره و طلایی همراه تصاویر صنعتی، زبان بصری مشترکی برای معرفی توانمندی‌ها می‌سازد.",
+            "en": "The header consultation action and phone, messaging and email routes provide a next step after reviewing a service. Dark and gold styling with industrial imagery gives the capabilities a consistent visual presentation."
+          }
+        }
+      ],
+      "journey": {
+        "fa": [
+          "شناخت توانمندی مرتبط با نیاز صنعتی",
+          "مرور بازارها، پروژه‌ها و اطلاعات شرکت",
+          "انتخاب راه تماس و ارسال درخواست مشاوره"
+        ],
+        "en": [
+          "Identify the capability relevant to the industrial need",
+          "Review markets, projects and company information",
+          "Choose a contact route and request a consultation"
+        ]
+      },
+      "takeaway": {
+        "fa": "برای سایت شرکتی صنعتی، معرفی توانمندی و مسیر درخواست باید کنار هم طراحی شوند. پیش از شروع پروژه، متن خدمات، نمونه‌های مجاز و اطلاعات تماس را آماده کنید تا صفحه‌ها بر اساس اطلاعات واقعی شرکت ساخته شوند.",
+        "en": "An industrial corporate website needs to connect capabilities with an enquiry route. Prepare service copy, authorised examples and contact information so the page structure is grounded in the company’s actual material."
+      }
+    },
     images: PROJECT_HERO_VIEWS["niroo-tejarat-atieh"],
   },
 ];
@@ -207,4 +409,9 @@ export function getProjectHref(locale: "fa" | "en", slug: string) {
 /** The 1200x630 share card made by scripts/build-project-og.mjs (case studies and concepts alike). */
 export function getProjectShareImage(locale: "fa" | "en", slug: string) {
   return { src: `/projects/og/${slug}-${locale}.jpg`, width: 1200, height: 630 };
+}
+
+/** Real case studies relevant to a service; concepts are intentionally excluded. */
+export function projectsForService(slug: ServiceSlug): Project[] {
+  return PROJECTS.filter((project) => project.relatedServices.includes(slug));
 }

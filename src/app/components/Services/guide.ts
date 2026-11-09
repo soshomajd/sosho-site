@@ -17,6 +17,96 @@ export type ServiceGuide = {
 };
 
 export const SERVICE_GUIDE: Record<ServiceSlug, ServiceGuide> = {
+  "corporate-website-design": {
+    "when": {
+      "fa": [
+        "معرفی شرکت در فایل و پیام‌رسان پراکنده است و مرجع قابل ارجاع ندارید",
+        "مشتری برای تشخیص خدمت مناسب یا پیدا کردن راه تماس سردرگم می‌شود",
+        "برای پیشنهادهای فروش، صفحهٔ قابل اشتراک از توانمندی‌ها و پروژه‌ها لازم دارید",
+        "سایت فعلی اطلاعات قدیمی دارد یا به مدیریت محتوا و زبان دوم نیاز دارد"
+      ],
+      "en": [
+        "Company information is scattered across documents and messages",
+        "Customers struggle to identify the right service or contact route",
+        "Your sales proposals need shareable capabilities and project pages",
+        "Your current site has outdated content or needs editing tools and a second language"
+      ]
+    },
+    "approach": {
+      "fa": [
+        "از سؤال‌های مشتری شروع می‌کنیم: چه خدمتی می‌خواهد، چه مدرکی برای تصمیم لازم دارد و چه اطلاعاتی باید برای استعلام بفرستد؟ صفحهٔ خدمت، نمونه‌کار و فرم را به همین ترتیب به هم وصل می‌کنیم. ساخت همهٔ اطلاعات در یک صفحهٔ طولانی، انتخاب پیش‌فرض ما نیست.",
+        "نام فناوری بعد از روشن‌شدن نیاز انتخاب می‌شود. برای مدیریت رایج محتوا، وردپرس می‌تواند مناسب باشد؛ برای تعامل و اتصال اختصاصی، معماری دیگری بررسی می‌شود. اگر سایت فعلی دارید، آدرس‌ها و محتوای ارزشمند آن هم پیش از بازطراحی مرور می‌شوند."
+      ],
+      "en": [
+        "We begin with the customer’s questions: which service fits, what evidence supports the decision and what information belongs in an enquiry? Service pages, case studies and the form follow that journey. We assess the page structure rather than putting everything into a single long page by default.",
+        "Technology follows the requirements. WordPress may suit conventional content editing, while custom interactions and integrations call for a separate architecture review. For an existing site, useful content and established URLs are reviewed before redesign."
+      ]
+    },
+    "mistakes": {
+      "fa": [
+        "نوشتن معرفی کلی شرکت بدون توضیح خدمات قابل سفارش",
+        "استفاده از نمونه‌کار یا تأییدیه‌ای که اجازهٔ انتشارش روشن نیست",
+        "فرم طولانی یا راه تماسی که روی موبایل درست کار نمی‌کند",
+        "تغییر آدرس‌های سایت قبلی بدون بررسی مقصد و ریدایرکت"
+      ],
+      "en": [
+        "A general company introduction without orderable service details",
+        "Project examples or endorsements without clear publication permission",
+        "A long form or contact route that fails on mobile",
+        "Changing existing URLs without reviewing destinations and redirects"
+      ]
+    },
+    "related": [
+      "ecommerce-website-design",
+      "wordpress-woocommerce"
+    ],
+    "tool": "website-seo-audit"
+  },
+  "ecommerce-website-design": {
+    "when": {
+      "fa": [
+        "سفارش‌ها میان پیام‌رسان و فایل پراکنده‌اند و مشتری وضعیت مشخصی نمی‌بیند",
+        "کالاها ویژگی‌های متنوع دارند و انتخاب آن‌ها به دسته‌بندی و فیلتر نیاز دارد",
+        "فروشگاه فعلی روی موبایل یا در مرحلهٔ خرید مشکل دارد",
+        "برای مدیریت محصول، سفارش یا اتصال به عملیات داخلی به مسیر منظم‌تری نیاز دارید"
+      ],
+      "en": [
+        "Orders are scattered across messages and files without clear customer feedback",
+        "Product variants require meaningful categorisation and filters",
+        "Your current store has mobile or checkout problems",
+        "Products, orders or connections to internal operations need a more structured workflow"
+      ]
+    },
+    "approach": {
+      "fa": [
+        "با چند محصول نماینده شروع می‌کنیم تا ویژگی‌ها، تنوع‌ها، واحد فروش و شرایط ارسال روشن شوند. سپس مسیر کسی که محصول را می‌شناسد و کسی که هنوز در حال انتخاب است جداگانه بررسی می‌شود. جست‌وجوی کد کالا و مرور دسته‌بندی می‌توانند نیازهای متفاوتی داشته باشند.",
+        "مدیریت سفارش بخشی از طراحی است: چه کسی موجودی را تغییر می‌دهد، سفارش چگونه پیگیری می‌شود و پرداخت ناموفق چه پیامی دارد؟ انتخاب ووکامرس یا توسعهٔ اختصاصی بر اساس همین عملیات انجام می‌شود. اتصال به انبار، حسابداری یا پیامک پس از بررسی سرویس موجود در محدوده می‌آید."
+      ],
+      "en": [
+        "We start with representative products to understand attributes, variants, units and delivery terms. We then review the journey of a customer who knows the item and one who is still choosing. Product-code search and category browsing may serve different needs.",
+        "Order operations are part of the design: who updates stock, how is an order followed up and what feedback accompanies a failed payment? These needs inform the choice between WooCommerce and a custom build. Inventory, accounting or SMS integrations are scoped after reviewing the existing service."
+      ]
+    },
+    "mistakes": {
+      "fa": [
+        "انتخاب امکانات پیش از آماده‌کردن مشخصات و ساختار محصول",
+        "نمایش قیمت و موجودی بدون مشخص‌بودن مسئول به‌روزرسانی",
+        "پنهان‌ماندن هزینه و شرایط ارسال تا مرحلهٔ آخر خرید",
+        "آزمون‌نکردن پرداخت ناموفق، محصول ناموجود و نمایش موبایل"
+      ],
+      "en": [
+        "Choosing features before preparing product data and structure",
+        "Showing prices and stock without assigning an update owner",
+        "Leaving delivery costs and terms unclear until late in checkout",
+        "Not testing failed payments, unavailable products and mobile layouts"
+      ]
+    },
+    "related": [
+      "corporate-website-design",
+      "wordpress-woocommerce"
+    ],
+    "tool": "website-seo-audit"
+  },
   "website-design-development": {
     when: {
       fa: [
@@ -56,7 +146,7 @@ export const SERVICE_GUIDE: Record<ServiceSlug, ServiceGuide> = {
         "Postponing SEO, analytics and forms until after launch",
       ],
     },
-    related: ["wordpress-woocommerce", "seo-google-growth"],
+    related: ["corporate-website-design", "ecommerce-website-design"],
     tool: "website-seo-audit",
   },
   "web-application-development": {

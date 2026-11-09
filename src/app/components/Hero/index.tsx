@@ -18,7 +18,7 @@ export const HERO_COPY = {
         primaryAction: "شروع یک پروژه",
         secondaryAction: "دیدن خدمات",
         scroll: "برای کشف مسیر اسکرول کنید",
-        services: ["طراحی وب", "وب‌اپلیکیشن", "اپ موبایل", "وردپرس", "سئو و گوگل", "Web3", "راهکارهای AI"],
+        services: ["سایت شرکتی و فروشگاهی", "وب‌اپلیکیشن", "اپ موبایل", "وردپرس", "سئو و گوگل", "Web3", "راهکارهای AI"],
     },
     en: {
         eyebrow: "SOSHO STUDIO · DESIGN × TECHNOLOGY × GROWTH",
@@ -33,7 +33,7 @@ export const HERO_COPY = {
         primaryAction: "Start a project",
         secondaryAction: "Explore services",
         scroll: "Scroll to explore the system",
-        services: ["Web Design", "Web Apps", "Mobile Apps", "WordPress", "SEO & Google", "Web3", "AI Solutions"],
+        services: ["Corporate & Ecommerce", "Web Apps", "Mobile Apps", "WordPress", "SEO & Google", "Web3", "AI Solutions"],
     },
 } as const;
 

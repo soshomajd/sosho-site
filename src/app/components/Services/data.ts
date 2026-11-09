@@ -2,6 +2,8 @@ import type { Locale } from "@/app/i18n";
 import type { IconType } from "react-icons";
 import {
   FiActivity,
+  FiBriefcase,
+  FiShoppingBag,
   FiCheck,
   FiCode,
   FiCpu,
@@ -16,6 +18,8 @@ type Localized<T> = { fa: T; en: T };
 
 export type ServiceSlug =
   | "website-design-development"
+  | "corporate-website-design"
+  | "ecommerce-website-design"
   | "web-application-development"
   | "mobile-app-development"
   | "wordpress-woocommerce"
@@ -65,6 +69,166 @@ function serviceDetail(
 }
 
 export const SERVICES: Service[] = [
+  {
+    "slug": "corporate-website-design",
+    "title": {
+      "fa": "طراحی سایت شرکتی",
+      "en": "Corporate Website Design"
+    },
+    "short": {
+      "fa": "معرفی روشن خدمات، نمونه‌کار و مسیر دریافت استعلام برای شرکت شما.",
+      "en": "Clear services, relevant project evidence and a straightforward enquiry journey."
+    },
+    "seo": {
+      "title": {
+        "fa": "طراحی سایت شرکتی؛ معرفی خدمات و دریافت استعلام",
+        "en": "Corporate Website Design for Services and Enquiries"
+      },
+      "description": {
+        "fa": "طراحی سایت شرکتی با معرفی خدمات، نمونه‌کار، فرم استعلام و نسخهٔ فارسی و انگلیسی؛ نمونه‌کار واقعی، مراحل اجرا و عوامل هزینه را در سوشو استودیو ببینید.",
+        "en": "Corporate website design with service pages, case studies, enquiry forms and Persian–English layouts. Explore real work, project scope and cost factors."
+      }
+    },
+    "Icon": FiBriefcase,
+    "detail": {
+      "intro": {
+        "fa": "برای شرکتی که می‌خواهد مشتری خدماتش را درست بشناسد و درخواست مرتبط بفرستد، سایت شرکتی طراحی می‌کنیم: معرفی توانمندی‌ها، صفحهٔ مستقل خدمات، نمونه‌کار و مسیر روشن استعلام. ساختار صفحه‌ها و مدیریت محتوا بر اساس نیاز تیم شما مشخص می‌شود؛ فارسی و انگلیسی هم می‌توانند از ابتدا در محدودهٔ پروژه باشند.",
+        "en": "We design corporate websites that help customers understand your services and make a relevant enquiry. Capabilities, dedicated service pages, project evidence and contact routes are planned around your business. Content management and Persian–English versions are scoped from the outset where needed."
+      },
+      "whatYouGetTitle": {
+        "fa": "چه چیزی تحویل می‌گیرید؟",
+        "en": "What you get"
+      },
+      "whatYouGet": {
+        "fa": [
+          "ساختار صفحه‌های شرکت، خدمات، پروژه‌ها و راه‌های تماس",
+          "طراحی واکنش‌گرا با مسیر دسترسی روشن به استعلام در موبایل",
+          "فرم درخواست با اطلاعات لازم برای بررسی اولیهٔ پروژه",
+          "مدیریت محتوای موردنیاز تیم و نسخهٔ دو‌زبانه در صورت توافق"
+        ],
+        "en": [
+          "An information structure for the company, services, projects and contact",
+          "Responsive design with an accessible mobile enquiry journey",
+          "An enquiry form collecting the information needed for initial review",
+          "Content management for your team and bilingual versions where agreed"
+        ]
+      },
+      "processTitle": {
+        "fa": "مسیر اجرا",
+        "en": "How we work"
+      },
+      "process": {
+        "fa": [
+          "شناخت مخاطب، خدمات اصلی و هدف درخواست‌های ورودی",
+          "مرتب‌کردن محتوا و طراحی مسیر از خدمت تا نمونه‌کار و تماس",
+          "طراحی و توسعه همراه با بازبینی صفحه‌های کلیدی",
+          "آزمون فرم، موبایل و زبان‌ها؛ انتشار و تحویل راهنمای مدیریت"
+        ],
+        "en": [
+          "Identify audiences, core services and the purpose of enquiries",
+          "Organise content and connect service, evidence and contact journeys",
+          "Design and development with reviews of key pages",
+          "Test forms, mobile and language versions; launch and hand over guidance"
+        ]
+      },
+      "deliverablesTitle": {
+        "fa": "خروجی نهایی",
+        "en": "Deliverables"
+      },
+      "deliverables": {
+        "fa": [
+          "صفحه‌های توافق‌شده روی دامنهٔ شرکت",
+          "ساختار عنوان، لینک داخلی و تنظیمات پایهٔ ایندکس",
+          "راهنمای مدیریت و محدودهٔ مشخص نگهداری پس از تحویل"
+        ],
+        "en": [
+          "The agreed pages on your company domain",
+          "Page headings, internal links and indexability foundations",
+          "Management guidance and an agreed post-handover care scope"
+        ]
+      }
+    }
+  },
+  {
+    "slug": "ecommerce-website-design",
+    "title": {
+      "fa": "طراحی سایت فروشگاهی",
+      "en": "Ecommerce Website Design"
+    },
+    "short": {
+      "fa": "از پیدا کردن محصول تا ثبت سفارش؛ فروشگاهی متناسب با کالا و عملیات شما.",
+      "en": "From finding a product to placing an order, designed around your catalogue and operations."
+    },
+    "seo": {
+      "title": {
+        "fa": "طراحی سایت فروشگاهی؛ محصول، پرداخت و مدیریت سفارش",
+        "en": "Ecommerce Website Design for Products and Orders"
+      },
+      "description": {
+        "fa": "طراحی سایت فروشگاهی با جست‌وجو، صفحهٔ محصول، سبد خرید، پرداخت و مدیریت سفارش؛ نمونه‌کار تینو و کنسرسیوم، مسیر اجرا و عوامل هزینه را ببینید.",
+        "en": "Ecommerce website design covering product discovery, cart, checkout and order management. Explore Tino and Consortium case studies, scope and cost factors."
+      }
+    },
+    "Icon": FiShoppingBag,
+    "detail": {
+      "intro": {
+        "fa": "فروشگاه اینترنتی را از روی نوع کالا، روش سفارش و توان اجرایی کسب‌وکار شما طراحی می‌کنیم. مشتری باید محصول مناسب را پیدا کند، مشخصات و شرایط خرید را بفهمد و سفارش را با نتیجهٔ روشن ثبت کند. پیش از انتخاب ووکامرس یا توسعهٔ اختصاصی، مدیریت محصول، پرداخت، ارسال و اتصال‌های موردنیاز را بررسی می‌کنیم.",
+        "en": "We design an online store around your products, order process and operating capacity. Customers need to find a suitable item, understand its details and purchase terms, and receive clear feedback when ordering. Product management, payments, shipping and integrations are reviewed before choosing WooCommerce or a custom implementation."
+      },
+      "whatYouGetTitle": {
+        "fa": "چه چیزی تحویل می‌گیرید؟",
+        "en": "What you get"
+      },
+      "whatYouGet": {
+        "fa": [
+          "ساختار دسته‌بندی، جست‌وجو و فیلتر متناسب با اطلاعات محصول",
+          "صفحهٔ محصول با مشخصات، تصویر، قیمت و وضعیت موجودی طبق مدل فروش",
+          "سبد خرید، ثبت سفارش و پرداخت با بررسی شرایط ارائه‌دهندهٔ درگاه",
+          "مدیریت محصول و سفارش، روش ارسال و پیام نتیجهٔ عملیات"
+        ],
+        "en": [
+          "Categories, search and filters based on meaningful product data",
+          "Product pages with specifications, imagery, prices and availability for your sales model",
+          "Cart, ordering and payments subject to the selected provider’s requirements",
+          "Product and order management, delivery options and clear operation feedback"
+        ]
+      },
+      "processTitle": {
+        "fa": "مسیر اجرا",
+        "en": "How we work"
+      },
+      "process": {
+        "fa": [
+          "بررسی نمونهٔ کالا، مشتری و شیوهٔ فعلی ثبت و اجرای سفارش",
+          "طراحی مسیر جست‌وجو، محصول، سبد و نتیجهٔ پرداخت",
+          "پیاده‌سازی فروشگاه و اتصال‌های تأییدشده در محدوده",
+          "آزمون مسیر سفارش، آموزش مدیریت و انتشار روی دامنهٔ شما"
+        ],
+        "en": [
+          "Review representative products, customers and existing order operations",
+          "Design discovery, product, cart and payment-result journeys",
+          "Build the store and agreed integrations",
+          "Test ordering, train the admin team and launch on your domain"
+        ]
+      },
+      "deliverablesTitle": {
+        "fa": "خروجی نهایی",
+        "en": "Deliverables"
+      },
+      "deliverables": {
+        "fa": [
+          "فروشگاه با امکانات و قالب‌های صفحهٔ توافق‌شده",
+          "راهنمای مدیریت محصول، سفارش و اطلاعات فروشگاه",
+          "فهرست بررسی تحویل و محدودهٔ نگهداری و توسعهٔ بعدی"
+        ],
+        "en": [
+          "A store with the agreed features and page templates",
+          "Guidance for products, orders and store information",
+          "A handover checklist and defined care and development scope"
+        ]
+      }
+    }
+  },
   {
     slug: "website-design-development",
     title: { fa: "طراحی و توسعه سایت", en: "Website Design & Development" },

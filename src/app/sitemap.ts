@@ -66,7 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
     return (["fa", "en"] as const).map((locale) => ({
       url: `${base}/${locale}/projects/${project.slug}`,
-      lastModified: siteUpdated,
+      lastModified: new Date(project.updatedAt),
       changeFrequency: "monthly" as const,
       priority: 0.7,
       alternates: { languages },

@@ -6,10 +6,11 @@ import { FiArrowUpRight, FiCheck, FiExternalLink } from "react-icons/fi";
 
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import JsonLd from "@/app/components/JsonLd";
+import CaseStudyDetails from "@/app/components/Projects/CaseStudyDetails";
 import ConceptCase, { conceptSeo } from "@/app/components/Projects/ConceptCase";
 import { CONCEPT_PROJECTS } from "@/app/components/Projects/concepts";
 import { PROJECTS, getProject, getProjectHref, getProjectShareImage } from "@/app/components/Projects/data";
-import { getService, getServiceHref, type ServiceSlug } from "@/app/components/Services/data";
+import { getService, getServiceHref } from "@/app/components/Services/data";
 import { getDictionary, isLocale, type Locale } from "@/app/i18n";
 import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, websiteId } from "@/app/seo";
 
@@ -90,7 +91,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
   ];
   const others = PROJECTS.filter((entry) => entry.slug !== project.slug);
   const [hero, tablet, mobile] = project.images;
-  const PROJECT_SERVICES: ServiceSlug[] = ["website-design-development", slug === "tino-electronic" ? "seo-google-growth" : "ui-ux-brand-design", "care-performance"];
+  const projectServices = project.relatedServices;
 
   return (
     <main id="main-content" tabIndex={-1} className="container items-stretch gap-8 py-14 outline-none md:py-20">
@@ -109,6 +110,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
               breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
               mainEntity: { "@id": `${pageUrl}#work` },
               primaryImageOfPage: `${baseUrl}${hero.src}`,
+              dateModified: project.updatedAt,
             },
             {
               "@type": "CreativeWork",
@@ -120,6 +122,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
               genre: project.service[locale],
               about: project.industry[locale],
               creator: { "@id": organizationId },
+              dateModified: project.updatedAt,
               image: project.images.map((image) => `${baseUrl}${image.src}`),
             },
             breadcrumbJsonLd(crumbs),
@@ -213,6 +216,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
         </ul>
       </section>
 
+      <CaseStudyDetails project={project} locale={locale} />
+
       <section aria-labelledby="project-views" className="grid gap-4 md:grid-cols-12">
         <h2 id="project-views" className="sr-only">{isFa ? "تصویرهای بیشتر" : "More views"}</h2>
         <figure className="overflow-hidden rounded-3xl border border-foreground/10 bg-surface/20 md:col-span-8">
@@ -235,7 +240,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
             : "A project like this usually combines several services. Each has its own page where you can see the details and the way we work."}
         </p>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
-          {PROJECT_SERVICES.map((serviceSlug) => {
+          {projectServices.map((serviceSlug) => {
             const related = getService(serviceSlug);
             if (!related) return null;
             return (

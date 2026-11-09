@@ -415,7 +415,37 @@
         "fa": "لپ‌تاپ و گوشی با رابط نوبت‌دهی هماهنگ و مسیر منشعب سبز سیج روی سکوی گرافیتی",
         "en": "A laptop and phone with matching booking interfaces connected by a branching sage path on a graphite stage"
       }
+    },
+    {
+      "slug": "website-content-preparation-checklist",
+      "output": "public/blog/website-content-preparation-checklist-editorial-20261108.jpg",
+      "generatedAt": "2026-11-08",
+      "provider": "Built-in ImageGen",
+      "style": "photorealistic-natural",
+      "width": 1200,
+      "height": 630,
+      "subject": "A website content preparation pack on a sunlit working desk",
+      "prompt": "Use case: photorealistic-natural. Create an original high-end editorial photograph for an article about preparing website content before hiring a designer. Wide 1.905:1 landscape, beautifully art-directed overhead three-quarter view of a real warm oak desk: an open muted teal document folder contains neatly grouped cream page-outline sheets with abstract dark lines, a small stack of original interior and product photo prints, a graphite pencil, a camera lens at the edge and one simple copper paper clip. A natural human hand is gently arranging one photo print into the folder; no face visible, anatomically correct hand. Thoughtful lived-in working scene, tactile paper fibers, realistic matte photographic prints and gentle window shadows, warm ivory and natural green palette, contemporary independent design studio. Main story within central 70% width and middle 65% vertically so it survives a wide 21:9 crop. Premium documentary editorial photography, not 3D render, no floating UI or translucent glass sculpture. No readable text, no letters, no numerals, no real logos, no watermark, no stock-photo handshake. Distinct from dark navy 3D website illustrations.",
+      "alt": {
+        "fa": "دستی در حال مرتب‌کردن عکس‌ها و برگه‌های محتوای سایت در پوشهٔ سبزآبی روی میز چوبی",
+        "en": "A hand arranging photographs and website content sheets in a teal folder on a wooden desk"
+      }
+    },
+    {
+      "slug": "website-redesign-seo-url-checklist",
+      "output": "public/blog/website-redesign-seo-url-checklist-editorial-20261108.jpg",
+      "generatedAt": "2026-11-08",
+      "provider": "Built-in ImageGen",
+      "style": "photorealistic-natural",
+      "width": 1200,
+      "height": 630,
+      "subject": "Old and new physical website boards with page-to-page copper connections",
+      "prompt": "Use case: photorealistic-natural. Create an original sophisticated editorial photograph for an article about redesigning a website while maintaining old page routes. Wide 1.905:1 landscape. On an off-white architectural studio workbench, two small standing physical website layout boards: the older one on the left with a simple muted-gray rigid grid, the newer one on the right with an elegant warm-ivory and teal page layout. Both have actual paper and photo tiles with no legible writing. Several thin copper wires neatly connect corresponding small page cards between the boards, making a clear carefully planned migration map, anchored securely rather than floating. One polished brass precision ruler and a green pencil rest in the foreground. Real photographed physical mockups, tactile cardstock, honest material imperfections, soft late-morning window light, restrained warm beige, teal and brushed-copper palette. Quietly confident, elegant magazine photography, well-organised and understandable at thumbnail scale. Important boards and connection wires inside central 70% width and middle 65% height to survive 21:9 crop. No people, no readable text, no letters or numbers, no logos, no watermarks, no invented traffic graph or performance scores, no glowing circuits, no fantasy 3D glass art. Original conceptual physical still life, not a screenshot of a real client project.",
+      "alt": {
+        "fa": "دو ماکت کاغذی سایت قدیمی و جدید با اتصال‌های مسی بین صفحه‌های متناظر روی میز روشن",
+        "en": "Two physical old and new website layout boards with copper connections between corresponding pages on a light desk"
+      }
     }
   ],
-  "updatedAt": "2026-11-07"
+  "updatedAt": "2026-11-08"
 }

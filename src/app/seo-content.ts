@@ -12,13 +12,15 @@ export const seoContent: Record<
     }
 > = {
     fa: {
-        title: "سوشو استودیو | طراحی سایت، وردپرس، سئو، Web3 و هوش مصنوعی",
+        title: "سوشو استودیو | طراحی سایت شرکتی و فروشگاهی، وب‌اپ و سئو",
         description:
-            "سوشو استودیو؛ طراحی سایت اختصاصی و وردپرسی، وب‌اپلیکیشن با Next.js، اپلیکیشن موبایل، سئو و رشد در گوگل، Web3 و هوش مصنوعی، از ایده تا اجرا.",
+            "سوشو استودیو؛ طراحی سایت شرکتی و فروشگاهی با نمونه‌کار واقعی، وردپرس و توسعهٔ اختصاصی، وب‌اپ و اپلیکیشن موبایل؛ از شناخت نیاز تا انتشار و پشتیبانی.",
         keywords: [
             "سوشو استودیو",
             "طراحی سایت",
             "طراحی سایت اختصاصی",
+            "طراحی سایت شرکتی",
+            "طراحی سایت فروشگاهی",
             "طراحی وب اپلیکیشن",
             "ساخت اپلیکیشن موبایل",
             "طراحی سایت وردپرس",
@@ -30,6 +32,8 @@ export const seoContent: Record<
         catalogName: "خدمات طراحی، توسعه و رشد دیجیتال",
         services: [
             "طراحی و توسعه سایت اختصاصی",
+            "طراحی سایت شرکتی",
+            "طراحی سایت فروشگاهی",
             "طراحی و توسعه وب‌اپلیکیشن با Next.js و React",
             "طراحی و ساخت اپلیکیشن موبایل اندروید و iOS",
             "طراحی و توسعه سایت وردپرسی",
@@ -39,13 +43,15 @@ export const seoContent: Record<
         ],
     },
     en: {
-        title: "Sosho Studio | Web Design, WordPress, SEO, Web3 & AI",
+        title: "Sosho Studio | Corporate Websites, Ecommerce & Web Apps",
         description:
-            "Sosho Studio builds custom websites, WordPress stores, Next.js web apps and mobile apps, plus SEO and Google growth, Web3 and practical AI integrations.",
+            "Sosho Studio designs corporate websites and ecommerce stores, with real case studies, WordPress and custom development, web apps, mobile apps and ongoing care.",
         keywords: [
             "Sosho Studio",
             "web design studio",
             "custom web development",
+            "corporate website design",
+            "ecommerce website design",
             "web app development",
             "mobile app development",
             "WordPress design",
@@ -57,6 +63,8 @@ export const seoContent: Record<
         catalogName: "Web design, development and growth services",
         services: [
             "Custom website design and development",
+            "Corporate website design",
+            "Ecommerce website design",
             "Web application development with Next.js and React",
             "Android and iOS mobile app development",
             "WordPress design and development",

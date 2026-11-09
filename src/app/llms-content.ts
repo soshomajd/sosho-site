@@ -3,6 +3,8 @@ import { CONTACT_INFO } from "@/app/contact-info";
 import { PROJECTS } from "@/app/components/Projects/data";
 import { SERVICES } from "@/app/components/Services/data";
 import { SERVICE_FAQ } from "@/app/components/Services/faq";
+import { SERVICE_GUIDE } from "@/app/components/Services/guide";
+import { servicesForPost } from "@/app/blogs/related";
 import { TOOLS } from "@/app/components/Tools/data";
 import { baseUrl } from "@/app/seo";
 
@@ -111,9 +113,15 @@ function articleMarkdown(post: BlogPost, locale: "fa" | "en") {
     "",
   ];
   if (post.directAnswer) lines.push(post.directAnswer[locale], "");
-  for (const section of post.sections) {
+  for (const [index, section] of post.sections.entries()) {
     lines.push(`#### ${section.heading[locale]}`, "", ...section.paragraphs[locale].flatMap((p) => [p, ""]));
     if (section.bullets) lines.push(...section.bullets[locale].map((b) => `- ${b}`), "");
+    if (index === 0) {
+      for (const slug of servicesForPost(post).slice(0, 2)) {
+        const service = SERVICES.find((entry) => entry.slug === slug)!;
+        lines.push(`- [${service.title[locale]}](${baseUrl}/${locale}/services/${slug})`, "");
+      }
+    }
   }
   if (post.faq && post.faq.length > 0) {
     lines.push(locale === "fa" ? "#### پرسش‌های متداول" : "#### FAQ", "");
@@ -139,9 +147,19 @@ export function buildLlmsFullTxt() {
         "",
         service.detail.intro[locale],
         "",
+        ...service.detail.whatYouGet[locale].map((item) => `- ${item}`),
+        "",
+        ...SERVICE_GUIDE[service.slug].approach[locale],
+        "",
         ...SERVICE_FAQ[service.slug].flatMap((item) => [`**${item.question[locale]}**`, item.answer[locale], ""])
       );
     }
+  }
+  lines.push("## Real case studies / نمونه‌کارهای واقعی", "");
+  for (const project of PROJECTS) for (const locale of ["en", "fa"] as const) {
+    lines.push(`### ${project.seo.title[locale]}`, "", `URL: ${baseUrl}/${locale}/projects/${project.slug}`, `Updated: ${project.updatedAt}`, "", project.caseStudy.challenge[locale], "");
+    for (const decision of project.caseStudy.decisions) lines.push(`#### ${decision.title[locale]}`, "", decision.text[locale], "");
+    lines.push(...project.caseStudy.journey[locale].map((step) => `- ${step}`), "", project.caseStudy.takeaway[locale], "");
   }
   lines.push("## Articles (English)", "");
   for (const post of posts) lines.push(...articleMarkdown(post, "en"));

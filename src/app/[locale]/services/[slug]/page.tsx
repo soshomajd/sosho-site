@@ -8,12 +8,14 @@ import { getBlogPostHref } from "@/app/blogs/posts";
 import { postsForService } from "@/app/blogs/related";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import ConsultantButton from "@/app/components/Consultant/ConsultantButton";
+import { getProjectHref, getProjectShareImage, projectsForService } from "@/app/components/Projects/data";
+import WebsiteServiceDetails, { WEBSITE_SERVICE_DETAILS } from "@/app/components/Services/WebsiteServiceDetails";
 import { SERVICE_FAQ } from "@/app/components/Services/faq";
 import { SERVICE_GUIDE } from "@/app/components/Services/guide";
 import { getTool, getToolHref } from "@/app/components/Tools/data";
 import JsonLd from "@/app/components/JsonLd";
 import { getDictionary, isLocale, type Locale } from "@/app/i18n";
-import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, websiteId } from "@/app/seo";
+import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, SITE_CONTENT_UPDATED_AT, websiteId } from "@/app/seo";
 import {
     getService,
     getServiceHref,
@@ -49,6 +51,9 @@ export async function generateMetadata({
         locale === "fa" ? service.seo.description.fa : service.seo.description.en;
 
     const canonical = `/${locale}/services/${service.slug}`;
+    const proof = WEBSITE_SERVICE_DETAILS[service.slug] ? projectsForService(service.slug)[0] : undefined;
+    const share = proof ? getProjectShareImage(locale, proof.slug) : undefined;
+    const image = share ? { url: new URL(share.src, siteUrl).toString(), width: share.width, height: share.height, alt: proof!.images[0].alt[locale] } : { url: ogImageUrl, width: 1731, height: 909, alt: `${dict.siteName} — ${title}` };
 
     return {
         metadataBase: new URL(siteUrl),
@@ -69,13 +74,13 @@ export async function generateMetadata({
             siteName: dict.siteName,
             title: `${title} | ${dict.siteName}`,
             description,
-            images: [{ url: ogImageUrl, width: 1731, height: 909, alt: `${dict.siteName} — ${title}` }],
+            images: [image],
         },
         twitter: {
             card: "summary_large_image",
             title: `${title} | ${dict.siteName}`,
             description,
-            images: [ogImageUrl],
+            images: [image.url],
         },
     };
 }
@@ -159,6 +164,8 @@ export default async function ServicePage({
     const guide = SERVICE_GUIDE[service.slug];
     const relatedServices = guide.related.map((related) => getService(related)!);
     const relatedTool = guide.tool ? getTool(guide.tool) : undefined;
+    const websiteDetails = WEBSITE_SERVICE_DETAILS[service.slug];
+    const proof = websiteDetails ? projectsForService(service.slug)[0] : undefined;
 
     return (
         <main id="main-content" tabIndex={-1} className="container items-stretch gap-8 py-14 outline-none md:py-20">
@@ -185,6 +192,7 @@ export default async function ServicePage({
                             description: seoDescription,
                             inLanguage: languageTag(locale),
                             isPartOf: { "@id": websiteId },
+                            dateModified: SITE_CONTENT_UPDATED_AT,
                             breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
                             mainEntity: { "@id": `${pageUrl}#service` },
                         },
@@ -223,11 +231,24 @@ export default async function ServicePage({
                             {title}
                         </h1>
                         <p className="mt-5 max-w-3xl text-base leading-8 text-muted md:text-lg">{intro}</p>
+                        {websiteDetails ? (
+                            <div className="mt-7 flex flex-wrap items-center gap-4">
+                                <ConsultantButton locale={locale} variant="secondary" />
+                                <Link href="#website-cost-title" className="text-sm font-bold text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent">{isFa ? "محدوده و عوامل هزینه" : "Scope and cost factors"}</Link>
+                            </div>
+                        ) : null}
                     </div>
                     <div className="lg:col-span-4 lg:flex lg:justify-end">
+                        {proof ? (
+                            <Link href={getProjectHref(locale, proof.slug)} prefetch={false} className="block w-full overflow-hidden rounded-2xl border border-foreground/15 bg-background/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60">
+                                <Image src={proof.images[0].src} alt={proof.images[0].alt[locale]} width={proof.images[0].width} height={proof.images[0].height} sizes="(max-width: 1024px) 90vw, 400px" preload className="h-auto w-full" />
+                                <span className="block p-4 text-xs leading-6 text-muted">{isFa ? "نمونه‌کار واقعی: " : "Real project: "}{proof.title[locale]}</span>
+                            </Link>
+                        ) : (
                         <div className="grid h-32 w-32 place-items-center rounded-[2rem] border border-accent/20 bg-background/40 shadow-2xl shadow-primary/15 sm:h-40 sm:w-40">
                             <ServiceIcon className="h-14 w-14 text-accent sm:h-16 sm:w-16" aria-hidden="true" />
                         </div>
+                        )}
                     </div>
                 </div>
             </header>
@@ -245,6 +266,8 @@ export default async function ServicePage({
                     <BulletList items={deliverables} />
                 </Section>
             </div>
+
+            <WebsiteServiceDetails locale={locale} slug={service.slug} />
 
             <div className="grid gap-4 lg:grid-cols-12">
                 <section aria-labelledby="service-when-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8 lg:col-span-7">

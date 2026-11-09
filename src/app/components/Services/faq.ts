@@ -6,6 +6,110 @@ export type ServiceFaqItem = { question: Localized; answer: Localized };
 // Short, factual answers rendered on each service page and mirrored as FAQPage
 // structured data. They never quote prices, discounts, or delivery dates.
 export const SERVICE_FAQ: Record<ServiceSlug, ServiceFaqItem[]> = {
+  "corporate-website-design": [
+    {
+      "question": {
+        "fa": "سایت شرکتی چه صفحه‌هایی لازم دارد؟",
+        "en": "Which pages does a corporate website need?"
+      },
+      "answer": {
+        "fa": "معمولاً معرفی شرکت، خدمات، نمونه‌کار و تماس نقطهٔ شروع‌اند. کاتالوگ، گواهینامه‌ها، استخدام یا زبان دوم بر اساس نیاز واقعی به محدوده اضافه می‌شوند؛ تعداد صفحه به‌تنهایی معیار کیفیت نیست.",
+        "en": "Company information, services, projects and contact are common starting points. Catalogues, certificates, careers and additional languages depend on actual requirements; page count alone does not define quality."
+      }
+    },
+    {
+      "question": {
+        "fa": "هزینهٔ طراحی سایت شرکتی چگونه مشخص می‌شود؟",
+        "en": "How is corporate website design priced?"
+      },
+      "answer": {
+        "fa": "ساختار و تعداد قالب‌های صفحه، آماده‌بودن متن و عکس، زبان‌ها، مدیریت محتوا و اتصال‌ها بررسی می‌شوند. قیمت و زمان فقط پس از مشخص‌شدن محدوده و برآورد پروژه اعلام می‌شود.",
+        "en": "The estimate considers page templates, content readiness, languages, editing needs and integrations. Price and timing follow an agreed scope and project estimate."
+      }
+    },
+    {
+      "question": {
+        "fa": "می‌توانیم متن و نمونه‌کارها را خودمان تغییر دهیم؟",
+        "en": "Can our team update copy and projects?"
+      },
+      "answer": {
+        "fa": "بخش‌های قابل ویرایش در محدودهٔ پروژه مشخص می‌شوند. راهنمای مدیریت همان بخش‌ها تحویل می‌شود تا مسئول محتوا بداند چه چیزی را چگونه تغییر دهد.",
+        "en": "Editable areas are defined in the project scope. Guidance covers those areas so the content owner knows what can be changed and how."
+      }
+    },
+    {
+      "question": {
+        "fa": "نسخهٔ فارسی و انگلیسی هم ساخته می‌شود؟",
+        "en": "Can the website have Persian and English versions?"
+      },
+      "answer": {
+        "fa": "بله، در صورت قرارگرفتن در محدوده. چیدمان راست‌به‌چپ و چپ‌به‌راست، محتوای هر زبان و ارتباط صفحه‌های متناظر از ابتدا بررسی می‌شوند. مسئول تهیه و تأیید ترجمه نیز مشخص می‌شود.",
+        "en": "Yes, when included in scope. Right-to-left and left-to-right layouts, translated content and corresponding-page relationships are planned from the start, with a named translation owner."
+      }
+    },
+    {
+      "question": {
+        "fa": "آیا طراحی سایت باعث رتبهٔ اول گوگل می‌شود؟",
+        "en": "Does website design guarantee first place on Google?"
+      },
+      "answer": {
+        "fa": "خیر. ساختار فنی، دسترسی خزنده و محتوای روشن، پایهٔ کارند؛ دیده‌شدن و رتبه به عوامل بیشتری وابسته است. محدودهٔ سئوی مستمر جدا از تحویل فنی سایت مشخص می‌شود.",
+        "en": "No. Technical structure, crawler access and clear content establish a foundation. Visibility depends on additional factors, and ongoing SEO is scoped separately from the website handover."
+      }
+    }
+  ],
+  "ecommerce-website-design": [
+    {
+      "question": {
+        "fa": "برای شروع فروشگاه چه اطلاعاتی آماده کنیم؟",
+        "en": "What do we need before starting the store?"
+      },
+      "answer": {
+        "fa": "نمونهٔ محصول با عکس و مشخصات، دسته‌بندی پیشنهادی، روش قیمت‌گذاری و موجودی، شرایط ارسال و اطلاعات مسئول سفارش را آماده کنید. همین نمونه‌ها به تعریف محدوده کمک می‌کنند.",
+        "en": "Prepare sample products with images and specifications, proposed categories, price and stock rules, delivery terms and an order owner. These examples help define the scope."
+      }
+    },
+    {
+      "question": {
+        "fa": "فروشگاه با ووکامرس ساخته می‌شود یا اختصاصی؟",
+        "en": "Will the store use WooCommerce or a custom build?"
+      },
+      "answer": {
+        "fa": "نیاز به مدیریت متداول محصول و سفارش می‌تواند با ووکامرس پاسخ داده شود. برای گردش‌کار یا اتصال‌های خاص، توسعهٔ اختصاصی بررسی می‌شود. انتخاب پس از شناخت عملیات انجام می‌شود.",
+        "en": "WooCommerce can suit conventional product and order management. A custom implementation is assessed for specialised workflows or integrations. The decision follows an operational review."
+      }
+    },
+    {
+      "question": {
+        "fa": "درگاه پرداخت و روش ارسال هم راه‌اندازی می‌شود؟",
+        "en": "Are payment and delivery options included?"
+      },
+      "answer": {
+        "fa": "روش‌های موردنیاز در محدوده مشخص می‌شوند. اتصال درگاه به قرارداد و شرایط ارائه‌دهنده وابسته است؛ هزینه، محدوده و روش‌های ارسال نیز باید از سمت کسب‌وکار روشن شوند.",
+        "en": "Required options are defined in scope. Payment integration depends on the provider’s terms and your agreement, while the business supplies delivery areas, methods and charges."
+      }
+    },
+    {
+      "question": {
+        "fa": "هزینهٔ طراحی سایت فروشگاهی به چه چیزهایی بستگی دارد؟",
+        "en": "What affects the cost of an ecommerce website?"
+      },
+      "answer": {
+        "fa": "تنوع و ساختار محصول، قالب‌های صفحه، امکانات جست‌وجو، مراحل سفارش، اتصال‌ها، ورود داده و آموزش مدیریت بررسی می‌شوند. قیمت و زمان پس از مشخص‌شدن این موارد برآورد می‌شوند.",
+        "en": "The estimate considers product structure and variants, page templates, search, ordering, integrations, data entry and admin training. Price and timing follow a defined scope."
+      }
+    },
+    {
+      "question": {
+        "fa": "با راه‌اندازی فروشگاه، فروش و ورودی گوگل تضمین می‌شود؟",
+        "en": "Does launching a store guarantee sales or Google traffic?"
+      },
+      "answer": {
+        "fa": "خیر. فروشگاه زیرساخت معرفی و سفارش است. اطلاعات محصول، شرایط خرید، جذب مخاطب و پیگیری سفارش هم در نتیجه اثر دارند. رتبه و میزان فروش وعده داده نمی‌شود.",
+        "en": "No. The store provides product and ordering infrastructure. Product information, purchase terms, audience acquisition and fulfilment also matter. Rankings and sales volumes are not promised."
+      }
+    }
+  ],
   "website-design-development": [
     {
       question: { fa: "طراحی سایت اختصاصی شامل چه مراحلی است؟", en: "What steps does a custom website project include?" },
