@@ -39,6 +39,11 @@ const TAG_TO_SERVICE: Record<string, ServiceSlug> = {
 
 /** Curated buyer intent; one article may support more than one service. */
 export const POST_SERVICE_FOCUS: Record<string, ServiceSlug[]> = {
+  "erp-ai-blockchain-enterprise-workflows": [
+    "ai-automation",
+    "web3-blockchain",
+    "web-application-development"
+  ],
   "corporate-website-pages-features-guide": [
     "corporate-website-design"
   ],

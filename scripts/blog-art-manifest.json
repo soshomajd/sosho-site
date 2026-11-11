@@ -6,6 +6,21 @@
   "promptTemplate": "Use case: stylized-concept. Asset type: original editorial cover illustration for the SoSho Studio bilingual technology journal. Subject: {subject}. Premium tactile 3D editorial art, frosted glass and brushed silver with restrained electric cyan and violet accents on deep midnight navy; cinematic soft studio illumination, convincing materials, carefully art-directed, minimal and sophisticated. Wide landscape 1.905:1 composition, central subject all within middle 65% so it survives a 21:9 crop; generous dark breathing room. No text, no letters, no logos, no watermarks, no chart values. Generate a finished high-resolution raster image.",
   "assets": [
     {
+      "slug": "erp-ai-blockchain-enterprise-workflows",
+      "output": "public/blog/erp-ai-blockchain-enterprise-workflows-editorial-20261111.jpg",
+      "generatedAt": "2026-11-11",
+      "provider": "Built-in ImageGen",
+      "style": "stylized-concept",
+      "width": 1200,
+      "height": 630,
+      "subject": "Connected miniature factory, warehouse, shipping and sales around an ERP data hub with AI and shared-ledger symbols",
+      "prompt": "Use case: stylized-concept. Asset type: original editorial cover for SoSho Studio article about ERP integrated with AI and blockchain across a large manufacturing company. Wide 1.905:1 landscape. A premium tactile miniature industrial campus on a warm cream tabletop: a small factory with conveyor and copper machinery, a warehouse with neatly stacked cartons, a delivery truck and a refined sales office arranged around one central frosted-glass data hub. Thin brushed-copper tracks connect the departments in a coherent continuous operational flow. Near the hub a small neural lattice sculpture represents AI, and a short linked sequence of solid translucent cubes represents a shared verification ledger. Grounded physical models, carefully built architectural maquette, realistic shadows, matte coffee-brown ceramic, caramel copper and ivory palette, sophisticated contemporary business magazine art, soft warm directional studio lighting, generous negative space. Keep all main objects within central 75% width and 65% height for wide article crops. No text, letters, numbers, logos, cryptocurrency coins, invented charts, watermarks or people. Conceptual illustration, not a real customer facility. Save the generated file and return its local path.",
+      "alt": {
+        "fa": "ماکت کارخانه، انبار، کامیون و دفتر فروش متصل به مرکز داده، شبکهٔ هوش مصنوعی و بلوک‌های دفترکل مشترک",
+        "en": "A factory, warehouse, truck and sales office linked to a data hub, an AI lattice and shared-ledger blocks"
+      }
+    },
+    {
       "slug": "wordpress-or-custom-website",
       "output": "public/blog/wordpress-or-custom-website-editorial-20261022.jpg",
       "subject": "two architectural models of websites side by side: a modular prebuilt grid and a bespoke sculptural browser structure",
@@ -447,5 +462,5 @@
       }
     }
   ],
-  "updatedAt": "2026-11-08"
+  "updatedAt": "2026-11-11"
 }

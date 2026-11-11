@@ -35,6 +35,315 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "erp-ai-blockchain-enterprise-workflows",
+    title: {
+      fa: "ترکیب ERP، هوش مصنوعی و بلاک‌چین؛ از تولید تا فروش در شرکت‌های بزرگ",
+      en: "ERP, AI and Blockchain: Connecting a Large Company from Production to Sales",
+    },
+    seoTitle: {
+      fa: "مزایای ERP با هوش مصنوعی و بلاک‌چین",
+      en: "ERP with AI and Blockchain: Enterprise Benefits",
+    },
+    excerpt: {
+      fa: "ترکیب ERP، هوش مصنوعی و بلاک‌چین چگونه خرید، تولید، انبار، فروش و مالی را به هم متصل می‌کند؟ راهنمای ثبت فرایندها و اجرای مرحله‌ای در شرکت‌های بزرگ.",
+      en: "How ERP, AI and blockchain can connect procurement, production, inventory, sales and finance, with an end-to-end workflow and a practical rollout plan.",
+    },
+    tags: ["ERP", "AI", "Blockchain", "Automation", "Integration"],
+    publishedAt: "2026-11-11",
+    coverImage: "/blog/erp-ai-blockchain-enterprise-workflows-editorial-20261111.jpg",
+    coverImageAlt: {
+      fa: "ماکت کارخانه، انبار، کامیون و دفتر فروش متصل به مرکز داده، شبکهٔ هوش مصنوعی و بلوک‌های دفترکل مشترک",
+      en: "A factory, warehouse, truck and sales office linked to a data hub, an AI lattice and shared-ledger blocks",
+    },
+    directAnswer: {
+      fa: "ERP اطلاعات و گردش کار شرکت را یکپارچه می‌کند؛ هوش مصنوعی از این داده‌ها برای پیش‌بینی، کشف ناهنجاری و پیشنهاد اقدام استفاده می‌کند؛ و بلاک‌چین می‌تواند سابقهٔ رویدادهای مشترک میان شرکت و شرکایش را قابل راستی‌آزمایی کند. حاصلِ طراحی درست، هماهنگی بهتر از تأمین مواد تا تولید، فروش و خدمات است. همهٔ اطلاعات باید در سامانه‌های مسئول ثبت و مرتبط شوند، اما فقط رویدادهای منتخب و ضروری به دفترکل مشترک راه پیدا کنند.",
+      en: "ERP connects business records and workflows. AI uses that information to forecast, detect anomalies and suggest actions. Blockchain can provide a verifiable history of selected events shared with business partners. Together, they can improve coordination from sourcing through manufacturing, sales and service. Operational records belong in their responsible systems; only necessary shared events belong on a ledger.",
+    },
+    sections: [
+      {
+        heading: { fa: "چرا یک شرکت بزرگ به جریان مشترک اطلاعات نیاز دارد؟", en: "Why a large company needs connected information" },
+        paragraphs: {
+          fa: [
+            "در یک شرکت بزرگ، فروش ممکن است سفارشی را بپذیرد که مواد اولیهٔ آن هنوز تأمین نشده است؛ تولید از تغییر قرارداد خبر نداشته باشد؛ و مالی فاکتوری دریافت کند که با رسید انبار نمی‌خواند. مسئله فقط کندبودن یک واحد نیست؛ هر بخش از یک واقعیت مشترک، نسخهٔ متفاوتی دارد. اتصال سفارش، موجودی، برنامهٔ تولید و دریافت پول کمک می‌کند اثر هر تصمیم در واحدهای دیگر دیده شود.",
+            "در تعریف SAP و Oracle، ERP یا برنامه‌ریزی منابع سازمان، زیرساخت یکپارچهٔ فرایندهای اصلی کسب‌وکار است. در این مقاله، یک شرکت فرضی تولید تجهیزات صنعتی را دنبال می‌کنیم و یک معماری پیشنهادی برای آن می‌سازیم. مثال‌ها تحلیل طراحی‌اند، نه گزارش نتیجهٔ یک مشتری؛ میزان صرفه‌جویی و سرعت باید در اجرای واقعی اندازه‌گیری شود.",
+          ],
+          en: [
+            "Sales may accept an order before materials are available, production may miss a contract change, and finance may receive an invoice that disagrees with the warehouse receipt. Each team sees a different version of the same business event. Connecting orders, stock, production plans and payment records makes the downstream effect of decisions visible.",
+            "SAP and Oracle describe ERP as a way to integrate core business processes. Here we follow a fictional industrial-equipment manufacturer and propose an architecture for its operations. The examples are design analysis, rather than a customer case study. Savings and performance must be measured in an actual implementation.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "نقش هر لایه: ERP برای عملیات، AI برای تحلیل، بلاک‌چین برای توافق مشترک", en: "Give each layer a clear responsibility" },
+        paragraphs: {
+          fa: [
+            "ERP مرجع سفارش‌ها، اسناد مالی، موجودی و مجوزهای عملیاتی باقی می‌ماند. سامانه‌های تخصصی مانند CRM برای ارتباط با مشتری، MES برای اجرای تولید، WMS برای انبار و PLM برای اطلاعات مهندسی، از طریق اتصال تعریف‌شده با آن کار می‌کنند. هوش مصنوعی روی دادهٔ مجاز پیش‌بینی یا پیشنهاد می‌سازد؛ ثبت نهایی عملیات همچنان از قواعد و اختیارهای سامانه عبور می‌کند.",
+            "بلاک‌چین زمانی ارزش دارد که تأمین‌کننده، تولیدکننده، حمل‌کننده یا خریدار به یک سابقهٔ مشترک نیاز داشته باشند و نخواهند کنترل آن فقط دست یکی باشد. مستندات Hyperledger Fabric نشان می‌دهد می‌توان دادهٔ خصوصی را میان اعضای مجاز نگه داشت و هش آن را برای راستی‌آزمایی به اشتراک گذاشت. برای هماهنگی صرفاً داخلی، پایگاه داده و گزارش ممیزی معمولاً نقطهٔ شروع ساده‌تری است؛ شبکهٔ مجوزدار هم لزوماً به رمزارز یا توکن نیاز ندارد.",
+          ],
+          en: [
+            "ERP remains responsible for orders, financial postings, stock and operational permissions. Specialist systems such as CRM for customer relationships, MES for manufacturing execution, WMS for warehousing and PLM for engineering data connect through defined interfaces. AI forecasts or recommends using authorised data; final transactions still pass application rules and approval controls.",
+            "A shared ledger becomes useful when suppliers, the manufacturer, carriers or customers need a common history without giving one party exclusive control. Hyperledger Fabric documents private collections that restrict the underlying data while sharing its hash for verification. For purely internal coordination, a database and audit trail are usually a simpler starting point. A permissioned network does not inherently require a cryptocurrency or token.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "۱. برنامه‌ریزی تقاضا و هماهنگی فروش با تولید", en: "1. Demand planning and sales–production alignment" },
+        paragraphs: {
+          fa: [
+            "گردش کار از سفارش قطعی، فرصت فروش و پیش‌بینی تقاضا آغاز می‌شود. ERP سابقهٔ فروش، ظرفیت، موجودی و سفارش‌های باز را کنار هم می‌گذارد. AI می‌تواند برای تقاضای هر خانوادهٔ محصول سناریو بسازد و خطر کمبود یا انباشت را هشدار دهد. خروجی باید بازهٔ عدم قطعیت و فرض‌هایش را نشان دهد تا پیش‌بینی با تعهد قطعی اشتباه نشود.",
+            "در شرکت فرضی ما، مدیر فروش افزایش تقاضای یک مدل پمپ را می‌بیند و برنامه‌ریزی اثر آن را روی موتور، بدنه و ظرفیت مونتاژ بررسی می‌کند. نسخهٔ برنامه، فرض تقاضا، تأییدکننده و تغییرات در سامانه ثبت می‌شوند. اگر مشتری عمده یا شریک بیرونی باید روی یک تعهد مشخص توافق کند، همان تعهد منتخب می‌تواند در دفترکل مشترک ثبت شود؛ پیش‌نویس‌های داخلی نیازی به آن ندارند.",
+          ],
+          en: [
+            "Start with confirmed orders, sales opportunities and a demand forecast. ERP brings together sales history, capacity, inventory and open orders. AI can produce demand scenarios by product family and flag potential shortages or excess stock. Forecasts should include uncertainty and assumptions so they are not mistaken for delivery commitments.",
+            "Our fictional manufacturer notices growing demand for a pump model and checks the effect on motors, housings and assembly capacity. It records the plan version, assumptions, approver and revisions. A selected commitment agreed with a major customer or external partner may belong on the shared ledger; internal planning drafts do not need to.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "۲. خرید، قرارداد و ارزیابی تأمین‌کنندگان", en: "2. Procurement, contracts and suppliers" },
+        paragraphs: {
+          fa: [
+            "در چرخهٔ خرید، درخواست کالا به استعلام، مقایسهٔ پیشنهاد، تأیید بودجه، سفارش خرید و دریافت تبدیل می‌شود. AI می‌تواند پیشنهادها را خلاصه کند، بندهای متفاوت قرارداد را برای بررسی علامت بزند و الگوی تأخیر یا مشکل کیفیت هر تأمین‌کننده را تحلیل کند. انتخاب تأمین‌کننده و تغییر حساب بانکی باید با مسئول مجاز و کنترل مستقل انجام شود.",
+            "شمارهٔ سفارش، نسخهٔ مشخصات فنی، مقدار، تاریخ توافقی، تأییدها و دلیل اصلاح در ERP ثبت می‌شود. در رابطهٔ چندشرکتی، امضای پذیرش سفارش یا هش نسخهٔ قرارداد می‌تواند مدرک مشترک باشد. فایدهٔ مورد انتظار، پیگیری روشن‌تر تعهد و اختلاف کمتر بر سر نسخهٔ معتبر سند است؛ ثبت مشترک به‌تنهایی توان واقعی تأمین‌کننده را ثابت نمی‌کند.",
+          ],
+          en: [
+            "Procurement moves from requisition through quotations, comparison, budget approval and purchase order to receipt. AI can summarise offers, flag contract differences for review and analyse supplier delivery or quality patterns. Supplier selection and bank-account changes still require authorised staff and independent controls.",
+            "Record the order identifier, specification version, quantity, agreed date, approvals and amendment reasons in ERP. Signed order acceptance or a contract-version hash can provide shared evidence between companies. The intended benefit is clearer obligations and fewer disputes over document versions, rather than proof that a supplier can actually fulfil them.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "۳. ورود مواد، انبار و کنترل موجودی", en: "3. Receiving, warehousing and inventory" },
+        paragraphs: {
+          fa: [
+            "هنگام ورود موتور و قطعات، انبار باید سفارش خرید، مقدار واقعی، شمارهٔ سری یا بچ، محل نگهداری و وضعیت بازرسی را ثبت کند. بارکد یا RFID وقتی مفید است که شناسهٔ آن با رکورد درست تطبیق داده شود. AI می‌تواند اختلاف موجودی، مصرف غیرعادی، کالای کم‌گردش و زمان مناسب سفارش مجدد را پیشنهاد دهد.",
+            "رسید مورد تأیید دو طرف می‌تواند به رویداد مشترک تبدیل شود تا مشخص باشد چه محموله‌ای در چه زمانی تحویل شده است. مزیت عملی، قابلیت دنبال‌کردن مواد تا محصول نهایی است. اما اسکن اشتباه یا ثبت رسید صوری با بلاک‌چین درست نمی‌شود؛ شمارش، بازرسی و مسئولیت فرد ثبت‌کننده همچنان لازم است.",
+          ],
+          en: [
+            "When motors and components arrive, record the purchase order, actual quantity, lot or serial number, storage location and inspection status. Barcodes or RFID help only when their identifiers map to the correct records. AI can flag stock discrepancies, unusual consumption, slow-moving items and possible replenishment needs.",
+            "A receipt accepted by both parties can become a shared event identifying the shipment and handover time. This supports tracing materials into finished products. A ledger cannot correct a wrong scan or a fabricated receipt; counting, inspection and accountable data entry remain essential.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "۴. مهندسی محصول و اجرای تولید", en: "4. Product engineering and manufacturing" },
+        paragraphs: {
+          fa: [
+            "مهندسی، فهرست مواد یا BOM، نقشه و نسخهٔ دستور ساخت را تأیید می‌کند؛ برنامه‌ریزی دستور تولید می‌سازد و خط، مصرف واقعی مواد، عملیات، ضایعات و محصول تکمیل‌شده را گزارش می‌دهد. اتصال ERP به PLM و MES کمک می‌کند تولید با نسخهٔ درست انجام شود و بهای تمام‌شده از مصرف واقعی تغذیه شود.",
+            "AI می‌تواند زمان‌بندی پیشنهادی را با توجه به ظرفیت، تعویض خط و موعد سفارش بسازد یا انحراف مصرف و زمان را نشان دهد. شمارهٔ دستور، نسخهٔ BOM، اپراتور مجاز، مواد مصرفی و سریال خروجی ثبت می‌شوند. برای تولید قراردادی، پذیرش یک مرحله یا تغییر مشخصات مورد توافق می‌تواند روی دفترکل مشترک قرار گیرد. این ثبت نباید حلقهٔ کنترل لحظه‌ای و ایمنی ماشین‌آلات را به انتظار شبکه وابسته کند.",
+          ],
+          en: [
+            "Engineering approves the bill of materials, drawing and manufacturing-instruction version. Planning creates the production order; the shop floor reports actual material consumption, operations, scrap and finished output. Connecting ERP with PLM and MES helps production use approved specifications and costing reflect actual consumption.",
+            "AI can suggest schedules that consider capacity, changeovers and order dates, or highlight time and usage deviations. Record the production order, BOM version, authorised operator, consumed lots and output serials. In contract manufacturing, an agreed milestone acceptance or specification change may be shared on a ledger. Machine safety and real-time control must remain independent of ledger availability.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "۵. کنترل کیفیت، اصالت و فراخوان محصول", en: "5. Quality, provenance and product recalls" },
+        paragraphs: {
+          fa: [
+            "کیفیت باید نتیجهٔ آزمایش، ابزار اندازه‌گیری، نسخهٔ روش آزمون، عدم انطباق، اقدام اصلاحی و مجوز آزادسازی را به سریال محصول وصل کند. بینایی ماشین می‌تواند برای شناسایی عیب ظاهری آموزش ببیند؛ تحلیل داده هم می‌تواند رابطهٔ احتمالی عیب با ماده، دستگاه یا شیفت را پیدا کند. این پیشنهادها باید با نمونهٔ واقعی و خطای قابل قبول ارزیابی شوند.",
+            "اگر یک موتور معیوب شناسایی شود، شرکت می‌تواند مسیر آن را از بچ ورودی تا پمپ‌های تولیدشده و مشتریان دریافت‌کننده دنبال کند. هش گواهی آزمون و تأیید آزمایشگاه، در صورت مشارکت طرف‌های مربوط، به بررسی تغییر سند کمک می‌کند. اصالتِ سند با صحت آزمایش تفاوت دارد؛ شبکه جای کالیبراسیون، بازرسی و پاسخ‌گویی آزمایشگاه را نمی‌گیرد.",
+          ],
+          en: [
+            "Link test results, measuring equipment, method version, nonconformities, corrective actions and release approval to the product serial. Trained vision models may help detect visible defects, while analytics can suggest relationships with materials, machines or shifts. Evaluate these suggestions against real samples and acceptable error rates.",
+            "If a defective motor is identified, the company can trace its incoming lot to affected pumps and receiving customers. A test-certificate hash and laboratory approval can help check whether a document changed when relevant parties participate. Document integrity does not establish that a test was performed correctly; calibration, inspection and laboratory accountability still matter.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "۶. نگهداری تجهیزات، انرژی و دارایی‌ها", en: "6. Maintenance, energy and assets" },
+        paragraphs: {
+          fa: [
+            "واحد نگهداری، شناسنامهٔ دستگاه، کارکرد، خرابی، دستور تعمیر، قطعات یدکی و نتیجهٔ سرویس را ثبت می‌کند. با دادهٔ کافی و حسگر معتبر، مدل می‌تواند الگوی غیرعادی دما یا لرزش را هشدار دهد تا تیم نگهداری دربارهٔ بازرسی تصمیم بگیرد. برنامهٔ تعمیر با ظرفیت تولید هماهنگ می‌شود و اثر توقف در برنامهٔ تحویل دیده می‌شود.",
+            "مصرف انرژی را نیز می‌توان به خط و دورهٔ تولید مرتبط کرد تا مقایسهٔ محصول‌ها معنادارتر شود. اگر پیمانکار بیرونی سرویس می‌دهد، تأیید مشترک انجام سرویس یا نسخهٔ گزارش می‌تواند قابل راستی‌آزمایی باشد. دادهٔ خام پرتعداد حسگرها در سامانهٔ مناسب نگه‌داری می‌شود؛ انتقال همهٔ آن به بلاک‌چین معمولاً هزینه و پیچیدگی اضافه می‌سازد.",
+          ],
+          en: [
+            "Maintenance records the asset, operating hours, failures, work orders, spare parts and service outcome. With sufficient data and reliable sensors, a model may flag unusual vibration or temperature for inspection. Maintenance plans can then be coordinated with production capacity and delivery schedules.",
+            "Link energy use to production lines and periods to make product comparisons more meaningful. An external service contractor may jointly attest a completed service or report version. High-volume raw sensor data belongs in suitable operational storage; putting every reading on a ledger usually adds unnecessary cost and complexity.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "۷. بازاریابی، CRM و مدیریت فروش", en: "7. Marketing, CRM and sales" },
+        paragraphs: {
+          fa: [
+            "بازاریابی منبع سرنخ، رضایت ارتباط و مسیر تبدیل را ثبت می‌کند. CRM نیاز مشتری، مذاکره و پیشنهاد را نگه می‌دارد و ERP موجودی قابل تخصیص، محدودیت اعتبار و هزینه را به فروش می‌رساند. AI می‌تواند سرنخ‌ها را برای بررسی اولویت‌بندی کند، مکالمه را خلاصه کند یا پیش‌نویس پیشنهاد بسازد. اطلاعات محرمانه و قیمت نهایی باید فقط از منابع مجاز بیاید.",
+            "هنگام تبدیل پیشنهاد به سفارش، نسخهٔ قیمت، تخفیف مجاز، مشخصات محصول، تاریخ بررسی‌شدهٔ تحویل و تأیید مشتری ثبت می‌شود. برای قراردادهای چندطرفه، تأیید نسخهٔ سفارش می‌تواند مشترک باشد. فایده برای فروش این است که وعدهٔ تحویل به ظرفیت واقعی نزدیک‌تر شود؛ AI نباید مستقل از موجودی، اعتبار و اختیار تخفیف، تعهد ایجاد کند.",
+          ],
+          en: [
+            "Marketing records lead origin, communication consent and conversion stages. CRM keeps requirements, negotiations and proposals, while ERP supplies allocatable stock, credit constraints and costs. AI may help prioritise leads for review, summarise conversations or draft a proposal. Confidential information and final prices must come from authorised sources.",
+            "When a proposal becomes an order, record its price version, permitted discount, product specification, checked delivery date and customer acceptance. Multi-party contracts may share an attestation of the agreed order version. The benefit is better alignment between sales promises and operational capacity. AI should not create commitments outside stock, credit or discount controls.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "۸. حمل، توزیع و تحویل سفارش", en: "8. Shipping, distribution and delivery" },
+        paragraphs: {
+          fa: [
+            "آزادسازی سفارش، برداشت انبار، بسته‌بندی، بارنامه، تحویل به حمل‌کننده و رسید مشتری باید به همان سفارش و سریال‌ها مرتبط شوند. AI می‌تواند با دادهٔ مناسب، زمان احتمالی رسیدن یا ریسک تأخیر را پیشنهاد دهد و تیم توزیع مسیرها را بررسی کند. محدودیت ظرفیت، شرایط حمل و دادهٔ واقعی مسیر باید در تصمیم دخیل باشند.",
+            "این بخش از جاهایی است که دفترکل مشترک می‌تواند مفید باشد: هر طرف، تحویل‌گرفتن یا تحویل‌دادن محموله را با هویت و زمان ثبت می‌کند. در اختلاف، زنجیرهٔ تحویل و نسخهٔ اسناد قابل بررسی است. وضعیت پیشنهادی مدل یا موقعیت تأییدنشده نباید به‌عنوان «تحویل قطعی» وارد سابقه شود.",
+          ],
+          en: [
+            "Connect release, picking, packing, shipping documents, carrier handover and customer receipt to the same order and serials. Given suitable data, AI may estimate arrival times or flag delay risks for the distribution team. Routing decisions still need actual conditions, capacity and handling constraints.",
+            "This is a useful candidate for shared records: each participant attests the shipment handover with its identity and time. The custody history and document versions can then be checked during disputes. A model estimate or unverified location must never be treated as confirmed delivery.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "۹. مالی، خزانه‌داری و حسابداری صنعتی", en: "9. Finance, treasury and product costing" },
+        paragraphs: {
+          fa: [
+            "مالی، سفارش خرید، رسید کالا و فاکتور را تطبیق می‌دهد؛ هزینهٔ مواد، دستمزد و سربار به بهای محصول متصل می‌شود؛ و سفارش فروش به فاکتور، دریافت و ماندهٔ مشتری می‌رسد. AI می‌تواند فاکتور تکراری یا الگوی غیرعادی را برای بررسی علامت بزند و با فرض‌های روشن، سناریوی جریان نقدی تهیه کند. ثبت سند قطعی و تأیید پرداخت در اختیار نقش‌های مجاز باقی می‌ماند.",
+            "قرارداد هوشمند می‌تواند برای یک مرحلهٔ مورد توافق، شرط‌هایی مانند تأیید کیفیت و پذیرش تحویل را بررسی و درخواست تسویه ایجاد کند. پرداخت بانکی فقط با اتصال و مجوزهای مربوط انجام می‌شود؛ ثبت بلاک‌چینی خودبه‌خود بانک را جابه‌جا نمی‌کند. اختلاف، ابطال، برگشت وجه و اصلاح سند باید مسیر مشخص داشته باشند و یک خروجی احتمالی AI نباید به‌تنهایی پرداخت را فعال کند.",
+          ],
+          en: [
+            "Finance matches purchase orders, receipts and invoices, links materials, labour and overhead to product cost, and follows sales invoices through collections and customer balances. AI may flag duplicate invoices or unusual patterns and prepare cash-flow scenarios with explicit assumptions. Authorised roles retain control of final postings and payment approvals.",
+            "For an agreed milestone, a smart contract could check quality approval and delivery acceptance before creating a settlement request. Bank payment still needs the relevant integration and authorisation; a ledger entry cannot move bank funds by itself. Define dispute, cancellation, refund and correction paths, and never let a probabilistic AI output alone trigger payment.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "۱۰. خدمات پس از فروش و بازگشت تجربه به مهندسی", en: "10. After-sales service and engineering feedback" },
+        paragraphs: {
+          fa: [
+            "درخواست خدمات باید با سریال، شرایط ضمانت، سابقهٔ نصب، قطعات تعویض‌شده و نتیجهٔ تعمیر مرتبط شود. دستیار AI می‌تواند از مستندات تأییدشده پاسخ اولیه بسازد، گزارش خرابی را دسته‌بندی کند و اطلاعات لازم را پیش از ارجاع جمع کند. تشخیص حساس، تأیید ضمانت و توصیهٔ ایمنی به کنترل تخصصی نیاز دارند.",
+            "ثبت قابل پیگیری سرویس‌های انجام‌شده توسط نمایندگی‌ها، بررسی سابقه را آسان‌تر می‌کند. الگوی تکرارشوندهٔ خرابی به مهندسی و خرید برمی‌گردد تا دربارهٔ طراحی یا تأمین‌کننده تصمیم بگیرند. در شرکت فرضی، ارتباط شکایت یک مشتری با بچ موتور و گزارش خط، از تکرار بررسی‌های جداگانه جلوگیری می‌کند؛ این حلقهٔ بازخورد بخشی از همان گردش کار است.",
+          ],
+          en: [
+            "Connect a service request with the serial number, warranty terms, installation history, replaced parts and repair outcome. An AI assistant may draft initial answers from approved documents, classify failure reports and collect information before escalation. Sensitive diagnosis, warranty approval and safety advice require specialist controls.",
+            "Traceable service attestations from authorised dealers make history easier to check. Repeated failure patterns feed back into engineering and procurement decisions. In our example, linking a complaint to a motor lot and production report avoids restarting an investigation in every department. That feedback loop completes the operational chain.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "۱۱. منابع انسانی، حقوقی، فناوری اطلاعات و مدیریت", en: "11. HR, legal, IT and executive management" },
+        paragraphs: {
+          fa: [
+            "منابع انسانی، نقش، مهارت، آموزش، شیفت و مجوز انجام عملیات را به نیاز تولید وصل می‌کند. AI می‌تواند شکاف مهارتی یا پیش‌نویس برنامهٔ آموزش را پیشنهاد دهد؛ تصمیم استخدام، ارزیابی فرد و حقوق به بررسی انسانی، حریم خصوصی و کنترل تبعیض نیاز دارد. پروندهٔ کارکنان، حقوق و دادهٔ پزشکی جای مناسبی در دفترکل مشترک ندارند؛ در صورت نیاز واقعی، فقط اصالت یک گواهی منتخب با طراحی مناسب بررسی می‌شود.",
+            "حقوقی و حسابرسی، نسخهٔ قرارداد، اختیار امضا، اختلاف و سابقهٔ تأیید را پیگیری می‌کنند. فناوری اطلاعات مسئول هویت، دسترسی، کیفیت اتصال، پشتیبان‌گیری و بازیابی است. مدیریت نیز داشبوردی از تأخیر، موجودی، کیفیت، سودآوری و نقدینگی می‌بیند که هر عددش به سند و زمان به‌روزرسانی برمی‌گردد. تحلیل مدیریتی باید فاصلهٔ واقعیت ثبت‌شده با پیش‌بینی مدل را روشن نگه دارد.",
+          ],
+          en: [
+            "HR connects roles, skills, training, shifts and operational authorisations to staffing needs. AI may suggest skills gaps or training plans; hiring, individual assessment and pay require human review, privacy safeguards and bias controls. Employee files, salaries and medical records do not belong on a shared ledger. A selected credential may be verified only where there is a real need and suitable privacy design.",
+            "Legal and audit teams track contract versions, signing authority, disputes and approvals. IT manages identity, access, integration quality, backup and recovery. Executives see delivery, inventory, quality, profitability and liquidity measures that link back to source records and refresh times. Management reporting should clearly distinguish recorded facts from model forecasts.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "نمونهٔ کامل: مسیر یک سفارش پمپ صنعتی", en: "A complete example: one industrial-pump order" },
+        paragraphs: {
+          fa: [
+            "مشتری مشخصات پمپ را در CRM تأیید می‌کند؛ ERP اعتبار و موجودی را بررسی می‌کند و برنامه‌ریزی نیاز مواد را می‌سازد. خرید سفارش موتور را صادر می‌کند، تأمین‌کننده نسخهٔ سفارش را می‌پذیرد و انبار محموله را با بچ مشخص دریافت می‌کند. پس از تأیید کیفیت، مواد به دستور تولید تخصیص می‌یابد و مصرف آن‌ها به سریال پمپ نهایی وصل می‌شود.",
+            "آزمایش نهایی مجوز ارسال می‌دهد؛ حمل‌کننده محموله را تحویل می‌گیرد، مشتری دریافت را تأیید می‌کند و مالی طبق کنترل‌های قرارداد صورتحساب و تسویه را دنبال می‌کند. اگر بعداً خرابی گزارش شود، خدمات از روی سریال به تست، مواد و تأمین‌کننده می‌رسد. AI در نقاط لازم هشدار و پیشنهاد می‌دهد؛ دفترکل فقط پذیرش‌ها و مدارک مشترک منتخب را نگه می‌دارد. همهٔ این مراحل باید شناسه‌های مرتبط داشته باشند تا مسیر از ابتدا تا پایان قابل جست‌وجو باشد.",
+          ],
+          en: [
+            "The customer accepts the pump specification in CRM. ERP checks credit and stock, and planning calculates material requirements. Procurement orders a motor, the supplier accepts the order version, and the warehouse receives an identified lot. After quality acceptance, materials are allocated to production and linked to the finished pump serial.",
+            "Final testing releases the shipment. The carrier accepts custody, the customer confirms receipt, and finance follows invoicing and settlement under contract controls. A later failure report can be traced from serial to test, materials and supplier. AI supplies selected warnings and recommendations; the ledger holds selected shared attestations. Linked identifiers make the whole journey searchable.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "برای ثبت همهٔ فرایندها چه اطلاعاتی لازم است؟", en: "What should each process record contain?" },
+        paragraphs: {
+          fa: [
+            "ثبت همهٔ فرایندها به معنی کپی‌کردن همهٔ فایل‌ها در یک محل نیست. هر سامانه مسئول دادهٔ خودش است و شناسه‌های مشترک، مراحل را به هم وصل می‌کنند. الگوی پیشنهادی زیر برای طراحی رویداد است و باید با صنعت و محرمانگی شرکت تنظیم شود. برای اصلاح هم، سابقهٔ قبلی را بی‌ردپا تغییر ندهید؛ اصلاحیه‌ای مرتبط با دلیل و مجوز ثبت کنید.",
+          ],
+          en: [
+            "Recording every process does not mean copying every file into one location. Each system owns its records, and shared identifiers connect the stages. The following event model is a design proposal to adapt to the industry and confidentiality requirements. Corrections should preserve history through a linked amendment with its reason and authorisation.",
+          ],
+        },
+        bullets: {
+          fa: [
+            "شناسهٔ یکتای رویداد و شناسهٔ سفارش، کالا، بچ، سریال یا دارایی مرتبط؛ به‌همراه مرجع مرحلهٔ قبلی.",
+            "نوع عملیات، وضعیت قبل و بعد، زمان وقوع و زمان ثبت؛ با واحد سنجش و منطقهٔ زمانی مشخص.",
+            "هویت فرد یا سامانهٔ ثبت‌کننده، نقش مجاز، تأییدکنندگان و نسخهٔ قاعده یا سند مورد استفاده.",
+            "مقدار و واحد، محل، نسخهٔ مشخصات و مرجع فایل اصلی؛ برای دادهٔ مشترک منتخب، هش و امضا در صورت نیاز.",
+            "برای پیشنهاد AI: نسخهٔ مدل، مرجع داده، زمان تولید، محدودیت و نتیجهٔ پذیرش یا رد مسئول انسانی.",
+            "سطح محرمانگی، افراد مجاز، مدت نگه‌داری، دلیل اصلاح و وضعیت ارسال به سامانه‌های دیگر.",
+          ],
+          en: [
+            "A unique event ID, linked order, item, lot, serial or asset IDs, and a reference to the preceding stage.",
+            "Operation type, previous and new status, occurrence time and recording time with explicit units and time zones.",
+            "The originating person or system, authorised role, approvers and applicable rule or document version.",
+            "Quantity, unit, location, specification version and source-document reference; a hash and signature for selected shared evidence where needed.",
+            "For AI suggestions: model version, input references, generation time, limitations and the human acceptance or rejection outcome.",
+            "Confidentiality level, authorised readers, retention period, amendment reason and downstream delivery status.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "معماری اتصال، محرمانگی و شرایط اختلال", en: "Integration, privacy and failure handling" },
+        paragraphs: {
+          fa: [
+            "یک الگوی اجرایی این است که ERP پس از ثبت معتبر عملیات، رویداد را در صف خروجی پایدار بگذارد. سرویس اتصال، نسخهٔ داده و دسترسی را بررسی کند و رویداد منتخب را به دفترکل یا سامانهٔ بعدی بفرستد. کلید یکتای عملیات، تلاش مجدد محدود و تطبیق دوره‌ای کمک می‌کند قطع شبکه باعث ثبت دوباره یا ناپدیدشدن مرحله نشود. وضعیت «ثبت در ERP» را از «تأیید در دفترکل» جدا نشان دهید.",
+            "اسناد اصلی، قیمت‌های محرمانه و دادهٔ شخصی در مخزن کنترل‌شده باقی می‌مانند. هش، رمزگذاری نیست و دادهٔ کوتاه یا قابل حدس ممکن است از روی آن حدس زده شود؛ طراحی باید حداقل‌سازی داده و کنترل دسترسی را هم پوشش دهد. سرویس AI هم فقط به بخش لازم دسترسی می‌گیرد. خرابی مدل یا شبکهٔ مشترک باید مسیر کار دستی و بازیابی داشته باشد، نه اینکه عملیات ضروری شرکت را بی‌دلیل متوقف کند.",
+          ],
+          en: [
+            "One implementation pattern is a durable outbox written alongside a valid ERP transaction. An integration service validates access and schema versions before forwarding selected events to the ledger or next system. Operation IDs, bounded retries and reconciliation help prevent duplicate or lost steps. Show ERP-recorded status separately from ledger-confirmed status.",
+            "Original documents, confidential prices and personal information stay in controlled storage. Hashing is not encryption, and short or predictable values may be guessed; minimise shared data and enforce access controls. AI services should receive only the necessary information. Model or network failures need manual and recovery paths so essential operations can continue under defined controls.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "قرارداد هوشمند و AI چه تصمیم‌هایی نباید مستقل بگیرند؟", en: "Where automation needs explicit boundaries" },
+        paragraphs: {
+          fa: [
+            "قرارداد هوشمند قواعد قطعی را روی دادهٔ ورودی اجرا می‌کند؛ اما حقیقتِ اتفاق بیرونی را خودش نمی‌بیند. تأیید تحویل، نتیجهٔ آزمایش یا نرخ خارجی از سامانه یا شخصی می‌آید که باید مسئولیت و کنترل اعتبارش مشخص باشد. قرارداد نیز به آزمون، بازبینی امنیت، مدیریت کلید و توافق دربارهٔ ارتقا، توقف و حل اختلاف نیاز دارد.",
+            "AI ممکن است اشتباه کند، سوگیری داشته باشد یا متن مخرب یک سند را با دستور معتبر اشتباه بگیرد. بر پایهٔ رویکرد مدیریت ریسک NIST، کاربرد را با معیار روشن ارزیابی و در طول استفاده پایش کنید. برای پرداخت، تغییر قیمت مهم، آزادسازی محصول حساس و تصمیم پرسنلی، اختیار، تأیید و امکان توقف تعریف کنید. دستیار باید بتواند بگوید داده کافی نیست و کار را به مسئول انسانی ارجاع دهد.",
+          ],
+          en: [
+            "A smart contract executes deterministic rules against its inputs, but cannot independently observe an external delivery, laboratory result or rate. Define who supplies that evidence and how its reliability is checked. Contracts also require testing, security review, key management and agreed upgrade, pause and dispute procedures.",
+            "AI can make errors, exhibit bias or mistake malicious document content for authorised instructions. Following NIST’s risk-management approach, evaluate each use against explicit criteria and monitor it in operation. Define permissions, approvals and stopping mechanisms for payments, significant price changes, sensitive product release and personnel decisions. An assistant should escalate when evidence is insufficient.",
+          ],
+        },
+      },
+      {
+        heading: { fa: "از کجا شروع کنیم و موفقیت را چگونه بسنجیم؟", en: "How to start and measure the result" },
+        paragraphs: {
+          fa: [
+            "از یک گلوگاه قابل اندازه‌گیری، مانند اختلاف رسید و فاکتور یا رهگیری یک خانوادهٔ محصول، شروع کنید. ابتدا مالک فرایند، شناسه‌ها، کیفیت داده و کنترل دسترسی را درست کنید؛ سپس AI را فقط در حالت پیشنهاد کنار کار موجود اجرا کنید. دفترکل را وقتی اضافه کنید که شریک واقعی برای مشارکت و قواعد مشترک وجود دارد. گسترش به کل شرکت بعد از ارزیابی پایلوت و آموزش کاربران انجام می‌شود.",
+            "زمان تطبیق اسناد، خطای موجودی، تحویل کامل و به‌موقع، توقف برنامه‌ریزی‌نشده، زمان پیدا‌کردن منشأ عیب و طول چرخهٔ وصول را قبل و بعد با تعریف ثابت مقایسه کنید. برای AI، نرخ خطا، هشدار کاذب و میزان اصلاح انسانی را هم بسنجید. هزینهٔ اتصال، مجوز، زیرساخت، امنیت، نگه‌داری شبکه و تغییر فرایند باید در ارزیابی اقتصادی دیده شود؛ هیچ درصد صرفه‌جویی از پیش تضمین‌شده نیست.",
+            "مزیت اصلی این ترکیب، پیوند تصمیم و مدرک در سراسر شرکت است: فروش می‌داند چه چیزی قابل تعهد است، تولید می‌داند چه چیزی باید بسازد، مالی می‌داند بابت چه چیزی پرداخت می‌کند و خدمات می‌تواند سابقهٔ محصول را پیدا کند. برای شروع یک پروژهٔ واقعی، فهرست سامانه‌های فعلی، یک مسیر نمونهٔ سفارش و نقطهٔ اختلاف میان واحدها را آماده کنید؛ این‌ها مبنای روشن‌تری برای طراحی اتصال ERP، اتوماسیون AI و ثبت مشترک هستند.",
+          ],
+          en: [
+            "Begin with a measurable bottleneck, such as invoice–receipt mismatches or tracing one product family. Establish process ownership, identifiers, data quality and access controls first. Run AI in advisory mode alongside existing work. Add a ledger when real partners will participate under shared rules, then expand after pilot evaluation and user training.",
+            "Compare document-reconciliation time, inventory error, on-time-in-full delivery, unplanned downtime, fault-tracing time and collection-cycle length using consistent definitions. Measure AI errors, false alerts and human corrections too. Include integration, licensing, infrastructure, security, network operation and process-change costs. No savings percentage can be guaranteed in advance.",
+            "The central benefit is connecting decisions with evidence across the company. Sales can check what it may promise, production knows what to build, finance understands what it is paying for, and service can retrieve the product history. To scope a real project, prepare an inventory of current systems, one sample order journey and the points where departments disagree. These provide a concrete basis for ERP integration, AI automation and shared attestations.",
+          ],
+        },
+      },
+    ],
+    faq: [
+      {
+        question: { fa: "آیا همهٔ اطلاعات شرکت باید روی بلاک‌چین ثبت شود؟", en: "Should every company record go on a blockchain?" },
+        answer: { fa: "خیر. فرایندها در سامانهٔ مسئول ثبت و با شناسه‌های مشترک مرتبط می‌شوند. فقط رویدادهای ضروری میان طرف‌های مستقل، مانند پذیرش سفارش یا تحویل، نامزد دفترکل هستند. دادهٔ شخصی، فایل کامل قرارداد و دادهٔ خام حسگرها معمولاً باید خارج از دفترکل بمانند.", en: "No. Responsible systems record each process and shared identifiers connect them. Only necessary cross-party events, such as order acceptance or handover, are ledger candidates. Personal data, complete contracts and raw sensor readings generally belong outside the ledger." },
+      },
+      {
+        question: { fa: "آیا بلاک‌چین صحت دادهٔ ورودی را تضمین می‌کند؟", en: "Does blockchain guarantee that input data is true?" },
+        answer: { fa: "خیر. ثبت قابل راستی‌آزمایی می‌تواند بررسی تغییر سابقه و هویت تأییدکنندگان را آسان کند، اما وزن اشتباه، رسید صوری یا حسگر خراب را تشخیص نمی‌دهد. کنترل منبع، بازرسی و مسئولیت ثبت لازم است.", en: "No. A verifiable record can help check history and attestations, but cannot establish that a weight, receipt or sensor reading was accurate. Source controls, inspection and accountable recording remain necessary." },
+      },
+      {
+        question: { fa: "آیا برای این معماری باید ERP فعلی را عوض کنیم؟", en: "Must the existing ERP be replaced?" },
+        answer: { fa: "لزومی ندارد. ابتدا امکان API، خروجی رویداد، کیفیت داده و محدودیت نسخهٔ فعلی بررسی می‌شود. اغلب می‌توان اتصال را برای یک فرایند محدود طراحی کرد. تصمیم تعویض به توان سامانه، هزینه و نیاز واقعی بستگی دارد.", en: "Not necessarily. First assess available APIs, events, data quality and version limitations. A bounded integration may be possible. Replacement depends on the current system’s capabilities, costs and actual business needs." },
+      },
+      {
+        question: { fa: "آیا ترکیب ERP و AI بدون بلاک‌چین هم مفید است؟", en: "Can ERP and AI be useful without blockchain?" },
+        answer: { fa: "بله. پیش‌بینی تقاضا، بررسی ناهنجاری و دستیار اسناد می‌توانند روی دادهٔ مجاز ERP کار کنند. بلاک‌چین زمانی مطرح می‌شود که چند طرف به ثبت و توافق مشترک نیاز داشته باشند و هزینهٔ آن توجیه داشته باشد.", en: "Yes. Demand forecasts, anomaly review and document assistance can use authorised ERP data. A ledger is a separate decision for cases where multiple parties need shared attestations and the added cost is justified." },
+      },
+      {
+        question: { fa: "مهم‌ترین شاخص موفقیت این پروژه چیست؟", en: "What is the most useful success measure?" },
+        answer: { fa: "شاخص باید به مسئلهٔ پایلوت وصل باشد: مثلاً زمان تطبیق فاکتور، خطای موجودی یا زمان رهگیری محصول. خط مبنا، هزینهٔ کل و خطای AI را هم ثبت کنید تا نتیجه فقط به تعداد رویدادهای ثبت‌شده محدود نشود.", en: "Choose a measure tied to the pilot problem, such as invoice-reconciliation time, inventory error or product-tracing time. Include a baseline, total cost and AI error rates so success is not reduced to the number of recorded events." },
+      },
+    ],
+    sources: [
+      { title: { fa: "SAP؛ تعریف ERP و فرایندهای اصلی سازمان", en: "SAP: What is ERP?" }, url: "https://www.sap.com/resources/what-is-erp" },
+      { title: { fa: "Oracle؛ دامنهٔ ERP و اتصال عملیات سازمان", en: "Oracle: ERP scope and connected business operations" }, url: "https://www.oracle.com/erp/what-is-erp/" },
+      { title: { fa: "Hyperledger Fabric؛ دادهٔ خصوصی و هش مشترک", en: "Hyperledger Fabric: Private data and shared hashes" }, url: "https://hyperledger-fabric.readthedocs.io/en/latest/private-data/private-data.html" },
+      { title: { fa: "Hyperledger Fabric؛ ملاحظات دسترسی و حفاظت از دادهٔ خصوصی", en: "Hyperledger Fabric: Private data access and protection" }, url: "https://hyperledger-fabric.readthedocs.io/en/latest/private-data-arch.html" },
+      { title: { fa: "NIST؛ چارچوب مدیریت ریسک هوش مصنوعی", en: "NIST: AI Risk Management Framework" }, url: "https://www.nist.gov/itl/ai-risk-management-framework" },
+    ],
+  },
+  {
     "slug": "website-content-preparation-checklist",
     "title": {
       "fa": "قبل از سفارش طراحی سایت چه متن و عکس‌هایی آماده کنیم؟",
