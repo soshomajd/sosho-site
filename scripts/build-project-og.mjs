@@ -91,7 +91,9 @@ const entries = [
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
-for (const { project, concept } of entries) {
+// Optional comma-separated slugs keep a new batch from rewriting approved older cards.
+const only = process.argv.find((arg) => arg.startsWith("--only="))?.slice(7).split(",");
+for (const { project, concept } of entries.filter(({ project }) => !only || only.includes(project.slug))) {
   const desktop = await dataUrl(`public${project.images[0].src}`, "image/webp");
   // A few hero captures are only a short mobile strip; the full-height phone capture fits the frame better.
   const heroMobile = project.images[2];

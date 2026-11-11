@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import type { Locale } from "../i18n";
 import { PROJECTS, getProjectHref } from "./Projects/data";
 import { CONCEPT_PROJECTS } from "./Projects/concepts";
@@ -18,8 +19,8 @@ const concepts = CONCEPT_PROJECTS.map((project) => ({
   alt: project.images[0].alt,
   concept: true,
 }));
-// Interleave actual homepage captures with concepts; all 13 logical items are unique.
-const ITEMS = [real[0], concepts[0], concepts[6], real[1], concepts[1], concepts[7], real[2], concepts[2], concepts[8], concepts[3], concepts[4], concepts[9], concepts[5]];
+// Preserve the approved opening sequence and include every additional concept once.
+const ITEMS = [real[0], concepts[0], concepts[6], real[1], concepts[1], concepts[7], real[2], concepts[2], concepts[8], concepts[3], concepts[4], concepts[9], concepts[5], ...concepts.slice(10)];
 const ROWS = [ITEMS.filter((_, index) => index % 2 === 0), ITEMS.filter((_, index) => index % 2 === 1)];
 
 /** Server-rendered gallery. Native CSS/checkbox controls work without JavaScript. */
@@ -37,7 +38,7 @@ export default function WorkRibbon({ locale }: { locale: Locale }) {
       </div>
       {ROWS.map((items, row) => (
         <div className="work-ribbon-row" key={row} tabIndex={0} role="group" aria-label={isFa ? `گالری نمونه‌کارها، ردیف ${row + 1}` : `Project gallery, row ${row + 1}`}>
-          <div className="work-ribbon-track">
+          <div className="work-ribbon-track" style={{ "--ribbon-duration": `${items.length * (row === 0 ? 8.3 : 10.6)}s` } as CSSProperties}>
             {[false, true].map((duplicate) => (
               <div className={`work-ribbon-group ${duplicate ? "work-ribbon-group--duplicate" : ""}`} key={String(duplicate)} aria-hidden={duplicate || undefined}>
                 {items.map((item) => (

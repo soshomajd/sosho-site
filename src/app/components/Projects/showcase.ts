@@ -1,7 +1,7 @@
 import { PROJECTS } from "./data";
 import { CONCEPT_PROJECTS } from "./concepts";
 
-/** Keep the approved order: three real projects, then the ten design concepts. */
+/** Keep the approved order: three real projects, then the original design concepts. */
 export const SHOWCASE_PROJECTS = [
   ...PROJECTS.map((project) => ({ ...project, kind: "live" as const })),
   ...CONCEPT_PROJECTS.map((project) => ({ ...project, kind: "concept" as const })),

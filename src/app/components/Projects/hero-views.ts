@@ -534,5 +534,497 @@ export const PROJECT_HERO_VIEWS: Record<string, [ProjectImage, ProjectImage, Pro
         "en": "Design concept · Mobile hero"
       }
     }
+  ],
+  "rava-logistics": [
+    {
+      "src": "/projects/hero/rava-logistics-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی راوا؛ لجستیک و رهگیری مرسوله در دسکتاپ",
+        "en": "Desktop hero of the Rava · Freight and shipment tracking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/rava-logistics-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی راوا؛ لجستیک و رهگیری مرسوله در تبلت",
+        "en": "Tablet hero of the Rava · Freight and shipment tracking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/rava-logistics-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی راوا؛ لجستیک و رهگیری مرسوله در موبایل",
+        "en": "Mobile hero of the Rava · Freight and shipment tracking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
+  ],
+  "mehr-solar": [
+    {
+      "src": "/projects/hero/mehr-solar-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی مهر؛ انرژی خورشیدی و خدمات نصب در دسکتاپ",
+        "en": "Desktop hero of the Mehr · Solar energy and installation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/mehr-solar-tablet.webp",
+      "width": 820,
+      "height": 1179,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی مهر؛ انرژی خورشیدی و خدمات نصب در تبلت",
+        "en": "Tablet hero of the Mehr · Solar energy and installation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/mehr-solar-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی مهر؛ انرژی خورشیدی و خدمات نصب در موبایل",
+        "en": "Mobile hero of the Mehr · Solar energy and installation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
+  ],
+  "dena-motors": [
+    {
+      "src": "/projects/hero/dena-motors-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی دنا؛ تجربهٔ دیجیتال خودرو در دسکتاپ",
+        "en": "Desktop hero of the Dena · Automotive digital experience design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/dena-motors-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی دنا؛ تجربهٔ دیجیتال خودرو در تبلت",
+        "en": "Tablet hero of the Dena · Automotive digital experience design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/dena-motors-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی دنا؛ تجربهٔ دیجیتال خودرو در موبایل",
+        "en": "Mobile hero of the Dena · Automotive digital experience design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
+  ],
+  "luma-jewelry": [
+    {
+      "src": "/projects/hero/luma-jewelry-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی لوما؛ فروشگاه زیورآلات در دسکتاپ",
+        "en": "Desktop hero of the Luma · Fine jewellery storefront design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/luma-jewelry-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی لوما؛ فروشگاه زیورآلات در تبلت",
+        "en": "Tablet hero of the Luma · Fine jewellery storefront design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/luma-jewelry-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی لوما؛ فروشگاه زیورآلات در موبایل",
+        "en": "Mobile hero of the Luma · Fine jewellery storefront design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
+  ],
+  "mizan-legal": [
+    {
+      "src": "/projects/hero/mizan-legal-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی میزان؛ هویت و سایت خدمات حقوقی در دسکتاپ",
+        "en": "Desktop hero of the Mizan · Legal-services identity design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/mizan-legal-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی میزان؛ هویت و سایت خدمات حقوقی در تبلت",
+        "en": "Tablet hero of the Mizan · Legal-services identity design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/mizan-legal-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی میزان؛ هویت و سایت خدمات حقوقی در موبایل",
+        "en": "Mobile hero of the Mizan · Legal-services identity design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
+  ],
+  "roshan-learning": [
+    {
+      "src": "/projects/hero/roshan-learning-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی روشن؛ پلتفرم آموزش مهارت در دسکتاپ",
+        "en": "Desktop hero of the Roshan · Skills learning platform design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/roshan-learning-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی روشن؛ پلتفرم آموزش مهارت در تبلت",
+        "en": "Tablet hero of the Roshan · Skills learning platform design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/roshan-learning-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی روشن؛ پلتفرم آموزش مهارت در موبایل",
+        "en": "Mobile hero of the Roshan · Skills learning platform design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
+  ],
+  "parto-automation": [
+    {
+      "src": "/projects/hero/parto-automation-desktop.webp",
+      "width": 1200,
+      "height": 854,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی پرتو؛ اتوماسیون و تجهیزات صنعتی در دسکتاپ",
+        "en": "Desktop hero of the Parto · Industrial automation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/parto-automation-tablet.webp",
+      "width": 820,
+      "height": 1179,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی پرتو؛ اتوماسیون و تجهیزات صنعتی در تبلت",
+        "en": "Tablet hero of the Parto · Industrial automation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/parto-automation-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی پرتو؛ اتوماسیون و تجهیزات صنعتی در موبایل",
+        "en": "Mobile hero of the Parto · Industrial automation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
+  ],
+  "nava-live": [
+    {
+      "src": "/projects/hero/nava-live-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی نوا؛ اجراهای زنده و رزرو رویداد در دسکتاپ",
+        "en": "Desktop hero of the Nava · Live events and booking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/nava-live-tablet.webp",
+      "width": 820,
+      "height": 1179,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی نوا؛ اجراهای زنده و رزرو رویداد در تبلت",
+        "en": "Tablet hero of the Nava · Live events and booking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/nava-live-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی نوا؛ اجراهای زنده و رزرو رویداد در موبایل",
+        "en": "Mobile hero of the Nava · Live events and booking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
+  ],
+  "tide-liquidity": [
+    {
+      "src": "/projects/hero/tide-liquidity-desktop.webp",
+      "width": 1200,
+      "height": 854,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Tide؛ داشبورد نقدینگی DEX در دسکتاپ",
+        "en": "Desktop hero of the Tide · DEX liquidity workspace design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/tide-liquidity-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Tide؛ داشبورد نقدینگی DEX در تبلت",
+        "en": "Tablet hero of the Tide · DEX liquidity workspace design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/tide-liquidity-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Tide؛ داشبورد نقدینگی DEX در موبایل",
+        "en": "Mobile hero of the Tide · DEX liquidity workspace design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
+  ],
+  "cinder-dao": [
+    {
+      "src": "/projects/hero/cinder-dao-desktop.webp",
+      "width": 1200,
+      "height": 854,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Cinder؛ رأی‌گیری و حاکمیت DAO در دسکتاپ",
+        "en": "Desktop hero of the Cinder · DAO governance design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/cinder-dao-tablet.webp",
+      "width": 820,
+      "height": 1179,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Cinder؛ رأی‌گیری و حاکمیت DAO در تبلت",
+        "en": "Tablet hero of the Cinder · DAO governance design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/cinder-dao-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Cinder؛ رأی‌گیری و حاکمیت DAO در موبایل",
+        "en": "Mobile hero of the Cinder · DAO governance design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
+  ],
+  "kora-collectibles": [
+    {
+      "src": "/projects/hero/kora-collectibles-desktop.webp",
+      "width": 1200,
+      "height": 854,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Kora؛ تجربهٔ کلکسیون دیجیتال Web3 در دسکتاپ",
+        "en": "Desktop hero of the Kora · Web3 digital collectibles design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/kora-collectibles-tablet.webp",
+      "width": 820,
+      "height": 1179,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Kora؛ تجربهٔ کلکسیون دیجیتال Web3 در تبلت",
+        "en": "Tablet hero of the Kora · Web3 digital collectibles design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/kora-collectibles-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Kora؛ تجربهٔ کلکسیون دیجیتال Web3 در موبایل",
+        "en": "Mobile hero of the Kora · Web3 digital collectibles design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
+  ],
+  "aster-observability": [
+    {
+      "src": "/projects/hero/aster-observability-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Aster؛ پایش سرویس و داشبورد ابری در دسکتاپ",
+        "en": "Desktop hero of the Aster · Cloud observability design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      }
+    },
+    {
+      "src": "/projects/hero/aster-observability-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Aster؛ پایش سرویس و داشبورد ابری در تبلت",
+        "en": "Tablet hero of the Aster · Cloud observability design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      }
+    },
+    {
+      "src": "/projects/hero/aster-observability-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Aster؛ پایش سرویس و داشبورد ابری در موبایل",
+        "en": "Mobile hero of the Aster · Cloud observability design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      }
+    }
   ]
 };

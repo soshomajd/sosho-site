@@ -8,7 +8,7 @@ import Breadcrumbs from "@/app/components/Breadcrumbs";
 import JsonLd from "@/app/components/JsonLd";
 import CaseStudyDetails from "@/app/components/Projects/CaseStudyDetails";
 import ConceptCase, { conceptSeo } from "@/app/components/Projects/ConceptCase";
-import { CONCEPT_PROJECTS } from "@/app/components/Projects/concepts";
+import { CONCEPT_PROJECTS, isIndexableConcept } from "@/app/components/Projects/concepts";
 import { PROJECTS, getProject, getProjectHref, getProjectShareImage } from "@/app/components/Projects/data";
 import { getService, getServiceHref } from "@/app/components/Services/data";
 import { getDictionary, isLocale, type Locale } from "@/app/i18n";
@@ -46,7 +46,7 @@ export async function generateMetadata({
     metadataBase: new URL(siteUrl),
     title,
     description,
-    ...(concept ? { robots: { index: false, follow: true } } : {}),
+    ...(concept ? { robots: { index: isIndexableConcept(concept), follow: true } } : {}),
     alternates: {
       canonical,
       languages: {

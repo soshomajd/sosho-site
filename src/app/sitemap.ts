@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/app/blogs/posts";
 import { PROJECTS } from "@/app/components/Projects/data";
+import { CONCEPT_PROJECTS, isIndexableConcept } from "@/app/components/Projects/concepts";
 import { SERVICES } from "@/app/components/Services/data";
 import { TOOLS } from "@/app/components/Tools/data";
 import { SITE_CONTENT_UPDATED_AT } from "@/app/seo";
@@ -56,9 +57,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
     alternates: { languages: projectHubLanguages },
   }));
-  // Only the real case studies. The design-concept pages are thin and image-led, so they stay out of
-  // the sitemap and carry noindex; they remain reachable for visitors through every link on the site.
-  const projectEntries: MetadataRoute.Sitemap = PROJECTS.flatMap((project) => {
+  // Real case studies and complete written design studies; older image-only concepts stay noindex.
+  const projectEntries: MetadataRoute.Sitemap = [...PROJECTS, ...CONCEPT_PROJECTS.filter(isIndexableConcept)].flatMap((project) => {
     const languages = {
       fa: `${base}/fa/projects/${project.slug}`,
       en: `${base}/en/projects/${project.slug}`,
@@ -66,7 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
     return (["fa", "en"] as const).map((locale) => ({
       url: `${base}/${locale}/projects/${project.slug}`,
-      lastModified: new Date(project.updatedAt),
+      lastModified: new Date(project.updatedAt!),
       changeFrequency: "monthly" as const,
       priority: 0.7,
       alternates: { languages },

@@ -11,17 +11,17 @@ import "@/app/components/home-motion.css";
 
 const META = {
   fa: {
-    title: "نمونه‌کارهای بیشتر طراحی سایت و محصول",
-    description: "هشت طرح مفهومی سوشو استودیو در طراحی سایت، داشبورد، معماری، رستوران، Web3 و گردشگری؛ با نمایش هیرو در دسکتاپ، تبلت و موبایل.",
-    heading: "ایده‌های متفاوت، برای تجربه‌های متفاوت",
-    intro: "ادامهٔ مجموعهٔ نمونه‌کارها؛ هشت طرح مفهومی با هویت و چیدمان متفاوت. برای هر طرح، نمای هیرو در دسکتاپ، تبلت و موبایل را کنار هم ببینید.",
+    title: "نمونه‌کار طراحی سایت و رابط کاربری",
+    description: "نمونه‌کارهای طراحی سایت سوشو استودیو: طرح‌های مفهومی فروشگاه، شرکتی، آموزشی، صنعتی، داشبورد و Web3 با نمای دسکتاپ، تبلت و موبایل.",
+    heading: "نمونه‌کارهای طراحی سایت و رابط کاربری",
+    intro: `ایده‌های متفاوت، برای تجربه‌های متفاوت؛ ${MORE_PROJECTS.length.toLocaleString("fa-IR")} طرح مفهومی با هویت و چیدمان متفاوت. نمای هیرو در دسکتاپ، تبلت و موبایل را کنار هم ببینید و توضیح هر طرح را در صفحهٔ خودش بخوانید.`,
     back: "بازگشت به نمونه‌کارهای منتخب",
   },
   en: {
-    title: "More Website and Product Design Work",
-    description: "Eight Sosho Studio design concepts spanning dashboards, architecture, dining, Web3, analytics and travel, with desktop, tablet and mobile hero views.",
-    heading: "Different ideas. Distinct experiences.",
-    intro: "Continue through eight original design concepts, each with its own identity and composition. Compare the desktop, tablet and mobile hero views side by side.",
+    title: "Website and UI Design Portfolio",
+    description: "SoSho Studio's website design portfolio: original commerce, corporate, education, industrial, dashboard and Web3 concepts with desktop, tablet and mobile views.",
+    heading: "Website and UI design portfolio",
+    intro: `Different ideas, distinct experiences. Explore ${MORE_PROJECTS.length} original design concepts, each with its own identity and composition. Compare desktop, tablet and mobile hero views and read the thinking behind each design on its own page.`,
     back: "Back to selected work",
   },
 } as const;
@@ -80,7 +80,7 @@ export default async function MoreProjectsPage({ params }: { params: Promise<{ l
             "@type": "ItemList", "@id": `${pageUrl}#projects`, numberOfItems: MORE_PROJECTS.length,
             itemListElement: MORE_PROJECTS.map((project, index) => ({
               "@type": "ListItem", position: index + 1,
-              item: { "@type": "CreativeWork", name: project.title[locale], description: project.summary[locale], image: `${baseUrl}${project.images[0].src}`, genre: locale === "fa" ? "طرح مفهومی" : "Design concept" },
+              item: { "@type": "CreativeWork", url: `${baseUrl}/${locale}/projects/${project.slug}`, name: project.title[locale], description: project.summary[locale], image: `${baseUrl}${project.images[0].src}`, genre: locale === "fa" ? "طرح مفهومی" : "Design concept" },
             })),
           },
           breadcrumbJsonLd(crumbs),

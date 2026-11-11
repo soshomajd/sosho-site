@@ -47,7 +47,7 @@ export default function Projects({ locale, archive = false }: { locale: Locale; 
     </div>
     {!archive ? <div className="mt-8 flex justify-center">
       <Link href={`/${locale}/projectcs`} prefetch={false} className="project-card-link">
-        {locale === "fa" ? "۸ نمونه‌کار بیشتر" : "Explore 8 more projects"}
+        {locale === "fa" ? `${MORE_PROJECTS.length.toLocaleString("fa-IR")} نمونه‌کار بیشتر` : `Explore ${MORE_PROJECTS.length} more projects`}
         <FiArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
       </Link>
     </div> : null}

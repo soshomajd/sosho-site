@@ -12,8 +12,8 @@
 .work-ribbon { padding-block: 56px 24px; display: grid; gap: 14px; }
 .work-ribbon-row { overflow-x: auto; scrollbar-width: none; direction: ltr; }
 .work-ribbon-row:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -3px; }
-.work-ribbon-track { display: flex; width: max-content; animation: ribbon-loop 58s linear infinite; }
-.work-ribbon-row:nth-of-type(3) .work-ribbon-track { animation-direction: reverse; animation-duration: 64s; }
+.work-ribbon-track { display: flex; width: max-content; animation: ribbon-loop var(--ribbon-duration, 58s) linear infinite; }
+.work-ribbon-row:nth-of-type(3) .work-ribbon-track { animation-direction: reverse; animation-duration: var(--ribbon-duration, 64s); }
 .work-ribbon-group { display: flex; gap: 14px; padding-inline-end: 14px; }
 /* Only the pause checkbox (and being off-screen) stops the loop. Hover and focus must not: the old
    :hover / :focus-within rules froze the gallery under the mouse and kept it frozen after un-ticking. */

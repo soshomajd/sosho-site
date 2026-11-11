@@ -1,0 +1,832 @@
+{
+  "createdAt": "2026-11-10",
+  "provider": "Built-in ImageGen",
+  "projects": [
+    {
+      "slug": "rava-logistics",
+      "language": "fa",
+      "name": "راوا",
+      "title": {
+        "fa": "راوا؛ لجستیک و رهگیری مرسوله",
+        "en": "Rava · Freight and shipment tracking"
+      },
+      "industry": "logistics",
+      "direction": "Persian RTL freight logistics website. Tangerine orange, midnight ink and warm off-white. Asymmetric SPLIT layout: left 62% is a very large flat schematic global route MAP drawn in fine cream lines with physical shipping-container photography clipped into angular geographic cutouts, right 38% contains oversized Persian headline «مسیر روشنِ بار شما» and a precise white shipment-tracking input panel. Tall orange vertical service rail on extreme right, thin flight-path animation traces and package silhouettes. Practical contemporary Swiss transport typography, sharp corners and numbered lane labels, no centered 3D orb. Top brand «راوا», CTA «رهگیری مرسوله». A bold map-led industrial composition."
+    },
+    {
+      "slug": "mehr-solar",
+      "language": "fa",
+      "name": "مهر",
+      "title": {
+        "fa": "مهر؛ انرژی خورشیدی و خدمات نصب",
+        "en": "Mehr · Solar energy and installation"
+      },
+      "industry": "renewable energy",
+      "direction": "Persian RTL renewable energy website. Sunflower yellow, black and crisp ivory. FULL-BLEED real architectural photography of sunlit photovoltaic panels on a dramatic desert ridge, shot from a low drone angle, strong diagonal perspective. Huge black condensed Persian headline «انرژیِ فردا، از امروز» sits on an offset yellow rectangular billboard occupying upper-right; a compact white project-scope enquiry panel sits bottom-left within the same hero. Thin sun-arc line-work suggests subtle motion over the photographic horizon. Restrained technical top nav «مهر» and CTA «بررسی پروژه». Angular industrial typography, no dark neon and no three-card template."
+    },
+    {
+      "slug": "dena-motors",
+      "language": "fa",
+      "name": "دنا",
+      "title": {
+        "fa": "دنا؛ تجربهٔ دیجیتال خودرو",
+        "en": "Dena · Automotive digital experience"
+      },
+      "industry": "automotive",
+      "direction": "Persian RTL high-performance automotive showroom concept. Deep racing burgundy, charcoal and polished silver. A huge fictional unbranded silver sports coupe photographed in a real concrete studio/racetrack tunnel crosses diagonally from lower-left to center, with cinematic but realistic red light strips receding into depth. Giant outlined Persian typography «حرکت، با شخصیت» occupies the full upper third behind the vehicle. A narrow vertical model-selector rail on the right, a small sober specification strip on the left and a single solid burgundy CTA «دیدن مدل‌ها». Extreme widescreen editorial automotive composition, strong mechanical character, original car shape with no existing manufacturer emblem or trade dress."
+    },
+    {
+      "slug": "luma-jewelry",
+      "language": "fa",
+      "name": "لوما",
+      "title": {
+        "fa": "لوما؛ فروشگاه زیورآلات",
+        "en": "Luma · Fine jewellery storefront"
+      },
+      "industry": "jewellery ecommerce",
+      "direction": "Persian RTL jewellery ecommerce art direction. Porcelain white, antique gold and dark chocolate. LUXURY MAGAZINE COVER composition, not dark: enormous macro photograph of an original sculptural gold ring with a softly imperfect pearl on crumpled cream silk, vertically cropped in a central irregular oval. Right column has refined oversized Persian headline «درخششِ شخصی تو» with elegant thin-stroke lettering and ample negative space; left edge has a tall vertical contact-sheet filmstrip of three close-up product angles as hero image navigation. Small top monogram «لوما», discreet cart/search, underline CTA «کشف مجموعه». Fine hairline separators and subtly layered shadows, warm window light and tactile materials, no futuristic chrome blobs."
+    },
+    {
+      "slug": "mizan-legal",
+      "language": "fa",
+      "name": "میزان",
+      "title": {
+        "fa": "میزان؛ هویت و سایت خدمات حقوقی",
+        "en": "Mizan · Legal-services identity"
+      },
+      "industry": "professional legal services",
+      "direction": "Persian RTL legal services identity concept. Midnight blue, parchment ivory and restrained oxidized copper. Sophisticated PRINT NEWSPAPER / EDITORIAL GRID layout with a large vertical warm black-and-white architectural photograph of courthouse-like stone columns at center-left, right aligned typographic statement «شفافیت، پیش از تصمیم» in large elegant Persian serif-inspired lettering, a disciplined vertical contents index on the far right, and a small consultation-topic selector card overlapping the photograph at lower-left. Top brand «میزان», solid modest CTA «طرح پرسش». Thin ruling lines, generous margins and tiny folio decoration. No scales-of-justice cliche, no human headshots, no verdict promises, fabricated awards or client counts."
+    },
+    {
+      "slug": "roshan-learning",
+      "language": "fa",
+      "name": "روشن",
+      "title": {
+        "fa": "روشن؛ پلتفرم آموزش مهارت",
+        "en": "Roshan · Skills learning platform"
+      },
+      "industry": "education",
+      "direction": "Persian RTL skills learning platform. Joyful cobalt blue, tomato coral, butter yellow and white. LARGE KINETIC TYPOGRAPHY «یاد بگیر، بساز، ادامه بده» in bold playful Persian occupies a staggered 3-line staircase on the right half. Left half is an original tactile paper-cut collage of a notebook, geometric coding tiles, a small illustrated pencil and one dimensional orange sphere, carefully art-directed and physical, not a generic 3D robot. One tilted cream course-preview card with progress dots overlaps the collage, a thin horizontal subject-selector bar anchors the bottom of this single hero. Top brand «روشن», CTA «پیدا کردن مسیر». Color blocking, offset outlines, flat expressive motion-graphic shapes, no uniform SaaS card grid, no fake learning outcomes."
+    },
+    {
+      "slug": "parto-automation",
+      "language": "fa",
+      "name": "پرتو",
+      "title": {
+        "fa": "پرتو؛ اتوماسیون و تجهیزات صنعتی",
+        "en": "Parto · Industrial automation"
+      },
+      "industry": "industrial engineering",
+      "direction": "Persian RTL industrial automation equipment website. Safety orange, technical graphite and cool white. Bright precise ENGINEERING CAD WORKSPACE art direction: a realistic original orange industrial robotic arm on an immaculate white plane dominates the left, surrounded by very fine orthographic drawing lines and restrained exploded-part callouts. Right is a strong typographic column «دقت، در هر حرکت» with a short service description and compact technical inquiry form; far-left narrow dark vertical catalogue spine, top disciplined nav «پرتو», CTA «بررسی نیاز فنی». Tiny restrained schematic diagram at lower-right as part of the hero. Clear 2D technical grid combined with physically plausible machine photography, not shiny sci-fi."
+    },
+    {
+      "slug": "nava-live",
+      "language": "fa",
+      "name": "نوا",
+      "title": {
+        "fa": "نوا؛ اجراهای زنده و رزرو رویداد",
+        "en": "Nava · Live events and booking"
+      },
+      "industry": "music and ticket discovery",
+      "direction": "Persian RTL live-music ticket discovery website. Electric fuchsia, deep aubergine and fluorescent apricot. FULL-BLEED authentic photograph of an original anonymous concert stage and beams of warm haze; no recognizable performer. Huge heavily condensed Persian headline «صدای امشب را پیدا کن» crops boldly across the LEFT 60%, with an asymmetric vertical event DATE/TIME browsing strip on the right, one striking peach ticket-shaped hero card at bottom-center and a minimal bottom search rail for city and genre. Top brand «نوا», CTA «دیدن اجراها». Grunge-print texture meets precisely designed ticket UI; energetic typographic culture poster aesthetic, not a normal company landing page and no generic floating 3D objects."
+    },
+    {
+      "slug": "tide-liquidity",
+      "language": "en",
+      "name": "Tide",
+      "title": {
+        "fa": "Tide؛ داشبورد نقدینگی DEX",
+        "en": "Tide · DEX liquidity workspace"
+      },
+      "industry": "Web3 decentralized exchange",
+      "direction": "English LTR Web3 decentralized-exchange liquidity workspace named TIDE. Deep forest-black, acid lime and smoky mint. TERMINAL + TOPOGRAPHIC MAP layout: large topographic liquidity contour visualization across center-left formed from thin lime elevation lines, live-looking compact market-depth bars at left edge, and an unusually tall clean swap/review panel taking the right third. Upper-left headline 'LIQUIDITY, IN MOTION.' set in restrained monospaced caps. Thin full-width horizontal route explorer directly below headline, precise separators, tiny subdued rows. Top nav Trade / Pools / Routes, CTA 'Preview swap', an explicit small 'Demo' status. No cyan holographic torus, no shiny coin pile, no yield promise, no profit chart or existing token/company logos. A genuinely professional dense financial interface concept."
+    },
+    {
+      "slug": "cinder-dao",
+      "language": "en",
+      "name": "Cinder",
+      "title": {
+        "fa": "Cinder؛ رأی‌گیری و حاکمیت DAO",
+        "en": "Cinder · DAO governance"
+      },
+      "industry": "Web3 governance",
+      "direction": "English LTR DAO governance platform CINDER. Warm off-white, brick-red and nearly black. CIVIC EDITORIAL / NEWSPAPER BOARD aesthetic: a huge cropped slab-serif headline 'BUILD THE NEXT DECISION.' aligned left, right half shows tactile stacked paper proposal sheets with one red wax-like abstract seal and black rectangular voting-status stamps, no company logos. Below headline within hero is a slim readable active-proposal strip and two deliberately different panel shapes: tall discussion preview and compact voting summary, not a generic grid. Strong vertical red rule at left, horizontal black hairlines, top nav Proposals / Delegates / Treasury, main button 'Explore proposals', small 'Design demo'. No futuristic neon, no coin objects, no real voting outcomes or treasury values."
+    },
+    {
+      "slug": "kora-collectibles",
+      "language": "en",
+      "name": "Kora",
+      "title": {
+        "fa": "Kora؛ تجربهٔ کلکسیون دیجیتال Web3",
+        "en": "Kora · Web3 digital collectibles"
+      },
+      "industry": "Web3 digital collectibles",
+      "direction": "English LTR original Web3 digital collectibles platform KORA. Lavender, lilac, matte black and pale jade. AVANT-GARDE INTERACTIVE GALLERY layout: a large original sculptural ceramic creature/artifact with an abstract looped shell, softly translucent lilac material and beautiful physical studio light sits inside a huge cropped circular gallery aperture on the LEFT; bold stacked black headline 'COLLECT A DIFFERENT WORLD.' occupies right, small mint material/edition selector controls underneath. A slim vertical filmstrip of four truly distinct original art-object silhouettes at far right forms hero navigation, a tiny studio-caption note bottom-left. Top minimal KORA wordmark and 'Explore objects' CTA. Museum/art-direction typography, playful but premium, not cartoon apes, no known NFT trade dress, no speculative pricing, no invented creator endorsements."
+    },
+    {
+      "slug": "aster-observability",
+      "language": "en",
+      "name": "Aster",
+      "title": {
+        "fa": "Aster؛ پایش سرویس و داشبورد ابری",
+        "en": "Aster · Cloud observability"
+      },
+      "industry": "cloud SaaS monitoring",
+      "direction": "English LTR cloud observability SaaS ASTER. Very pale ice-blue/white, graphite and sharp electric indigo. LAYERED TECHNICAL BLUEPRINT layout: the entire canvas is bright and quiet, oversized ultra-light headline 'SEE THE SYSTEM. FIND THE SIGNAL.' at upper-left. On the right two overlapping translucent-but-realistic flat dashboard windows sit at a small perspective angle: a service dependency node graph and a focused incident timeline. A thin indigo signal line threads from the headline margin into the windows, with tiny precise square markers suggesting motion. One horizontal use-case rail at bottom within hero; clean ASTER brand and 'Explore the demo' CTA. Sophisticated understated enterprise UI, no giant blue billboard ribbon, no dark card-grid template, no fabricated uptime guarantee or performance claim."
+    }
+  ],
+  "assets": [
+    {
+      "slug": "rava-logistics",
+      "device": "desktop",
+      "src": "/projects/hero/rava-logistics-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی راوا؛ لجستیک و رهگیری مرسوله در دسکتاپ",
+        "en": "Desktop hero of the Rava · Freight and shipment tracking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 106084,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. Persian RTL freight logistics website. Tangerine orange, midnight ink and warm off-white. Asymmetric SPLIT layout: left 62% is a very large flat schematic global route MAP drawn in fine cream lines with physical shipping-container photography clipped into angular geographic cutouts, right 38% contains oversized Persian headline «مسیر روشنِ بار شما» and a precise white shipment-tracking input panel. Tall orange vertical service rail on extreme right, thin flight-path animation traces and package silhouettes. Practical contemporary Swiss transport typography, sharp corners and numbered lane labels, no centered 3D orb. Top brand «راوا», CTA «رهگیری مرسوله». A bold map-led industrial composition.",
+      "sourceFile": "exec-2ac7268a-ec3d-40bb-9f10-f7478fbc0ba3.png"
+    },
+    {
+      "slug": "rava-logistics",
+      "device": "tablet",
+      "src": "/projects/hero/rava-logistics-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی راوا؛ لجستیک و رهگیری مرسوله در تبلت",
+        "en": "Tablet hero of the Rava · Freight and shipment tracking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 97148,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original راوا desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL freight logistics website. Tangerine orange, midnight ink and warm off-white. Asymmetric SPLIT layout: left 62% is a very large flat schematic global route MAP drawn in fine cream lines with physical shipping-container photography clipped into angular geographic cutouts, right 38% contains oversized Persian headline «مسیر روشنِ بار شما» and a precise white shipment-tracking input panel. Tall orange vertical service rail on extreme right, thin flight-path animation traces and package silhouettes. Practical contemporary Swiss transport typography, sharp corners and numbered lane labels, no centered 3D orb. Top brand «راوا», CTA «رهگیری مرسوله». A bold map-led industrial composition. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-2984268c-fe20-4c6a-9130-9e37fcf1c54c.png"
+    },
+    {
+      "slug": "rava-logistics",
+      "device": "mobile",
+      "src": "/projects/hero/rava-logistics-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی راوا؛ لجستیک و رهگیری مرسوله در موبایل",
+        "en": "Mobile hero of the Rava · Freight and shipment tracking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 120266,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original راوا desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL freight logistics website. Tangerine orange, midnight ink and warm off-white. Asymmetric SPLIT layout: left 62% is a very large flat schematic global route MAP drawn in fine cream lines with physical shipping-container photography clipped into angular geographic cutouts, right 38% contains oversized Persian headline «مسیر روشنِ بار شما» and a precise white shipment-tracking input panel. Tall orange vertical service rail on extreme right, thin flight-path animation traces and package silhouettes. Practical contemporary Swiss transport typography, sharp corners and numbered lane labels, no centered 3D orb. Top brand «راوا», CTA «رهگیری مرسوله». A bold map-led industrial composition. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "correction": "Recompose THIS brand's complete hero for a true mobile viewport. Tall portrait aspect 780:1688. Header only brand «راوا» on right and hamburger on left. Under header full-width bold Persian headline «مسیر روشنِ بار شما» on cream area; below it a full-width tracking panel with one readable code input and orange action «رهگیری مرسوله». LOWER HALF contains beautiful dark route-map art with angular container photos. Four service icons in ONE HORIZONTAL strip at bottom, not a vertical sidebar. Remove tiny route list. No narrow two-column desktop layout, no diagonally divided text and map. Preserve same precise ink/orange/cream identity and existing artwork motifs. Website pixels only, no device.",
+      "sourceFile": "exec-fece1a30-f6f8-45e9-93f0-3bd9488a0756.png"
+    },
+    {
+      "slug": "mehr-solar",
+      "device": "desktop",
+      "src": "/projects/hero/mehr-solar-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی مهر؛ انرژی خورشیدی و خدمات نصب در دسکتاپ",
+        "en": "Desktop hero of the Mehr · Solar energy and installation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 149914,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. Persian RTL renewable energy website. Sunflower yellow, black and crisp ivory. FULL-BLEED real architectural photography of sunlit photovoltaic panels on a dramatic desert ridge, shot from a low drone angle, strong diagonal perspective. Huge black condensed Persian headline «انرژیِ فردا، از امروز» sits on an offset yellow rectangular billboard occupying upper-right; a compact white project-scope enquiry panel sits bottom-left within the same hero. Thin sun-arc line-work suggests subtle motion over the photographic horizon. Restrained technical top nav «مهر» and CTA «بررسی پروژه». Angular industrial typography, no dark neon and no three-card template.",
+      "sourceFile": "exec-e67ed26d-f950-4e86-b64d-098b13b1a17f.png"
+    },
+    {
+      "slug": "mehr-solar",
+      "device": "tablet",
+      "src": "/projects/hero/mehr-solar-tablet.webp",
+      "width": 820,
+      "height": 1179,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی مهر؛ انرژی خورشیدی و خدمات نصب در تبلت",
+        "en": "Tablet hero of the Mehr · Solar energy and installation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 146974,
+      "quality": 81,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original مهر desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL renewable energy website. Sunflower yellow, black and crisp ivory. FULL-BLEED real architectural photography of sunlit photovoltaic panels on a dramatic desert ridge, shot from a low drone angle, strong diagonal perspective. Huge black condensed Persian headline «انرژیِ فردا، از امروز» sits on an offset yellow rectangular billboard occupying upper-right; a compact white project-scope enquiry panel sits bottom-left within the same hero. Thin sun-arc line-work suggests subtle motion over the photographic horizon. Restrained technical top nav «مهر» and CTA «بررسی پروژه». Angular industrial typography, no dark neon and no three-card template. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-7984f709-8db7-4d7b-bb1a-959c29b22754.png"
+    },
+    {
+      "slug": "mehr-solar",
+      "device": "mobile",
+      "src": "/projects/hero/mehr-solar-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی مهر؛ انرژی خورشیدی و خدمات نصب در موبایل",
+        "en": "Mobile hero of the Mehr · Solar energy and installation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 141012,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original مهر desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL renewable energy website. Sunflower yellow, black and crisp ivory. FULL-BLEED real architectural photography of sunlit photovoltaic panels on a dramatic desert ridge, shot from a low drone angle, strong diagonal perspective. Huge black condensed Persian headline «انرژیِ فردا، از امروز» sits on an offset yellow rectangular billboard occupying upper-right; a compact white project-scope enquiry panel sits bottom-left within the same hero. Thin sun-arc line-work suggests subtle motion over the photographic horizon. Restrained technical top nav «مهر» and CTA «بررسی پروژه». Angular industrial typography, no dark neon and no three-card template. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-ca11fe3e-0953-48ab-81c3-8f4981bb0f47.png"
+    },
+    {
+      "slug": "dena-motors",
+      "device": "desktop",
+      "src": "/projects/hero/dena-motors-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی دنا؛ تجربهٔ دیجیتال خودرو در دسکتاپ",
+        "en": "Desktop hero of the Dena · Automotive digital experience design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 82976,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. Persian RTL high-performance automotive showroom concept. Deep racing burgundy, charcoal and polished silver. A huge fictional unbranded silver sports coupe photographed in a real concrete studio/racetrack tunnel crosses diagonally from lower-left to center, with cinematic but realistic red light strips receding into depth. Giant outlined Persian typography «حرکت، با شخصیت» occupies the full upper third behind the vehicle. A narrow vertical model-selector rail on the right, a small sober specification strip on the left and a single solid burgundy CTA «دیدن مدل‌ها». Extreme widescreen editorial automotive composition, strong mechanical character, original car shape with no existing manufacturer emblem or trade dress.",
+      "correction": "Keep the whole image and composition exactly. ONLY correct the top-right brand to Persian «دنا» with the same simple two-slash burgundy mark, removing «آرمان موتور». Do not alter car, headline or layout.",
+      "sourceFile": "exec-884f7117-a9e8-48a3-bb92-f0c195af0e4c.png"
+    },
+    {
+      "slug": "dena-motors",
+      "device": "tablet",
+      "src": "/projects/hero/dena-motors-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی دنا؛ تجربهٔ دیجیتال خودرو در تبلت",
+        "en": "Tablet hero of the Dena · Automotive digital experience design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 83330,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original دنا desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL high-performance automotive showroom concept. Deep racing burgundy, charcoal and polished silver. A huge fictional unbranded silver sports coupe photographed in a real concrete studio/racetrack tunnel crosses diagonally from lower-left to center, with cinematic but realistic red light strips receding into depth. Giant outlined Persian typography «حرکت، با شخصیت» occupies the full upper third behind the vehicle. A narrow vertical model-selector rail on the right, a small sober specification strip on the left and a single solid burgundy CTA «دیدن مدل‌ها». Extreme widescreen editorial automotive composition, strong mechanical character, original car shape with no existing manufacturer emblem or trade dress. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-dfd6fca3-109f-490c-9e14-67f3e7076cde.png"
+    },
+    {
+      "slug": "dena-motors",
+      "device": "mobile",
+      "src": "/projects/hero/dena-motors-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی دنا؛ تجربهٔ دیجیتال خودرو در موبایل",
+        "en": "Mobile hero of the Dena · Automotive digital experience design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 104646,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original دنا desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL high-performance automotive showroom concept. Deep racing burgundy, charcoal and polished silver. A huge fictional unbranded silver sports coupe photographed in a real concrete studio/racetrack tunnel crosses diagonally from lower-left to center, with cinematic but realistic red light strips receding into depth. Giant outlined Persian typography «حرکت، با شخصیت» occupies the full upper third behind the vehicle. A narrow vertical model-selector rail on the right, a small sober specification strip on the left and a single solid burgundy CTA «دیدن مدل‌ها». Extreme widescreen editorial automotive composition, strong mechanical character, original car shape with no existing manufacturer emblem or trade dress. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-20ca1603-760e-446e-9a61-02d0a7c889bd.png"
+    },
+    {
+      "slug": "luma-jewelry",
+      "device": "desktop",
+      "src": "/projects/hero/luma-jewelry-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی لوما؛ فروشگاه زیورآلات در دسکتاپ",
+        "en": "Desktop hero of the Luma · Fine jewellery storefront design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 73962,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. Persian RTL jewellery ecommerce art direction. Porcelain white, antique gold and dark chocolate. LUXURY MAGAZINE COVER composition, not dark: enormous macro photograph of an original sculptural gold ring with a softly imperfect pearl on crumpled cream silk, vertically cropped in a central irregular oval. Right column has refined oversized Persian headline «درخششِ شخصی تو» with elegant thin-stroke lettering and ample negative space; left edge has a tall vertical contact-sheet filmstrip of three close-up product angles as hero image navigation. Small top monogram «لوما», discreet cart/search, underline CTA «کشف مجموعه». Fine hairline separators and subtly layered shadows, warm window light and tactile materials, no futuristic chrome blobs.",
+      "sourceFile": "exec-0f25d236-fa07-47d2-b3ce-42191159ef5e.png"
+    },
+    {
+      "slug": "luma-jewelry",
+      "device": "tablet",
+      "src": "/projects/hero/luma-jewelry-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی لوما؛ فروشگاه زیورآلات در تبلت",
+        "en": "Tablet hero of the Luma · Fine jewellery storefront design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 61590,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original لوما desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL jewellery ecommerce art direction. Porcelain white, antique gold and dark chocolate. LUXURY MAGAZINE COVER composition, not dark: enormous macro photograph of an original sculptural gold ring with a softly imperfect pearl on crumpled cream silk, vertically cropped in a central irregular oval. Right column has refined oversized Persian headline «درخششِ شخصی تو» with elegant thin-stroke lettering and ample negative space; left edge has a tall vertical contact-sheet filmstrip of three close-up product angles as hero image navigation. Small top monogram «لوما», discreet cart/search, underline CTA «کشف مجموعه». Fine hairline separators and subtly layered shadows, warm window light and tactile materials, no futuristic chrome blobs. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-c6b882a3-bb0b-422a-b10a-20d4d9f12787.png"
+    },
+    {
+      "slug": "luma-jewelry",
+      "device": "mobile",
+      "src": "/projects/hero/luma-jewelry-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی لوما؛ فروشگاه زیورآلات در موبایل",
+        "en": "Mobile hero of the Luma · Fine jewellery storefront design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 81862,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original لوما desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL jewellery ecommerce art direction. Porcelain white, antique gold and dark chocolate. LUXURY MAGAZINE COVER composition, not dark: enormous macro photograph of an original sculptural gold ring with a softly imperfect pearl on crumpled cream silk, vertically cropped in a central irregular oval. Right column has refined oversized Persian headline «درخششِ شخصی تو» with elegant thin-stroke lettering and ample negative space; left edge has a tall vertical contact-sheet filmstrip of three close-up product angles as hero image navigation. Small top monogram «لوما», discreet cart/search, underline CTA «کشف مجموعه». Fine hairline separators and subtly layered shadows, warm window light and tactile materials, no futuristic chrome blobs. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-c59ec4e2-1ef5-4919-9227-bd5a227cac47.png"
+    },
+    {
+      "slug": "mizan-legal",
+      "device": "desktop",
+      "src": "/projects/hero/mizan-legal-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی میزان؛ هویت و سایت خدمات حقوقی در دسکتاپ",
+        "en": "Desktop hero of the Mizan · Legal-services identity design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 89822,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. Persian RTL legal services identity concept. Midnight blue, parchment ivory and restrained oxidized copper. Sophisticated PRINT NEWSPAPER / EDITORIAL GRID layout with a large vertical warm black-and-white architectural photograph of courthouse-like stone columns at center-left, right aligned typographic statement «شفافیت، پیش از تصمیم» in large elegant Persian serif-inspired lettering, a disciplined vertical contents index on the far right, and a small consultation-topic selector card overlapping the photograph at lower-left. Top brand «میزان», solid modest CTA «طرح پرسش». Thin ruling lines, generous margins and tiny folio decoration. No scales-of-justice cliche, no human headshots, no verdict promises, fabricated awards or client counts.",
+      "sourceFile": "exec-fcf0ad6d-1255-414d-9048-0bc039b31e90.png"
+    },
+    {
+      "slug": "mizan-legal",
+      "device": "tablet",
+      "src": "/projects/hero/mizan-legal-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی میزان؛ هویت و سایت خدمات حقوقی در تبلت",
+        "en": "Tablet hero of the Mizan · Legal-services identity design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 67912,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original میزان desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL legal services identity concept. Midnight blue, parchment ivory and restrained oxidized copper. Sophisticated PRINT NEWSPAPER / EDITORIAL GRID layout with a large vertical warm black-and-white architectural photograph of courthouse-like stone columns at center-left, right aligned typographic statement «شفافیت، پیش از تصمیم» in large elegant Persian serif-inspired lettering, a disciplined vertical contents index on the far right, and a small consultation-topic selector card overlapping the photograph at lower-left. Top brand «میزان», solid modest CTA «طرح پرسش». Thin ruling lines, generous margins and tiny folio decoration. No scales-of-justice cliche, no human headshots, no verdict promises, fabricated awards or client counts. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-5fe904ab-e3e6-40e4-a226-1e735de9fad8.png"
+    },
+    {
+      "slug": "mizan-legal",
+      "device": "mobile",
+      "src": "/projects/hero/mizan-legal-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی میزان؛ هویت و سایت خدمات حقوقی در موبایل",
+        "en": "Mobile hero of the Mizan · Legal-services identity design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 94212,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original میزان desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL legal services identity concept. Midnight blue, parchment ivory and restrained oxidized copper. Sophisticated PRINT NEWSPAPER / EDITORIAL GRID layout with a large vertical warm black-and-white architectural photograph of courthouse-like stone columns at center-left, right aligned typographic statement «شفافیت، پیش از تصمیم» in large elegant Persian serif-inspired lettering, a disciplined vertical contents index on the far right, and a small consultation-topic selector card overlapping the photograph at lower-left. Top brand «میزان», solid modest CTA «طرح پرسش». Thin ruling lines, generous margins and tiny folio decoration. No scales-of-justice cliche, no human headshots, no verdict promises, fabricated awards or client counts. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-20fa2159-edca-45cf-8fbc-a4879f97b594.png"
+    },
+    {
+      "slug": "roshan-learning",
+      "device": "desktop",
+      "src": "/projects/hero/roshan-learning-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی روشن؛ پلتفرم آموزش مهارت در دسکتاپ",
+        "en": "Desktop hero of the Roshan · Skills learning platform design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 104238,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. Persian RTL skills learning platform. Joyful cobalt blue, tomato coral, butter yellow and white. LARGE KINETIC TYPOGRAPHY «یاد بگیر، بساز، ادامه بده» in bold playful Persian occupies a staggered 3-line staircase on the right half. Left half is an original tactile paper-cut collage of a notebook, geometric coding tiles, a small illustrated pencil and one dimensional orange sphere, carefully art-directed and physical, not a generic 3D robot. One tilted cream course-preview card with progress dots overlaps the collage, a thin horizontal subject-selector bar anchors the bottom of this single hero. Top brand «روشن», CTA «پیدا کردن مسیر». Color blocking, offset outlines, flat expressive motion-graphic shapes, no uniform SaaS card grid, no fake learning outcomes.",
+      "sourceFile": "exec-6569e111-4565-405c-934a-335344610cfe.png"
+    },
+    {
+      "slug": "roshan-learning",
+      "device": "tablet",
+      "src": "/projects/hero/roshan-learning-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی روشن؛ پلتفرم آموزش مهارت در تبلت",
+        "en": "Tablet hero of the Roshan · Skills learning platform design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 88954,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original روشن desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL skills learning platform. Joyful cobalt blue, tomato coral, butter yellow and white. LARGE KINETIC TYPOGRAPHY «یاد بگیر، بساز، ادامه بده» in bold playful Persian occupies a staggered 3-line staircase on the right half. Left half is an original tactile paper-cut collage of a notebook, geometric coding tiles, a small illustrated pencil and one dimensional orange sphere, carefully art-directed and physical, not a generic 3D robot. One tilted cream course-preview card with progress dots overlaps the collage, a thin horizontal subject-selector bar anchors the bottom of this single hero. Top brand «روشن», CTA «پیدا کردن مسیر». Color blocking, offset outlines, flat expressive motion-graphic shapes, no uniform SaaS card grid, no fake learning outcomes. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-41fa46f6-8901-4ab8-893e-d2b70f4c1a61.png"
+    },
+    {
+      "slug": "roshan-learning",
+      "device": "mobile",
+      "src": "/projects/hero/roshan-learning-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی روشن؛ پلتفرم آموزش مهارت در موبایل",
+        "en": "Mobile hero of the Roshan · Skills learning platform design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 100964,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original روشن desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL skills learning platform. Joyful cobalt blue, tomato coral, butter yellow and white. LARGE KINETIC TYPOGRAPHY «یاد بگیر، بساز، ادامه بده» in bold playful Persian occupies a staggered 3-line staircase on the right half. Left half is an original tactile paper-cut collage of a notebook, geometric coding tiles, a small illustrated pencil and one dimensional orange sphere, carefully art-directed and physical, not a generic 3D robot. One tilted cream course-preview card with progress dots overlaps the collage, a thin horizontal subject-selector bar anchors the bottom of this single hero. Top brand «روشن», CTA «پیدا کردن مسیر». Color blocking, offset outlines, flat expressive motion-graphic shapes, no uniform SaaS card grid, no fake learning outcomes. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-884f2ea8-0345-4bb8-828b-a37bf7ba5ed8.png"
+    },
+    {
+      "slug": "parto-automation",
+      "device": "desktop",
+      "src": "/projects/hero/parto-automation-desktop.webp",
+      "width": 1200,
+      "height": 854,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی پرتو؛ اتوماسیون و تجهیزات صنعتی در دسکتاپ",
+        "en": "Desktop hero of the Parto · Industrial automation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 90434,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. Persian RTL industrial automation equipment website. Safety orange, technical graphite and cool white. Bright precise ENGINEERING CAD WORKSPACE art direction: a realistic original orange industrial robotic arm on an immaculate white plane dominates the left, surrounded by very fine orthographic drawing lines and restrained exploded-part callouts. Right is a strong typographic column «دقت، در هر حرکت» with a short service description and compact technical inquiry form; far-left narrow dark vertical catalogue spine, top disciplined nav «پرتو», CTA «بررسی نیاز فنی». Tiny restrained schematic diagram at lower-right as part of the hero. Clear 2D technical grid combined with physically plausible machine photography, not shiny sci-fi.",
+      "sourceFile": "exec-abcb2fed-e0f5-48d8-bba3-a1dacb08f2b7.png"
+    },
+    {
+      "slug": "parto-automation",
+      "device": "tablet",
+      "src": "/projects/hero/parto-automation-tablet.webp",
+      "width": 820,
+      "height": 1179,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی پرتو؛ اتوماسیون و تجهیزات صنعتی در تبلت",
+        "en": "Tablet hero of the Parto · Industrial automation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 76610,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original پرتو desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL industrial automation equipment website. Safety orange, technical graphite and cool white. Bright precise ENGINEERING CAD WORKSPACE art direction: a realistic original orange industrial robotic arm on an immaculate white plane dominates the left, surrounded by very fine orthographic drawing lines and restrained exploded-part callouts. Right is a strong typographic column «دقت، در هر حرکت» with a short service description and compact technical inquiry form; far-left narrow dark vertical catalogue spine, top disciplined nav «پرتو», CTA «بررسی نیاز فنی». Tiny restrained schematic diagram at lower-right as part of the hero. Clear 2D technical grid combined with physically plausible machine photography, not shiny sci-fi. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "correction": "Keep the complete current composition and machine artwork. Correct ONLY the top-right brand to Persian «پرتو» with a simple orange abstract double-stroke mark. Replace ANY «دنا» with «پرتو» everywhere including on the robot. This is PARTO industrial automation, not automotive. Keep all other content.",
+      "sourceFile": "exec-5cd23c4d-6372-4be3-801e-de942fb6af03.png"
+    },
+    {
+      "slug": "parto-automation",
+      "device": "mobile",
+      "src": "/projects/hero/parto-automation-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی پرتو؛ اتوماسیون و تجهیزات صنعتی در موبایل",
+        "en": "Mobile hero of the Parto · Industrial automation design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 83682,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original پرتو desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL industrial automation equipment website. Safety orange, technical graphite and cool white. Bright precise ENGINEERING CAD WORKSPACE art direction: a realistic original orange industrial robotic arm on an immaculate white plane dominates the left, surrounded by very fine orthographic drawing lines and restrained exploded-part callouts. Right is a strong typographic column «دقت، در هر حرکت» with a short service description and compact technical inquiry form; far-left narrow dark vertical catalogue spine, top disciplined nav «پرتو», CTA «بررسی نیاز فنی». Tiny restrained schematic diagram at lower-right as part of the hero. Clear 2D technical grid combined with physically plausible machine photography, not shiny sci-fi. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "correction": "Keep the complete current composition and machine artwork. Correct ONLY the top-right brand to Persian «پرتو» with a simple orange abstract double-stroke mark. Replace ANY «دنا» with «پرتو» everywhere including on the robot. This is PARTO industrial automation, not automotive. Keep all other content.",
+      "sourceFile": "exec-1a81d11c-278c-4c27-b622-98861e853baa.png"
+    },
+    {
+      "slug": "nava-live",
+      "device": "desktop",
+      "src": "/projects/hero/nava-live-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی نوا؛ اجراهای زنده و رزرو رویداد در دسکتاپ",
+        "en": "Desktop hero of the Nava · Live events and booking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 132752,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. Persian RTL live-music ticket discovery website. Electric fuchsia, deep aubergine and fluorescent apricot. FULL-BLEED authentic photograph of an original anonymous concert stage and beams of warm haze; no recognizable performer. Huge heavily condensed Persian headline «صدای امشب را پیدا کن» crops boldly across the LEFT 60%, with an asymmetric vertical event DATE/TIME browsing strip on the right, one striking peach ticket-shaped hero card at bottom-center and a minimal bottom search rail for city and genre. Top brand «نوا», CTA «دیدن اجراها». Grunge-print texture meets precisely designed ticket UI; energetic typographic culture poster aesthetic, not a normal company landing page and no generic floating 3D objects.",
+      "sourceFile": "exec-2d25288e-456a-4dd4-b8aa-d88d02d9f1a2.png"
+    },
+    {
+      "slug": "nava-live",
+      "device": "tablet",
+      "src": "/projects/hero/nava-live-tablet.webp",
+      "width": 820,
+      "height": 1179,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی نوا؛ اجراهای زنده و رزرو رویداد در تبلت",
+        "en": "Tablet hero of the Nava · Live events and booking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 126652,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original نوا desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL live-music ticket discovery website. Electric fuchsia, deep aubergine and fluorescent apricot. FULL-BLEED authentic photograph of an original anonymous concert stage and beams of warm haze; no recognizable performer. Huge heavily condensed Persian headline «صدای امشب را پیدا کن» crops boldly across the LEFT 60%, with an asymmetric vertical event DATE/TIME browsing strip on the right, one striking peach ticket-shaped hero card at bottom-center and a minimal bottom search rail for city and genre. Top brand «نوا», CTA «دیدن اجراها». Grunge-print texture meets precisely designed ticket UI; energetic typographic culture poster aesthetic, not a normal company landing page and no generic floating 3D objects. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "correction": "Keep whole composition unchanged. Correct ONLY ticket card text: it should read «اجرای زنده» and «راک فارسی», removing «دنا». Brand at top remains «نوا». No automotive content anywhere.",
+      "sourceFile": "exec-05aa3ab9-6fe7-40e4-8235-eb10fdf1be69.png"
+    },
+    {
+      "slug": "nava-live",
+      "device": "mobile",
+      "src": "/projects/hero/nava-live-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی نوا؛ اجراهای زنده و رزرو رویداد در موبایل",
+        "en": "Mobile hero of the Nava · Live events and booking design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 141040,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original نوا desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. Correct Persian RTL layout and clear Persian text. Preserve original design quality; no repeated generic card template. Persian RTL live-music ticket discovery website. Electric fuchsia, deep aubergine and fluorescent apricot. FULL-BLEED authentic photograph of an original anonymous concert stage and beams of warm haze; no recognizable performer. Huge heavily condensed Persian headline «صدای امشب را پیدا کن» crops boldly across the LEFT 60%, with an asymmetric vertical event DATE/TIME browsing strip on the right, one striking peach ticket-shaped hero card at bottom-center and a minimal bottom search rail for city and genre. Top brand «نوا», CTA «دیدن اجراها». Grunge-print texture meets precisely designed ticket UI; energetic typographic culture poster aesthetic, not a normal company landing page and no generic floating 3D objects. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-150c62df-57de-43f5-bbc3-60a8b37f5c31.png"
+    },
+    {
+      "slug": "tide-liquidity",
+      "device": "desktop",
+      "src": "/projects/hero/tide-liquidity-desktop.webp",
+      "width": 1200,
+      "height": 854,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Tide؛ داشبورد نقدینگی DEX در دسکتاپ",
+        "en": "Desktop hero of the Tide · DEX liquidity workspace design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 88080,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. English LTR Web3 decentralized-exchange liquidity workspace named TIDE. Deep forest-black, acid lime and smoky mint. TERMINAL + TOPOGRAPHIC MAP layout: large topographic liquidity contour visualization across center-left formed from thin lime elevation lines, live-looking compact market-depth bars at left edge, and an unusually tall clean swap/review panel taking the right third. Upper-left headline 'LIQUIDITY, IN MOTION.' set in restrained monospaced caps. Thin full-width horizontal route explorer directly below headline, precise separators, tiny subdued rows. Top nav Trade / Pools / Routes, CTA 'Preview swap', an explicit small 'Demo' status. No cyan holographic torus, no shiny coin pile, no yield promise, no profit chart or existing token/company logos. A genuinely professional dense financial interface concept.",
+      "correction": "Preserve the current composition, sizes and layout completely. ONLY replace all real token logos with neutral outlined circles containing simple abstract dots. Replace ETH/stETH labels with ALPHA and USDC with BETA throughout the UI, including routes and headings. No Ethereum diamond or existing company/token logo. Keep TIDE, Demo, headline, green topographic map, all panels and typography. This is a fictional design concept.",
+      "sourceFile": "exec-139861c7-4122-421e-8c5e-591e6fdeb3ee.png"
+    },
+    {
+      "slug": "tide-liquidity",
+      "device": "tablet",
+      "src": "/projects/hero/tide-liquidity-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Tide؛ داشبورد نقدینگی DEX در تبلت",
+        "en": "Tablet hero of the Tide · DEX liquidity workspace design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 69304,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original Tide desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. English LTR layout. Preserve original design quality; no repeated generic card template. English LTR Web3 decentralized-exchange liquidity workspace named TIDE. Deep forest-black, acid lime and smoky mint. TERMINAL + TOPOGRAPHIC MAP layout: large topographic liquidity contour visualization across center-left formed from thin lime elevation lines, live-looking compact market-depth bars at left edge, and an unusually tall clean swap/review panel taking the right third. Upper-left headline 'LIQUIDITY, IN MOTION.' set in restrained monospaced caps. Thin full-width horizontal route explorer directly below headline, precise separators, tiny subdued rows. Top nav Trade / Pools / Routes, CTA 'Preview swap', an explicit small 'Demo' status. No cyan holographic torus, no shiny coin pile, no yield promise, no profit chart or existing token/company logos. A genuinely professional dense financial interface concept. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "correction": "Preserve the current composition, sizes and layout completely. ONLY replace all real token logos with neutral outlined circles containing simple abstract dots. Replace ETH/stETH labels with ALPHA and USDC with BETA throughout the UI, including routes and headings. No Ethereum diamond or existing company/token logo. Keep TIDE, Demo, headline, green topographic map, all panels and typography. This is a fictional design concept.",
+      "sourceFile": "exec-409867fd-4ff5-4a1f-b8eb-d448e1520de8.png"
+    },
+    {
+      "slug": "tide-liquidity",
+      "device": "mobile",
+      "src": "/projects/hero/tide-liquidity-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Tide؛ داشبورد نقدینگی DEX در موبایل",
+        "en": "Mobile hero of the Tide · DEX liquidity workspace design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 84508,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original Tide desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. English LTR layout. Preserve original design quality; no repeated generic card template. English LTR Web3 decentralized-exchange liquidity workspace named TIDE. Deep forest-black, acid lime and smoky mint. TERMINAL + TOPOGRAPHIC MAP layout: large topographic liquidity contour visualization across center-left formed from thin lime elevation lines, live-looking compact market-depth bars at left edge, and an unusually tall clean swap/review panel taking the right third. Upper-left headline 'LIQUIDITY, IN MOTION.' set in restrained monospaced caps. Thin full-width horizontal route explorer directly below headline, precise separators, tiny subdued rows. Top nav Trade / Pools / Routes, CTA 'Preview swap', an explicit small 'Demo' status. No cyan holographic torus, no shiny coin pile, no yield promise, no profit chart or existing token/company logos. A genuinely professional dense financial interface concept. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "correction": "Preserve the current composition, sizes and layout completely. ONLY replace all real token logos with neutral outlined circles containing simple abstract dots. Replace ETH/stETH labels with ALPHA and USDC with BETA throughout the UI, including routes and headings. No Ethereum diamond or existing company/token logo. Keep TIDE, Demo, headline, green topographic map, all panels and typography. This is a fictional design concept.",
+      "sourceFile": "exec-3480c323-c7fb-4a26-9e4b-98e5eda81a8a.png"
+    },
+    {
+      "slug": "cinder-dao",
+      "device": "desktop",
+      "src": "/projects/hero/cinder-dao-desktop.webp",
+      "width": 1200,
+      "height": 854,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Cinder؛ رأی‌گیری و حاکمیت DAO در دسکتاپ",
+        "en": "Desktop hero of the Cinder · DAO governance design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 139396,
+      "quality": 81,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. English LTR DAO governance platform CINDER. Warm off-white, brick-red and nearly black. CIVIC EDITORIAL / NEWSPAPER BOARD aesthetic: a huge cropped slab-serif headline 'BUILD THE NEXT DECISION.' aligned left, right half shows tactile stacked paper proposal sheets with one red wax-like abstract seal and black rectangular voting-status stamps, no company logos. Below headline within hero is a slim readable active-proposal strip and two deliberately different panel shapes: tall discussion preview and compact voting summary, not a generic grid. Strong vertical red rule at left, horizontal black hairlines, top nav Proposals / Delegates / Treasury, main button 'Explore proposals', small 'Design demo'. No futuristic neon, no coin objects, no real voting outcomes or treasury values.",
+      "sourceFile": "exec-8684e9d1-1cc0-436d-b4cc-77c854911613.png"
+    },
+    {
+      "slug": "cinder-dao",
+      "device": "tablet",
+      "src": "/projects/hero/cinder-dao-tablet.webp",
+      "width": 820,
+      "height": 1179,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Cinder؛ رأی‌گیری و حاکمیت DAO در تبلت",
+        "en": "Tablet hero of the Cinder · DAO governance design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 129874,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original Cinder desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. English LTR layout. Preserve original design quality; no repeated generic card template. English LTR DAO governance platform CINDER. Warm off-white, brick-red and nearly black. CIVIC EDITORIAL / NEWSPAPER BOARD aesthetic: a huge cropped slab-serif headline 'BUILD THE NEXT DECISION.' aligned left, right half shows tactile stacked paper proposal sheets with one red wax-like abstract seal and black rectangular voting-status stamps, no company logos. Below headline within hero is a slim readable active-proposal strip and two deliberately different panel shapes: tall discussion preview and compact voting summary, not a generic grid. Strong vertical red rule at left, horizontal black hairlines, top nav Proposals / Delegates / Treasury, main button 'Explore proposals', small 'Design demo'. No futuristic neon, no coin objects, no real voting outcomes or treasury values. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-da0831bf-a8ef-4498-93cc-a141aee0b3d7.png"
+    },
+    {
+      "slug": "cinder-dao",
+      "device": "mobile",
+      "src": "/projects/hero/cinder-dao-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Cinder؛ رأی‌گیری و حاکمیت DAO در موبایل",
+        "en": "Mobile hero of the Cinder · DAO governance design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 139802,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original Cinder desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. English LTR layout. Preserve original design quality; no repeated generic card template. English LTR DAO governance platform CINDER. Warm off-white, brick-red and nearly black. CIVIC EDITORIAL / NEWSPAPER BOARD aesthetic: a huge cropped slab-serif headline 'BUILD THE NEXT DECISION.' aligned left, right half shows tactile stacked paper proposal sheets with one red wax-like abstract seal and black rectangular voting-status stamps, no company logos. Below headline within hero is a slim readable active-proposal strip and two deliberately different panel shapes: tall discussion preview and compact voting summary, not a generic grid. Strong vertical red rule at left, horizontal black hairlines, top nav Proposals / Delegates / Treasury, main button 'Explore proposals', small 'Design demo'. No futuristic neon, no coin objects, no real voting outcomes or treasury values. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-04730444-c8aa-407b-98e2-5172cf912ad0.png"
+    },
+    {
+      "slug": "kora-collectibles",
+      "device": "desktop",
+      "src": "/projects/hero/kora-collectibles-desktop.webp",
+      "width": 1200,
+      "height": 854,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Kora؛ تجربهٔ کلکسیون دیجیتال Web3 در دسکتاپ",
+        "en": "Desktop hero of the Kora · Web3 digital collectibles design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 55734,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. English LTR original Web3 digital collectibles platform KORA. Lavender, lilac, matte black and pale jade. AVANT-GARDE INTERACTIVE GALLERY layout: a large original sculptural ceramic creature/artifact with an abstract looped shell, softly translucent lilac material and beautiful physical studio light sits inside a huge cropped circular gallery aperture on the LEFT; bold stacked black headline 'COLLECT A DIFFERENT WORLD.' occupies right, small mint material/edition selector controls underneath. A slim vertical filmstrip of four truly distinct original art-object silhouettes at far right forms hero navigation, a tiny studio-caption note bottom-left. Top minimal KORA wordmark and 'Explore objects' CTA. Museum/art-direction typography, playful but premium, not cartoon apes, no known NFT trade dress, no speculative pricing, no invented creator endorsements.",
+      "sourceFile": "exec-6f5c75fc-6215-4f46-a7b3-8fa83f8a6301.png"
+    },
+    {
+      "slug": "kora-collectibles",
+      "device": "tablet",
+      "src": "/projects/hero/kora-collectibles-tablet.webp",
+      "width": 820,
+      "height": 1179,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Kora؛ تجربهٔ کلکسیون دیجیتال Web3 در تبلت",
+        "en": "Tablet hero of the Kora · Web3 digital collectibles design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 50996,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original Kora desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. English LTR layout. Preserve original design quality; no repeated generic card template. English LTR original Web3 digital collectibles platform KORA. Lavender, lilac, matte black and pale jade. AVANT-GARDE INTERACTIVE GALLERY layout: a large original sculptural ceramic creature/artifact with an abstract looped shell, softly translucent lilac material and beautiful physical studio light sits inside a huge cropped circular gallery aperture on the LEFT; bold stacked black headline 'COLLECT A DIFFERENT WORLD.' occupies right, small mint material/edition selector controls underneath. A slim vertical filmstrip of four truly distinct original art-object silhouettes at far right forms hero navigation, a tiny studio-caption note bottom-left. Top minimal KORA wordmark and 'Explore objects' CTA. Museum/art-direction typography, playful but premium, not cartoon apes, no known NFT trade dress, no speculative pricing, no invented creator endorsements. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-9a377191-c3e9-4a07-8414-38a9cb2d9aa4.png"
+    },
+    {
+      "slug": "kora-collectibles",
+      "device": "mobile",
+      "src": "/projects/hero/kora-collectibles-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Kora؛ تجربهٔ کلکسیون دیجیتال Web3 در موبایل",
+        "en": "Mobile hero of the Kora · Web3 digital collectibles design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 56690,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original Kora desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. English LTR layout. Preserve original design quality; no repeated generic card template. English LTR original Web3 digital collectibles platform KORA. Lavender, lilac, matte black and pale jade. AVANT-GARDE INTERACTIVE GALLERY layout: a large original sculptural ceramic creature/artifact with an abstract looped shell, softly translucent lilac material and beautiful physical studio light sits inside a huge cropped circular gallery aperture on the LEFT; bold stacked black headline 'COLLECT A DIFFERENT WORLD.' occupies right, small mint material/edition selector controls underneath. A slim vertical filmstrip of four truly distinct original art-object silhouettes at far right forms hero navigation, a tiny studio-caption note bottom-left. Top minimal KORA wordmark and 'Explore objects' CTA. Museum/art-direction typography, playful but premium, not cartoon apes, no known NFT trade dress, no speculative pricing, no invented creator endorsements. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-29eb0b80-e151-4418-9c9c-c731e74bbd37.png"
+    },
+    {
+      "slug": "aster-observability",
+      "device": "desktop",
+      "src": "/projects/hero/aster-observability-desktop.webp",
+      "width": 1200,
+      "height": 751,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Aster؛ پایش سرویس و داشبورد ابری در دسکتاپ",
+        "en": "Desktop hero of the Aster · Cloud observability design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در دسکتاپ",
+        "en": "Design concept · Desktop hero"
+      },
+      "bytes": 49776,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. Deliver one exceptional finished DESKTOP website HERO screenshot, landscape 16:10 approximately 1440x900, full-bleed website pixels only. Premium art-directed interactive/motion-graphic website design captured in a compelling still, detailed and credible like a real launched site. Show only header/navigation and ONE complete first hero or primary product workspace; no next sections or footer. No laptop/phone frames, browser chrome, physical mockup scene, extra websites or moodboard collage. Short readable exact headline and CTA; rest of UI copy sparse and intentional. Strong distinctive hierarchy and professional spacing. Brand is fictional and this is an original DESIGN CONCEPT, not proof of delivered work. No real company logos, false client testimonials, fabricated awards, result percentages or numerical success promises. English LTR cloud observability SaaS ASTER. Very pale ice-blue/white, graphite and sharp electric indigo. LAYERED TECHNICAL BLUEPRINT layout: the entire canvas is bright and quiet, oversized ultra-light headline 'SEE THE SYSTEM. FIND THE SIGNAL.' at upper-left. On the right two overlapping translucent-but-realistic flat dashboard windows sit at a small perspective angle: a service dependency node graph and a focused incident timeline. A thin indigo signal line threads from the headline margin into the windows, with tiny precise square markers suggesting motion. One horizontal use-case rail at bottom within hero; clean ASTER brand and 'Explore the demo' CTA. Sophisticated understated enterprise UI, no giant blue billboard ribbon, no dark card-grid template, no fabricated uptime guarantee or performance claim.",
+      "sourceFile": "exec-a5ade396-8617-4698-a471-9e6cc8ff982e.png"
+    },
+    {
+      "slug": "aster-observability",
+      "device": "tablet",
+      "src": "/projects/hero/aster-observability-tablet.webp",
+      "width": 820,
+      "height": 945,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Aster؛ پایش سرویس و داشبورد ابری در تبلت",
+        "en": "Tablet hero of the Aster · Cloud observability design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در تبلت",
+        "en": "Design concept · Tablet hero"
+      },
+      "bytes": 43528,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original Aster desktop website concept into its TABLET responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Portrait tablet layout 820x1180 (aspect ratio 0.695). Recompose into a balanced tablet first viewport with compact navigation. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. English LTR layout. Preserve original design quality; no repeated generic card template. English LTR cloud observability SaaS ASTER. Very pale ice-blue/white, graphite and sharp electric indigo. LAYERED TECHNICAL BLUEPRINT layout: the entire canvas is bright and quiet, oversized ultra-light headline 'SEE THE SYSTEM. FIND THE SIGNAL.' at upper-left. On the right two overlapping translucent-but-realistic flat dashboard windows sit at a small perspective angle: a service dependency node graph and a focused incident timeline. A thin indigo signal line threads from the headline margin into the windows, with tiny precise square markers suggesting motion. One horizontal use-case rail at bottom within hero; clean ASTER brand and 'Explore the demo' CTA. Sophisticated understated enterprise UI, no giant blue billboard ribbon, no dark card-grid template, no fabricated uptime guarantee or performance claim. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-a3d9c731-4d7b-46cf-a017-c70d1615e724.png"
+    },
+    {
+      "slug": "aster-observability",
+      "device": "mobile",
+      "src": "/projects/hero/aster-observability-mobile.webp",
+      "width": 780,
+      "height": 1285,
+      "alt": {
+        "fa": "نمای هیروی طرح مفهومی Aster؛ پایش سرویس و داشبورد ابری در موبایل",
+        "en": "Mobile hero of the Aster · Cloud observability design concept"
+      },
+      "caption": {
+        "fa": "طرح مفهومی · هیرو در موبایل",
+        "en": "Design concept · Mobile hero"
+      },
+      "bytes": 53092,
+      "quality": 84,
+      "prompt": "Use case: ui-mockup. EDIT the referenced original Aster desktop website concept into its MOBILE responsive layout. Preserve this exact brand, original art subject, headline, colour palette, typography personality and UI purpose. Tall MOBILE portrait 780x1688 (aspect ratio 0.462), designed as 390x844 CSS pixels at 2x. Compact brand/menu header, readable large headline and touch sized primary action. Reflow hero vertically. Full bleed WEBSITE PIXELS ONLY: no device frame, hands, browser chrome, mockup desk or presentation caption. ONE complete hero/initial primary workspace only, no next sections/footer. This is a real responsive redesign, not a cropped or squeezed desktop. Keep key artwork fully composed within screen; simplify secondary UI rather than shrinking it. English LTR layout. Preserve original design quality; no repeated generic card template. English LTR cloud observability SaaS ASTER. Very pale ice-blue/white, graphite and sharp electric indigo. LAYERED TECHNICAL BLUEPRINT layout: the entire canvas is bright and quiet, oversized ultra-light headline 'SEE THE SYSTEM. FIND THE SIGNAL.' at upper-left. On the right two overlapping translucent-but-realistic flat dashboard windows sit at a small perspective angle: a service dependency node graph and a focused incident timeline. A thin indigo signal line threads from the headline margin into the windows, with tiny precise square markers suggesting motion. One horizontal use-case rail at bottom within hero; clean ASTER brand and 'Explore the demo' CTA. Sophisticated understated enterprise UI, no giant blue billboard ribbon, no dark card-grid template, no fabricated uptime guarantee or performance claim. Any visible prices/charts/proposals are demonstration UI only, no false outcomes. Automotive brand must be DENA / «دنا» not Arman. No existing car or company logos.",
+      "sourceFile": "exec-86cd0a8e-e7e2-42af-8287-9c74d9d8746a.png"
+    }
+  ]
+}

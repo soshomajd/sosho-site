@@ -14,7 +14,8 @@ import { getProjectHref } from "./data";
 export function conceptSeo(concept: ConceptProject, locale: Locale) {
   const isFa = locale === "fa";
   return {
-    title: isFa ? `${concept.title.fa}؛ طرح مفهومی سوشو استودیو` : `${concept.title.en}: SoSho Studio Design Concept`,
+    // The root title template already appends the studio name.
+    title: isFa ? `${concept.title.fa}؛ طرح مفهومی` : `${concept.title.en}: Design Concept`,
     description: concept.summary[locale],
   };
 }
@@ -30,7 +31,7 @@ export default function ConceptCase({ concept, locale }: { concept: ConceptProje
   const pageUrl = `${baseUrl}/${locale}/projects/${concept.slug}`;
   const crumbs = [
     { name: isFa ? "خانه" : "Home", path: `/${locale}` },
-    { name: isFa ? "نمونه‌کارها" : "Work", path: `/${locale}#projects` },
+    { name: isFa ? "نمونه‌کارها" : "Work", path: `/${locale}/projectcs` },
     { name: title, path: `/${locale}/projects/${concept.slug}` },
   ];
   const index = CONCEPT_PROJECTS.findIndex((entry) => entry.slug === concept.slug);
@@ -76,6 +77,7 @@ export default function ConceptCase({ concept, locale }: { concept: ConceptProje
               inLanguage: concept.language === "fa" ? "fa-IR" : "en",
               genre: concept.service[locale],
               creator: { "@id": organizationId },
+              ...(concept.updatedAt ? { dateModified: concept.updatedAt } : {}),
               image: concept.images.map((image) => `${baseUrl}${image.src}`),
             },
             breadcrumbJsonLd(crumbs),
@@ -135,6 +137,15 @@ export default function ConceptCase({ concept, locale }: { concept: ConceptProje
           </dl>
         </aside>
       </div>
+
+      {concept.study?.map((section, index) => (
+        <section key={section.heading.en} aria-labelledby={`design-study-${index}`} className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
+          <h2 id={`design-study-${index}`} className="text-xl font-bold text-foreground">{section.heading[locale]}</h2>
+          <div className="mt-4 grid max-w-4xl gap-4 text-sm leading-8 text-muted md:text-base">
+            {section.paragraphs[locale].map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
+        </section>
+      ))}
 
       <section aria-labelledby="project-includes" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
         <h2 id="project-includes" className="text-xl font-bold text-foreground">{isFa ? "بخش‌های نمایش‌داده‌شده در طرح" : "Sections shown in the concept"}</h2>

@@ -1,6 +1,7 @@
 import { getBlogPostHref, getBlogPosts, type BlogPost } from "@/app/blogs/posts";
 import { CONTACT_INFO } from "@/app/contact-info";
 import { PROJECTS } from "@/app/components/Projects/data";
+import { CONCEPT_PROJECTS, isIndexableConcept } from "@/app/components/Projects/concepts";
 import { SERVICES } from "@/app/components/Services/data";
 import { SERVICE_FAQ } from "@/app/components/Services/faq";
 import { SERVICE_GUIDE } from "@/app/components/Services/guide";
@@ -62,14 +63,20 @@ function toolsSection() {
 function projectsSection() {
   const lines = [
     "## Selected work / نمونه‌کارها", "",
-    `- [More original design concepts](${baseUrl}/en/projectcs): Eight additional concepts with desktop, tablet and mobile hero views; these are not delivered client projects.`,
-    `- [طرح‌های مفهومی بیشتر](${baseUrl}/fa/projectcs): هشت طرح با نمای هیرو در دسکتاپ، تبلت و موبایل؛ این‌ها پروژهٔ تحویل‌شده به مشتری نیستند.`,
+    `- [More original design concepts](${baseUrl}/en/projectcs): Original design studies with desktop, tablet and mobile hero views; these are not delivered client projects.`,
+    `- [طرح‌های مفهومی بیشتر](${baseUrl}/fa/projectcs): مجموعهٔ طرح‌ها با نمای هیرو در دسکتاپ، تبلت و موبایل؛ این‌ها پروژهٔ تحویل‌شده به مشتری نیستند.`,
   ];
   for (const project of PROJECTS) {
     lines.push(
       `- [${project.seo.title.en}](${baseUrl}/en/projects/${project.slug}): ${project.seo.description.en}`,
       `- [${project.seo.title.fa}](${baseUrl}/fa/projects/${project.slug}): ${project.seo.description.fa}`
     );
+  }
+  lines.push("", "### Original design studies / مطالعه‌های طراحی مفهومی", "", "The following are original visual studies, not delivered client projects or live products.", "");
+  for (const concept of CONCEPT_PROJECTS.filter(isIndexableConcept)) {
+    for (const locale of ["en", "fa"] as const) {
+      lines.push(`- [${concept.title[locale]}](${baseUrl}/${locale}/projects/${concept.slug}): ${concept.summary[locale]}`);
+    }
   }
   lines.push("");
   return lines;
@@ -160,6 +167,11 @@ export function buildLlmsFullTxt() {
     lines.push(`### ${project.seo.title[locale]}`, "", `URL: ${baseUrl}/${locale}/projects/${project.slug}`, `Updated: ${project.updatedAt}`, "", project.caseStudy.challenge[locale], "");
     for (const decision of project.caseStudy.decisions) lines.push(`#### ${decision.title[locale]}`, "", decision.text[locale], "");
     lines.push(...project.caseStudy.journey[locale].map((step) => `- ${step}`), "", project.caseStudy.takeaway[locale], "");
+  }
+  lines.push("## Original design studies / مطالعه‌های طراحی مفهومی", "", "These are design concepts, not delivered client projects. / این‌ها طرح مفهومی‌اند، نه پروژهٔ تحویل‌شده به مشتری.", "");
+  for (const concept of CONCEPT_PROJECTS.filter(isIndexableConcept)) for (const locale of ["en", "fa"] as const) {
+    lines.push(`### ${concept.title[locale]}`, "", `URL: ${baseUrl}/${locale}/projects/${concept.slug}`, `Updated: ${concept.updatedAt}`, "", concept.summary[locale], "");
+    for (const section of concept.study ?? []) lines.push(`#### ${section.heading[locale]}`, "", ...section.paragraphs[locale].flatMap(p => [p, ""]));
   }
   lines.push("## Articles (English)", "");
   for (const post of posts) lines.push(...articleMarkdown(post, "en"));
