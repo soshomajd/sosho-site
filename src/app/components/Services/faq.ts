@@ -132,6 +132,13 @@ export const SERVICE_FAQ: Record<ServiceSlug, ServiceFaqItem[]> = {
         en: "Yes. Technical SEO basics, speed, heading structure, structured data, and responsive mobile design are part of the core work, not an add-on.",
       },
     },
+    {
+      question: { fa: "برای انتخاب شرکت طراحی سایت به چه نکاتی توجه کنیم؟", en: "What should we check when choosing a web design company?" },
+      answer: {
+        fa: "نمونه‌کار واقعی و قابل بازدید، محدودهٔ کار مکتوب، روشن‌بودن مالکیت دامنه، هاست و سورس‌کد و برنامهٔ پشتیبانی پس از تحویل را بررسی کنید. قیمت پایین بدون محدودهٔ مشخص معمولاً بعداً هزینه‌ساز می‌شود.",
+        en: "Look for real work you can visit, a written scope, clear ownership of the domain, hosting and source code, and a support plan after handover. A low price without a defined scope usually costs more later.",
+      },
+    },
   ],
   "web-application-development": [
     {
@@ -222,6 +229,13 @@ export const SERVICE_FAQ: Record<ServiceSlug, ServiceFaqItem[]> = {
       answer: {
         fa: "بله. ساختار محتوا، پاسخ مستقیم، پرسش‌های متداول، داده ساختاریافته و دسترسی خزنده‌های هوش مصنوعی را بهینه می‌کنیم تا شانس دیده‌شدن در پاسخ‌های ChatGPT، Perplexity و گوگل بیشتر شود.",
         en: "Yes. We optimize content structure, direct answers, FAQs, structured data, and AI crawler access to raise your chances of appearing in ChatGPT, Perplexity, and Google answers.",
+      },
+    },
+    {
+      question: { fa: "خدمات سئو سایت شامل چه کارهایی است؟", en: "What do your SEO services include?" },
+      answer: {
+        fa: "ممیزی فنی و رفع موانع ایندکس، تحقیق کلمات کلیدی، بهینه‌سازی صفحه‌ها و لینک‌های داخلی، برنامهٔ محتوا و گزارش منظم بر پایهٔ Search Console. دامنهٔ دقیق کار پس از بررسی وضعیت فعلی سایت مشخص می‌شود.",
+        en: "A technical audit and indexing fixes, keyword research, on-page and internal-link optimisation, a content plan and regular reporting based on Search Console. The exact scope follows a review of the site's current state.",
       },
     },
   ],

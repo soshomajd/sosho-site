@@ -6,8 +6,10 @@ import { FiArrowUpRight } from "react-icons/fi";
 
 import { getBlogPostHref } from "@/app/blogs/posts";
 import { postsForService } from "@/app/blogs/related";
+import BlogCardCover from "@/app/components/BlogCardCover";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import ConsultantButton from "@/app/components/Consultant/ConsultantButton";
+import RealProjectCards from "@/app/components/Projects/RealProjectCards";
 import { getProjectHref, getProjectShareImage, projectsForService } from "@/app/components/Projects/data";
 import WebsiteServiceDetails, { WEBSITE_SERVICE_DETAILS } from "@/app/components/Services/WebsiteServiceDetails";
 import { SERVICE_FAQ } from "@/app/components/Services/faq";
@@ -138,6 +140,7 @@ export default async function ServicePage({
     }
 
     const title = locale === "fa" ? service.title.fa : service.title.en;
+    const heading = service.heading?.[locale] ?? title;
     const isFa = locale === "fa";
     const ServiceIcon = service.Icon;
 
@@ -160,12 +163,14 @@ export default async function ServicePage({
         { name: title, path: `/${locale}/services/${service.slug}` },
     ];
     const faq = SERVICE_FAQ[service.slug];
-    const articles = postsForService(service.slug, 3);
+    const articles = postsForService(service.slug, 6);
     const guide = SERVICE_GUIDE[service.slug];
     const relatedServices = guide.related.map((related) => getService(related)!);
     const relatedTool = guide.tool ? getTool(guide.tool) : undefined;
     const websiteDetails = WEBSITE_SERVICE_DETAILS[service.slug];
     const proof = websiteDetails ? projectsForService(service.slug)[0] : undefined;
+    // The two website offers already show their projects inside WebsiteServiceDetails.
+    const relatedProjects = websiteDetails ? [] : projectsForService(service.slug);
 
     return (
         <main id="main-content" tabIndex={-1} className="container items-stretch gap-8 py-14 outline-none md:py-20">
@@ -228,7 +233,7 @@ export default async function ServicePage({
                             {isFa ? "خدمات سوشو استودیو" : "Sosho Studio services"}
                         </p>
                         <h1 className="mt-4 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-foreground md:text-6xl">
-                            {title}
+                            {heading}
                         </h1>
                         <p className="mt-5 max-w-3xl text-base leading-8 text-muted md:text-lg">{intro}</p>
                         {websiteDetails ? (
@@ -268,6 +273,20 @@ export default async function ServicePage({
             </div>
 
             <WebsiteServiceDetails locale={locale} slug={service.slug} />
+
+            {relatedProjects.length > 0 ? (
+                <section aria-labelledby="service-projects-title">
+                    <h2 id="service-projects-title" className="text-xl font-bold text-foreground">
+                        {isFa ? "نمونه‌کار واقعی مرتبط" : "Related real projects"}
+                    </h2>
+                    <p className="mt-3 mb-5 max-w-3xl text-sm leading-8 text-muted">
+                        {isFa
+                            ? "این خدمت بخشی از این پروژه‌ها بوده است. جزئیات هر کدام را در صفحهٔ خودش ببینید."
+                            : "This service was part of these projects. See the details of each on its own page."}
+                    </p>
+                    <RealProjectCards locale={locale} projects={relatedProjects} />
+                </section>
+            ) : null}
 
             <div className="grid gap-4 lg:grid-cols-12">
                 <section aria-labelledby="service-when-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8 lg:col-span-7">
@@ -323,12 +342,10 @@ export default async function ServicePage({
                                 >
                                     {post.coverImage ? (
                                         <div className="relative aspect-video w-full overflow-hidden">
-                                            <Image
+                                            <BlogCardCover
                                                 src={post.coverImage}
                                                 alt={post.coverImageAlt?.[locale] ?? post.title[locale]}
-                                                fill
                                                 sizes="(max-width: 768px) 100vw, 33vw"
-                                                className="object-cover"
                                             />
                                         </div>
                                     ) : null}

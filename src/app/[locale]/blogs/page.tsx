@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/app/i18n";
 import { getDictionary, isLocale } from "@/app/i18n";
-import Image from "next/image";
 import Link from "next/link";
 import { getBlogPostHref, getBlogPosts } from "@/app/blogs/posts";
+import BlogCardCover from "@/app/components/BlogCardCover";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import JsonLd from "@/app/components/JsonLd";
 import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, websiteId } from "@/app/seo";
@@ -131,14 +131,11 @@ export default async function BlogsPage({
                     >
                         <div className="relative aspect-video w-full overflow-hidden bg-background/30">
                             {p.coverImage ? (
-                                <Image
+                                <BlogCardCover
                                     src={p.coverImage}
                                     alt={p.coverImageAlt?.[locale] ?? p.title[locale]}
-                                    fill
                                     sizes="(max-width: 768px) 100vw, 50vw"
-                                    preload={index === 0}
-                                    fetchPriority={index === 0 ? "high" : undefined}
-                                    loading={index === 0 ? "eager" : "lazy"}
+                                    priority={index === 0}
                                     className="object-cover transition-transform duration-500 motion-reduce:transition-none group-hover:scale-[1.03]"
                                 />
                             ) : (

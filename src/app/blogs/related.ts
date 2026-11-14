@@ -95,6 +95,20 @@ export const POST_SERVICE_FOCUS: Record<string, ServiceSlug[]> = {
   ]
 };
 
+/** Articles about budget and scope also point to the website cost estimate page. */
+export const POSTS_WITH_ESTIMATE_LINK = new Set([
+  "website-cost-page-count-complexity",
+  "reduce-website-build-maintenance-costs",
+  "choose-website-design-team",
+  "wordpress-low-cost-business-website",
+  "wordpress-vs-nextjs-which-website",
+  "wordpress-or-custom-website",
+  "corporate-website-pages-features-guide",
+  "ecommerce-website-launch-guide",
+  "website-or-mobile-app-for-business",
+  "website-content-preparation-checklist",
+]);
+
 export function serviceForPost(post: BlogPost): ServiceSlug {
   const focus = POST_SERVICE_FOCUS[post.slug];
   if (focus?.length) return focus[0];
@@ -124,6 +138,14 @@ export function relatedPosts(post: BlogPost, limit = 3): BlogPost[] {
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
     .map(({ candidate }) => candidate);
+}
+
+/** The posts published just after and just before `post`, so every article is linked from its neighbours. */
+export function adjacentPosts(post: BlogPost): { newer?: BlogPost; older?: BlogPost } {
+  const posts = getBlogPosts();
+  const index = posts.findIndex((candidate) => candidate.slug === post.slug);
+  if (index < 0) return {};
+  return { newer: posts[index - 1], older: posts[index + 1] };
 }
 
 /** Newest posts that point readers to the given service. */

@@ -108,8 +108,8 @@ export default function About({ locale }: { locale: Locale }) {
           </p>
           <p className="mt-3 max-w-4xl text-sm leading-8 text-muted md:text-base">
             {isFa
-              ? "مسئولیت کار را تا لانچ، اندازه‌گیری و پشتیبانی ادامه می‌دهیم؛ بدون پاس‌کاری بین چند تیم و بدون راهکارهای یکسان برای همه."
-              : "We stay accountable through launch, measurement, and support—without handoffs between disconnected teams or one-size-fits-all solutions."}
+              ? "اگر به‌جای یک شرکت طراحی سایت معمولی دنبال تیمی هستید که تا آخر کار کنارتان بماند، مسئولیت را تا لانچ، اندازه‌گیری و پشتیبانی ادامه می‌دهیم؛ بدون پاس‌کاری بین چند تیم و بدون راهکارهای یکسان برای همه."
+              : "If you want more than a typical web design company, a team that stays with you, we remain accountable through launch, measurement, and support—without handoffs between disconnected teams or one-size-fits-all solutions."}
           </p>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">

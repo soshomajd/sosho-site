@@ -60,7 +60,7 @@ export const SERVICE_GUIDE: Record<ServiceSlug, ServiceGuide> = {
       "ecommerce-website-design",
       "wordpress-woocommerce"
     ],
-    "tool": "website-seo-audit"
+    "tool": "website-cost-estimate"
   },
   "ecommerce-website-design": {
     "when": {
@@ -105,7 +105,7 @@ export const SERVICE_GUIDE: Record<ServiceSlug, ServiceGuide> = {
       "corporate-website-design",
       "wordpress-woocommerce"
     ],
-    "tool": "website-seo-audit"
+    "tool": "website-cost-estimate"
   },
   "website-design-development": {
     when: {
@@ -147,7 +147,7 @@ export const SERVICE_GUIDE: Record<ServiceSlug, ServiceGuide> = {
       ],
     },
     related: ["corporate-website-design", "ecommerce-website-design"],
-    tool: "website-seo-audit",
+    tool: "website-cost-estimate",
   },
   "web-application-development": {
     when: {

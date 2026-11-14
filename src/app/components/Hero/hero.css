@@ -42,6 +42,7 @@
 .sh-team:has(#team-soheil:focus-visible) label.sh-team-dot[for="team-soheil"], .sh-team:has(#team-claude:focus-visible) label.sh-team-dot[for="team-claude"], .sh-team:has(#team-codex:focus-visible) label.sh-team-dot[for="team-codex"] { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 .sh-intro { position: relative; z-index: 1; grid-column: 1; grid-row: 2; padding-bottom: 14px; }
 .sh-title { font-size: clamp(23px, 2.15vw, 34px); font-weight: 800; line-height: 1.7; text-wrap: balance; }
+.sh-title-key { display: block; margin-bottom: 4px; color: var(--color-primary); font-size: 14px; font-weight: 700; line-height: 1.9; }
 .sh-sub { margin-top: 16px; color: var(--color-muted); font-size: 13px; line-height: 2; max-width: 380px; }
 .sh-actions { position: relative; z-index: 1; grid-column: 3; grid-row: 2; justify-self: end; display: flex; align-items: center; flex-direction: column; gap: 18px; padding-bottom: 22px; }
 .sh-cta { display: inline-flex; min-height: 56px; align-items: center; justify-content: center; gap: 20px; border-radius: 999px; padding: 14px 28px; background: var(--color-primary); color: var(--color-background); font-size: 14px; font-weight: 800; box-shadow: 0 8px 36px color-mix(in srgb, var(--color-primary) 12%, transparent); transition: transform 250ms ease, background 250ms ease; }
@@ -82,6 +83,7 @@
   .sh-team-nav { gap: 8px; }
   .sh-team-caption { min-height: 148px; }
   .sh-title { font-size: 23px; line-height: 1.7; }
+  .sh-title-key { font-size: 13px; }
   .sh-sub { font-size: 12px; }
   .sh-cta { min-height: 50px; padding: 12px 22px; font-size: 12px; }
   .sh-secondary { font-size: 12px; }

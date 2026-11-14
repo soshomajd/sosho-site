@@ -29,6 +29,7 @@ npm run test:hero             # focused Playwright checks of that export; local 
 npx wrangler deploy --dry-run # validate the generated production bundle without publishing
 npm run build:next            # ordinary .next build, paired with npm run start
 npm run blog:art              # verify manifest-listed ImageGen assets; --sheet <path> previews
+npm run images:thumbs         # small-screen image variants after adding a project or article cover
 npm run projects:og           # render 1200x630 project share cards with Playwright
 npm run blog:cover -- --slug "post-slug" --tag "SEO"
 ```
@@ -43,7 +44,7 @@ CI validates lint, Worker tests, build and Wrangler dry-run. The deployment work
 
 - **Frontend:** Next.js 16 App Router, React 19, TypeScript strict, React Compiler and CSS-first Tailwind 4. `@/*` maps to `src/*`. Server Components are the default. `SITES_STATIC_EXPORT=1` enables static export and unoptimized images.
 - **Runtime:** `worker/index.js` and the plain ESM modules in `worker/` own API, D1, AI providers, Meta/Instagram, Telegram and private ArvanCloud storage. Do not add Next API routes or server actions to this static architecture.
-- **Routing:** `/` redirects to `/fa`; locales are `fa` RTL and `en` LTR. Marketing routes include services, blogs, project detail, the existing `/projectcs` archive spelling and tools. `/admin` is Persian RTL and unlocalized. Dynamic marketing routes must remain enumerable with `generateStaticParams`.
+- **Routing:** `/` redirects to `/fa`; locales are `fa` RTL and `en` LTR. Marketing routes include services, blogs, project detail, the existing `/projectcs` portfolio spelling, tools, `/about` and `/contact`. `/admin` is Persian RTL and unlocalized. Dynamic marketing routes must remain enumerable with `generateStaticParams`.
 - **Packaging:** `scripts/build-sites.mjs` exports Next into `dist/client`, corrects English HTML language/direction, mirrors RSC segment payload filenames, copies the Worker into `dist/server` and packages every SQL migration/Sites metadata. Local Wrangler uses source; deployment Wrangler uses generated `dist/server/index.js`.
 - **Headers/routing:** `public/_headers` controls asset headers. Worker-built pages repeat security headers from `PAGE_SECURITY_HEADERS`; change both together (routing tests check parity). Preserve canonical redirects, real 404 responses and admin no-store/noindex behavior.
 - **Schema:** ordered `db/migrations/*.sql` is the only runtime source of truth. `db/schema.ts` is a mirror. Keep SQL, types, queries, tests and setup docs aligned; never execute DDL during requests. Local migrations currently run through `0009`; this does not establish remote migration state.

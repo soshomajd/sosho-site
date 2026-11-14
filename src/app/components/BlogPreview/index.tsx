@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/app/i18n";
 import { getBlogPostHref, getBlogPosts } from "@/app/blogs/posts";
+import BlogCardCover from "@/app/components/BlogCardCover";
 
 export default function BlogPreview({ locale }: { locale: Locale }) {
     const isFa = locale === "fa";
@@ -20,10 +20,9 @@ export default function BlogPreview({ locale }: { locale: Locale }) {
                     >
                         <div className="relative aspect-video w-full overflow-hidden bg-surface/30">
                             {p.coverImage ? (
-                                <Image
+                                <BlogCardCover
                                     src={p.coverImage}
                                     alt={p.coverImageAlt?.[locale] ?? p.title[locale]}
-                                    fill
                                     sizes="(max-width: 768px) 100vw, 33vw"
                                     className="object-cover transition-transform duration-500 motion-reduce:transition-none group-hover:scale-[1.03]"
                                 />

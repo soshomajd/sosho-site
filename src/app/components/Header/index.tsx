@@ -73,10 +73,10 @@ export default function Header({
 }) {
     const NAV_ITEMS = [
         { label: labels.nav.services, href: `/${locale}#services`, variant: "default" },
-        { label: labels.nav.projects, href: `/${locale}#projects`, variant: "primary" },
-        { label: labels.nav.about, href: `/${locale}#about`, variant: "default" },
+        { label: labels.nav.projects, href: `/${locale}/projectcs`, variant: "primary" },
+        { label: labels.nav.about, href: `/${locale}/about`, variant: "default" },
         { label: labels.nav.tools, href: `/${locale}/tools`, variant: "default" },
-        { label: labels.nav.blog, href: `/${locale}#blog`, variant: "default" },
+        { label: labels.nav.blog, href: `/${locale}/blogs`, variant: "default" },
     ] as const;
 
     return (
@@ -103,13 +103,14 @@ export default function Header({
                     className="hidden items-center gap-x-5 text-sm font-medium lg:flex"
                 >
                     {NAV_ITEMS.map((item) => (
-                        <a
+                        <Link
                             key={item.href}
                             href={item.href}
+                            prefetch={false}
                             className="relative text-sm font-semibold text-muted transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                         >
                             {item.label}
-                        </a>
+                        </Link>
                     ))}
                 </nav>
 

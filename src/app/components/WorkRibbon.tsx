@@ -2,23 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Locale } from "../i18n";
+import { ribbonSmallThumb } from "../image-variants";
 import { PROJECTS, getProjectHref } from "./Projects/data";
 import { CONCEPT_PROJECTS } from "./Projects/concepts";
 
-const real = PROJECTS.map((project) => ({
-  id: project.slug,
-  src: project.images[0].src.replace(/\.webp$/, "-thumb.webp"),
-  title: project.title,
-  alt: project.images[0].alt,
-  concept: false,
-}));
-const concepts = CONCEPT_PROJECTS.map((project) => ({
-  id: project.slug,
-  src: project.images[0].src.replace(/\.webp$/, "-thumb.webp"),
-  title: project.title,
-  alt: project.images[0].alt,
-  concept: true,
-}));
+const tile = (project: (typeof PROJECTS)[number] | (typeof CONCEPT_PROJECTS)[number], concept: boolean) => {
+  const src = project.images[0].src.replace(/\.webp$/, "-thumb.webp");
+  // Phones show 220px tiles, so they get the 440px file instead of the 720px one.
+  return { id: project.slug, src, small: ribbonSmallThumb(src), title: project.title, alt: project.images[0].alt, concept };
+};
+const real = PROJECTS.map((project) => tile(project, false));
+const concepts = CONCEPT_PROJECTS.map((project) => tile(project, true));
 // Preserve the approved opening sequence and include every additional concept once.
 const ITEMS = [real[0], concepts[0], concepts[6], real[1], concepts[1], concepts[7], real[2], concepts[2], concepts[8], concepts[3], concepts[4], concepts[9], concepts[5], ...concepts.slice(10)];
 const ROWS = [ITEMS.filter((_, index) => index % 2 === 0), ITEMS.filter((_, index) => index % 2 === 1)];
@@ -51,7 +45,10 @@ export default function WorkRibbon({ locale }: { locale: Locale }) {
                     tabIndex={duplicate ? -1 : undefined}
                   >
                     <figure className="work-ribbon-tile" data-showcase-id={duplicate ? undefined : item.id}>
-                      <Image src={item.src} alt={duplicate ? "" : item.alt[locale]} fill sizes="(max-width: 767px) 220px, 360px" loading="lazy" fetchPriority="low" className="object-cover object-top" />
+                      <picture>
+                        {item.small ? <source media="(max-width: 767px)" srcSet={item.small} type="image/webp" /> : null}
+                        <Image src={item.src} alt={duplicate ? "" : item.alt[locale]} fill sizes="(max-width: 767px) 220px, 360px" loading="lazy" fetchPriority="low" className="object-cover object-top" />
+                      </picture>
                       <figcaption className="work-ribbon-caption" dir={isFa ? "rtl" : "ltr"}>
                         <span>{item.title[locale]}</span>
                         <span className="work-ribbon-kind">{item.concept ? (isFa ? "طرح مفهومی" : "Concept") : (isFa ? "پروژه" : "Project")}</span>

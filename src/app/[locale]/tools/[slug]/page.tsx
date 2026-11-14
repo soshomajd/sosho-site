@@ -10,6 +10,7 @@ import { getServiceHref, getService } from "@/app/components/Services/data";
 import { TOOLS, getTool, type ToolSlug } from "@/app/components/Tools/data";
 import { TOOL_GUIDE } from "@/app/components/Tools/guide";
 import ContrastTool from "@/app/components/Tools/ContrastTool";
+import CostEstimateTool from "@/app/components/Tools/CostEstimateTool";
 import FaqSchemaTool from "@/app/components/Tools/FaqSchemaTool";
 import MetaTagTool from "@/app/components/Tools/MetaTagTool";
 import RobotsSitemapTool from "@/app/components/Tools/RobotsSitemapTool";
@@ -22,6 +23,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const ogImageUrl = new URL("/og.jpg", siteUrl).toString();
 
 const TOOL_COMPONENTS: Record<ToolSlug, (props: { locale: Locale }) => React.ReactNode> = {
+  "website-cost-estimate": CostEstimateTool,
   "website-seo-audit": SeoAuditTool,
   "meta-tag-generator": MetaTagTool,
   "faq-schema-generator": FaqSchemaTool,
@@ -269,12 +271,14 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">{isFa ? "قدم بعدی" : "Next step"}</p>
           <h2 className="mt-3 text-2xl font-bold text-foreground">
-            {isFa ? "اصلاح‌ها را به ما بسپارید" : "Leave the fixing to us"}
+            {tool.cta ? tool.cta.title[locale] : isFa ? "اصلاح‌ها را به ما بسپارید" : "Leave the fixing to us"}
           </h2>
           <p className="mt-2 text-sm leading-7 text-muted">
-            {isFa
-              ? "ابزار مشکل را نشان می‌دهد؛ اجرای درست آن کار تیم ماست."
-              : "A tool shows the problem; doing the fix properly is our team's job."}
+            {tool.cta
+              ? tool.cta.body[locale]
+              : isFa
+                ? "ابزار مشکل را نشان می‌دهد؛ اجرای درست آن کار تیم ماست."
+                : "A tool shows the problem; doing the fix properly is our team's job."}
           </p>
         </div>
         <div className="flex flex-wrap gap-3">

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import type { Locale } from "@/app/i18n";
 import { getProjectHref, projectsForService } from "@/app/components/Projects/data";
+import { getToolHref } from "@/app/components/Tools/data";
 import type { ServiceSlug } from "./data";
 
 export const WEBSITE_SERVICE_DETAILS: Partial<Record<ServiceSlug, {
@@ -64,6 +65,7 @@ export default function WebsiteServiceDetails({ locale, slug }: { locale: Locale
           <h2 id="website-cost-title" className="text-xl font-bold text-foreground">{isFa ? "هزینهٔ طراحی این سایت چگونه مشخص می‌شود؟" : "How is this website estimated?"}</h2>
           <p className="mt-3 text-sm leading-8 text-muted">{isFa ? "پیش از اعلام هزینه، محدودهٔ کار را با این موارد روشن می‌کنیم. برآورد هوشمند می‌تواند نقطهٔ شروع باشد؛ مبلغ و زمان اجرای نهایی پس از بررسی نیازها مشخص می‌شوند." : "These factors define the scope before a quote. The project estimate can start the discussion; final cost and timing follow a review of the requirements."}</p>
           <ul className="mt-4 list-disc space-y-3 ps-5 text-sm leading-7 text-muted">{details.costFactors[locale].map((item) => <li key={item}>{item}</li>)}</ul>
+          <Link href={getToolHref(locale, "website-cost-estimate")} prefetch={false} className="mt-5 inline-block text-sm font-bold text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent">{isFa ? "برآورد هزینه طراحی سایت" : "Website cost estimate"}</Link>
         </section>
         <section aria-labelledby="website-brief-title" className="rounded-3xl border border-foreground/10 bg-surface/20 p-6 sm:p-8">
           <h2 id="website-brief-title" className="text-xl font-bold text-foreground">{isFa ? "برای شروع چه چیزی آماده کنید؟" : "What should you prepare?"}</h2>

@@ -103,6 +103,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   ];
 
+  const staticEntries: MetadataRoute.Sitemap = (["about", "contact"] as const).flatMap((page) => {
+    const languages = {
+      fa: `${base}/fa/${page}`,
+      en: `${base}/en/${page}`,
+      "x-default": `${base}/fa/${page}`,
+    };
+    return (["fa", "en"] as const).map((locale) => ({
+      url: `${base}/${locale}/${page}`,
+      lastModified: siteUpdated,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+      alternates: { languages },
+    }));
+  });
+
   const postEntries: MetadataRoute.Sitemap = BLOG_POSTS.flatMap((post) => {
     const languages = {
       fa: `${base}/fa/blogs/${post.slug}`,
@@ -151,6 +166,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages: blogLanguages },
     },
     ...serviceEntries,
+    ...staticEntries,
     ...toolEntries,
     ...projectHubEntries,
     ...projectEntries,

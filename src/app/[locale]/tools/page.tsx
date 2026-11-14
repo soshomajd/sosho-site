@@ -22,12 +22,13 @@ const META = {
   fa: {
     title: "ابزارهای رایگان سئو و طراحی وب",
     description:
-      "ابزارهای رایگان و بدون ثبت‌نام: بررسی سئوی سایت، ساخت متاتگ، اسکیمای FAQ، robots.txt، sitemap و بررسی کنتراست رنگ.",
+      "ابزارهای رایگان و بدون ثبت‌نام: برآورد هزینه طراحی سایت، بررسی سئوی سایت، ساخت متاتگ، اسکیمای FAQ، robots.txt، sitemap و بررسی کنتراست رنگ.",
     heading: "ابزارهای رایگان برای سایت شما",
     intro:
       "این ابزارها را خودمان برای کارهای روزمرهٔ سئو و طراحی ساخته‌ایم و رایگان در اختیار شما می‌گذاریم. بیشتر آن‌ها داخل مرورگر شما کار می‌کنند و چیزی ذخیره نمی‌شود.",
     guideTitle: "از کدام ابزار شروع کنیم؟",
     guide: [
+      "اگر هنوز سایتی ندارید یا می‌خواهید آن را از نو بسازید، از برآورد هزینهٔ طراحی سایت شروع کنید تا نوع سایت، امکانات لازم و دامنهٔ کار روشن شود.",
       "اگر سایتتان تازه راه افتاده، ترتیب پیشنهادی ما این است: اول بررسی سئو و سلامت سایت را بزنید تا مشکل‌های فنی مشخص شوند؛ بعد با تولیدکنندهٔ متاتگ عنوان و توضیحات صفحه‌های مهم را مرتب کنید.",
       "سپس robots.txt و sitemap را بسازید و در Search Console ثبت کنید. برای صفحه‌هایی که پرسش‌های تکراری دارند اسکیمای FAQ اضافه کنید و پیش از تحویل طراحی، کنتراست رنگ‌ها را بسنجید.",
       "هیچ‌کدام از این ابزارها جای تحلیل انسانی را نمی‌گیرند و رتبه در گوگل را تضمین نمی‌کنند؛ فقط کمک می‌کنند اشتباه‌های رایج را زودتر پیدا کنید. بیشتر آن‌ها داخل مرورگر شما اجرا می‌شوند و متن یا آدرسی که وارد می‌کنید ذخیره نمی‌شود.",
@@ -36,7 +37,7 @@ const META = {
     faqTitle: "پرسش‌های متداول دربارهٔ ابزارها",
     faq: [
       { q: "آیا استفاده از ابزارها واقعاً رایگان است؟", a: "بله. برای استفاده نیاز به ثبت‌نام، پرداخت یا نصب برنامه نیست. اگر بخواهید اصلاح مشکل‌ها را به ما بسپارید، از طریق فرم تماس می‌توانید درخواست بدهید." },
-      { q: "اطلاعاتی که وارد می‌کنم ذخیره می‌شود؟", a: "ابزارهای متاتگ، اسکیما، robots.txt و کنتراست داخل مرورگر شما اجرا می‌شوند و چیزی به سرور ما فرستاده نمی‌شود. بررسی سئو آدرسی را که وارد می‌کنید یک بار از طریق سرور ما باز می‌کند تا نتیجه را بسازد و آن را ذخیره نمی‌کند." },
+      { q: "اطلاعاتی که وارد می‌کنم ذخیره می‌شود؟", a: "ابزارهای متاتگ، اسکیما، robots.txt و کنتراست داخل مرورگر شما اجرا می‌شوند و چیزی به سرور ما فرستاده نمی‌شود. بررسی سئو آدرسی را که وارد می‌کنید یک بار از طریق سرور ما باز می‌کند تا نتیجه را بسازد و آن را ذخیره نمی‌کند. برآورد هزینه پاسخ‌های شما را فقط وقتی ثبت می‌کند که خودتان تیک رضایت را بزنید یا درخواست مشاوره بفرستید." },
       { q: "آیا ابزارها برای سایت فارسی و انگلیسی کار می‌کنند؟", a: "بله. رابط همهٔ ابزارها فارسی و انگلیسی است و می‌توانید سایت‌های فارسی، انگلیسی یا دوزبانه را بررسی کنید." },
       { q: "امتیاز بالا یعنی رتبهٔ بهتر در گوگل؟", a: "نه. امتیاز نشان می‌دهد پایهٔ فنی سایت چقدر سالم است. رتبه به کیفیت محتوا، اعتبار سایت و رقابت هم بستگی دارد و هیچ ابزاری آن را تضمین نمی‌کند." },
     ],
@@ -47,12 +48,13 @@ const META = {
   en: {
     title: "Free SEO and Web Design Tools",
     description:
-      "Free tools with no sign-up: website SEO check, meta tag generator, FAQ schema, robots.txt, sitemap and color contrast checker.",
+      "Free tools with no sign-up: website cost estimate, SEO check, meta tag generator, FAQ schema, robots.txt, sitemap and color contrast checker.",
     heading: "Free tools for your website",
     intro:
       "We built these tools for our own day-to-day SEO and design work and share them for free. Most run in your browser and nothing is stored.",
     guideTitle: "Which tool should you start with?",
     guide: [
+      "If you do not have a site yet, or plan to rebuild one, start with the website cost estimate so the type of site, the features you need and the scope become clear.",
       "If your site has just launched, this is the order we suggest: run the SEO and health check first so the technical problems are clear, then tidy the title and description of your key pages with the meta tag generator.",
       "Next, build robots.txt and a sitemap and submit it in Search Console. Add FAQ schema to pages with recurring questions, and check colour contrast before handing a design over.",
       "None of these tools replaces human analysis or guarantees a Google ranking; they help you find common mistakes sooner. Most run in your browser, and the text or address you enter is not stored.",
@@ -61,7 +63,7 @@ const META = {
     faqTitle: "Questions about the tools",
     faq: [
       { q: "Are the tools really free?", a: "Yes. There is no sign-up, payment or software to install. If you want us to fix the issues they find, you can ask through the contact form." },
-      { q: "Is what I enter stored?", a: "The meta tag, schema, robots.txt and contrast tools run in your browser and nothing is sent to our server. The SEO check opens the address you enter once through our server to build the result and does not store it." },
+      { q: "Is what I enter stored?", a: "The meta tag, schema, robots.txt and contrast tools run in your browser and nothing is sent to our server. The SEO check opens the address you enter once through our server to build the result and does not store it. The cost estimate saves your answers only if you tick the consent box or send a consultation request." },
       { q: "Do the tools work for Persian and English sites?", a: "Yes. Every tool has a Persian and an English interface, and you can check Persian, English or bilingual sites." },
       { q: "Does a high score mean a better Google ranking?", a: "No. The score shows how sound the technical base of a site is. Ranking also depends on content quality, site authority and competition, and no tool can guarantee it." },
     ],

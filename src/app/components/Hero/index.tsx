@@ -7,13 +7,15 @@ import "./hero.css";
 export const HERO_COPY = {
     fa: {
         eyebrow: "SOSHO STUDIO · طراحی × تکنولوژی × رشد",
+        // First line of the h1: it names the offer, the headline below it stays the brand line.
+        keyline: "طراحی سایت شرکتی و فروشگاهی",
         title: "از ایده تا یک تجربه دیجیتال ماندگار.",
         titleLines: ["از ایده تا یک تجربه", "دیجیتال ماندگار."],
         description:
-            "صفر تا صد حضور دیجیتال شما را یکپارچه انجام می‌دهیم؛ از طراحی و توسعه سایت اختصاصی و وردپرس تا سئو و گوگل، Web3 و راهکارهای هوش مصنوعی.",
+            "صفر تا صد حضور دیجیتال شما را یکپارچه انجام می‌دهیم؛ از طراحی وب سایت اختصاصی و وردپرس تا خدمات سئو، وب‌اپلیکیشن، Web3 و راهکارهای هوش مصنوعی.",
         descriptionLines: [
             "صفر تا صد حضور دیجیتال شما را یکپارچه انجام می‌دهیم؛",
-            "از طراحی و توسعه سایت اختصاصی و وردپرس تا سئو و گوگل، Web3 و راهکارهای هوش مصنوعی.",
+            "از طراحی وب سایت اختصاصی و وردپرس تا خدمات سئو، وب‌اپلیکیشن، Web3 و راهکارهای هوش مصنوعی.",
         ],
         primaryAction: "شروع یک پروژه",
         secondaryAction: "دیدن خدمات",
@@ -22,6 +24,7 @@ export const HERO_COPY = {
     },
     en: {
         eyebrow: "SOSHO STUDIO · DESIGN × TECHNOLOGY × GROWTH",
+        keyline: "Corporate & ecommerce website design",
         title: "From first idea to a digital experience built to grow.",
         titleLines: ["From first idea to a", "digital experience built to grow."],
         description:
@@ -48,7 +51,10 @@ export default function Hero({ locale }: { locale: Locale }) {
                 <p className="sh-wordmark" aria-hidden="true" dir="ltr">SOSHO STUDIO</p>
                 <TeamCarousel locale={locale} />
                 <div className="sh-intro" data-reveal>
-                    <h1 id="studio-hero-title" className="sh-title">{copy.title}</h1>
+                    <h1 id="studio-hero-title" className="sh-title">
+                        <span className="sh-title-key">{copy.keyline}</span>{" "}
+                        {copy.title}
+                    </h1>
                     <p className="sh-sub">{copy.description}</p>
                 </div>
                 <div className="sh-actions" data-reveal data-motion-delay="120">

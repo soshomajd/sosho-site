@@ -86,7 +86,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ locale
   const pageUrl = `${baseUrl}/${locale}/projects/${project.slug}`;
   const crumbs = [
     { name: isFa ? "خانه" : "Home", path: `/${locale}` },
-    { name: isFa ? "نمونه‌کارها" : "Work", path: `/${locale}#projects` },
+    { name: isFa ? "نمونه‌کارها" : "Work", path: `/${locale}/projectcs` },
     { name: title, path: `/${locale}/projects/${project.slug}` },
   ];
   const others = PROJECTS.filter((entry) => entry.slug !== project.slug);

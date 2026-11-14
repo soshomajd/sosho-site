@@ -53,19 +53,21 @@ export default function Footer({ locale }: { locale: Locale }) {
     const links = isFa
         ? [
             { href: `/${locale}#services`, label: "خدمات" },
-            { href: `/${locale}#projects`, label: "نمونه‌کارها" },
-            { href: `/${locale}#about`, label: "درباره ما" },
-            { href: `/${locale}#blog`, label: "مجله" },
+            { href: `/${locale}/projectcs`, label: "نمونه‌کارها" },
+            { href: `/${locale}/about`, label: "درباره ما" },
+            { href: `/${locale}/blogs`, label: "مجله" },
             { href: `/${locale}/tools`, label: "ابزارهای رایگان" },
-            { href: `/${locale}#contact`, label: "شروع پروژه" },
+            { href: `/${locale}/tools/website-cost-estimate`, label: "برآورد هزینه سایت" },
+            { href: `/${locale}/contact`, label: "تماس با ما" },
         ]
         : [
             { href: `/${locale}#services`, label: "Services" },
-            { href: `/${locale}#projects`, label: "Selected work" },
-            { href: `/${locale}#about`, label: "About" },
-            { href: `/${locale}#blog`, label: "Insights" },
+            { href: `/${locale}/projectcs`, label: "Portfolio" },
+            { href: `/${locale}/about`, label: "About" },
+            { href: `/${locale}/blogs`, label: "Insights" },
             { href: `/${locale}/tools`, label: "Free tools" },
-            { href: `/${locale}#contact`, label: "Start a project" },
+            { href: `/${locale}/tools/website-cost-estimate`, label: "Website cost estimate" },
+            { href: `/${locale}/contact`, label: "Contact" },
         ];
 
     const contacts = [

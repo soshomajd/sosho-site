@@ -32,6 +32,8 @@ export type ServiceSlug =
 export type Service = {
   slug: ServiceSlug;
   title: Localized<string>;
+  /** H1 of the detail page when it should say more than the short card title. */
+  heading?: Localized<string>;
   short: Localized<string>;
   Icon: IconType;
   seo: {
@@ -155,6 +157,10 @@ export const SERVICES: Service[] = [
       "fa": "طراحی سایت فروشگاهی",
       "en": "Ecommerce Website Design"
     },
+    "heading": {
+      "fa": "طراحی سایت فروشگاهی و فروشگاه اینترنتی",
+      "en": "Ecommerce Website and Online Store Design"
+    },
     "short": {
       "fa": "از پیدا کردن محصول تا ثبت سفارش؛ فروشگاهی متناسب با کالا و عملیات شما.",
       "en": "From finding a product to placing an order, designed around your catalogue and operations."
@@ -165,14 +171,14 @@ export const SERVICES: Service[] = [
         "en": "Ecommerce Website Design for Products and Orders"
       },
       "description": {
-        "fa": "طراحی سایت فروشگاهی با جست‌وجو، صفحهٔ محصول، سبد خرید، پرداخت و مدیریت سفارش؛ نمونه‌کار تینو و کنسرسیوم، مسیر اجرا و عوامل هزینه را ببینید.",
+        "fa": "طراحی سایت فروشگاهی و فروشگاه اینترنتی با جست‌وجو، صفحهٔ محصول، سبد خرید، پرداخت و مدیریت سفارش؛ نمونه‌کار واقعی، مسیر اجرا و عوامل هزینه را ببینید.",
         "en": "Ecommerce website design covering product discovery, cart, checkout and order management. Explore Tino and Consortium case studies, scope and cost factors."
       }
     },
     "Icon": FiShoppingBag,
     "detail": {
       "intro": {
-        "fa": "فروشگاه اینترنتی را از روی نوع کالا، روش سفارش و توان اجرایی کسب‌وکار شما طراحی می‌کنیم. مشتری باید محصول مناسب را پیدا کند، مشخصات و شرایط خرید را بفهمد و سفارش را با نتیجهٔ روشن ثبت کند. پیش از انتخاب ووکامرس یا توسعهٔ اختصاصی، مدیریت محصول، پرداخت، ارسال و اتصال‌های موردنیاز را بررسی می‌کنیم.",
+        "fa": "طراحی فروشگاه اینترنتی را از نوع کالا، روش سفارش و توان اجرایی کسب‌وکار شما شروع می‌کنیم. مشتری باید محصول مناسب را پیدا کند، مشخصات و شرایط خرید را بفهمد و سفارش را با نتیجهٔ روشن ثبت کند. پیش از انتخاب ووکامرس یا توسعهٔ اختصاصی، مدیریت محصول، پرداخت، ارسال و اتصال‌های موردنیاز را بررسی می‌کنیم.",
         "en": "We design an online store around your products, order process and operating capacity. Customers need to find a suitable item, understand its details and purchase terms, and receive clear feedback when ordering. Product management, payments, shipping and integrations are reviewed before choosing WooCommerce or a custom implementation."
       },
       "whatYouGetTitle": {
@@ -232,21 +238,22 @@ export const SERVICES: Service[] = [
   {
     slug: "website-design-development",
     title: { fa: "طراحی و توسعه سایت", en: "Website Design & Development" },
+    heading: { fa: "طراحی سایت اختصاصی و توسعه وب", en: "Custom Website Design & Development" },
     short: {
       fa: "طراحی اختصاصی، کدنویسی و لانچ کامل؛ از اولین ایده تا محصول نهایی.",
       en: "Strategy, custom design, engineering, and launch—from first idea to final product.",
     },
     Icon: FiCode,
     seo: {
-      title: { fa: "طراحی و توسعه سایت از صفر تا صد", en: "Custom Website & Web App Development" },
+      title: { fa: "طراحی سایت اختصاصی؛ طراحی وب سایت از صفر تا صد", en: "Custom Website & Web App Development" },
       description: {
-        fa: "طراحی و توسعه صفر تا صد سایت و وب‌اپلیکیشن اختصاصی با UI/UX، فرانت‌اند و بک‌اند سریع، سئوی فنی، استقرار و پشتیبانی؛ از ایده تا لانچ با سوشو استودیو.",
+        fa: "طراحی سایت اختصاصی و توسعهٔ صفر تا صد وب سایت و وب‌اپلیکیشن: UI/UX، فرانت‌اند و بک‌اند سریع، سئوی فنی، استقرار و پشتیبانی؛ از ایده تا لانچ با سوشو استودیو.",
         en: "End-to-end custom websites and web apps: UI/UX, fast front-end and back-end, technical SEO, deployment, and support, from idea to launch with Sosho Studio.",
       },
     },
     detail: serviceDetail(
       {
-        fa: "برای پروژه‌هایی که یک خروجی حرفه‌ای و یکپارچه می‌خواهند، تمام مسیر را در سوشو استودیو مدیریت می‌کنیم: استراتژی، تجربه کاربری، طراحی، توسعه، تست و لانچ.",
+        fa: "برای پروژه‌هایی که یک خروجی حرفه‌ای و یکپارچه می‌خواهند، تمام مسیر طراحی وب سایت را در سوشو استودیو مدیریت می‌کنیم: استراتژی، تجربه کاربری، طراحی، توسعه، تست و لانچ.",
         en: "For teams that want one accountable partner, Sosho Studio handles the complete journey: strategy, UX, design, engineering, testing, and launch.",
       },
       {
@@ -266,6 +273,7 @@ export const SERVICES: Service[] = [
   {
     slug: "web-application-development",
     title: { fa: "وب‌اپلیکیشن با Next.js و React", en: "Web Apps with Next.js & React" },
+    heading: { fa: "طراحی و توسعه وب‌اپلیکیشن", en: "Web Application Development" },
     short: {
       fa: "داشبورد، پنل کاربری، SaaS و سیستم اختصاصی؛ سریع، امن و آماده رشد.",
       en: "Dashboards, user portals, SaaS and custom systems: fast, secure, and ready to grow.",
@@ -300,6 +308,7 @@ export const SERVICES: Service[] = [
   {
     slug: "mobile-app-development",
     title: { fa: "اپلیکیشن موبایل", en: "Mobile Apps" },
+    heading: { fa: "طراحی و ساخت اپلیکیشن موبایل", en: "Mobile App Design & Development" },
     short: {
       fa: "اپ اندروید و iOS با React Native؛ از طراحی تا انتشار در استورها.",
       en: "Android and iOS apps with React Native, from design to store release.",
@@ -334,6 +343,7 @@ export const SERVICES: Service[] = [
   {
     slug: "wordpress-woocommerce",
     title: { fa: "وردپرس و ووکامرس", en: "WordPress & WooCommerce" },
+    heading: { fa: "طراحی سایت وردپرس و ووکامرس", en: "WordPress & WooCommerce Website Design" },
     short: {
       fa: "سایت شرکتی، فروشگاهی و محتوایی سریع، امن و قابل مدیریت.",
       en: "Fast, secure, easy-to-manage business, content, and commerce websites.",
@@ -368,21 +378,22 @@ export const SERVICES: Service[] = [
   {
     slug: "seo-google-growth",
     title: { fa: "سئو و رشد در گوگل", en: "SEO & Google Growth" },
+    heading: { fa: "خدمات سئو و رشد در گوگل", en: "SEO Services & Google Growth" },
     short: {
       fa: "زیرساخت فنی، محتوا و داده برای دیده‌شدن و رشد پایدار.",
       en: "Technical foundations, content, and data for sustainable search growth.",
     },
     Icon: FiSearch,
     seo: {
-      title: { fa: "سئو سایت و خدمات گوگل", en: "SEO & Google Growth Services" },
+      title: { fa: "خدمات سئو سایت و بهینه‌سازی برای گوگل", en: "SEO & Google Growth Services" },
       description: {
-        fa: "سئوی فنی و محتوایی، تحقیق کلمات کلیدی، راه‌اندازی سرچ کنسول و آنالیتیکس، بهینه‌سازی برای GEO و AEO و برنامه رشد شفاف و داده‌محور در گوگل.",
+        fa: "خدمات سئو سایت: سئوی فنی و محتوایی، تحقیق کلمات کلیدی، راه‌اندازی سرچ کنسول و آنالیتیکس، بهینه‌سازی برای GEO و AEO و برنامهٔ رشد شفاف و داده‌محور در گوگل.",
         en: "Technical and on-page SEO, keyword research, Search Console and Analytics setup, GEO/AEO for AI answers, and a data-led Google growth plan.",
       },
     },
     detail: serviceDetail(
       {
-        fa: "سئو را با وعده رتبه یک نمی‌فروشیم؛ سایت، محتوا و داده را اصولی می‌چینیم تا شانس دیده‌شدن، جذب مخاطب درست و رشد پایدار بیشتر شود.",
+        fa: "خدمات سئو را با وعدهٔ رتبهٔ یک نمی‌فروشیم؛ سایت، محتوا و داده را اصولی می‌چینیم تا شانس دیده‌شدن، جذب مخاطب درست و رشد پایدار بیشتر شود.",
         en: "We do not sell guaranteed rankings. We improve the website, content, and measurement system so the right audience can find you and growth can compound.",
       },
       {
@@ -402,6 +413,7 @@ export const SERVICES: Service[] = [
   {
     slug: "ai-automation",
     title: { fa: "هوش مصنوعی و اتوماسیون", en: "AI & Automation" },
+    heading: { fa: "هوش مصنوعی و اتوماسیون کسب‌وکار", en: "AI Integration & Business Automation" },
     short: {
       fa: "دستیار هوشمند، چت‌بات و گردش‌کارهایی که واقعاً زمان ذخیره می‌کنند.",
       en: "Assistants, chatbots, and workflows that save real operating time.",
@@ -436,6 +448,7 @@ export const SERVICES: Service[] = [
   {
     slug: "web3-blockchain",
     title: { fa: "وب۳ و بلاک‌چین", en: "Web3 & Blockchain" },
+    heading: { fa: "توسعه Web3، بلاک‌چین و قرارداد هوشمند", en: "Web3, Blockchain & Smart Contract Development" },
     short: {
       fa: "dApp، اسمارت‌کانترکت، کیف پول و جریان‌های پرداخت کریپتویی.",
       en: "dApps, smart contracts, wallet experiences, and crypto payment flows.",
@@ -470,6 +483,7 @@ export const SERVICES: Service[] = [
   {
     slug: "ui-ux-brand-design",
     title: { fa: "برند، UI و UX", en: "Brand, UI & UX" },
+    heading: { fa: "طراحی UI/UX و هویت بصری برند", en: "Brand Identity, UI & UX Design" },
     short: {
       fa: "هویت بصری و تجربه‌ای منسجم که برند شما را به‌یادماندنی می‌کند.",
       en: "A cohesive identity and experience that makes your brand memorable.",
@@ -504,6 +518,7 @@ export const SERVICES: Service[] = [
   {
     slug: "care-performance",
     title: { fa: "پشتیبانی و بهینه‌سازی", en: "Care & Performance" },
+    heading: { fa: "پشتیبانی، نگهداری و بهینه‌سازی سایت", en: "Website Care, Maintenance & Performance" },
     short: {
       fa: "سرعت، امنیت، به‌روزرسانی و توسعه مستمر بعد از لانچ.",
       en: "Performance, security, updates, and continuous improvement after launch.",

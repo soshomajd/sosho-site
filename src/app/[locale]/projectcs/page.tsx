@@ -3,7 +3,8 @@ import Link from "next/link";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import JsonLd from "@/app/components/JsonLd";
 import Projects from "@/app/components/Projects";
-import { getProjectShareImage } from "@/app/components/Projects/data";
+import RealProjectCards from "@/app/components/Projects/RealProjectCards";
+import { PROJECTS, getProjectShareImage } from "@/app/components/Projects/data";
 import { MORE_PROJECTS } from "@/app/components/Projects/showcase";
 import { getDictionary, isLocale, type Locale } from "@/app/i18n";
 import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, websiteId } from "@/app/seo";
@@ -12,16 +13,24 @@ import "@/app/components/home-motion.css";
 const META = {
   fa: {
     title: "نمونه‌کار طراحی سایت و رابط کاربری",
-    description: "نمونه‌کارهای طراحی سایت سوشو استودیو: طرح‌های مفهومی فروشگاه، شرکتی، آموزشی، صنعتی، داشبورد و Web3 با نمای دسکتاپ، تبلت و موبایل.",
+    description: "نمونه‌کارهای طراحی سایت سوشو استودیو: پروژه‌های واقعی فروشگاهی و شرکتی و طرح‌های مفهومی آموزشی، صنعتی، داشبورد و Web3 با نمای دسکتاپ، تبلت و موبایل.",
     heading: "نمونه‌کارهای طراحی سایت و رابط کاربری",
-    intro: `ایده‌های متفاوت، برای تجربه‌های متفاوت؛ ${MORE_PROJECTS.length.toLocaleString("fa-IR")} طرح مفهومی با هویت و چیدمان متفاوت. نمای هیرو در دسکتاپ، تبلت و موبایل را کنار هم ببینید و توضیح هر طرح را در صفحهٔ خودش بخوانید.`,
+    intro: `${PROJECTS.length.toLocaleString("fa-IR")} پروژهٔ واقعی که سایتشان در دسترس است و ${MORE_PROJECTS.length.toLocaleString("fa-IR")} طرح مفهومی با هویت و چیدمان متفاوت. نمای هیرو در دسکتاپ، تبلت و موبایل را کنار هم ببینید و توضیح هر کار را در صفحهٔ خودش بخوانید.`,
+    realTitle: "پروژه‌های واقعی",
+    realIntro: "این سایت‌ها برای مشتری ساخته شده‌اند و آدرس زنده دارند. در صفحهٔ هر پروژه، مسئلهٔ طراحی، تصمیم‌ها و مسیر کاربر توضیح داده شده است.",
+    conceptTitle: "طرح‌های مفهومی",
+    conceptIntro: "این‌ها طرح‌های اصلی استودیو برای نشان دادن جهت بصری و ساختار رابط‌اند؛ پروژهٔ تحویل‌شده به مشتری نیستند و با برچسب «طرح مفهومی» مشخص شده‌اند.",
     back: "بازگشت به نمونه‌کارهای منتخب",
   },
   en: {
     title: "Website and UI Design Portfolio",
-    description: "SoSho Studio's website design portfolio: original commerce, corporate, education, industrial, dashboard and Web3 concepts with desktop, tablet and mobile views.",
+    description: "SoSho Studio's web design portfolio: real ecommerce and corporate projects plus original dashboard and Web3 concepts in desktop, tablet and mobile views.",
     heading: "Website and UI design portfolio",
-    intro: `Different ideas, distinct experiences. Explore ${MORE_PROJECTS.length} original design concepts, each with its own identity and composition. Compare desktop, tablet and mobile hero views and read the thinking behind each design on its own page.`,
+    intro: `${PROJECTS.length} real projects with live websites and ${MORE_PROJECTS.length} original design concepts, each with its own identity and composition. Compare desktop, tablet and mobile hero views and read about each piece of work on its own page.`,
+    realTitle: "Real projects",
+    realIntro: "These websites were built for clients and are live. Each project page explains the design problem, the decisions and the user journey.",
+    conceptTitle: "Design concepts",
+    conceptIntro: "These are the studio's original studies of visual direction and interface structure. They are not delivered client projects and are labelled as design concepts.",
     back: "Back to selected work",
   },
 } as const;
@@ -35,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale: Locale = isLocale(rawLocale) ? rawLocale : "fa";
   const meta = META[locale];
   const dict = getDictionary(locale);
-  const image = { ...getProjectShareImage(locale, MORE_PROJECTS[0].slug), alt: MORE_PROJECTS[0].images[0].alt };
+  const image = { ...getProjectShareImage(locale, PROJECTS[0].slug), alt: PROJECTS[0].images[0].alt };
   return {
     title: meta.title,
     description: meta.description,
@@ -63,7 +72,11 @@ export default async function MoreProjectsPage({ params }: { params: Promise<{ l
   const pageUrl = `${baseUrl}/${locale}/projectcs`;
   const crumbs = [
     { name: locale === "fa" ? "خانه" : "Home", path: `/${locale}` },
-    { name: locale === "fa" ? "نمونه‌کارهای بیشتر" : "More design work", path: `/${locale}/projectcs` },
+    { name: locale === "fa" ? "نمونه‌کارها" : "Work", path: `/${locale}/projectcs` },
+  ];
+  const listItems = [
+    ...PROJECTS.map((project) => ({ project, genre: locale === "fa" ? "نمونه‌کار واقعی" : "Case study" })),
+    ...MORE_PROJECTS.map((project) => ({ project, genre: locale === "fa" ? "طرح مفهومی" : "Design concept" })),
   ];
   return (
     <main id="main-content" tabIndex={-1} className="container items-stretch py-12 outline-none md:py-20">
@@ -77,10 +90,10 @@ export default async function MoreProjectsPage({ params }: { params: Promise<{ l
             breadcrumb: { "@id": `${pageUrl}#breadcrumb` }, mainEntity: { "@id": `${pageUrl}#projects` },
           },
           {
-            "@type": "ItemList", "@id": `${pageUrl}#projects`, numberOfItems: MORE_PROJECTS.length,
-            itemListElement: MORE_PROJECTS.map((project, index) => ({
+            "@type": "ItemList", "@id": `${pageUrl}#projects`, numberOfItems: listItems.length,
+            itemListElement: listItems.map(({ project, genre }, index) => ({
               "@type": "ListItem", position: index + 1,
-              item: { "@type": "CreativeWork", url: `${baseUrl}/${locale}/projects/${project.slug}`, name: project.title[locale], description: project.summary[locale], image: `${baseUrl}${project.images[0].src}`, genre: locale === "fa" ? "طرح مفهومی" : "Design concept" },
+              item: { "@type": "CreativeWork", url: `${baseUrl}/${locale}/projects/${project.slug}`, name: project.title[locale], description: project.summary[locale], image: `${baseUrl}${project.images[0].src}`, genre },
             })),
           },
           breadcrumbJsonLd(crumbs),
@@ -93,7 +106,16 @@ export default async function MoreProjectsPage({ params }: { params: Promise<{ l
         <p className="mt-5 max-w-3xl text-base leading-8 text-muted">{meta.intro}</p>
         <Link href={`/${locale}#projects`} prefetch={false} className="project-card-link mt-6">{meta.back}</Link>
       </header>
-      <Projects locale={locale} archive />
+      <section aria-labelledby="portfolio-real-title" className="mt-12">
+        <h2 id="portfolio-real-title" className="text-2xl font-bold text-foreground">{meta.realTitle}</h2>
+        <p className="mt-3 mb-6 max-w-3xl text-sm leading-8 text-muted">{meta.realIntro}</p>
+        <RealProjectCards locale={locale} />
+      </section>
+      <section aria-labelledby="portfolio-concepts-title" className="mt-14">
+        <h2 id="portfolio-concepts-title" className="text-2xl font-bold text-foreground">{meta.conceptTitle}</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-8 text-muted">{meta.conceptIntro}</p>
+        <Projects locale={locale} archive />
+      </section>
       <div className="mt-10 flex justify-center"><Link href={`/${locale}#projects`} prefetch={false} className="project-card-link">{meta.back}</Link></div>
     </main>
   );

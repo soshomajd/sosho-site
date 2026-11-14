@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { FiArrowUpRight, FiPhone } from "react-icons/fi";
-import { SiGmail, SiInstagram, SiLinkedin, SiTelegram, SiWhatsapp } from "react-icons/si";
+import { FiArrowUpRight } from "react-icons/fi";
 
 import type { Locale } from "../i18n";
-import { CONTACT_INFO } from "../contact-info";
 import About from "../components/About";
 import BlogPreview from "../components/BlogPreview";
 import ConsultantButton from "../components/Consultant/ConsultantButton";
+import ContactChannels from "../components/ContactChannels";
 import ContactForm from "../components/ContactForm";
 import JsonLd from "../components/JsonLd";
 import { baseUrl, languageTag, organizationId, websiteId } from "../seo";
@@ -19,51 +18,6 @@ import ToolsGrid from "../components/Tools/ToolsGrid";
 import HomeMotion from "../components/HomeMotion";
 import WorkRibbon from "../components/WorkRibbon";
 import "../components/home-motion.css";
-
-const contactChannels = [
-  {
-    href: CONTACT_INFO.phoneHref,
-    external: false,
-    Icon: FiPhone,
-    label: { fa: "تماس تلفنی", en: "Phone" },
-    value: CONTACT_INFO.phoneDisplay,
-  },
-  {
-    href: CONTACT_INFO.whatsappUrl,
-    external: true,
-    Icon: SiWhatsapp,
-    label: { fa: "واتس‌اپ", en: "WhatsApp" },
-    value: CONTACT_INFO.phoneDisplay,
-  },
-  {
-    href: CONTACT_INFO.telegramUrl,
-    external: true,
-    Icon: SiTelegram,
-    label: { fa: "تلگرام", en: "Telegram" },
-    value: CONTACT_INFO.telegramHandle,
-  },
-  {
-    href: CONTACT_INFO.linkedinUrl,
-    external: true,
-    Icon: SiLinkedin,
-    label: { fa: "لینکدین", en: "LinkedIn" },
-    value: "Soheil Shokouhi Majd",
-  },
-  {
-    href: `mailto:${CONTACT_INFO.email}`,
-    external: false,
-    Icon: SiGmail,
-    label: { fa: "ایمیل", en: "Email" },
-    value: CONTACT_INFO.email,
-  },
-  {
-    href: CONTACT_INFO.instagramUrl,
-    external: true,
-    Icon: SiInstagram,
-    label: { fa: "اینستاگرام", en: "Instagram" },
-    value: "@sosho_studio",
-  },
-] as const;
 
 function SectionHeading({
   eyebrow,
@@ -152,7 +106,7 @@ export default async function Home({
           <SectionHeading
             eyebrow={isFa ? "ابزارهای رایگان" : "Free tools"}
             title={isFa ? "سایت خودتان را همین الان بررسی کنید" : "Check your own website right now"}
-            description={isFa ? "بررسی سئو، ساخت متاتگ و اسکیما و بررسی کنتراست رنگ؛ رایگان و بدون ثبت‌نام." : "SEO check, meta tag and schema builders, and a color contrast checker, free with no sign-up."}
+            description={isFa ? "برآورد هزینهٔ طراحی سایت، بررسی سئو و ساخت متاتگ و اسکیما؛ رایگان و بدون ثبت‌نام." : "A website cost estimate, an SEO check, and meta tag and schema builders, free with no sign-up."}
           />
           <ToolsGrid locale={locale} tools={TOOLS.slice(0, 3)} />
           <div className="mt-6 flex justify-center">
@@ -213,30 +167,7 @@ export default async function Home({
               <p className="text-sm font-semibold text-foreground">
                 {isFa ? "یا مستقیم با من در ارتباط باشید" : "Or reach me directly"}
               </p>
-              {contactChannels.map(({ href, external, Icon, label, value }) => (
-                <a
-                  key={href}
-                  href={href}
-                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="group flex items-center gap-4 rounded-2xl border border-foreground/10 bg-background/30 px-5 py-4 transition-colors hover:border-accent/40 hover:bg-background/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
-                >
-                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-foreground/5 text-accent">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-xs text-muted">{isFa ? label.fa : label.en}</span>
-                    <span dir="ltr" className={`block truncate text-sm font-bold text-foreground ${isFa ? "text-right" : "text-left"}`}>
-                      {value}
-                    </span>
-                  </span>
-                  {external ? (
-                    <FiArrowUpRight
-                      className="h-4 w-4 shrink-0 text-muted transition-colors group-hover:text-accent rtl:-scale-x-100"
-                      aria-hidden="true"
-                    />
-                  ) : null}
-                </a>
-              ))}
+              <ContactChannels locale={locale} />
             </div>
           </div>
         </section>

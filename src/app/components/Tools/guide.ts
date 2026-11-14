@@ -11,6 +11,37 @@ export type ToolGuide = {
 };
 
 export const TOOL_GUIDE: Record<ToolSlug, ToolGuide> = {
+  "website-cost-estimate": {
+    when: {
+      fa: [
+        "پیش از گرفتن پیشنهاد قیمت از چند تیم، تا بدانید دقیقاً چه چیزی باید قیمت‌گذاری شود",
+        "وقتی بودجهٔ مشخصی دارید و می‌خواهید بدانید چه دامنه‌ای با آن واقع‌بینانه است",
+        "وقتی بین وردپرس و توسعهٔ اختصاصی مردد هستید",
+        "پیش از جلسهٔ مشاوره، تا گفت‌وگو از یک دامنهٔ روشن شروع شود",
+      ],
+      en: [
+        "Before asking several teams for a quote, so you know exactly what should be priced",
+        "When you have a set budget and want to know which scope is realistic for it",
+        "When you are undecided between WordPress and a custom build",
+        "Before a consultation, so the conversation starts from a clear scope",
+      ],
+    },
+    tips: {
+      fa: [
+        "امکانات را بر اساس نیاز روز اول انتخاب کنید؛ بقیه می‌تواند به فاز بعد برود",
+        "اگر سایت نمونه‌ای در ذهن دارید، آدرس آن را بنویسید",
+        "وضعیت متن و عکس را واقع‌بینانه انتخاب کنید؛ تولید محتوا بخشی از کار است",
+        "خلاصهٔ پروژه را دریافت کنید تا هنگام مقایسهٔ پیشنهادها در دسترستان باشد",
+      ],
+      en: [
+        "Choose features for day one; the rest can move to a later phase",
+        "If you have a reference site in mind, add its address",
+        "Be realistic about how ready your copy and images are; content production is part of the work",
+        "Download the project summary so you have it when comparing proposals",
+      ],
+    },
+    articles: ["website-cost-page-count-complexity", "reduce-website-build-maintenance-costs"],
+  },
   "website-seo-audit": {
     when: {
       fa: [

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { FiMenu, FiPhone, FiX } from "react-icons/fi";
@@ -93,15 +94,16 @@ export default function MobileMenu({
                             >
                                 <nav className="flex flex-col gap-1">
                                     {navItems.map((item, index) => (
-                                        <a
+                                        <Link
                                             key={item.href}
                                             href={item.href}
+                                            prefetch={false}
                                             ref={index === 0 ? firstLinkRef : undefined}
                                             onClick={() => setOpen(false)}
                                             className="rounded-xl px-3 py-3 text-base font-semibold text-foreground/85 transition-colors hover:bg-foreground/5 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
                                         >
                                             {item.label}
-                                        </a>
+                                        </Link>
                                     ))}
                                 </nav>
 

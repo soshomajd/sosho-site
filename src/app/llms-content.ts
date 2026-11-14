@@ -26,7 +26,8 @@ function contactSection() {
   return [
     "## Contact / تماس",
     "",
-    `- Contact form: ${baseUrl}/fa#contact (English: ${baseUrl}/en#contact)`,
+    `- Contact page and form: ${baseUrl}/fa/contact (English: ${baseUrl}/en/contact)`,
+    `- About the studio: ${baseUrl}/fa/about (English: ${baseUrl}/en/about)`,
     `- Phone / WhatsApp: ${CONTACT_INFO.phoneDisplay}`,
     `- Email: ${CONTACT_INFO.email}`,
     `- LinkedIn: ${CONTACT_INFO.linkedinUrl}`,

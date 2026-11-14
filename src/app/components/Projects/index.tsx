@@ -8,7 +8,6 @@ import DeviceViews from "./DeviceViews";
 
 export default function Projects({ locale, archive = false }: { locale: Locale; archive?: boolean }) {
   const projects = archive ? MORE_PROJECTS : HOME_PROJECTS;
-  const Heading = archive ? "h2" : "h3";
   return (
     <>
     <div className={`project-stack ${archive ? "project-stack--archive" : ""}`}>
@@ -24,7 +23,7 @@ export default function Projects({ locale, archive = false }: { locale: Locale; 
               <span className="project-card-number" aria-hidden="true">{String(index + (archive ? 6 : 1)).padStart(2, "0")}</span>
               <div className="min-w-0">
                 <p className="text-xs font-semibold leading-6 text-sage">{project.service[locale]}</p>
-                <Heading className="mt-1 text-xl font-bold leading-8 text-foreground md:text-2xl">{project.title[locale]}</Heading>
+                <h3 className="mt-1 text-xl font-bold leading-8 text-foreground md:text-2xl">{project.title[locale]}</h3>
                 <p className="mt-2 max-w-2xl text-sm leading-7 text-muted">{project.summary[locale]}</p>
                 {project.kind === "concept" ? (
                   <ul className="mt-3 flex flex-wrap gap-2 text-xs text-muted">

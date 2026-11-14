@@ -4,9 +4,10 @@ import Link from "next/link";
 import type { Locale } from "@/app/i18n";
 import { getDictionary, isLocale, locales } from "@/app/i18n";
 import { BLOG_POSTS, getBlogPostBySlug, getBlogPostHref } from "@/app/blogs/posts";
-import { POST_SERVICE_FOCUS, relatedPosts, serviceForPost, servicesForPost } from "@/app/blogs/related";
+import { POST_SERVICE_FOCUS, POSTS_WITH_ESTIMATE_LINK, adjacentPosts, relatedPosts, serviceForPost, servicesForPost } from "@/app/blogs/related";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import { getService } from "@/app/components/Services/data";
+import { getToolHref } from "@/app/components/Tools/data";
 import JsonLd from "@/app/components/JsonLd";
 import { baseUrl, breadcrumbJsonLd, languageTag, organizationId, siteName, websiteId } from "@/app/seo";
 
@@ -209,7 +210,9 @@ export default async function BlogPostPage({
         });
     const formattedDate = formatDate(post.publishedAt);
     const service = getService(serviceForPost(post));
-    const related = relatedPosts(post, 3);
+    const related = relatedPosts(post, 6);
+    const { newer, older } = adjacentPosts(post);
+    const showEstimate = POSTS_WITH_ESTIMATE_LINK.has(post.slug);
     const contextualServices = POST_SERVICE_FOCUS[post.slug] ? servicesForPost(post).slice(0, 2).map((slug) => getService(slug)!) : [];
 
     return (
@@ -390,6 +393,30 @@ export default async function BlogPostPage({
                     </div>
                 ) : null}
 
+                {showEstimate ? (
+                    <div className="flex flex-col gap-4 rounded-2xl border border-foreground/10 bg-background/10 p-6 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+                                {isFa ? "ابزار رایگان" : "Free tool"}
+                            </p>
+                            <p className="mt-2 text-base font-bold text-foreground">
+                                {isFa ? "برآورد هزینه طراحی سایت" : "Website cost estimate"}
+                            </p>
+                            <p className="mt-1 text-sm leading-7 text-muted">
+                                {isFa
+                                    ? "با چند سؤال کوتاه، دامنهٔ کار و پیشنهاد اولیهٔ پروژهٔ خودتان را ببینید."
+                                    : "Answer a few short questions to see the scope and a first proposal for your own project."}
+                            </p>
+                        </div>
+                        <Link
+                            href={getToolHref(locale, "website-cost-estimate")}
+                            className="inline-flex h-11 shrink-0 items-center justify-center rounded-full border border-foreground/15 px-5 text-sm font-bold text-foreground transition-colors hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                        >
+                            {isFa ? "شروع برآورد" : "Start the estimate"}
+                        </Link>
+                    </div>
+                ) : null}
+
                 {related.length > 0 ? (
                     <section aria-labelledby="related-posts-title">
                         <h2 id="related-posts-title" className="text-lg font-semibold text-foreground">
@@ -408,6 +435,29 @@ export default async function BlogPostPage({
                             ))}
                         </ul>
                     </section>
+                ) : null}
+
+                {newer || older ? (
+                    <nav aria-label={isFa ? "مقالهٔ قبلی و بعدی" : "Previous and next article"} className="grid gap-3 md:grid-cols-2">
+                        {older ? (
+                            <Link
+                                href={getBlogPostHref(locale, older.slug)}
+                                className="group rounded-2xl border border-foreground/10 bg-background/10 p-4 transition-colors hover:border-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                            >
+                                <span className="block text-xs font-bold text-accent">{isFa ? "مقالهٔ قبلی" : "Previous article"}</span>
+                                <span className="mt-1.5 block text-sm font-semibold leading-7 text-foreground transition-colors group-hover:text-accent">{older.title[locale]}</span>
+                            </Link>
+                        ) : <span aria-hidden="true" className="hidden md:block" />}
+                        {newer ? (
+                            <Link
+                                href={getBlogPostHref(locale, newer.slug)}
+                                className="group rounded-2xl border border-foreground/10 bg-background/10 p-4 transition-colors hover:border-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 md:text-end"
+                            >
+                                <span className="block text-xs font-bold text-accent">{isFa ? "مقالهٔ بعدی" : "Next article"}</span>
+                                <span className="mt-1.5 block text-sm font-semibold leading-7 text-foreground transition-colors group-hover:text-accent">{newer.title[locale]}</span>
+                            </Link>
+                        ) : null}
+                    </nav>
                 ) : null}
             </aside>
         </main>

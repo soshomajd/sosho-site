@@ -1676,12 +1676,12 @@ export const BLOG_POSTS: BlogPost[] = [
       "en": "How to Choose a Web Design Team: From Proposal to Handover"
     },
     "seoTitle": {
-      "fa": "انتخاب تیم طراحی سایت؛ معیارها و چک‌لیست",
-      "en": "How to Choose a Web Design Team"
+      "fa": "انتخاب شرکت طراحی سایت؛ معیارها و چک‌لیست",
+      "en": "How to Choose a Web Design Company or Team"
     },
     "excerpt": {
-      "fa": "پیش از سفارش طراحی سایت، نمونه‌کار، پیشنهاد فنی، هزینه‌های نگهداری و شیوهٔ تحویل را چطور بسنجیم؟ راهنمای عملی برای انتخاب آگاهانهٔ تیم سازنده.",
-      "en": "Evaluate portfolios, technical proposals, maintenance costs and handover arrangements with practical questions before choosing a team to build your website."
+      "fa": "پیش از سفارش طراحی سایت، نمونه‌کار، پیشنهاد فنی، هزینه‌های نگهداری و شیوهٔ تحویل را چطور بسنجیم؟ راهنمای عملی برای انتخاب آگاهانهٔ تیم یا شرکت طراحی سایت.",
+      "en": "Evaluate portfolios, technical proposals, maintenance costs and handover terms with practical questions before choosing a web design team or company."
     },
     "tags": [
       "Website",
@@ -1689,14 +1689,14 @@ export const BLOG_POSTS: BlogPost[] = [
       "UI/UX"
     ],
     "publishedAt": "2026-11-07",
-    "updatedAt": "2026-11-08",
+    "updatedAt": "2026-11-14",
     "coverImage": "/blog/choose-website-design-team-editorial-20261107.jpg",
     "coverImageAlt": {
       "fa": "ماکت سه‌بعدی رابط وب و موبایل روی میز بررسی با کولیس مسی و نشانه‌های ارزیابی",
       "en": "Three-dimensional web and mobile prototypes on a review table with a copper caliper and evaluation tiles"
     },
     "directAnswer": {
-      "fa": "برای انتخاب تیم طراحی سایت، یک شرح نیاز یکسان به گزینه‌ها بدهید، نمونه‌کار مرتبط را روی موبایل بررسی کنید و مسئولیت محتوا، توسعه، پشتیبانی و تحویل دسترسی‌ها را مکتوب بخواهید. پیشنهاد مناسب باید خروجی قابل آزمایش، هزینه‌های روشن و مسیر نگهداری مشخص داشته باشد؛ رتبه‌بندی تبلیغاتی یا ظاهر نمونه‌کار به‌تنهایی معیار کافی نیست.",
+      "fa": "برای انتخاب تیم یا شرکت طراحی سایت، یک شرح نیاز یکسان به گزینه‌ها بدهید، نمونه‌کار مرتبط را روی موبایل بررسی کنید و مسئولیت محتوا، توسعه، پشتیبانی و تحویل دسترسی‌ها را مکتوب بخواهید. پیشنهاد مناسب باید خروجی قابل آزمایش، هزینه‌های روشن و مسیر نگهداری مشخص داشته باشد؛ رتبه‌بندی تبلیغاتی یا ظاهر نمونه‌کار به‌تنهایی معیار کافی نیست.",
       "en": "Give candidate web design teams the same brief, examine relevant work on mobile and request written responsibilities for content, development, support and access handover. A useful proposal defines testable outcomes, clear costs and ongoing maintenance. Promotional rankings and portfolio appearance alone are insufficient evidence."
     },
     "sections": [

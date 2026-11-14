@@ -1,9 +1,11 @@
 import type { IconType } from "react-icons";
 import { FiActivity, FiDroplet, FiFileText, FiHelpCircle, FiTag } from "react-icons/fi";
+import { LuCalculator } from "react-icons/lu";
 
 import type { ServiceSlug } from "@/app/components/Services/data";
 
 export type ToolSlug =
+  | "website-cost-estimate"
   | "website-seo-audit"
   | "meta-tag-generator"
   | "faq-schema-generator"
@@ -26,9 +28,93 @@ export type Tool = {
   service: ServiceSlug;
   /** Where the work happens: in the visitor's browser, or through the Worker. */
   runsOn: "browser" | "server";
+  /** Closing call to action when the default "leave the fixing to us" does not fit the tool. */
+  cta?: { title: Bilingual; body: Bilingual };
 };
 
 export const TOOLS: Tool[] = [
+  {
+    // The project consultant (docs/PROJECT_CONSULTANT.md) on its own address. Prices come only from
+    // the admin tariff, so this copy never promises a number: without a tariff the result is "needs review".
+    slug: "website-cost-estimate",
+    Icon: LuCalculator,
+    runsOn: "server",
+    service: "website-design-development",
+    title: { fa: "برآورد هزینه طراحی سایت", en: "Website cost estimate" },
+    summary: {
+      fa: "به چند سؤال کوتاه جواب بدهید تا دامنهٔ کار، راهکار فنی پیشنهادی و برآورد اولیهٔ پروژه را ببینید.",
+      en: "Answer a few short questions to see the scope, a suggested technical approach and a first estimate for your project.",
+    },
+    seo: {
+      title: { fa: "برآورد هزینه و قیمت طراحی سایت؛ پیشنهاد اولیه", en: "Website Cost Estimate: Scope and First Proposal" },
+      description: {
+        fa: "با چند سؤال کوتاه، نوع سایت، امکانات و راهکار فنی مناسب را مشخص کنید و پیشنهاد اولیهٔ پروژه را در دو نسخهٔ اقتصادی و حرفه‌ای ببینید؛ رایگان و بدون ثبت‌نام.",
+        en: "Answer a few short questions to define your site type, features and a suitable technical approach, then see a first proposal in two versions. Free, no sign-up.",
+      },
+    },
+    intro: {
+      fa: "قیمت طراحی سایت عدد ثابتی نیست؛ به نوع سایت، تعداد و پیچیدگی صفحه‌ها، امکانات، زبان‌ها و آماده‌بودن محتوا بستگی دارد. برآورد هوشمند با چند سؤال کوتاه این موارد را روشن می‌کند و یک پیشنهاد اولیه می‌سازد: راهکار فنی مناسب، صفحه‌ها و امکانات هر نسخه و، هر جا تعرفهٔ آن نوع پروژه ثبت شده باشد، بازهٔ هزینه و زمان تقریبی. اگر پروژه به بررسی بیشتری نیاز داشته باشد، نتیجه «نیازمند بررسی کارشناسی» است و مبلغ پس از یک گفت‌وگوی کوتاه اعلام می‌شود.",
+      en: "The price of a website is not a fixed number: it depends on the type of site, the number and complexity of its pages, the features, the languages and how ready the content is. The smart estimate clarifies these with a few short questions and builds a first proposal: a suitable technical approach, the pages and features of each version and, where a tariff exists for that kind of project, a cost range and approximate timing. When a project needs a closer look, the result reads “Needs an expert review” and the amount follows a short conversation.",
+    },
+    steps: {
+      fa: [
+        "روی «شروع برآورد» بزنید و نوع پروژه را انتخاب کنید؛ مثلاً سایت شرکتی، فروشگاه اینترنتی یا وب‌اپلیکیشن.",
+        "هدف، امکانات لازم، اندازهٔ سایت و سبک طراحی را مشخص کنید؛ می‌توانید پروژه را با کلمات خودتان هم بنویسید.",
+        "پاسخ‌ها را مرور کنید و پیشنهاد اولیه را ببینید.",
+        "اگر خواستید، درخواست مشاوره بدهید تا دامنه و مبلغ نهایی با هم مشخص شود.",
+      ],
+      en: [
+        "Press “Start the estimate” and choose the type of project, for example a corporate website, an online store or a web application.",
+        "Set the goal, the features you need, the size of the site and the design style; you can also describe the project in your own words.",
+        "Review your answers and see the first proposal.",
+        "If you wish, request a consultation so the final scope and amount are defined together.",
+      ],
+    },
+    faq: [
+      {
+        question: { fa: "قیمت طراحی سایت چطور محاسبه می‌شود؟", en: "How is the price of a website calculated?" },
+        answer: {
+          fa: "بر اساس حجم کاری که پروژه لازم دارد: تعداد صفحه‌های ثابت و قالب‌های پویا، امکاناتی مثل پرداخت یا رزرو، سطح طراحی، چندزبانه بودن و میزان آماده‌بودن محتوا. هزینه‌های دوره‌ای مثل هاست و دامنه جدا از هزینهٔ ساخت دیده می‌شوند.",
+          en: "From the amount of work the project needs: the number of static pages and dynamic templates, features such as payments or booking, the level of design, extra languages and how ready the content is. Recurring costs such as hosting and the domain are shown separately from the build.",
+        },
+      },
+      {
+        question: { fa: "تعرفه طراحی سایت در سوشو استودیو ثابت است؟", en: "Does Sosho Studio have a fixed price list?" },
+        answer: {
+          fa: "نه. تعرفهٔ یکسانی برای همهٔ سایت‌ها نداریم، چون یک سایت معرفی چندصفحه‌ای با یک فروشگاه یا وب‌اپلیکیشن قابل مقایسه نیست. برآورد بر اساس پاسخ‌های شما ساخته می‌شود و مبلغ قطعی پس از بررسی نیازها اعلام می‌شود.",
+          en: "No. There is no single price for every website, because a few-page company site is not comparable with a store or a web application. The estimate is built from your answers and the final amount follows a review of the requirements.",
+        },
+      },
+      {
+        question: { fa: "آیا نتیجهٔ برآورد، قیمت نهایی است؟", en: "Is the estimate the final price?" },
+        answer: {
+          fa: "نه. این یک برآورد اولیه است، نه پیش‌فاکتور قطعی یا تعهد زمان تحویل. مبلغ و زمان نهایی پس از بررسی نیازها و توافق بر دامنهٔ کار مشخص می‌شود.",
+          en: "No. It is an initial estimate, not a final quote or a delivery commitment. The final amount and timing follow a review of the requirements and an agreed scope.",
+        },
+      },
+      {
+        question: { fa: "پاسخ‌های من ذخیره می‌شود؟", en: "Are my answers stored?" },
+        answer: {
+          fa: "فقط اگر خودتان تیک رضایت را بزنید یا درخواست مشاوره بفرستید. بدون آن هم نتیجه را می‌بینید و چیزی ثبت نمی‌شود.",
+          en: "Only if you tick the consent box or send a consultation request. Without it you still see the result and nothing is saved.",
+        },
+      },
+      {
+        question: { fa: "اگر ندانم چه نوع سایتی لازم دارم چه کنم؟", en: "What if I am not sure which kind of site I need?" },
+        answer: {
+          fa: "گزینهٔ «هنوز مطمئن نیستم» را انتخاب کنید یا ایده را با کلمات خودتان بنویسید. در این حالت معمولاً یک گفت‌وگوی کوتاه با کارشناس پیشنهاد می‌شود.",
+          en: "Choose “I am not sure yet” or describe the idea in your own words. In that case a short conversation with our team is usually suggested.",
+        },
+      },
+    ],
+    cta: {
+      title: { fa: "دامنه و مبلغ نهایی را با هم مشخص کنیم", en: "Let’s define the final scope together" },
+      body: {
+        fa: "برآورد نقطهٔ شروع است؛ در یک گفت‌وگوی کوتاه محدودهٔ دقیق کار را روشن می‌کنیم.",
+        en: "The estimate is a starting point; a short conversation makes the exact scope clear.",
+      },
+    },
+  },
   {
     slug: "website-seo-audit",
     Icon: FiActivity,
